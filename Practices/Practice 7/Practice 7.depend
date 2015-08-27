@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1440697251 source:c:\users\justin\documents\github\csc-230-projects\practices\practice 7\myqueue.cpp
+	"myqueue.h"
+
+1440697241 c:\users\justin\documents\github\csc-230-projects\practices\practice 7\myqueue.h
+
+1440697149 source:c:\users\justin\documents\github\csc-230-projects\practices\practice 7\p7_main.cpp
+	<iostream>
+	"myqueue.h"
+
