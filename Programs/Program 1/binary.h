@@ -49,8 +49,17 @@ public:
             void set_title(std::string my_title);
             void set_artist(std::string my_artist);
             void set_type(std::string my_type);
-            void
+            void set_year(int my_year);
+            void set_price(int my_price);
+            void set_count(int my_count);
+            void set_value(std::fstream& inout, int value); // for setting zero record
+            void set_flag();
+            void unset_flag();
 
+            // Read & write a File
+            void writeIt(std::fstream* out, long position) const;
+            void readIt(std::fstream* input, long position) const;
 
+            friend std::ostream& operator<<(std::ostream& out, const MyClass& me);
 };
 #endif // CLASS_H
