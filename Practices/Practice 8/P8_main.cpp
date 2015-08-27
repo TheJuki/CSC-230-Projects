@@ -1,6 +1,6 @@
 //Justin Kirk
 //Practice 8
-//main
+//P8_main.cpp
 
 #include <iostream>
 #include <fstream>

@@ -1,5 +1,6 @@
 //Justin Kirk
 //Practice 4
+//my_other.cpp
 
 #include <iostream>
 #include <string>

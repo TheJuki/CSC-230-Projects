@@ -1,5 +1,6 @@
 //Justin Kirk
 //Practice 6
+//P6_main.cpp
 
 #include <iostream>
 #include "mystacks.h"

@@ -1,5 +1,6 @@
 //Justin Kirk
 //Practice 2
+//P2_main.cpp
 
 #include <iostream>
 #include <string>

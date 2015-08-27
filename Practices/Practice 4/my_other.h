@@ -1,6 +1,6 @@
 //Justin Kirk
 //Practice 4
-//my_other header
+//my_other.h
 
 #ifndef MY_OTHER_H
 #define MY_OTHER_H

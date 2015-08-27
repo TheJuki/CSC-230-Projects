@@ -1,6 +1,6 @@
 //Justin Kirk
 //Practice 7
-//main
+//P7_main.cpp
 
 #include <iostream>
 #include "myqueue.h"

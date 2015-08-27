@@ -1,6 +1,6 @@
 //Justin Kirk
 //Practice 6
-//mystacks.h header file
+//mystacks.h 
 
 #ifndef MYSTACKS_H
 #define MYSTACKS_H
