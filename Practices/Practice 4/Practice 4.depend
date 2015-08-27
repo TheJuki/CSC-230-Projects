@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1440704438 source:c:\users\justin\documents\github\csc-230-projects\practices\practice 4\my_other.cpp
+	<iostream>
+	<string>
+	"my_other.h"
+
+1440704447 c:\users\justin\documents\github\csc-230-projects\practices\practice 4\my_other.h
+
+1440704456 source:c:\users\justin\documents\github\csc-230-projects\practices\practice 4\p4_main.cpp
+	<iostream>
+	<string>
+	"my_other.h"
+
