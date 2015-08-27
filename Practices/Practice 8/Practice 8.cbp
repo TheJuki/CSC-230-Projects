@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="P8_main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1440700446 source:c:\users\justin\documents\github\csc-230-projects\practices\practice 8\p8_main.cpp
+	<iostream>
+	<fstream>
+	<string>
+

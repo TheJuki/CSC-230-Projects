@@ -32,6 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="P6_main.cpp" />
+		<Unit filename="mystacks.cpp" />
+		<Unit filename="mystacks.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
