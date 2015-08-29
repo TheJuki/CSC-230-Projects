@@ -11,6 +11,7 @@ Description: Code for title data
 bool PrimaryIndex::set_title_key(std::string my_title, int my_key)
 {
     // Stub
+    return false;
 }
 
 void PrimaryIndex::writePrimary()

@@ -8,12 +8,13 @@ Description: Code for artist data
 
 #include "artist.h"
 
-std::string ArtistIndex::get_artist(lint pos) const
+std::string ArtistIndex::get_artist(int pos) const
 {
     // Stub
+    return "";
 }
 
-void ArtistIndex::set_artist(std::string my_artist, int my_key)
+void ArtistIndex::set_artist_key(std::string my_artist, int my_key)
 {
     // Stub
 }

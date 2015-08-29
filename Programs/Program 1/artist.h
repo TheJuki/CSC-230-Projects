@@ -30,7 +30,7 @@ public:
         {
             my_list[i].artist = "0";
             for(int k = 0; k < 11; ++k)
-                my_list[i}.tag[k] = 0;
+                my_list[i].tag[k] = 0;
         }
     }
 
