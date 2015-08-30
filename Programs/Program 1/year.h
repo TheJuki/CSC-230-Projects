@@ -28,14 +28,14 @@ public:
         {
             my_list[i].year = 0;
             for(int k = 0; k < 11; ++k)
-                my_list[i}.tag[k] = 0;
+                my_list[i].tag[k] = 0;
         }
     }
 
     int get_year(int pos) const; // debugging tool
 
     void set_year_key(int my_year, int my_key);
-    void updateArtist(int new_year, int pos[]);
+    void updateYear(int new_year, int pos[]);
 
     //Read and Write
     void writeSecondary();
