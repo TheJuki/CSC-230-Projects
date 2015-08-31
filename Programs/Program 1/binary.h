@@ -28,7 +28,8 @@ public:
     }
 
     MyClass(std::string my_title, std::string my_artist, std::string my_type,
-            price(my_price), count(my_count), dead_flag(false))
+            int my_year, int my_price, int my_count): year(my_year),
+            price(my_price), count(my_count), dead_flag(false)
             {
                 strcpy(title, my_title.c_str()); //Using Code::Blocks
                 strcpy(artist, my_artist.c_str());
