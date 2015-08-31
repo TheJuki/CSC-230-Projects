@@ -8,11 +8,13 @@ Description: The main source file / Driver
 
 #include <string>
 #include <iostream>
+void MainMenu();
 
 using namespace std;
 
 int main()
 {
-    cout << endl << "  Main not finished. Build successful!" << endl;
+    MainMenu();
+    cout << "\"loop\" complete";
     return 0;
 }

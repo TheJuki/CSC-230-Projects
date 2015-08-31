@@ -6,9 +6,11 @@
 
 1440768874 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\bulk.cpp
 
-1440768874 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
+1440986890 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
+	<string>
+	<iostream>
 
-1440983176 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\main.cpp
+1440986203 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\main.cpp
 	<string>
 	<iostream>
 
