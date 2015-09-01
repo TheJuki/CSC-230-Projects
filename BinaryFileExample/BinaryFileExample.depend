@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1441138251 source:c:\users\justin\documents\github\csc-230-projects\binaryfileexample\main.cpp
+	<fstream>
+	<iostream>
+	<string>
+
