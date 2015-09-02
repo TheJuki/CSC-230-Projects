@@ -12,9 +12,4 @@ void MainMenu();
 
 using namespace std;
 
-int main()
-{
-    MainMenu();
-    cout << "\"loop\" complete";
-    return 0;
-}
+

@@ -41,6 +41,13 @@ int currentMenu = 0;
 
 using namespace std;
 
+int main(void)
+{
+    MainMenu();
+    cout << "\"loop\" complete";
+    return 0;
+}
+
 //Lame way of clearing the console
 void ClearScreen()
 {

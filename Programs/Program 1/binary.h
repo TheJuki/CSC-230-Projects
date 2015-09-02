@@ -58,9 +58,9 @@ public:
             void unset_flag();
 
             // Read & write a File
-            void writeIt(std::fstream* out, long position) const;
-            void readIt(std::fstream* input, long position) const;
+            void writeIt(std::fstream& out, long position) const;
+            void readIt(std::fstream& input, long position) const;
 
-            friend std::ostream& operator<<(std::ostream& out, const MyClass& me);
+            friend std::ostream& operator <<(std::ostream& out, const MyClass& me);
 };
 #endif // CLASS_H

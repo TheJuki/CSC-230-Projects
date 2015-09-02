@@ -11,15 +11,15 @@ Description: Code for binary file handling
 //Get functions
 std::string MyClass::get_title()
 {
-    return MyClass::title;
+    return std::string(MyClass::title);
 }
 std::string MyClass::get_artist()
 {
-    return MyClass::artist;
+    return std::string(MyClass::artist);
 }
 std::string MyClass::get_type()
 {
-    return MyClass::type;
+    return std::string(MyClass::type);
 }
 int MyClass::get_year() const
 {
@@ -40,22 +40,24 @@ bool MyClass::get_flag() const
 // for getting the value from zero record
 int MyClass::get_value(std::fstream& inout)
 {
-    //Stub
+    inout.seekp(0);
+    char* writeOut = (char*)MyClass::count;
+    inout.write(writeOut, 0);
     return 0;
 }
 
 //Set functions
 void MyClass::set_title(std::string my_title)
 {
-    MyClass::title = my_title;
+     strcpy(MyClass::title, my_title.c_str());
 }
 void MyClass::set_artist(std::string my_artist)
 {
-    MyClass::artist = my_artist;
+    strcpy(MyClass::artist, my_artist.c_str());
 }
 void MyClass::set_type(std::string my_type)
 {
-    MyClass::type = my_type;
+    strcpy(MyClass::type, my_type.c_str());
 }
 void MyClass::set_year(int my_year)
 {
@@ -84,15 +86,26 @@ void MyClass::unset_flag()
 }
 
 // Read & write a File
-void MyClass::writeIt(std::fstream* out, long position) const
+void MyClass::writeIt(std::fstream& out, long position) const
 {
      //write out the MyClass object
     out.seekp(position * (sizeof(MyClass)));
     out.write((char*) this, sizeof(MyClass));
 }
-void MyClass::readIt(std::fstream* input, long position) const
+void MyClass::readIt(std::fstream& input, long position) const
 {
     //read in the MyClass object
     input.seekg(position * (sizeof(MyClass)));
     input.read((char*) this, sizeof(MyClass));
 }
+
+//Class Friends =========================
+
+std::ostream& operator <<(std::ostream& out, const MyClass& me)
+{
+    out << me.artist << std::endl;
+    return out;
+}
+
+// Free Functions ========================
+
