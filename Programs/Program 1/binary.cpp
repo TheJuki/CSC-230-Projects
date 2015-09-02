@@ -102,13 +102,8 @@ void MyClass::readIt(std::fstream& input, long position) const
     input.read((char*) this, sizeof(MyClass));
 }
 
-//Class Friends =========================
-
 std::ostream& operator <<(std::ostream& out, const MyClass& me)
 {
     out << me.artist << std::endl;
     return out;
 }
-
-// Free Functions ========================
-

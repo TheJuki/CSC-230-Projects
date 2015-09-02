@@ -40,7 +40,6 @@
 		<Unit filename="binary.h" />
 		<Unit filename="bulk.cpp" />
 		<Unit filename="console.cpp" />
-		<Unit filename="main.cpp" />
 		<Unit filename="title.cpp" />
 		<Unit filename="title.h" />
 		<Unit filename="year.cpp" />
