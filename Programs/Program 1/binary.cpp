@@ -40,10 +40,11 @@ bool MyClass::get_flag() const
 // for getting the value from zero record
 int MyClass::get_value(std::fstream& inout)
 {
-    inout.seekp(0);
-    char* writeOut = (char*)MyClass::count;
-    inout.write(writeOut, 0);
-    return 0;
+    char* value;
+    strcpy(value, "0");
+    inout.seekg(0);
+    inout.read(value, 0);
+    return int(value);
 }
 
 //Set functions
@@ -74,7 +75,9 @@ void MyClass::set_count(int my_count)
 // for setting zero record
 void MyClass::set_value(std::fstream& inout, int value)
 {
-    //Stub
+    inout.seekp(0);
+    char* writeOut = (char*)MyClass::count;
+    inout.write(writeOut, 0);
 }
 void MyClass::set_flag()
 {
