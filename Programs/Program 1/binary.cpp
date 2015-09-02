@@ -11,38 +11,31 @@ Description: Code for binary file handling
 //Get functions
 std::string MyClass::get_title()
 {
-    //Stub
-    return "";
+    return MyClass::title;
 }
 std::string MyClass::get_artist()
 {
-    //Stub
-    return "";
+    return MyClass::artist;
 }
 std::string MyClass::get_type()
 {
-    //Stub
-    return "";
+    return MyClass::type;
 }
 int MyClass::get_year() const
 {
-    //Stub
-    return 0;
+    return MyClass::year;
 }
 int MyClass::get_price() const
 {
-    //Stub
-    return 0;
+    return MyClass::price;
 }
 int MyClass::get_count() const
 {
-    //Stub
-    return 0;
+    return MyClass::count;
 }
 bool MyClass::get_flag() const
 {
-    //Stub
-    return false;
+    return MyClass::dead_flag;
 }
 // for getting the value from zero record
 int MyClass::get_value(std::fstream& inout)
@@ -54,27 +47,27 @@ int MyClass::get_value(std::fstream& inout)
 //Set functions
 void MyClass::set_title(std::string my_title)
 {
-    //Stub
+    MyClass::title = my_title;
 }
 void MyClass::set_artist(std::string my_artist)
 {
-    //Stub
+    MyClass::artist = my_artist;
 }
 void MyClass::set_type(std::string my_type)
 {
-    //Stub
+    MyClass::type = my_type;
 }
 void MyClass::set_year(int my_year)
 {
-    //Stub
+    MyClass::year = my_year;
 }
 void MyClass::set_price(int my_price)
 {
-    //Stub
+    MyClass::price = my_price;
 }
 void MyClass::set_count(int my_count)
 {
-    //Stub
+    MyClass::count = my_count;
 }
 // for setting zero record
 void MyClass::set_value(std::fstream& inout, int value)
@@ -83,19 +76,23 @@ void MyClass::set_value(std::fstream& inout, int value)
 }
 void MyClass::set_flag()
 {
-    //Stub
+    MyClass::dead_flag = true;
 }
 void MyClass::unset_flag()
 {
-    //Stub
+    MyClass::dead_flag = false;
 }
 
 // Read & write a File
 void MyClass::writeIt(std::fstream* out, long position) const
 {
-    //Stub
+     //write out the MyClass object
+    out.seekp(position * (sizeof(MyClass)));
+    out.write((char*) this, sizeof(MyClass));
 }
 void MyClass::readIt(std::fstream* input, long position) const
 {
-    //Stub
+    //read in the MyClass object
+    input.seekg(position * (sizeof(MyClass)));
+    input.read((char*) this, sizeof(MyClass));
 }

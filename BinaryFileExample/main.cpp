@@ -66,9 +66,9 @@ bool fileExists(char* filename)
     }
 } // fileExists
 
-long fileSize(char* fileName)
+long fileSize(char* filename)
 {
-    ifstream tryIt(fileName, ios::in);
+    ifstream tryIt(filename, ios::in);
 
     //check to see if the file exists
 
@@ -112,7 +112,7 @@ int main(void)
     if(!outputFile)
     {
         cout << "Unable to open '" << outputFileName << "' for output." << endl;
-        return(1);
+        return (1);
     }
     else
     {
@@ -133,15 +133,7 @@ int main(void)
 
     outputFile.close();
 
-    if(!outputFile)
-    {
-        cout << "Unable to open '" << outputFile << "' for re-reading." << endl;
-        return(1);
-    }
-    else
-    {
-        cout << "File correctly re-opened." << endl;
-    }
+    outputFile.open(outputFileName, ios::in | ios::binary);
 
     // Read and echo entire file
     pos = 0;
@@ -161,7 +153,7 @@ int main(void)
     cout << "Size of file in bytes      = " << inputFileSize << endl;
     cout << "Bytes per record (Object) = " << sizeof(myObject)
          << " (an int and a float)." << endl;
-    cout << "Number of record in file = " << inputFileSize / sizeof(myObject)
+    cout << "Number of records in file = " << inputFileSize / sizeof(myObject)
          << endl;
 
     if(inputFileSize % sizeof(myObject) != 0)
