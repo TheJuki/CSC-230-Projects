@@ -162,7 +162,7 @@ void PrintAll()
         << "|  Type  | "
         << "|  Price  | "
         << "|  Type  | "
-        << std::endl;
+        << endl << endl;
     int pos = 1;
     MyClass record;
     record.readIt(outputFile, pos);
@@ -173,6 +173,29 @@ void PrintAll()
         record.readIt(outputFile, pos);
     }
     outputFile.close();
+
+	string input;
+	cout << endl << endl << "Enter '1' to go back or '0' for Main Menu: ";
+	cin >> input;
+
+	if (input.size() > 1)
+	{
+		PrintMenu();
+	} // end if
+	else
+	{
+		const char* p_c_str = input.c_str();
+		char inputChar = p_c_str[0];
+		switch (inputChar)
+		{
+		case('0') : MainMenu();
+			break;
+		case('1') : PrintMenu();
+			break;
+		default: PrintMenu();
+			break;
+		} // end switch
+	} // end else
 }
 
 //The Delete Menu print
