@@ -9,8 +9,14 @@ Description: Code console display
 #include <string>
 #include <iostream>
 #include <stdlib.h>
+#include <fstream>
+
+#include "binary.h"
 
 //Prototypes
+
+//Bulk
+void checkBulkFile();
 
 //Menu lists
 void MainMenu();
@@ -34,15 +40,20 @@ void ChangeRecordMenuInput();
 //Used for InvalidInput
 void LoadCurrentMenu();
 
+//Print Menu functions
+void PrintAll();
+
 //--End Prototypes
 
 //Global Variables
 int currentMenu = 0;
+//char outputFileName[80] = "output.txt";
 
 using namespace std;
 
 int main(void)
 {
+    checkBulkFile();
     MainMenu();
     cout << "\"loop\" complete";
     return 0;
@@ -138,6 +149,32 @@ void PrintMenu()
      PrintMenuInput();
 } // end PrintMenu
 
+void PrintAll()
+{
+    ClearScreen();
+    char outputFileName[80] = "output.txt";
+    fstream outputFile(outputFileName, ios::in | ios::binary);
+
+    // Read and echo entire file
+    cout << "|#| "
+        << "|  Artist  | "
+        << "|  Title  | "
+        << "|  Type  | "
+        << "|  Price  | "
+        << "|  Type  | "
+        << std::endl;
+    int pos = 1;
+    MyClass record;
+    record.readIt(outputFile, pos);
+    while(!outputFile.eof())
+    {
+        cout << record;
+        pos++;
+        record.readIt(outputFile, pos);
+    }
+    outputFile.close();
+}
+
 //The Delete Menu print
 void DeleteMenu()
 {
@@ -230,7 +267,7 @@ void PrintMenuInput()
         {
             case('0'): MainMenu();
                      break;
-            case('1'): ClearScreen();
+            case('1'): PrintAll();
                      break;
             case('2'): ClearScreen();
                      break;

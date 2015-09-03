@@ -104,6 +104,12 @@ void MyClass::readIt(std::fstream& input, long position) const
 
 std::ostream& operator <<(std::ostream& out, const MyClass& me)
 {
-    out << me.artist << std::endl;
+    out << "|" << me.count << "|"
+        << "  " << me.artist
+        << "  " << me.title
+        << "   " << me.type
+        << "     $" << me.price
+        << "        " << me.year
+        << std::endl;
     return out;
 }

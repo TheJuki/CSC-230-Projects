@@ -56,20 +56,26 @@
 
 1441057711 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\ay.cpp
 
-1441232181 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.cpp
+1441309047 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.cpp
 	"binary.h"
 
-1441231547 c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.h
+1441306741 c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.h
 	<string>
 	<cstring>
 	<fstream>
 
-1441057715 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\bulk.cpp
+1441308353 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\bulk.cpp
+	"binary.h"
+	<fstream>
+	<iostream>
+	<string>
 
-1441232272 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
+1441309314 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<stdlib.h>
+	<fstream>
+	"binary.h"
 
 1441057715 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\main.cpp
 	<string>
