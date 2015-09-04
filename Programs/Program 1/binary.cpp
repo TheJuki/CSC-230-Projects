@@ -109,12 +109,16 @@ void MyClass::readIt(std::fstream& input, long position) const
 
 std::ostream& operator <<(std::ostream& out, const MyClass& me)
 {
-    out << "|" << me.count << "|"
+    std::string dead = "Available";
+    if(me.dead_flag)
+        dead = "N/A";
+    out << "  " << me.title
         << "  " << me.artist
-        << "  " << me.title
         << "   " << me.type
-        << "    $" << me.price
         << "     " << me.year
+        << "     $" << me.price
+        << "     $" << me.count
+        << "     "  << dead
         << std::endl;
     return out;
 }

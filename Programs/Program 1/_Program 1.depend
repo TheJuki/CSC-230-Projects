@@ -54,32 +54,32 @@
 	<cstring>
 	<fstream>
 
-1441057711 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
+1441377821 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
 	"artist.h"
 
-1441057711 c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.h
+1441377821 c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 
-1441057711 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\ay.cpp
+1441377821 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\ay.cpp
 
 1441309047 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.cpp
 	"binary.h"
 
-1441306741 c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.h
+1441377823 c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.h
 	<string>
 	<cstring>
 	<fstream>
 
-1441308353 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\bulk.cpp
+1441377921 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\bulk.cpp
 	"binary.h"
 	<fstream>
 	<iostream>
 	<string>
 
-1441309314 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
+1441377823 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<stdlib.h>
@@ -90,19 +90,19 @@
 	<string>
 	<iostream>
 
-1441057716 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.cpp
+1441377824 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.cpp
 	"title.h"
 
-1441057716 c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.h
+1441377824 c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 
-1441057716 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\year.cpp
+1441377824 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\year.cpp
 	"year.h"
 
-1441057716 c:\users\justin\documents\github\csc-230-projects\programs\program 1\year.h
+1441377824 c:\users\justin\documents\github\csc-230-projects\programs\program 1\year.h
 	<iostream>
 	<fstream>
 

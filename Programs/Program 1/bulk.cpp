@@ -60,7 +60,7 @@ void build()
     record.set_type("Drawing ");
     record.set_year(2014);
     record.set_price(1600);
-    record.set_count(2);
+    record.set_count(1);
     record.writeIt(outputFile, 2);
 
     //Record 3
@@ -69,7 +69,7 @@ void build()
     record.set_type("Sculpture");
     record.set_year(2012);
     record.set_price(2200);
-    record.set_count(3);
+    record.set_count(1);
     record.writeIt(outputFile, 3);
 
     //Record 4
@@ -78,7 +78,7 @@ void build()
     record.set_type("Painting ");
     record.set_year(2013);
     record.set_price(1500);
-    record.set_count(4);
+    record.set_count(1);
     record.writeIt(outputFile, 4);
 
     //Record 5
@@ -87,7 +87,7 @@ void build()
     record.set_type("Collage");
     record.set_year(2015);
     record.set_price(1300);
-    record.set_count(5);
+    record.set_count(1);
     record.writeIt(outputFile, 5);
 
     //Record 6
@@ -96,7 +96,7 @@ void build()
     record.set_type("Photography");
     record.set_year(2014);
     record.set_price(5495);
-    record.set_count(6);
+    record.set_count(1);
     record.writeIt(outputFile, 6);
 
     //Record 7
@@ -105,7 +105,7 @@ void build()
     record.set_type("Photography");
     record.set_year(2015);
     record.set_price(3300);
-    record.set_count(7);
+    record.set_count(1);
     record.writeIt(outputFile, 7);
 
     //Record 8 - Dead
@@ -114,7 +114,7 @@ void build()
     record.set_type("Flag");
     record.set_year(9999);
     record.set_price(9999);
-    record.set_count(8);
+    record.set_count(1);
     record.set_flag();
     record.writeIt(outputFile, 8);
 
