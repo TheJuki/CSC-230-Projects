@@ -7,6 +7,9 @@ Description: Code for binary file handling
 */
 
 #include "binary.h"
+#include <stdlib.h>
+#include <sstream>
+#include <string>
 
 //Get functions
 std::string MyClass::get_title()
@@ -40,11 +43,10 @@ bool MyClass::get_flag() const
 // for getting the value from zero record
 int MyClass::get_value(std::fstream& inout)
 {
-    char* value;
-    strcpy(value, "0");
+    char* value  = new char [80];
     inout.seekg(0);
-    inout.read(value, 0);
-    return int(value);
+    inout.read((char*) value, 80);
+    return atoi(value);
 }
 
 //Set functions
@@ -76,8 +78,11 @@ void MyClass::set_count(int my_count)
 void MyClass::set_value(std::fstream& inout, int value)
 {
     inout.seekp(0);
-    char* writeOut = (char*)MyClass::count;
-    inout.write(writeOut, 0);
+    std::stringstream strs;
+    strs << value;
+    std::string temp_str = strs.str();
+    char* writeOut = (char*) temp_str.c_str();
+    inout.write((char*) writeOut, 80);
 }
 void MyClass::set_flag()
 {
@@ -108,8 +113,8 @@ std::ostream& operator <<(std::ostream& out, const MyClass& me)
         << "  " << me.artist
         << "  " << me.title
         << "   " << me.type
-        << "     $" << me.price
-        << "        " << me.year
+        << "    $" << me.price
+        << "     " << me.year
         << std::endl;
     return out;
 }

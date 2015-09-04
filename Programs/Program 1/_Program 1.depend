@@ -1,15 +1,24 @@
 # depslib dependency file v1.0
 1440768874 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\ay.cpp
 
-1440983033 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\binary.cpp
+1441329098 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\binary.cpp
 	"binary.h"
+	<stdlib.h>
+	<sstream>
+	<string>
 
-1440768874 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\bulk.cpp
+1441327720 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\bulk.cpp
+	"binary.h"
+	<fstream>
+	<iostream>
+	<string>
 
-1440991529 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
+1441327764 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<stdlib.h>
+	<fstream>
+	"binary.h"
 
 1440986997 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\main.cpp
 	<string>
@@ -40,7 +49,7 @@
 	<iostream>
 	<fstream>
 
-1440982760 c:\users\theju\documents\github\csc-230-projects\programs\program 1\binary.h
+1441327104 c:\users\theju\documents\github\csc-230-projects\programs\program 1\binary.h
 	<string>
 	<cstring>
 	<fstream>

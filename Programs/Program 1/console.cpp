@@ -151,27 +151,32 @@ void PrintMenu()
 
 void PrintAll()
 {
+    //Clear screen
     ClearScreen();
     char outputFileName[80] = "output.txt";
+    //Read in file
     fstream outputFile(outputFileName, ios::in | ios::binary);
 
-    // Read and echo entire file
     cout << "|#| "
         << "|  Artist  | "
         << "|  Title  | "
         << "|  Type  | "
         << "|  Price  | "
-        << "|  Type  | "
+        << "|  Year  | "
         << endl << endl;
     int pos = 1;
     MyClass record;
+    //std::cout << record.get_value(outputFile);
+
     record.readIt(outputFile, pos);
     while(!outputFile.eof())
     {
-        cout << record;
+        if(!record.get_flag())
+            cout << record;
         pos++;
         record.readIt(outputFile, pos);
     }
+
     outputFile.close();
 
 	string input;
