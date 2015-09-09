@@ -24,26 +24,60 @@ void checkBulkFile()
     ifstream tryIt(outputFileName, ios::in);
 
     //If file does not exist, create it
-    if(!tryIt)
-    {
-        tryIt.close();
+    //if(!tryIt)
+   // {
+        //tryIt.close();
         build();
-    }
-    tryIt.close();
+    //}
+   // tryIt.close();
 
 } // checkBulkFile
 
 void build()
 {
     //Create output file
-    fstream outputFile(outputFileName, ios::out | ios::binary);
+    //fstream outputFile(outputFileName, ios::out | ios::binary);
     //Start at the first line
-    outputFile.seekp(0);
+    //outputFile.seekp(0);
     //Write 0 on the first line - zero record - count of records
-    outputFile.write(0, 0);
+    //std::string temp_str = "0";
+    //char* writeOut = (char*) temp_str.c_str();
+    //outputFile.write((char*) writeOut, 80);
+
+    string line;
+
+    ifstream input("input.txt");
+
+    if (input.is_open())
+     {
+      while ( getline (input,line) )
+     {
+      cout << line << '\n';
+     }
+    input.close();
+    }
+
+  else
+    out << "Unable to open file";
+
+    string delimiter = "#";
+
+    size_t pos = 0;
+
+    //Part of line
+    int partNumber = 1;
+
+    string part;
+    while ((pos = line.find(delimiter)) != string::npos) {
+        part = line.substr(0, pos);
+        cout << part << std::endl;
+        line.erase(0, pos + delimiter.length());
+    }
 
     //Create a new record (Binary) to create 7 records
     MyClass record;
+
+    /*
 
     //Record 1
     record.set_title("lustful   ");
@@ -120,8 +154,9 @@ void build()
 
     //Set final value - # of records
     record.set_value(outputFile, 8);
+    */
 
     //Close file
-    outputFile.close();
+//    outputFile.close();
 
 }
