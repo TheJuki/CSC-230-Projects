@@ -15,12 +15,12 @@ Description: Header for artist.cpp
 class SecondaryIndex
 {
  private:
- struct MINI { std::string artist; /* int year; */ int pos[11]; } my_list[15];
+ struct MINI { std::string artist; int pos[11]; } my_list[15];
  int count;
  public:
  SecondaryIndex(): count(0) {
 for(int i = 1; i < 15; ++i) {
-my_list[i].artist = "0"; /* my_list[i].year = 0 */
+my_list[i].artist = "0";
 for(int k = 0; k < 11; ++k)
 my_list[i].pos[k] = 0;
 }

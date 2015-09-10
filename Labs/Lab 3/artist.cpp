@@ -10,12 +10,14 @@ Description: Artist - secondary index
 
 void SecondaryIndex::set_artist_key(std::string my_artist, int my_key)
 {
-    // Stub
+    SecondaryIndex::my_list[my_key].artist = my_artist;
 }
 
 void SecondaryIndex::updateArtist(std::string new_artist, int pos[])
 {
-    // Stub
+    SecondaryIndex::my_list[SecondaryIndex::count].artist = new_artist;
+    SecondaryIndex::my_list[SecondaryIndex::count].pos = pos;
+
 }
 
 void SecondaryIndex::writeSecondary()
