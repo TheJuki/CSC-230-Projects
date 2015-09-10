@@ -32,7 +32,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="artist.cpp" />
+		<Unit filename="artist.h" />
+		<Unit filename="binary.cpp" />
+		<Unit filename="binary.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="title.cpp" />
+		<Unit filename="title.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -11,6 +11,11 @@ using namespace std;
 
 //File names
 string
+
+main ()
+{
+
+
 
 //Open Sequential file for reading using ifstream
 string line;
@@ -28,7 +33,7 @@ else
 {
     cout << "Unable to open file";
 }
-
+/*
     string delimiter = "#";
 
     size_t pos = 0;
@@ -42,8 +47,9 @@ else
         cout << part << std::endl;
         line.erase(0, pos + delimiter.length());
     }
+    */
 //Open Binary file for binary|writing using fstream
-fstream outputFile(outputFileName, ios::out | ios::binary);
+fstream outputFile("binary.bin", ios::out | ios::binary);
 //Set position to 1
 //Read in a line from the sequential file
 
@@ -64,4 +70,6 @@ fstream outputFile(outputFileName, ios::out | ios::binary);
 //Write Primary Index to a file (open file using ofstream)
 //Write Secondary Index to a file (open file using ofstream)
 //Close all files
+return 0;
+}
 
