@@ -36,6 +36,7 @@
 		<Unit filename="artist.h" />
 		<Unit filename="binary.cpp" />
 		<Unit filename="binary.h" />
+		<Unit filename="input.txt" />
 		<Unit filename="main.cpp" />
 		<Unit filename="title.cpp" />
 		<Unit filename="title.h" />

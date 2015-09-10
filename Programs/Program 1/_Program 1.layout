@@ -6,19 +6,14 @@
 			<Cursor1 position="132" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="artist.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="651" topLine="19" />
-		</Cursor>
-	</File>
 	<File name="ay.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="140" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="binary.cpp" open="1" top="1" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="binary.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1458" topLine="101" />
+			<Cursor1 position="2177" topLine="92" />
 		</Cursor>
 	</File>
 	<File name="binary.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -26,14 +21,19 @@
 			<Cursor1 position="930" topLine="31" />
 		</Cursor>
 	</File>
-	<File name="bulk.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="bulk.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="704" topLine="31" />
+			<Cursor1 position="152" topLine="1" />
 		</Cursor>
 	</File>
 	<File name="console.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4283" topLine="158" />
+			<Cursor1 position="4717" topLine="188" />
+		</Cursor>
+	</File>
+	<File name="artist.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1023" topLine="24" />
 		</Cursor>
 	</File>
 	<File name="title.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -56,9 +56,9 @@
 			<Cursor1 position="603" topLine="15" />
 		</Cursor>
 	</File>
-	<File name="artist.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="artist.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1023" topLine="24" />
+			<Cursor1 position="651" topLine="19" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

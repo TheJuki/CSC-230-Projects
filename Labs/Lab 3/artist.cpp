@@ -18,18 +18,26 @@ void SecondaryIndex::set_artist_key(std::string my_artist, int my_key)
 void SecondaryIndex::updateArtist(std::string new_artist, int pos[])
 {
     SecondaryIndex::my_list[SecondaryIndex::count].artist = new_artist;
-    for(int i = 1; i < 15; ++i)
+    for(int i = 1; i < 11; ++i)
          SecondaryIndex::my_list[SecondaryIndex::count].pos[i] = pos[i];
-
 }
 
 void SecondaryIndex::writeSecondary()
 {
    std::ofstream outSecondary ("secondaryArtists.txt");
 
-     for(int i = 1; i < 25; ++i)
+    std::string buildLine;
+
+     for(int i = 1; i < 15; ++i)
      {
-         outSecondary << SecondaryIndex::my_list[i].pos
+         buildLine = "";
+
+         for(int k = 1; k < 11; ++i)
+         {
+             if(SecondaryIndex::my_list[i].pos[k] != 0)
+                buildLine += SecondaryIndex::my_list[i].pos[k] + " ";
+         }
+         outSecondary << buildLine
                     << "#"
                     << SecondaryIndex::my_list[i].artist
                     << std::endl;

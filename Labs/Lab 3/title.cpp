@@ -31,7 +31,7 @@ bool PrimaryIndex::set_title_key(std::string my_title, int my_key)
  }
  void PrimaryIndex::readPrimary()
  {
-
+    // stub
  }
 void PrimaryIndex::change_title(std::string new_title, int key)
 {
