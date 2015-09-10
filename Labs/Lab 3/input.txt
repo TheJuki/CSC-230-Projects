@@ -1,3 +1,2 @@
-Hey
-Lines
-Cool
+TITLE#ARTIST#TYPE#1990#100#1
+SecondTitle#ARTIST#TYPE#1990#100#1

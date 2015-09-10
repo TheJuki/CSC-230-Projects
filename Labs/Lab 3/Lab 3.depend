@@ -35,3 +35,43 @@
 	<iostream>
 	<fstream>
 
+1441927898 source:c:\users\theju\documents\github\csc-230-projects\labs\lab 3\artist.cpp
+	"artist.h"
+	<iostream>
+	<fstream>
+
+1441925334 c:\users\theju\documents\github\csc-230-projects\labs\lab 3\artist.h
+	<string>
+	<cstring>
+	<iostream>
+	<fstream>
+
+1441925334 source:c:\users\theju\documents\github\csc-230-projects\labs\lab 3\binary.cpp
+	"binary.h"
+	<stdlib.h>
+	<sstream>
+	<string>
+
+1441925334 c:\users\theju\documents\github\csc-230-projects\labs\lab 3\binary.h
+	<string>
+	<cstring>
+	<fstream>
+
+1441928507 source:c:\users\theju\documents\github\csc-230-projects\labs\lab 3\main.cpp
+	"binary.h"
+	"artist.h"
+	"title.h"
+	<iostream>
+	<string>
+	<fstream>
+	<cstdlib>
+
+1441925334 c:\users\theju\documents\github\csc-230-projects\labs\lab 3\title.h
+	<string>
+	<cstring>
+	<iostream>
+	<fstream>
+
+1441927804 source:c:\users\theju\documents\github\csc-230-projects\labs\lab 3\title.cpp
+	"title.h"
+

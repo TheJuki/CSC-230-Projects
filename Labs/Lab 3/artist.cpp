@@ -32,7 +32,7 @@ void SecondaryIndex::writeSecondary()
      {
          buildLine = "";
 
-         for(int k = 1; k < 11; ++i)
+         for(int k = 1; k < 11; ++k)
          {
              if(SecondaryIndex::my_list[i].pos[k] != 0)
                 buildLine += SecondaryIndex::my_list[i].pos[k] + " ";

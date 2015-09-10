@@ -35,8 +35,8 @@ bool PrimaryIndex::set_title_key(std::string my_title, int my_key)
  }
 void PrimaryIndex::change_title(std::string new_title, int key)
 {
-    PrimaryIndex::my_list[PrimaryIndex::count].title = new_title;
-    PrimaryIndex::my_list[PrimaryIndex::count].pos = key;
+    PrimaryIndex::my_list[key /* position ?*/].title = new_title;
+    PrimaryIndex::my_list[key /* position ?*/].pos = key;
 }
 int matchTitle(std::string inTitle)
 {
