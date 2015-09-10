@@ -7,25 +7,29 @@ Description: Main driver file
 */
 
 #include <string>
+#include<iostream>
+#include<fstream>
+
 using namespace std;
 
 //File names
-string
-
-main ()
+char inputFileName[80] = "input.txt";
+char outputFileName[80] = "output.bin";
+
+int main ()
 {
 
 
 
 //Open Sequential file for reading using ifstream
 string line;
-ifstream input("input.txt");
+ifstream input(inputFileName);
 
 if (input.is_open())
 {
     while (getline(input,line))
     {
-        cout << line << enl;
+        cout << line << endl;
     }
     input.close();
 }
@@ -49,7 +53,7 @@ else
     }
     */
 //Open Binary file for binary|writing using fstream
-fstream outputFile("binary.bin", ios::out | ios::binary);
+fstream outputFile(outputFileName, ios::out | ios::binary);
 //Set position to 1
 //Read in a line from the sequential file
 

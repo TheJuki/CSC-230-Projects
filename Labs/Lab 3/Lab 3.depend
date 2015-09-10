@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1441904444 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\artist.cpp
+1441912920 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\artist.cpp
 	"artist.h"
 
-1441904412 c:\users\justin\documents\github\csc-230-projects\labs\lab 3\artist.h
+1441906613 c:\users\justin\documents\github\csc-230-projects\labs\lab 3\artist.h
 	<string>
 	<cstring>
 	<iostream>
@@ -19,7 +19,10 @@
 	<cstring>
 	<fstream>
 
-1441903392 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\main.cpp
+1441913104 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\main.cpp
+	<string>
+	<iostream>
+	<fstream>
 
 1441904902 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\title.cpp
 	"title.h"

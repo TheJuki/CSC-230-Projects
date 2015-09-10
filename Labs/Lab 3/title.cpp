@@ -16,10 +16,18 @@ bool PrimaryIndex::set_title_key(std::string my_title, int my_key)
 // The next 2 methods write the object out to a file or fill it from a read activity.
  void PrimaryIndex::writePrimary()
  {
-     std::ofstream outfile ("new.txt",std::ofstream::);
+     std::ofstream outPrimary ("primaryTitles.txt");
 
-    out.seekp(position * (sizeof(MyClass)));
-    out.write((char*) this, sizeof(MyClass));
+     for(int i = 1; i < 25; ++i)
+     {
+         outPrimary << PrimaryIndex::my_list[i].pos
+                    << "#"
+                    << PrimaryIndex::my_list[i].title
+                    << std::endl;
+     }
+
+     outPrimary.close();
+
  }
  void PrimaryIndex::readPrimary()
  {
