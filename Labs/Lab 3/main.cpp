@@ -41,8 +41,8 @@ int main ()
         PrimaryIndex primaryInx;
         //Create Secondary Index object
         SecondaryIndex secondaryInx;
-        //delimiter is #
-        string delimiter = "#";
+        //delimiter is a space
+        string delimiter = " ";
         //size of string
         size_t pos = 0;
         //Part of line
@@ -104,15 +104,9 @@ int main ()
             //Seek position and write record in binary file
             myObject.set_and_writeIt(outputFile, position);
 
-//----------Count is private so how do I change the title? Do I use set_title_key instead?
-//-----------Why are there two methods that do the same thing?
-
             //Pass Primary Key information to Primary Index(title, position)
-            //primaryInx.count = position;
 
             primaryInx.change_title(my_title, position);
-
-//-----------This one is more tricky. How do I use an array of keys instead of just one key per artist?
 
             //Pass Secondary Key information to Secondary Index(artist or year, position)
             int pos[11];
@@ -134,6 +128,37 @@ int main ()
 
         //Close all files
         input.close();
+        outputFile.close();
+
+/* Debug
+    //Read in file
+    char outputFileName[80] = "output.bin";
+    //Read in file
+    fstream outputFileDebug(outputFileName, ios::in | ios::binary);
+
+    cout << "|#| "
+        << "|  Artist  | "
+        << "|  Title  | "
+        << "|  Type  | "
+        << "|  Price  | "
+        << "|  Year  | "
+        << endl << endl;
+    pos = 1;
+    MyClass record;
+    //std::cout << record.get_value(outputFileDebug);
+
+    record.set_and_readIt(outputFileDebug, pos);
+    while(!outputFileDebug.eof())
+    {
+        if(!record.get_flag())
+            cout << record;
+        pos++;
+        record.set_and_readIt(outputFileDebug, pos);
+    }
+
+    outputFileDebug.close();
+    */
+
 
     } // End if
 

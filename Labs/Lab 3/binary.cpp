@@ -105,7 +105,7 @@ std::ostream& operator<<(std::ostream& out, const MyClass& someObject)
         << "   " << someObject.type
         << "     " << someObject.year
         << "     $" << someObject.price
-        << "     $" << someObject.count
+        << "     " << someObject.count
         << "     "  << dead
         << std::endl;
     return out;

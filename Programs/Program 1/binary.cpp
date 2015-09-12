@@ -3,7 +3,7 @@ File       : binary.cpp
 Program    : Program 1 - Array Based Indexes
 Due Date   : null
 Author     : Justin Kirk
-Description: Code for binary file handling
+Description: Binary object - A record in the binary file
 */
 
 #include "binary.h"
@@ -117,7 +117,7 @@ std::ostream& operator <<(std::ostream& out, const MyClass& me)
         << "   " << me.type
         << "     " << me.year
         << "     $" << me.price
-        << "     $" << me.count
+        << "     " << me.count
         << "     "  << dead
         << std::endl;
     return out;
