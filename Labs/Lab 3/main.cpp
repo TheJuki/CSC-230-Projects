@@ -24,7 +24,6 @@ int main ()
 {
 
     //Open Sequential file for reading using ifstream
-    string line;
     ifstream input;
     input.open (inputFileName, fstream::in);
 
@@ -34,9 +33,6 @@ int main ()
         fstream outputFile(outputFileName, ios::out | ios::binary);
         //Set position to 1
         long position = 1;
-
-        //Create binary object
-         //MyClass myObject;
         //Create Primary Index object
         PrimaryIndex primaryInx;
         //Create Secondary Index object
@@ -47,6 +43,8 @@ int main ()
         size_t pos = 0;
         //Part of line
         int partNumber = 1;
+        //Line in file as a string
+        string line;
         //string of part
         string part;
 
@@ -73,7 +71,7 @@ int main ()
 
             //Find each part separated by the delimiter and
             //Set the respective variables
-            //Ex. TITLE#ARTIST#TYPE#YEAR#PRICE#COUNT
+            //Ex. TITLE ARTIST TYPE YEAR PRICE COUNT
             while ((pos = line.find(delimiter)) != string::npos) {
                 part = line.substr(0, pos);
                 switch (partNumber)
@@ -96,27 +94,25 @@ int main ()
 
                 line.erase(0, pos + delimiter.length());
                 partNumber++;
-            }
+            } // end delimeter While
 
-            //Convert line into binary file object
-            MyClass myObject(my_title, my_artist, my_type,
+            //Convert line into binary file object named me
+            MyClass me(my_title, my_artist, my_type,
                my_year, my_price, my_count);
+
             //Seek position and write record in binary file
-            myObject.set_and_writeIt(outputFile, position);
+            me.set_and_writeIt(outputFile, position);
 
             //Pass Primary Key information to Primary Index(title, position)
-
-            primaryInx.change_title(my_title, position);
+            primaryInx.set_title_key(my_title, position);
 
             //Pass Secondary Key information to Secondary Index(artist or year, position)
-            int pos[11];
-            pos[0] = (int)position;
-            secondaryInx.updateArtist(my_artist, pos);
+            secondaryInx.set_artist_key(my_artist, position);
 
             //position++
             position++;
 
-        } // End while
+        } // End eof while
 
         //Update Binary File record zero with count information
         MyClass writeZeroRecord;
@@ -130,37 +126,42 @@ int main ()
         input.close();
         outputFile.close();
 
-/* Debug
+    } // End if
+
+// Debug
+/*
     //Read in file
     char outputFileName[80] = "output.bin";
     //Read in file
     fstream outputFileDebug(outputFileName, ios::in | ios::binary);
 
-    cout << "|#| "
-        << "|  Artist  | "
-        << "|  Title  | "
-        << "|  Type  | "
-        << "|  Price  | "
-        << "|  Year  | "
-        << endl << endl;
-    pos = 1;
+    //Start at line 1
+    int pos = 1;
     MyClass record;
     //std::cout << record.get_value(outputFileDebug);
 
+    //Set object
     record.set_and_readIt(outputFileDebug, pos);
     while(!outputFileDebug.eof())
     {
         if(!record.get_flag())
+        {
+            cout << "-----------" << endl;
+            cout << " Record " << pos <<endl;
+            cout << "-----------" << endl;
             cout << record;
+        }
         pos++;
         record.set_and_readIt(outputFileDebug, pos);
     }
 
+    //Close output
     outputFileDebug.close();
+
+    cout << "Debug output complete. " << endl;
+    string getEnter;
+    getline(cin, getEnter);
     */
-
-
-    } // End if
 
     return 0;
 

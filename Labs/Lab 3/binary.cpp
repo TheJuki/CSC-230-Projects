@@ -97,16 +97,22 @@ void MyClass::set_and_readIt(std::fstream& input, long recordNumber)
 
 std::ostream& operator<<(std::ostream& out, const MyClass& someObject)
  {
-    std::string dead = "Available";
+    std::string dead = "A";
     if(someObject.dead_flag)
         dead = "N/A";
-    out << "  " << someObject.title
-        << "  " << someObject.artist
-        << "   " << someObject.type
-        << "     " << someObject.year
-        << "     $" << someObject.price
-        << "     " << someObject.count
-        << "     "  << dead
-        << std::endl;
+    out << " Title:     " << someObject.title
+        << std::endl
+        << " Artist:    " << someObject.artist
+        << std::endl
+        << " Type:      " << someObject.type
+        << std::endl
+        << " Year:      " << someObject.year
+        << std::endl
+        << " Price:     $" << someObject.price
+        << std::endl
+        << " Count:     " << someObject.count
+        << std::endl
+        << " Avaliable: "  << dead
+        << std::endl << std::endl;
     return out;
  }
