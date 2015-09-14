@@ -10,7 +10,8 @@ Description: Code console display
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
-
+#include "title.h"
+#include "artist.h"
 #include "binary.h"
 
 //Prototypes
@@ -42,6 +43,24 @@ void LoadCurrentMenu();
 
 //Print Menu functions
 void PrintAll();
+void PrintByArtist();
+void PrintByTitle();
+void PrintByYear();
+void PrintSummary();
+
+//Delete Menu Functions
+void deleteByArtist();
+void deleteByTitle();
+
+//Change Menu Functions
+void changeByArtist();
+void changeByTitle();
+
+//Other Menu Functions
+void addARecord();
+void sellATitle();
+void soldValue();
+void stopMenu();
 
 //--End Prototypes
 
@@ -150,60 +169,6 @@ void PrintMenu()
      PrintMenuInput();
 } // end PrintMenu
 
-void PrintAll()
-{
-    //Clear screen
-    ClearScreen();
-    char outputFileName[80] = "output.bin";
-    //Read in file
-    fstream outputFile(outputFileName, ios::in | ios::binary);
-
-    int pos = 1;
-    MyClass record;
-    //std::cout << record.get_value(outputFile);
-    if(outputFile.is_open())
-    {
-        record.readIt(outputFile, pos);
-        while(!outputFile.eof())
-        {
-            if(!record.get_flag())
-            {
-                cout << "-----------" << endl;
-                cout << " Record " << pos <<endl;
-                cout << "-----------" << endl;
-                cout << record;
-            }
-            pos++;
-            record.readIt(outputFile, pos);
-        }
-        //Close file
-        outputFile.close();
-    }
-
-	string input;
-	cout << endl << endl << "Enter '1' to go back or '0' for Main Menu: ";
-	cin >> input;
-
-	if (input.size() > 1)
-	{
-		PrintMenu();
-	} // end if
-	else
-	{
-		const char* p_c_str = input.c_str();
-		char inputChar = p_c_str[0];
-		switch (inputChar)
-		{
-		case('0') : MainMenu();
-			break;
-		case('1') : PrintMenu();
-			break;
-		default: PrintMenu();
-			break;
-		} // end switch
-	} // end else
-}
-
 //The Delete Menu print
 void DeleteMenu()
 {
@@ -258,15 +223,15 @@ void MainMenuInput()
         char inputChar = p_c_str[0];
         switch(inputChar)
         {
-            case('1'): exit (0);
+            case('1'): stopMenu();
                      break;
             case('2'): PrintMenu();
                      break;
-            case('3'): ClearScreen();
+            case('3'): sellATitle();
                      break;
-            case('4'): ClearScreen();
+            case('4'): soldValue();
                      break;
-            case('5'): ClearScreen();
+            case('5'): addARecord();
                      break;
             case('6'): DeleteMenu();
                      break;
@@ -298,13 +263,13 @@ void PrintMenuInput()
                      break;
             case('1'): PrintAll();
                      break;
-            case('2'): ClearScreen();
+            case('2'): PrintByTitle();
                      break;
-            case('3'): ClearScreen();
+            case('3'): PrintByArtist();
                      break;
-            case('4'): ClearScreen();
+            case('4'): PrintByYear();
                      break;
-            case('5'): ClearScreen();
+            case('5'): PrintSummary();
                      break;
             default: InvalidInput();
                      break;
@@ -330,9 +295,9 @@ void DeleteMenuInput()
         {
             case('0'): MainMenu();
                      break;
-            case('1'): ClearScreen();
+            case('1'): deleteByTitle();
                      break;
-            case('2'): ClearScreen();
+            case('2'): deleteByArtist();
                      break;
             default: InvalidInput();
                      break;
@@ -359,9 +324,9 @@ void ChangeRecordMenuInput()
         {
             case('0'): MainMenu();
                      break;
-            case('1'): ClearScreen();
+            case('1'): changeByArtist();
                      break;
-            case('2'): ClearScreen();
+            case('2'): changeByTitle();
                      break;
             default: InvalidInput();
                      break;
@@ -369,6 +334,223 @@ void ChangeRecordMenuInput()
     } // end else
 } // end ChangeRecordMenuInput
 
+//--------------------------------------------------//
+//           Print Functions
+//--------------------------------------------------//
+
+//Print all records
+void PrintAll()
+{
+    //Clear screen
+    ClearScreen();
+    char outputFileName[80] = "output.bin";
+    //Read in file
+    fstream outputFile(outputFileName, ios::in | ios::binary);
+
+    int pos = 1;
+    MyClass record;
+    //std::cout << record.get_value(outputFile);
+    if(outputFile.is_open())
+    {
+        record.readIt(outputFile, pos);
+        while(!outputFile.eof())
+        {
+            if(!record.get_flag())
+            {
+                cout << "-----------" << endl;
+                cout << " Record " << pos <<endl;
+                cout << "-----------" << endl;
+                cout << record;
+            }
+            pos++;
+            record.readIt(outputFile, pos);
+        }
+        //Close file
+        outputFile.close();
+    }
+
+	string input;
+	cout << endl << endl << "Enter '1' to go back or '0' for Main Menu: ";
+	cin >> input;
+
+	if (input.size() > 1)
+	{
+		PrintMenu();
+	} // end if
+	else
+	{
+		const char* p_c_str = input.c_str();
+		char inputChar = p_c_str[0];
+		switch (inputChar)
+		{
+		case('0') : MainMenu();
+			break;
+		case('1') : PrintMenu();
+			break;
+		default: PrintMenu();
+			break;
+		} // end switch
+	} // end else
+} // End PrintAll
+
+void PrintByTitle()
+{
+    cout << "PrintByTitle method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+void PrintByArtist()
+{
+    cout << "PrintByArtist method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+void PrintByYear()
+{
+    cout << "PrintByYear method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+void PrintSummary()
+{
+    cout << "PrintSummary method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+//--------------------------------------------------//
+//           Other Main Menu Functions
+//--------------------------------------------------//
+
+void stopMenu()
+{
+    char outputFileName[80] = "output.bin";
+    //Read in file
+    fstream outputFile(outputFileName, ios::in | ios::binary);
+
+    int pos = 1;
+    //Create binary object
+    MyClass record;
+    //Create Primary Index object
+    PrimaryIndex primaryInx;
+    //Create Secondary Index object
+    ArtistIndex secondaryInx;
+
+    if(outputFile.is_open())
+    {
+        record.readIt(outputFile, pos);
+        while(!outputFile.eof())
+        {
+            if(!record.get_flag())
+            {
+                //Pass Primary Key information to Primary Index(title, position)
+                primaryInx.set_title_key(record.get_title(), pos);
+
+                //Pass Secondary Key information to Secondary Index(artist or year, position)
+                secondaryInx.set_artist_key(record.get_artist(), pos);
+            }
+            pos++;
+            record.readIt(outputFile, pos);
+        } // end while
+
+        //Write Primary Index to a file (open file using ofstream)
+        primaryInx.writePrimary();
+        //Write Secondary Index to a file (open file using ofstream)
+        secondaryInx.writeSecondary();
+        //Close file
+        outputFile.close();
+    } // end if
+
+    cout << "Program stopped." << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    //Exit Program
+    exit (0);
+} // end stopMenu
+
+void sellATitle()
+{
+    cout << "SellATitle method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+void soldValue()
+{
+    cout << "soldValue method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+void addARecord()
+{
+    cout << "addARecord method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+
+//--------------------------------------------------//
+//           Delete Menu Functions
+//--------------------------------------------------//
+
+void deleteByTitle()
+{
+    cout << "deleteByTitle method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+void deleteByArtist()
+{
+    cout << "deleteByArtist method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+//--------------------------------------------------//
+//           Change Record Menu Functions
+//--------------------------------------------------//
+
+void changeByArtist()
+{
+    cout << "changeByArtist method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
+
+void changeByTitle()
+{
+    cout << "changeByTitle method stubbed" << endl;
+    string s;
+    getline(cin, s);
+    getline(cin, s);
+    LoadCurrentMenu();
+}
 
 
 

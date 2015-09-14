@@ -16,11 +16,13 @@
 	<fstream>
 	<cstdlib>
 
-1442192972 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
+1442195996 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<stdlib.h>
 	<fstream>
+	"title.h"
+	"artist.h"
 	"binary.h"
 
 1440986997 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\main.cpp
