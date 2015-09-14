@@ -66,7 +66,7 @@ void stopMenu();
 
 //Global Variables
 int currentMenu = 0;
-//char outputFileName[80] = "output.txt";
+bool indexUpdated = false;
 
 using namespace std;
 
@@ -435,42 +435,45 @@ void PrintSummary()
 
 void stopMenu()
 {
-    char outputFileName[80] = "output.bin";
-    //Read in file
-    fstream outputFile(outputFileName, ios::in | ios::binary);
-
-    int pos = 1;
-    //Create binary object
-    MyClass record;
-    //Create Primary Index object
-    PrimaryIndex primaryInx;
-    //Create Secondary Index object
-    ArtistIndex secondaryInx;
-
-    if(outputFile.is_open())
+    if(indexUpdated)
     {
-        record.readIt(outputFile, pos);
-        while(!outputFile.eof())
+        char outputFileName[80] = "output.bin";
+        //Read in file
+        fstream outputFile(outputFileName, ios::in | ios::binary);
+
+        int pos = 1;
+        //Create binary object
+        MyClass record;
+        //Create Primary Index object
+        PrimaryIndex primaryInx;
+        //Create Secondary Index object
+        ArtistIndex secondaryInx;
+
+        if(outputFile.is_open())
         {
-            if(!record.get_flag())
-            {
-                //Pass Primary Key information to Primary Index(title, position)
-                primaryInx.set_title_key(record.get_title(), pos);
-
-                //Pass Secondary Key information to Secondary Index(artist or year, position)
-                secondaryInx.set_artist_key(record.get_artist(), pos);
-            }
-            pos++;
             record.readIt(outputFile, pos);
-        } // end while
+            while(!outputFile.eof())
+            {
+                if(!record.get_flag())
+                {
+                    //Pass Primary Key information to Primary Index(title, position)
+                    primaryInx.set_title_key(record.get_title(), pos);
 
-        //Write Primary Index to a file (open file using ofstream)
-        primaryInx.writePrimary();
-        //Write Secondary Index to a file (open file using ofstream)
-        secondaryInx.writeSecondary();
-        //Close file
-        outputFile.close();
-    } // end if
+                    //Pass Secondary Key information to Secondary Index(artist or year, position)
+                    secondaryInx.set_artist_key(record.get_artist(), pos);
+                }
+                pos++;
+                record.readIt(outputFile, pos);
+            } // end while
+
+            //Write Primary Index to a file (open file using ofstream)
+            primaryInx.writePrimary();
+            //Write Secondary Index to a file (open file using ofstream)
+            secondaryInx.writeSecondary();
+            //Close file
+            outputFile.close();
+        } // end if
+    } // end if indexUpdate
 
     cout << "Program stopped." << endl;
     string s;
