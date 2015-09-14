@@ -1,7 +1,7 @@
 /*
 File       : binary.cpp
 Program    : Program 1 - Array Based Indexes
-Due Date   : null
+Due Date   : September 21, 2015
 Author     : Justin Kirk
 Description: Binary object - A record in the binary file
 */
@@ -109,16 +109,22 @@ void MyClass::readIt(std::fstream& input, long position) const
 
 std::ostream& operator <<(std::ostream& out, const MyClass& me)
 {
-    std::string dead = "Available";
+    std::string dead = "A";
     if(me.dead_flag)
         dead = "N/A";
-    out << "  " << me.title
-        << "  " << me.artist
-        << "   " << me.type
-        << "     " << me.year
-        << "     $" << me.price
-        << "     " << me.count
-        << "     "  << dead
-        << std::endl;
+    out << " Title:     " << me.title
+        << std::endl
+        << " Artist:    " << me.artist
+        << std::endl
+        << " Type:      " << me.type
+        << std::endl
+        << " Year:      " << me.year
+        << std::endl
+        << " Price:     $" << me.price
+        << std::endl
+        << " Count:     " << me.count
+        << std::endl
+        << " Available: "  << dead
+        << std::endl << std::endl;
     return out;
 }

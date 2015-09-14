@@ -1,7 +1,7 @@
 /*
 File       : artist.h
 Program    : Program 1 - Array Based Indexes
-Due Date   : null
+Due Date   : September 21, 2015
 Author     : Justin Kirk
 Description: Header for artist.cpp
 */
@@ -12,14 +12,13 @@ Description: Header for artist.cpp
 #include <cstring>
 #include <iostream>
 #include <fstream>
-
 class ArtistIndex
 {
 private:
     struct MINI
     {
         std::string artist;
-        int tag[11];
+        int pos[11];
     } my_list[15];
     int count;
 
@@ -30,7 +29,7 @@ public:
         {
             my_list[i].artist = "0";
             for(int k = 0; k < 11; ++k)
-                my_list[i].tag[k] = 0;
+                my_list[i].pos[k] = 0;
         }
     }
 

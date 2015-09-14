@@ -1,7 +1,7 @@
 /*
 File       : title.h
 Program    : Program 1 - Array Based Indexes
-Due Date   : null
+Due Date   : September 21, 2015
 Author     : Justin Kirk
 Description: Header for title.cpp
 */
@@ -19,7 +19,7 @@ private:
     struct MINI
     {
         std::string title;
-        int tag;
+        int pos;
     } my_list[25];
     int count;
 
@@ -29,7 +29,7 @@ public:
         for(int i = 1; i < 25; ++i)
         {
             my_list[i].title = "0";
-            my_list[i].tag = 0;
+            my_list[i].pos = 0;
         }
     }
 

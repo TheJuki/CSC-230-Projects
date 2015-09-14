@@ -53,9 +53,10 @@ using namespace std;
 
 int main(void)
 {
+    //Create Bulk if output.bin does not exist
     checkBulkFile();
+    //Start the Main Menu
     MainMenu();
-    cout << "\"loop\" complete";
     return 0;
 }
 
@@ -153,31 +154,31 @@ void PrintAll()
 {
     //Clear screen
     ClearScreen();
-    char outputFileName[80] = "output.txt";
+    char outputFileName[80] = "output.bin";
     //Read in file
     fstream outputFile(outputFileName, ios::in | ios::binary);
 
-    cout << "|#| "
-        << "|  Artist  | "
-        << "|  Title  | "
-        << "|  Type  | "
-        << "|  Price  | "
-        << "|  Year  | "
-        << endl << endl;
     int pos = 1;
     MyClass record;
     //std::cout << record.get_value(outputFile);
-
-    record.readIt(outputFile, pos);
-    while(!outputFile.eof())
+    if(outputFile.is_open())
     {
-        if(!record.get_flag())
-            cout << record;
-        pos++;
         record.readIt(outputFile, pos);
+        while(!outputFile.eof())
+        {
+            if(!record.get_flag())
+            {
+                cout << "-----------" << endl;
+                cout << " Record " << pos <<endl;
+                cout << "-----------" << endl;
+                cout << record;
+            }
+            pos++;
+            record.readIt(outputFile, pos);
+        }
+        //Close file
+        outputFile.close();
     }
-
-    outputFile.close();
 
 	string input;
 	cout << endl << endl << "Enter '1' to go back or '0' for Main Menu: ";

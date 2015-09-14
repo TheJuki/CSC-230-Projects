@@ -7,9 +7,12 @@ Description: Code for bulk
 */
 
 #include "binary.h"
-#include <fstream>
+#include "artist.h"
+#include "title.h"
 #include <iostream>
 #include <string>
+#include<fstream>
+#include <cstdlib>
 
 //Prototypes
 void build();
@@ -17,146 +20,130 @@ void checkBulkFile();
 
 using namespace std;
 
-char outputFileName[80] = "output.txt";
+//File names
+char inputFileName[80] = "input.txt";
+char outputFileName[80] = "output.bin";
 
 void checkBulkFile()
 {
     ifstream tryIt(outputFileName, ios::in);
 
     //If file does not exist, create it
-    //if(!tryIt)
-   // {
+    if(!tryIt)
+    {
         //tryIt.close();
         build();
-    //}
-   // tryIt.close();
+    }
+    tryIt.close();
 
 } // checkBulkFile
 
 void build()
 {
-    //Create output file
-    //fstream outputFile(outputFileName, ios::out | ios::binary);
-    //Start at the first line
-    //outputFile.seekp(0);
-    //Write 0 on the first line - zero record - count of records
-    //std::string temp_str = "0";
-    //char* writeOut = (char*) temp_str.c_str();
-    //outputFile.write((char*) writeOut, 80);
-
-    string line;
-
-    ifstream input("input.txt");
+    //Open Sequential file for reading using ifstream
+    ifstream input;
+    input.open (inputFileName, fstream::in);
 
     if (input.is_open())
-     {
-      while ( getline (input,line) )
-     {
-      cout << line << '\n';
-     }
-    input.close();
-    }
+    {
+        //Open Binary file for binary|writing using fstream
+        fstream outputFile(outputFileName, ios::out | ios::binary);
+        //Set position to 1
+        long position = 1;
+        //Create Primary Index object
+        PrimaryIndex primaryInx;
+        //Create Secondary Index object
+        ArtistIndex secondaryInx;
+        //delimiter is a space
+        string delimiter = " ";
+        //size of string
+        size_t pos = 0;
+        //Part of line
+        int partNumber = 1;
+        //Line in file as a string
+        string line;
+        //string of part
+        string part;
 
-  else
-    out << "Unable to open file";
+        //----------------------------------------//
+        //Parts of binary object in line variables
+        string my_title, my_artist, my_type;
+        int my_year, my_price, my_count;
 
-    string delimiter = "#";
+        //while(not sequential.eof())
+        while(!input.eof())
+        {
+            //Read in a line from the sequential file
+            getline (input,line);
 
-    size_t pos = 0;
+            //cout << line;
 
-    //Part of line
-    int partNumber = 1;
+            //Defaults
+            my_year = 0, my_price = 0, my_count = 0;
+            my_title = "", my_artist = "", my_type = "";
 
-    string part;
-    while ((pos = line.find(delimiter)) != string::npos) {
-        part = line.substr(0, pos);
-        cout << part << std::endl;
-        line.erase(0, pos + delimiter.length());
-    }
+            pos = 0;
+            partNumber = 1;
+            part = "";
 
-    //Create a new record (Binary) to create 7 records
-    MyClass record;
+            //Find each part separated by the delimiter and
+            //Set the respective variables
+            //Ex. TITLE ARTIST TYPE YEAR PRICE COUNT
+            while ((pos = line.find(delimiter)) != string::npos) {
+                part = line.substr(0, pos);
+                switch (partNumber)
+                {
+                case(1) : my_title = part;
+                    break;
+                case(2) : my_artist = part;
+                    break;
+                case(3) : my_type = part;
+                    break;
+                case(4) : my_year = std::atoi(part.c_str());
+                    break;
+                case(5) : my_price = std::atoi(part.c_str());
+                    break;
+                case(6) : my_count = std::atoi(part.c_str());
+                    break;
+                default: //None
+                    break;
+                } // end switch
 
-    /*
+                line.erase(0, pos + delimiter.length());
+                partNumber++;
+            } // end delimeter While
 
-    //Record 1
-    record.set_title("lustful   ");
-    record.set_artist("Meirav Sher");
-    record.set_type("Painting");
-    record.set_year(2015);
-    record.set_price(1500);
-    record.set_count(1);
-    record.writeIt(outputFile, 1);
+            //Convert line into binary file object named me
+            MyClass me(my_title, my_artist, my_type,
+               my_year, my_price, my_count);
 
-    //Record 2
-    record.set_title("Known face");
-    record.set_artist("Falk Kastel");
-    record.set_type("Drawing ");
-    record.set_year(2014);
-    record.set_price(1600);
-    record.set_count(1);
-    record.writeIt(outputFile, 2);
+            //Seek position and write record in binary file
+            me.writeIt(outputFile, position);
 
-    //Record 3
-    record.set_title("Atena     ");
-    record.set_artist("Alberto Fus");
-    record.set_type("Sculpture");
-    record.set_year(2012);
-    record.set_price(2200);
-    record.set_count(1);
-    record.writeIt(outputFile, 3);
+            //Pass Primary Key information to Primary Index(title, position)
+            primaryInx.set_title_key(my_title, position);
 
-    //Record 4
-    record.set_title("Chanel    ");
-    record.set_artist("Cate Parrl ");
-    record.set_type("Painting ");
-    record.set_year(2013);
-    record.set_price(1500);
-    record.set_count(1);
-    record.writeIt(outputFile, 4);
+            //Pass Secondary Key information to Secondary Index(artist or year, position)
+            secondaryInx.set_artist_key(my_artist, position);
 
-    //Record 5
-    record.set_title("woman w/peas");
-    record.set_artist("Leonardo D.");
-    record.set_type("Collage");
-    record.set_year(2015);
-    record.set_price(1300);
-    record.set_count(1);
-    record.writeIt(outputFile, 5);
+            //position++
+            position++;
 
-    //Record 6
-    record.set_title("Pokerface ");
-    record.set_artist("Miss Aniela");
-    record.set_type("Photography");
-    record.set_year(2014);
-    record.set_price(5495);
-    record.set_count(1);
-    record.writeIt(outputFile, 6);
+        } // End eof while
 
-    //Record 7
-    record.set_title("Build Block");
-    record.set_artist("Paul Brouns");
-    record.set_type("Photography");
-    record.set_year(2015);
-    record.set_price(3300);
-    record.set_count(1);
-    record.writeIt(outputFile, 7);
+        //Update Binary File record zero with count information
+        MyClass writeZeroRecord;
+        writeZeroRecord.set_value(outputFile, position);
+        //Write Primary Index to a file (open file using ofstream)
+        primaryInx.writePrimary();
+        //Write Secondary Index to a file (open file using ofstream)
+        secondaryInx.writeSecondary();
 
-    //Record 8 - Dead
-    record.set_title("Test");
-    record.set_artist("Dead");
-    record.set_type("Flag");
-    record.set_year(9999);
-    record.set_price(9999);
-    record.set_count(1);
-    record.set_flag();
-    record.writeIt(outputFile, 8);
+        //Close all files
+        input.close();
+        outputFile.close();
 
-    //Set final value - # of records
-    record.set_value(outputFile, 8);
-    */
+    } // End if
 
-    //Close file
-//    outputFile.close();
 
 }
