@@ -226,7 +226,7 @@ void ChangeByArtistMenu()
          << "  6  Year" << endl
          << "  7  Price" << endl
          << "  8  Count" << endl
-         << "\n\n\n\n";
+         << "\n\n\n";
      ChangeByTitleMenuInput();
 } // end MainMenu
 
@@ -361,7 +361,7 @@ void ChangeRecordMenuInput()
     } // end else
 } // end ChangeRecordMenuInput
 
-//ChangeByTitleMenuInput selection
+//Change By Title Menu Input selection
 void ChangeByTitleMenuInput()
 {
     string input;
@@ -549,8 +549,7 @@ void stopMenu()
     string s;
     getline(cin, s);
     getline(cin, s);
-    //Exit Program
-    //Go back to main method
+    //Exit Program -Go back to main method
 } // end stopMenu
 
 void sellATitle()
@@ -620,7 +619,7 @@ void changeByTitle(int selection)
 {
     //Quit
     if(selection == 1)
-    {
+    {   //Go to Change By Menu
         currentMenu = 7;
         LoadCurrentMenu();
     }
