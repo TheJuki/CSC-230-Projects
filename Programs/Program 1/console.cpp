@@ -24,6 +24,7 @@ void MainMenu();
 void PrintMenu();
 void DeleteMenu();
 void ChangeRecordMenu();
+void ChangeByArtistMenu();
 
 //Clearing and Invalid Selection Handling
 void ClearScreen();
@@ -37,6 +38,7 @@ void MainMenuInput();
 void PrintMenuInput();
 void DeleteMenuInput();
 void ChangeRecordMenuInput();
+void ChangeByTitleMenuInput();
 
 //Used for InvalidInput
 void LoadCurrentMenu();
@@ -54,7 +56,7 @@ void deleteByTitle();
 
 //Change Menu Functions
 void changeByArtist();
-void changeByTitle();
+void changeByTitle(int selection);
 
 //Other Menu Functions
 void addARecord();
@@ -118,7 +120,7 @@ void LoadCurrentMenu()
                  break;
         case(2): PrintMenu();
                  break;
-        case(3): ClearScreen();
+        case(3): ChangeByArtistMenu();
                  break;
         case(4): ClearScreen();
                  break;
@@ -204,6 +206,25 @@ void ChangeRecordMenu()
          << "\n\n\n\n";
      ChangeRecordMenuInput();
 } // end ChangeRecordMenu
+
+//The Change By Title print
+void ChangeByArtistMenu()
+{
+    currentMenu = 3;
+    ClearScreen();
+    Header();
+    cout << "  Change By Title" << endl << endl;
+    cout << "  1  Quit" << endl
+         << "  2  Submit" << endl
+         << "  3  Title" << endl
+         << "  4  Artist" << endl
+         << "  5  Type" << endl
+         << "  6  Year" << endl
+         << "  7  Price" << endl
+         << "  8  Count" << endl
+         << "\n\n\n\n";
+     ChangeByTitleMenuInput();
+} // end MainMenu
 
 
 
@@ -326,13 +347,52 @@ void ChangeRecordMenuInput()
                      break;
             case('1'): changeByArtist();
                      break;
-            case('2'): changeByTitle();
+            case('2'): ChangeByArtistMenu();
                      break;
             default: InvalidInput();
                      break;
         } // end switch
     } // end else
 } // end ChangeRecordMenuInput
+
+//ChangeByTitleMenuInput selection
+void ChangeByTitleMenuInput()
+{
+    string input;
+    cout << "Please enter a selection from the Change By Title Menu (1-8): ";
+    cin >> input;
+    if(input.size() > 1)
+    {
+       InvalidInput();
+    }
+    else
+    {
+        const char* p_c_str = input.c_str();
+        char inputChar = p_c_str[0];
+        switch(inputChar)
+        {
+            case('1'): changeByTitle(1);
+                     break;
+            case('2'): changeByTitle(2);
+                     break;
+            case('3'): changeByTitle(3);
+                     break;
+            case('4'): changeByTitle(4);
+                     break;
+            case('5'): changeByTitle(5);
+                     break;
+            case('6'): changeByTitle(6);
+                     break;
+            case('7'): changeByTitle(7);
+                     break;
+            case('8'): changeByTitle(8);
+                     break;
+            default: InvalidInput();
+                     break;
+        } // end switch
+    } // end else
+} // end ChangeByTitleMenuInput
+
 
 //--------------------------------------------------//
 //           Print Functions
@@ -546,13 +606,23 @@ void changeByArtist()
     LoadCurrentMenu();
 }
 
-void changeByTitle()
+void changeByTitle(int selection)
 {
-    cout << "changeByTitle method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+    //Quit
+    if(selection == 1)
+    {
+        currentMenu = 7;
+        LoadCurrentMenu();
+    }
+    else //Everything else for now
+    {
+        cout << "changeByTitle method stubbed" << endl;
+        string s;
+        getline(cin, s);
+        getline(cin, s);
+        LoadCurrentMenu();
+    }
+
 }
 
 

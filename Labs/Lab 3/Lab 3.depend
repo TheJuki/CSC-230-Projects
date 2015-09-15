@@ -1,28 +1,28 @@
 # depslib dependency file v1.0
-1442092400 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\artist.cpp
+1442324844 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
 
-1442090112 c:\users\justin\documents\github\csc-230-projects\labs\lab 3\artist.h
+1442324844 c:\users\justin\documents\github\csc-230-projects\labs\lab 3\artist.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 
-1442089902 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\binary.cpp
+1442324845 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\binary.cpp
 	"binary.h"
 	<stdlib.h>
 	<sstream>
 	<string>
 
-1442084959 c:\users\justin\documents\github\csc-230-projects\labs\lab 3\binary.h
+1441913971 c:\users\justin\documents\github\csc-230-projects\labs\lab 3\binary.h
 	<string>
 	<cstring>
 	<fstream>
 
-1442093073 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\main.cpp
+1442324845 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\main.cpp
 	"binary.h"
 	"artist.h"
 	"title.h"
@@ -31,10 +31,10 @@
 	<fstream>
 	<cstdlib>
 
-1442092531 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\title.cpp
+1442324845 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 3\title.cpp
 	"title.h"
 
-1442084959 c:\users\justin\documents\github\csc-230-projects\labs\lab 3\title.h
+1441903821 c:\users\justin\documents\github\csc-230-projects\labs\lab 3\title.h
 	<string>
 	<cstring>
 	<iostream>

@@ -62,10 +62,13 @@
 	<cstring>
 	<fstream>
 
-1441377821 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
+1442324845 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
 	"artist.h"
+	<iostream>
+	<fstream>
+	<sstream>
 
-1441377821 c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.h
+1442324845 c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.h
 	<string>
 	<cstring>
 	<iostream>
@@ -73,38 +76,43 @@
 
 1441377821 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\ay.cpp
 
-1441377974 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.cpp
+1442324851 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.cpp
 	"binary.h"
 	<stdlib.h>
 	<sstream>
 	<string>
 
-1441377823 c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.h
+1442324851 c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.h
 	<string>
 	<cstring>
 	<fstream>
 
-1441377921 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\bulk.cpp
+1442324851 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\bulk.cpp
 	"binary.h"
-	<fstream>
+	"artist.h"
+	"title.h"
 	<iostream>
 	<string>
+	<fstream>
+	<cstdlib>
 
-1441377823 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
+1442324851 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<stdlib.h>
 	<fstream>
+	"title.h"
+	"artist.h"
 	"binary.h"
 
 1441057715 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\main.cpp
 	<string>
 	<iostream>
 
-1441377824 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.cpp
+1442324852 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.cpp
 	"title.h"
 
-1441377824 c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.h
+1442324852 c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.h
 	<string>
 	<cstring>
 	<iostream>
