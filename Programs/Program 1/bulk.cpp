@@ -1,13 +1,14 @@
 /*
 File       : bulk.cpp
 Program    : Program 1 - Array Based Indexes
-Due Date   : null
+Due Date   : September 21, 2015
 Author     : Justin Kirk
 Description: Code for bulk
 */
 
 #include "binary.h"
 #include "artist.h"
+#include "year.h"
 #include "title.h"
 #include <iostream>
 #include <string>
@@ -52,8 +53,9 @@ void build()
         long position = 1;
         //Create Primary Index object
         PrimaryIndex primaryInx;
-        //Create Secondary Index object
-        ArtistIndex secondaryInx;
+        //Create Secondary Index objects
+        ArtistIndex artistInx;
+        YearIndex yearInx;
         //delimiter is a space
         string delimiter = " ";
         //size of string
@@ -111,7 +113,7 @@ void build()
 
                 line.erase(0, pos + delimiter.length());
                 partNumber++;
-            } // end delimeter While
+            } // end delimiter While
 
             //Convert line into binary file object named me
             MyClass me(my_title, my_artist, my_type,
@@ -124,7 +126,8 @@ void build()
             primaryInx.set_title_key(my_title, position);
 
             //Pass Secondary Key information to Secondary Index(artist or year, position)
-            secondaryInx.set_artist_key(my_artist, position);
+            artistInx.set_artist_key(my_artist, position);
+            yearInx.set_year_key(my_year, position);
 
             //position++
             position++;
@@ -137,7 +140,8 @@ void build()
         //Write Primary Index to a file (open file using ofstream)
         primaryInx.writePrimary();
         //Write Secondary Index to a file (open file using ofstream)
-        secondaryInx.writeSecondary();
+        artistInx.writeSecondary();
+        yearInx.writeSecondary();
 
         //Close all files
         input.close();

@@ -1,17 +1,17 @@
 /*
 File       : console.cpp
 Program    : Program 1 - Array Based Indexes
-Due Date   : null
+Due Date   : September 21, 2015
 Author     : Justin Kirk
-Description: Code console display
+Description: Main Driver. Handles Console output.
 */
 
 #include <string>
 #include <iostream>
-#include <stdlib.h>
 #include <fstream>
 #include "title.h"
 #include "artist.h"
+#include "year.h"
 #include "binary.h"
 
 //Prototypes
@@ -135,6 +135,10 @@ void LoadCurrentMenu()
     }
 } // end LoadCurrentMenu
 
+//--------------------------------------------------//
+//           cout Menu Functions
+//--------------------------------------------------//
+
 //The Main Menu print
 void MainMenu()
 {
@@ -226,7 +230,9 @@ void ChangeByArtistMenu()
      ChangeByTitleMenuInput();
 } // end MainMenu
 
-
+//--------------------------------------------------//
+//           Menu Selection Functions
+//--------------------------------------------------//
 
 //Main Menu selection
 void MainMenuInput()
@@ -395,7 +401,7 @@ void ChangeByTitleMenuInput()
 
 
 //--------------------------------------------------//
-//           Print Functions
+//           Print Menu Functions
 //--------------------------------------------------//
 
 //Print all records
@@ -429,6 +435,7 @@ void PrintAll()
         outputFile.close();
     }
 
+    //Ask user to return -Ignores Invalid Input
 	string input;
 	cout << endl << endl << "Enter '1' to go back or '0' for Main Menu: ";
 	cin >> input;
@@ -507,7 +514,8 @@ void stopMenu()
         //Create Primary Index object
         PrimaryIndex primaryInx;
         //Create Secondary Index object
-        ArtistIndex secondaryInx;
+        ArtistIndex artistInx;
+        YearIndex yearInx;
 
         if(outputFile.is_open())
         {
@@ -520,7 +528,8 @@ void stopMenu()
                     primaryInx.set_title_key(record.get_title(), pos);
 
                     //Pass Secondary Key information to Secondary Index(artist or year, position)
-                    secondaryInx.set_artist_key(record.get_artist(), pos);
+                    artistInx.set_artist_key(record.get_artist(), pos);
+                    yearInx.set_year_key(record.get_year(), pos);
                 }
                 pos++;
                 record.readIt(outputFile, pos);
@@ -529,7 +538,8 @@ void stopMenu()
             //Write Primary Index to a file (open file using ofstream)
             primaryInx.writePrimary();
             //Write Secondary Index to a file (open file using ofstream)
-            secondaryInx.writeSecondary();
+            artistInx.writeSecondary();
+            yearInx.writeSecondary();
             //Close file
             outputFile.close();
         } // end if
@@ -540,7 +550,7 @@ void stopMenu()
     getline(cin, s);
     getline(cin, s);
     //Exit Program
-    exit (0);
+    //Go back to main method
 } // end stopMenu
 
 void sellATitle()

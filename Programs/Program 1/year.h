@@ -1,7 +1,7 @@
 /*
 File       : year.h
 Program    : Program 1 - Array Based Indexes
-Due Date   : null
+Due Date   : September 21, 2015
 Author     : Justin Kirk
 Description: Header for year.cpp
 */
@@ -17,7 +17,7 @@ private:
     struct MINI
     {
         int year;
-        int tag[11];
+        int pos[11];
     } my_list[15];
     int count;
 
@@ -28,7 +28,7 @@ public:
         {
             my_list[i].year = 0;
             for(int k = 0; k < 11; ++k)
-                my_list[i].tag[k] = 0;
+                my_list[i].pos[k] = 0;
         }
     }
 

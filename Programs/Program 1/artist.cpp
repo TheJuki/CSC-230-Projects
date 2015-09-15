@@ -13,8 +13,7 @@ Description: Artist - secondary index
 
 std::string ArtistIndex::get_artist(int pos) const
 {
-    // Stub
-    return "";
+    return ArtistIndex::my_list[pos].artist;
 }
 
 void ArtistIndex::set_artist_key(std::string my_artist, int my_key)
@@ -45,7 +44,7 @@ void ArtistIndex::set_artist_key(std::string my_artist, int my_key)
     //Max number of artist indices is 14 (From 1 to 15)
     if(!foundArtist && ((ArtistIndex::count + 1) != 15))
     {
-        //Set the next artist possition
+        //Set the next artist position
         int next_artist = ++ArtistIndex::count;
         //Set the artist
         ArtistIndex::my_list[next_artist].artist = my_artist;
