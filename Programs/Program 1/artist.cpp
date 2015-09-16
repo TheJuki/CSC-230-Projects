@@ -10,6 +10,7 @@ Description: Artist - secondary index
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stdlib.h>
 
 std::string ArtistIndex::get_artist(int pos) const
 {
@@ -74,12 +75,20 @@ void ArtistIndex::writeSecondary()
 
     //A normal string used as a string builder
     std::string buildLine;
+    std::string numOfKeys;
 
     //For each item in my_list
      for(int i = 1; i < 15; ++i)
      {
          //Default
-         buildLine = my_list[i].pos[0] + ", ";
+         buildLine = " ";
+
+         //Number of Keys
+         std::stringstream strs;
+         strs << ArtistIndex::my_list[i].pos[0];
+         std::string temp_str = strs.str();
+         //Add number of keys to numOfKeys
+         numOfKeys = temp_str + " ";
 
          //for each item in pos
          for(int k = 1; k < 11; ++k)
@@ -91,7 +100,7 @@ void ArtistIndex::writeSecondary()
                  strs << ArtistIndex::my_list[i].pos[k];
                  std::string temp_str = strs.str();
                  //Add key to buildLine
-                 buildLine += temp_str + ", ";
+                 buildLine += temp_str + " ";
              } //end if
          } // end for
 
@@ -99,8 +108,9 @@ void ArtistIndex::writeSecondary()
          if(ArtistIndex::my_list[i].pos[0] != 0)
          {
              //Write to file
-            outSecondary << buildLine
+            outSecondary << numOfKeys
                          << ArtistIndex::my_list[i].artist
+                         << buildLine
                          << std::endl;
          } // end if
      } //end for
@@ -114,29 +124,29 @@ void ArtistIndex::writeSecondary()
 void ArtistIndex::readSecondary()
 {
     //Open Sequential file for reading using ifstream
-    ifstream input;
-    input.open ("ArtistIndexes.txt, fstream::in);
+    std::ifstream input;
+    input.open ("secondaryArtists.txt", std::fstream::in);
 
     if (input.is_open())
     {
         //Set position to 1
         long position = 1;
-        //Create Secondary Index objects
-        ArtistIndex artistInx;
         //delimiter is a space
-        string delimiter = ", ";
+        std::string delimiter = " ";
         //size of string
         size_t pos = 0;
         //Part of line
         int partNumber = 1;
         //Line in file as a string
-        string line;
+        std::string line;
         //string of part
-        string part;
+        std::string part;
+        //Number of keys in line
+        int numOfKeys = 0;
 
         //----------------------------------------//
         //Parts of binary object in line variables
-        string my_artist;
+        std::string my_artist;
         int positionInBinary = 0;
 
         //while(not sequential.eof())
@@ -154,47 +164,33 @@ void ArtistIndex::readSecondary()
             pos = 0;
             partNumber = 1;
             part = "";
+            numOfKeys = 0;
 
-            //Find each part separated by the delimiter and
-            //Set the respective variables
-            //Ex. TITLE ARTIST TYPE YEAR PRICE COUNT
-            while ((pos = line.find(delimiter)) != string::npos) {
-                part = line.substr(0, pos);
-                switch (partNumber)
+            //Get Number of keys
+            if ((pos = line.find(delimiter)) != std::string::npos)
+            {
+                 part = line.substr(0, pos);
+                 line.erase(0, pos + delimiter.length());
+                 numOfKeys = atoi(part.c_str());
+                 my_list[position].pos[0] = numOfKeys;
+            }
+            //Get artist name
+            if ((pos = line.find(delimiter)) != std::string::npos)
+            {
+                 part = line.substr(0, pos);
+                 line.erase(0, pos + delimiter.length());
+                 my_list[position].artist = part;
+            }
+            //Set pos to keys in line
+            for(int i = 1; i < (numOfKeys + 1); ++i)
+            {
+                if((pos = line.find(delimiter)) != std::string::npos)
                 {
-                case(1) : my_title = part;
-                    break;
-                case(2) : my_artist = part;
-                    break;
-                case(3) : my_type = part;
-                    break;
-                case(4) : my_year = std::atoi(part.c_str());
-                    break;
-                case(5) : my_price = std::atoi(part.c_str());
-                    break;
-                case(6) : my_count = std::atoi(part.c_str());
-                    break;
-                default: //None
-                    break;
-                } // end switch
-
-                line.erase(0, pos + delimiter.length());
-                partNumber++;
-            } // end delimiter While
-
-            //Convert line into binary file object named me
-            MyClass me(my_title, my_artist, my_type,
-               my_year, my_price, my_count);
-
-            //Seek position and write record in binary file
-            me.writeIt(outputFile, position);
-
-            //Pass Primary Key information to Primary Index(title, position)
-            primaryInx.set_title_key(my_title, position);
-
-            //Pass Secondary Key information to Secondary Index(artist or year, position)
-            artistInx.set_artist_key(my_artist, position);
-            yearInx.set_year_key(my_year, position);
+                     part = line.substr(0, pos);
+                     my_list[position].pos[i] = atoi(part.c_str());
+                     line.erase(0, pos + delimiter.length());
+                }
+            }
 
             //position++
             position++;
@@ -203,7 +199,8 @@ void ArtistIndex::readSecondary()
 
         //Close all files
         input.close();
-}
+    } // end if
+} //end readSecondary
 
 bool ArtistIndex::matchArtist(std::string inArtist, int pos[])
 {

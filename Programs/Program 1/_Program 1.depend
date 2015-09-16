@@ -62,13 +62,14 @@
 	<cstring>
 	<fstream>
 
-1442415047 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
+1442441285 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
+	<stdlib.h>
 
-1442414996 c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.h
+1442438725 c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.h
 	<string>
 	<cstring>
 	<iostream>
@@ -97,7 +98,7 @@
 	<fstream>
 	<cstdlib>
 
-1442415216 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
+1442441356 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<fstream>

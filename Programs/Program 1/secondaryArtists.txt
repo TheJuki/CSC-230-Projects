@@ -1,14 +1,14 @@
-1, Hopper
-2, Klimt
-3, 7, Gericault
-4, Rodin
-5, Warhol
-6, Michelangelo
-8, Dali
-9, Moore
-10, Duchamp1
-11, Duchamp2
-12, Duchamp3
-13, 14, Duchamp4
-15, Duchamp5
-16, Duchamp6
+1 Hopper 1 
+1 Klimt 2 
+2 Gericault 3 7 
+1 Rodin 4 
+1 Warhol 5 
+1 Michelangelo 6 
+1 Dali 8 
+1 Moore 9 
+1 Duchamp1 10 
+1 Duchamp2 11 
+1 Duchamp3 12 
+2 Duchamp4 13 14 
+1 Duchamp5 15 
+1 Duchamp6 16 
