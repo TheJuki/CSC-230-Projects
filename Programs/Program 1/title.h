@@ -40,6 +40,6 @@ public:
     void readPrimary();
     void outputKey(); // debugging tool
     void change_title(std::string new_title, int key);
-    void matchTitle(std::string inTitle);
+    int matchTitle(std::string inTitle);
 };
 #endif // MY_PRIMARY_INDEX_H

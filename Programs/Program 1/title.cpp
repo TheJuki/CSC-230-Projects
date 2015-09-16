@@ -70,11 +70,12 @@ void PrimaryIndex::change_title(std::string new_title, int key)
          if(PrimaryIndex::my_list[i].pos == key)
          {
              PrimaryIndex::my_list[i].title = new_title;
+             break;
          }
     }
 }
 
-void PrimaryIndex::matchTitle(std::string inTitle)
+int PrimaryIndex::matchTitle(std::string inTitle)
 {
-    // Stub
+    return 0;
 }

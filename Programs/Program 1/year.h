@@ -40,6 +40,6 @@ public:
     //Read and Write
     void writeSecondary();
     void readSecondary();
-    void matchYear(int inYear, int pos[]);
+    bool matchYear(int inYear, int pos[]);
 };
 #endif // MY_YEAR_INDEX_H

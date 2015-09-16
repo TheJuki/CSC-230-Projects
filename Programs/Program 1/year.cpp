@@ -62,6 +62,7 @@ void YearIndex::updateYear(int new_year, int pos[])
          if(YearIndex::my_list[i].pos == pos)
          {
              YearIndex::my_list[i].year = new_year;
+             break;
          }
     }
 }
@@ -113,9 +114,9 @@ void YearIndex::readSecondary()
     // Stub
 }
 
-void YearIndex::matchYear(int inYear, int pos[])
+bool YearIndex::matchYear(int inYear, int pos[])
 {
-    // Stub
+    return false;
 }
 
 

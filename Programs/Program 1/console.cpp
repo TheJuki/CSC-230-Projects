@@ -168,7 +168,7 @@ void PrintMenu()
          << "  2  Print by Title" << endl
          << "  3  Print by Artist" << endl
          << "  4  Print by Year" << endl
-         << "  5  Print by Summary" << endl
+         << "  5  Print Summary" << endl
          << endl //6
          << endl //7
          << "\n\n\n\n";

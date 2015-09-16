@@ -57,7 +57,14 @@ void ArtistIndex::set_artist_key(std::string my_artist, int my_key)
 
 void ArtistIndex::updateArtist(std::string new_artist, int pos[])
 {
-    // Stub
+     for(int i = 1; i < 15; ++i)
+    {
+         if(ArtistIndex::my_list[i].pos == pos)
+         {
+             ArtistIndex::my_list[i].artist = new_artist;
+             break;
+         }
+    }
 }
 
 void ArtistIndex::writeSecondary()
@@ -109,9 +116,9 @@ void ArtistIndex::readSecondary()
     // Stub
 }
 
-void ArtistIndex::matchArtist(std::string inArtist, int pos[])
+bool ArtistIndex::matchArtist(std::string inArtist, int pos[])
 {
-    // Stub
+    return false;
 }
 
 

@@ -41,6 +41,6 @@ public:
     //Read and Write
     void writeSecondary();
     void readSecondary();
-    void matchArtist(std::string inArtist, int pos[]);
+    bool matchArtist(std::string inArtist, int pos[]);
 };
 #endif // MY_ARTIST_INDEX_H
