@@ -57,7 +57,13 @@ void YearIndex::set_year_key(int my_year, int my_key)
 
 void YearIndex::updateYear(int new_year, int pos[])
 {
-    // Stub
+     for(int i = 1; i < 15; ++i)
+    {
+         if(YearIndex::my_list[i].pos == pos)
+         {
+             YearIndex::my_list[i].year = new_year;
+         }
+    }
 }
 
 void YearIndex::writeSecondary()

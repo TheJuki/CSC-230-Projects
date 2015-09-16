@@ -65,7 +65,13 @@ void PrimaryIndex::outputKey()
 
 void PrimaryIndex::change_title(std::string new_title, int key)
 {
-    // Stub
+    for(int i = 1; i < 25; ++i)
+    {
+         if(PrimaryIndex::my_list[i].pos == key)
+         {
+             PrimaryIndex::my_list[i].title = new_title;
+         }
+    }
 }
 
 void PrimaryIndex::matchTitle(std::string inTitle)
