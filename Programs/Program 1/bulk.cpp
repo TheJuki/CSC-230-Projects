@@ -91,7 +91,8 @@ void build()
             //Find each part separated by the delimiter and
             //Set the respective variables
             //Ex. TITLE ARTIST TYPE YEAR PRICE COUNT
-            while ((pos = line.find(delimiter)) != string::npos) {
+            do {
+                pos = line.find(delimiter);
                 part = line.substr(0, pos);
                 switch (partNumber)
                 {
@@ -113,7 +114,7 @@ void build()
 
                 line.erase(0, pos + delimiter.length());
                 partNumber++;
-            } // end delimiter While
+            } while (pos != string::npos); // end delimiter While
 
             //Convert line into binary file object named me
             MyClass me(my_title, my_artist, my_type,
