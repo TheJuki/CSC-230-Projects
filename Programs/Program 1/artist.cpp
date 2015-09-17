@@ -135,16 +135,12 @@ void ArtistIndex::readSecondary()
         std::string delimiter = " ";
         //size of string
         size_t pos = 0;
-        //Part of line
-        int partNumber = 1;
         //Line in file as a string
         std::string line;
         //string of part
         std::string part;
         //Number of keys in line
         int numOfKeys = 0;
-        //Artist name
-        std::string my_artist;
 
         //while(not sequential.eof())
         while(!input.eof())
@@ -155,11 +151,7 @@ void ArtistIndex::readSecondary()
             //cout << line;
 
             //Defaults
-            my_artist =  "";
-            positionInBinary = 0;
-
             pos = 0;
-            partNumber = 1;
             part = "";
             numOfKeys = 0;
 
@@ -169,14 +161,14 @@ void ArtistIndex::readSecondary()
                  part = line.substr(0, pos);
                  line.erase(0, pos + delimiter.length());
                  numOfKeys = atoi(part.c_str());
-                 my_list[position].pos[0] = numOfKeys;
+                 ArtistIndex::my_list[position].pos[0] = numOfKeys;
             }
             //Get artist name
             if ((pos = line.find(delimiter)) != std::string::npos)
             {
                  part = line.substr(0, pos);
                  line.erase(0, pos + delimiter.length());
-                 my_list[position].artist = part;
+                 ArtistIndex::my_list[position].artist = part;
             }
             //Set pos to keys in line
             for(int i = 1; i < (numOfKeys + 1); ++i)
@@ -184,7 +176,7 @@ void ArtistIndex::readSecondary()
                 if((pos = line.find(delimiter)) != std::string::npos)
                 {
                      part = line.substr(0, pos);
-                     my_list[position].pos[i] = atoi(part.c_str());
+                     ArtistIndex::my_list[position].pos[i] = atoi(part.c_str());
                      line.erase(0, pos + delimiter.length());
                 }
             }
@@ -194,6 +186,8 @@ void ArtistIndex::readSecondary()
 
         } // End eof while
 
+        //Set zero record to number of indexes
+        my_list[0].pos[0] = position;
         //Close all files
         input.close();
     } // end if
@@ -201,6 +195,19 @@ void ArtistIndex::readSecondary()
 
 bool ArtistIndex::matchArtist(std::string inArtist, int pos[])
 {
+    int location, count;
+
+    for (location = 1; location <= ArtistIndex::my_list[0].pos[0]; ++location)
+    {
+        if(my_list[location].artist == inArtist)
+        {
+            for(count = 1; count <= ArtistIndex::my_list[location].pos[0]; ++count)
+            {
+                pos[count - 1] = ArtistIndex::my_list[location].pos[count];
+            }
+            return true;
+        }
+    }
     return false;
 }
 

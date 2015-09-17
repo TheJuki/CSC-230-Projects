@@ -77,9 +77,6 @@ int main(void)
     //Create Bulk if output.bin does not exist
     checkBulkFile();
     //Start the Main Menu
-    //ArtistIndex art;
-    //art.readSecondary();
-    //art.writeSecondary();
     MainMenu();
     return 0;
 }

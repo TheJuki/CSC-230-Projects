@@ -7,6 +7,7 @@ Description: Code for title data
 */
 
 #include "title.h"
+#include <stdlib.h>
 
 bool PrimaryIndex::set_title_key(std::string my_title, int my_key)
 {
@@ -55,12 +56,66 @@ void PrimaryIndex::writePrimary()
 
 void PrimaryIndex::readPrimary()
 {
-    // Stub
-}
+     //Open Sequential file for reading using ifstream
+    std::ifstream input;
+    input.open ("primaryTitles.txt", std::fstream::in);
+
+    if (input.is_open())
+    {
+        //Set position to 1
+        long position = 1;
+        //delimiter is a space
+        std::string delimiter = " ";
+        //size of string
+        size_t pos = 0;
+        //Line in file as a string
+        std::string line;
+        //string of part
+        std::string part;
+
+        //while(not sequential.eof())
+        while(!input.eof())
+        {
+            //Read in a line from the sequential file
+            getline (input,line);
+
+            //cout << line;
+
+            //Defaults
+            pos = 0;
+            part = "";
+
+            //Get key
+            if ((pos = line.find(delimiter)) != std::string::npos)
+            {
+                 part = line.substr(0, pos);
+                 line.erase(0, pos + delimiter.length());
+                 int key = atoi(part.c_str());
+                 PrimaryIndex::my_list[position].pos = key;
+            }
+            //Get artist
+            if ((pos = line.find(delimiter)) != std::string::npos)
+            {
+                 part = line.substr(0, pos);
+                 line.erase(0, pos + delimiter.length());
+                 PrimaryIndex::my_list[position].title = atoi(part.c_str());
+            }
+
+            //position++
+            position++;
+
+        } // End eof while
+
+        //Set zero record to number of indexes
+        my_list[0].pos = position;
+        //Close all files
+        input.close();
+    } // end if
+} //end readPrimary
 
 void PrimaryIndex::outputKey()
 {
-    // Stub
+    std::cout << PrimaryIndex::my_list[0].pos;
 }
 
 void PrimaryIndex::change_title(std::string new_title, int key)
@@ -77,5 +132,14 @@ void PrimaryIndex::change_title(std::string new_title, int key)
 
 int PrimaryIndex::matchTitle(std::string inTitle)
 {
+    int location, count;
+
+    for (location = 1; location <= PrimaryIndex::my_list[0].pos; ++location)
+    {
+        if(PrimaryIndex::my_list[location].title == inTitle)
+        {
+            return 1;
+        }
+    }
     return 0;
 }
