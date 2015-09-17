@@ -62,7 +62,7 @@
 	<cstring>
 	<fstream>
 
-1442499214 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
+1442508981 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
@@ -98,7 +98,7 @@
 	<fstream>
 	<cstdlib>
 
-1442499415 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
+1442508562 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<fstream>
@@ -111,8 +111,9 @@
 	<string>
 	<iostream>
 
-1442414993 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.cpp
+1442508889 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.cpp
 	"title.h"
+	<stdlib.h>
 
 1442415021 c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.h
 	<string>
@@ -120,7 +121,7 @@
 	<iostream>
 	<fstream>
 
-1442499354 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\year.cpp
+1442508992 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\year.cpp
 	"year.h"
 	<iostream>
 	<fstream>

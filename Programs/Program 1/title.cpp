@@ -74,7 +74,7 @@ void PrimaryIndex::readPrimary()
         std::string part;
 
         //while(not sequential.eof())
-        while(!input.eof())
+        while(!input.eof() && position != 25)
         {
             //Read in a line from the sequential file
             getline (input,line);
@@ -93,18 +93,16 @@ void PrimaryIndex::readPrimary()
                  int key = atoi(part.c_str());
                  PrimaryIndex::my_list[position].pos = key;
             }
+
             //Get artist
-            if ((pos = line.find(delimiter)) != std::string::npos)
-            {
-                 part = line.substr(0, pos);
-                 line.erase(0, pos + delimiter.length());
-                 PrimaryIndex::my_list[position].title = atoi(part.c_str());
-            }
+             part = line.substr(0, std::string::npos);
+             PrimaryIndex::my_list[position].title = part;
 
             //position++
             position++;
 
         } // End eof while
+        std::cout << "End while" << std::endl;
 
         //Set zero record to number of indexes
         my_list[0].pos = position;
