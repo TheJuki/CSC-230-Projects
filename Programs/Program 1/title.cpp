@@ -11,8 +11,6 @@ Description: Code for title data
 
 bool PrimaryIndex::set_title_key(std::string my_title, int my_key)
 {
-    //Check for an existing title
-    bool foundTitle = false;
      //For each item in my_list
     for(int i = 1; i < 25; ++i)
     {
@@ -105,7 +103,10 @@ void PrimaryIndex::readPrimary()
         std::cout << "End while" << std::endl;
 
         //Set zero record to number of indexes
-        my_list[0].pos = position;
+        if(position > 24)
+            my_list[0].pos = 24;
+        else
+            my_list[0].pos = position;
         //Close all files
         input.close();
     } // end if
@@ -114,7 +115,7 @@ void PrimaryIndex::readPrimary()
 void PrimaryIndex::outputKey()
 {
     std::cout << PrimaryIndex::my_list[0].pos;
-}
+} // End outputKey
 
 void PrimaryIndex::change_title(std::string new_title, int key)
 {
@@ -126,11 +127,11 @@ void PrimaryIndex::change_title(std::string new_title, int key)
              break;
          }
     }
-}
+} // End change_title
 
 int PrimaryIndex::matchTitle(std::string inTitle)
 {
-    int location, count;
+    int location;
 
     for (location = 1; location <= PrimaryIndex::my_list[0].pos; ++location)
     {
@@ -140,4 +141,18 @@ int PrimaryIndex::matchTitle(std::string inTitle)
         }
     }
     return 0;
-}
+} // End matchTitle
+
+int PrimaryIndex::findTitle(std::string inTitle)
+{
+    int location;
+
+    for (location = 1; location <= PrimaryIndex::my_list[0].pos; ++location)
+    {
+        if(PrimaryIndex::my_list[location].title == inTitle)
+        {
+            return PrimaryIndex::my_list[location].pos;
+        }
+    }
+    return 0;
+} // End matchTitle

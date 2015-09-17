@@ -41,5 +41,6 @@ public:
     void outputKey(); // debugging tool
     void change_title(std::string new_title, int key);
     int matchTitle(std::string inTitle);
+    int findTitle(std::string inTitle);
 };
 #endif // MY_PRIMARY_INDEX_H

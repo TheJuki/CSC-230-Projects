@@ -187,7 +187,10 @@ void ArtistIndex::readSecondary()
         } // End eof while
 
         //Set zero record to number of indexes
-        my_list[0].pos[0] = position;
+        if(position > 14)
+            my_list[0].pos[0] = 14;
+        else
+            my_list[0].pos[0] = position;
         //Close all files
         input.close();
     } // end if

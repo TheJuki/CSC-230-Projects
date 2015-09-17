@@ -19,6 +19,9 @@ Description: Main Driver. Handles Console output.
 //Bulk
 void checkBulkFile();
 
+//Indexes
+void fillIndexes();
+
 //Menu lists
 void MainMenu();
 void PrintMenu();
@@ -44,6 +47,7 @@ void ChangeByTitleMenuInput();
 void LoadCurrentMenu();
 
 //Print Menu functions
+void printReturn();
 void PrintAll();
 void PrintByArtist();
 void PrintByTitle();
@@ -70,22 +74,45 @@ void stopMenu();
 int currentMenu = 0;
 bool indexUpdated = false;
 
+//Binary record
+MyClass record;
+
+//Primary Indexes
+PrimaryIndex primaryInx;
+
+//Secondary Indexes
+ArtistIndex artistInx;
+YearIndex yearInx;
+
+//--End Global Variables
+
 using namespace std;
 
+//main
 int main(void)
 {
     //Create Bulk if output.bin does not exist
     checkBulkFile();
+    //Read in index sequential files
+    fillIndexes();
     //Start the Main Menu
-    PrimaryIndex prim;
     MainMenu();
+    //Exit
     return 0;
+}
+
+//Fill Title, Artist, and Year Indexes
+void fillIndexes()
+{
+    primaryInx.readPrimary();
+    artistInx.readSecondary();
+    yearInx.readSecondary();
 }
 
 //Lame way of clearing the console
 void ClearScreen()
 {
-    cout << string( 100, '\n' );
+    cout << string(100, '\n');
 } // end ClearScreen
 
 void InvalidInput()
@@ -405,37 +432,9 @@ void ChangeByTitleMenuInput()
 //           Print Menu Functions
 //--------------------------------------------------//
 
-//Print all records
-void PrintAll()
+
+void printReturn()
 {
-    //Clear screen
-    ClearScreen();
-    char outputFileName[80] = "output.bin";
-    //Read in file
-    fstream outputFile(outputFileName, ios::in | ios::binary);
-
-    int pos = 1;
-    MyClass record;
-    //std::cout << record.get_value(outputFile);
-    if(outputFile.is_open())
-    {
-        record.readIt(outputFile, pos);
-        while(!outputFile.eof())
-        {
-            if(!record.get_flag())
-            {
-                cout << "-----------" << endl;
-                cout << " Record " << pos <<endl;
-                cout << "-----------" << endl;
-                cout << record;
-            }
-            pos++;
-            record.readIt(outputFile, pos);
-        }
-        //Close file
-        outputFile.close();
-    }
-
     //Ask user to return -Ignores Invalid Input
 	string input;
 	cout << endl << endl << "Enter '1' to go back or '0' for Main Menu: ";
@@ -459,15 +458,78 @@ void PrintAll()
 			break;
 		} // end switch
 	} // end else
+}
+//Print all records
+void PrintAll()
+{
+    //Clear screen
+    ClearScreen();
+    char outputFileName[80] = "output.bin";
+    //Read in file
+    fstream file(outputFileName, ios::in | ios::binary);
+
+    int pos = 1;
+    MyClass record;
+    //std::cout << record.get_value(file);
+    if(file.is_open())
+    {
+        record.readIt(file, pos);
+        while(!file.eof())
+        {
+            if(!record.get_flag())
+            {
+                cout << "-----------" << endl;
+                cout << " Record " << pos <<endl;
+                cout << "-----------" << endl;
+                cout << record;
+            }
+            pos++;
+            record.readIt(file, pos);
+        }
+        //Close file
+        file.close();
+    }
+
+    //Ask user to return a menu
+    printReturn();
+
 } // End PrintAll
 
 void PrintByTitle()
 {
-    cout << "PrintByTitle method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+   //Clear screen
+    ClearScreen();
+
+    //Ask user
+	string input;
+	cout << endl << endl << "Enter the title to display: ";
+	cin >> input;
+
+    //Find title
+	int pos = primaryInx.findTitle(input);
+
+	//If title found, then display it
+	if(pos > 0)
+    {
+        char outputFileName[80] = "output.bin";
+        //Read in file
+        fstream file(outputFileName, ios::in | ios::binary);
+        record.readIt(file, pos);
+        if(!record.get_flag())
+        {
+            cout << "-----------" << endl;
+            cout << " Record " << pos <<endl;
+            cout << "-----------" << endl;
+            cout << record;
+        }
+    }
+    else // Title not found
+    {
+        cout << "The title: '" << input << "' does not exist" << endl;
+    }
+
+    //Ask user to return a menu
+    printReturn();
 }
 
 void PrintByArtist()
