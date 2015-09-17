@@ -141,7 +141,7 @@ void YearIndex::readSecondary()
         int numOfKeys = 0;
 
         //while(not sequential.eof())
-        while(!input.eof())
+        while(!input.eof() && position != 15)
         {
             //Read in a line from the sequential file
             getline (input,line);
