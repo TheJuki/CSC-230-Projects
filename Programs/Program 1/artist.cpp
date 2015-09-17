@@ -143,11 +143,8 @@ void ArtistIndex::readSecondary()
         std::string part;
         //Number of keys in line
         int numOfKeys = 0;
-
-        //----------------------------------------//
-        //Parts of binary object in line variables
+        //Artist name
         std::string my_artist;
-        int positionInBinary = 0;
 
         //while(not sequential.eof())
         while(!input.eof())
