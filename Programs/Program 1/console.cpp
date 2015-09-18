@@ -497,16 +497,16 @@ void PrintAll()
 
 void PrintByTitle()
 {
-   //Clear screen
-    ClearScreen();
-
     //Ask user
 	string input;
-	cout << endl << endl << "Enter the title to display: ";
+	cout << endl << endl << "Enter the title to display record: ";
 	cin >> input;
 
     //Find title
 	int pos = primaryInx.findTitle(input);
+
+    //Clear screen
+    ClearScreen();
 
 	//If title found, then display it
 	if(pos > 0)
@@ -517,6 +517,8 @@ void PrintByTitle()
         record.readIt(file, pos);
         if(!record.get_flag())
         {
+            cout << " Here is the record for the title '"
+                 << input << "'." << endl << endl;
             cout << "-----------" << endl;
             cout << " Record " << pos <<endl;
             cout << "-----------" << endl;
