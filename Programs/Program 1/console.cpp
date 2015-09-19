@@ -9,6 +9,7 @@ Description: Main Driver. Handles Console output.
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
 #include "title.h"
 #include "artist.h"
 #include "year.h"
@@ -523,8 +524,11 @@ void PrintByTitle()
             cout << " Record " << pos <<endl;
             cout << "-----------" << endl;
             cout << record;
-        }
-    }
+        } //  end if
+
+        //Close file
+        file.close();
+    } //end if
     else // Title not found
     {
         cout << "The title: '" << input << "' does not exist" << endl;
@@ -536,20 +540,96 @@ void PrintByTitle()
 
 void PrintByArtist()
 {
-    cout << "PrintByArtist method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+    //Ask user
+	string input;
+	cout << endl << endl << "Enter a artist to display records: ";
+	cin >> input;
+
+    //Find artist
+	int* pos = artistInx.findArtist(input);
+
+    //Clear screen
+    ClearScreen();
+
+	//If artist found, then display it
+	if(*pos > 0)
+    {
+        cout << " Here are the records for the artist '"
+             << input << "'." << endl << endl;
+
+        char outputFileName[80] = "output.bin";
+        //Read in file
+        fstream file(outputFileName, ios::in | ios::binary);
+
+        for(int i = 1; i < (*pos + 1); i++)
+        {
+            record.readIt(file, *(pos + i));
+            if(!record.get_flag())
+            {
+                cout << "-----------" << endl;
+                cout << " Record " << *(pos + i) <<endl;
+                cout << "-----------" << endl;
+                cout << record;
+            } // End if
+        } // end for
+
+        //Close file
+        file.close();
+    } // End if
+    else // Title not found
+    {
+        cout << "The artist: '" << input << "' does not exist" << endl;
+    }
+
+    //Ask user to return a menu
+    printReturn();
 }
 
 void PrintByYear()
 {
-    cout << "PrintByYear method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+   //Ask user
+	string input;
+	cout << endl << endl << "Enter a year to display records: ";
+	cin >> input;
+
+    //Find year
+	int* pos = yearInx.findYear(atoi(input.c_str()));
+
+    //Clear screen
+    ClearScreen();
+
+	//If year found, then display it
+	if(*pos > 0)
+    {
+        cout << " Here are the records for the year '"
+             << input << "'." << endl << endl;
+
+        char outputFileName[80] = "output.bin";
+        //Read in file
+        fstream file(outputFileName, ios::in | ios::binary);
+
+        for(int i = 1; i < (*pos + 1); i++)
+        {
+            record.readIt(file, *(pos + i));
+            if(!record.get_flag())
+            {
+                cout << "-----------" << endl;
+                cout << " Record " << *(pos + i) <<endl;
+                cout << "-----------" << endl;
+                cout << record;
+            } // End if
+        } // end for
+
+        //Close file
+        file.close();
+    } // End if
+    else // Title not found
+    {
+        cout << "The year: '" << input << "' does not exist" << endl;
+    }
+
+    //Ask user to return a menu
+    printReturn();
 }
 
 void PrintSummary()

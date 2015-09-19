@@ -212,6 +212,23 @@ bool ArtistIndex::matchArtist(std::string inArtist, int pos[])
         }
     }
     return false;
-}
+} // matchArtist
+
+int * ArtistIndex::findArtist(std::string inArtist)
+{
+    int location;
+    //Empty array to return if artist not found
+    static int emptyArray[1];
+    emptyArray[0] = 0;
+
+    for (location = 1; location <= ArtistIndex::my_list[0].pos[0]; ++location)
+    {
+        if(ArtistIndex::my_list[location].artist == inArtist)
+        {
+            return ArtistIndex::my_list[location].pos;
+        }
+    }
+    return emptyArray;
+} // End findArtist
 
 

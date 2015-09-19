@@ -41,5 +41,6 @@ public:
     void writeSecondary();
     void readSecondary();
     bool matchYear(int inYear, int pos[]);
+    int * findYear(int inYear);
 };
 #endif // MY_YEAR_INDEX_H

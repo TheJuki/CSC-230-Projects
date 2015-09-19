@@ -210,6 +210,24 @@ bool YearIndex::matchYear(int inYear, int pos[])
         }
     }
     return false;
-}
+} // matchYear
+
+int * YearIndex::findYear(int inYear)
+{
+    int location;
+    //Empty array to return if artist not found
+    static int emptyArray[1];
+    emptyArray[0] = 0;
+
+    for (location = 1; location <= YearIndex::my_list[0].pos[0]; ++location)
+    {
+        if(YearIndex::my_list[location].year == inYear)
+        {
+            return YearIndex::my_list[location].pos;
+        }
+    }
+    return emptyArray;
+} // End findYear
+
 
 
