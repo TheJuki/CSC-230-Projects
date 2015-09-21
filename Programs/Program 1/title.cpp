@@ -9,150 +9,49 @@ Description: Code for title data
 #include "title.h"
 #include <stdlib.h>
 
-bool PrimaryIndex::set_title_key(std::string my_title, int my_key)
+bool Primary::matchTitle(std::string inTitle, int& pos)
 {
-     //For each item in my_list
-    for(int i = 1; i < 25; ++i)
+     for(int i = 1; i < 25; ++i)
     {
-        if(PrimaryIndex::my_list[i].title.compare(my_title) == 0)
+        if(Primary::my_list[i].title == inTitle)
         {
-            //Existing title exists
+            pos = i;
             return true;
         }
     }
-    //Title does not exist so it is okay to add
-    //Max number of title indices is 25 (From 1 to 15)
-    if((PrimaryIndex::count + 1) != 25)
-    {
-        int next_title = ++PrimaryIndex::count;
-        PrimaryIndex::my_list[next_title].title = my_title;
-        PrimaryIndex::my_list[next_title].pos = my_key;
-    }
+
     return false;
-} // end set_title_key
-
-void PrimaryIndex::writePrimary()
+}
+bool Primary::updateTitle(std::string oldTitle, std::string newTitle, int pos)
 {
-    //Sequential file for Primary indices
-     std::ofstream outPrimary ("primaryTitles.txt");
-
-     //For each item in my_list
      for(int i = 1; i < 25; ++i)
-     {
-         //If there is at least 1 key then write to file
-         if(PrimaryIndex::my_list[i].pos != 0)
-         {
-               outPrimary << PrimaryIndex::my_list[i].pos
-                    << " "
-                    << PrimaryIndex::my_list[i].title
-                    << std::endl;
-         }
-     }
-     //Close file
-     outPrimary.close();
- } // end writePrimary
-
-void PrimaryIndex::readPrimary()
-{
-     //Open Sequential file for reading using ifstream
-    std::ifstream input;
-    input.open ("primaryTitles.txt", std::fstream::in);
-
-    if (input.is_open())
     {
-        //Set position to 1
-        long position = 1;
-        //delimiter is a space
-        std::string delimiter = " ";
-        //size of string
-        size_t pos = 0;
-        //Line in file as a string
-        std::string line;
-        //string of part
-        std::string part;
-
-        //while(not sequential.eof())
-        while(!input.eof() && position != 25)
-        {
-            //Read in a line from the sequential file
-            getline (input,line);
-
-            //cout << line;
-
-            //Defaults
-            pos = 0;
-            part = "";
-
-            //Get key
-            if ((pos = line.find(delimiter)) != std::string::npos)
-            {
-                 part = line.substr(0, pos);
-                 line.erase(0, pos + delimiter.length());
-                 int key = atoi(part.c_str());
-                 PrimaryIndex::my_list[position].pos = key;
-            }
-
-            //Get artist
-             part = line.substr(0, std::string::npos);
-             PrimaryIndex::my_list[position].title = part;
-
-            //position++
-            position++;
-
-        } // End eof while
-        std::cout << "End while" << std::endl;
-
-        //Set zero record to number of indexes
-        if(position > 24)
-            my_list[0].pos = 24;
-        else
-            my_list[0].pos = position;
-        //Close all files
-        input.close();
-    } // end if
-} //end readPrimary
-
-void PrimaryIndex::outputKey()
-{
-    std::cout << PrimaryIndex::my_list[0].pos;
-} // End outputKey
-
-void PrimaryIndex::change_title(std::string new_title, int key)
-{
-    for(int i = 1; i < 25; ++i)
-    {
-         if(PrimaryIndex::my_list[i].pos == key)
+         if(Primary::my_list[i].pos == pos)
          {
-             PrimaryIndex::my_list[i].title = new_title;
+             Primary::my_list[i].title = newTitle;
              break;
          }
     }
-} // End change_title
-
-int PrimaryIndex::matchTitle(std::string inTitle)
+}
+bool Primary::addTitle(std::string inTitle, int pos)
 {
-    int location;
-
-    for (location = 1; location <= PrimaryIndex::my_list[0].pos; ++location)
+    if(Primary::matchTitle(inTitle, pos))
+        return true;
+    //Title does not exist so it is okay to add
+    //Max number of title indices is 25 (From 1 to 15)
+    if((Primary::count + 1) != 25)
     {
-        if(PrimaryIndex::my_list[location].title == inTitle)
-        {
-            return 1;
-        }
+        int next_title = ++Primary::count;
+        Primary::my_list[next_title].title = inTitle;
+        Primary::my_list[next_title].pos = pos;
     }
-    return 0;
-} // End matchTitle
-
-int PrimaryIndex::findTitle(std::string inTitle)
+    return false;
+}
+bool Primary::deleteTitle(std::string inTitle, int& pos)
 {
-    int location;
 
-    for (location = 1; location <= PrimaryIndex::my_list[0].pos; ++location)
-    {
-        if(PrimaryIndex::my_list[location].title == inTitle)
-        {
-            return PrimaryIndex::my_list[location].pos;
-        }
-    }
-    return 0;
-} // End matchTitle
+}
+bool Primary::printTitle(std::string inTitle, int& pos)
+{
+
+}

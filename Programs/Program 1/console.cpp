@@ -79,7 +79,7 @@ bool indexUpdated = false;
 MyClass record;
 
 //Primary Indexes
-PrimaryIndex primaryInx;
+Primary* primaryInx;
 
 //Secondary Indexes
 ArtistIndex artistInx;
@@ -105,7 +105,7 @@ int main(void)
 //Fill Title, Artist, and Year Indexes
 void fillIndexes()
 {
-    primaryInx.readPrimary();
+    primaryInx = new Primary(0);
     artistInx.readSecondary();
     yearInx.readSecondary();
 }
@@ -504,7 +504,8 @@ void PrintByTitle()
 	cin >> input;
 
     //Find title
-	int pos = primaryInx.findTitle(input);
+	int pos = 0;
+	primaryInx->matchTitle(input, pos);
 
     //Clear screen
     ClearScreen();
@@ -657,7 +658,7 @@ void stopMenu()
         //Create binary object
         MyClass record;
         //Create Primary Index object
-        PrimaryIndex primaryInx;
+        Primary* primaryInx;
         //Create Secondary Index object
         ArtistIndex artistInx;
         YearIndex yearInx;
@@ -670,7 +671,7 @@ void stopMenu()
                 if(!record.get_flag())
                 {
                     //Pass Primary Key information to Primary Index(title, position)
-                    primaryInx.set_title_key(record.get_title(), pos);
+                     primaryInx->addTitle(record.get_title(), pos);
 
                     //Pass Secondary Key information to Secondary Index(artist or year, position)
                     artistInx.set_artist_key(record.get_artist(), pos);
@@ -681,7 +682,7 @@ void stopMenu()
             } // end while
 
             //Write Primary Index to a file (open file using ofstream)
-            primaryInx.writePrimary();
+            delete primaryInx;
             //Write Secondary Index to a file (open file using ofstream)
             artistInx.writeSecondary();
             yearInx.writeSecondary();
@@ -723,7 +724,8 @@ void addARecord()
 	cin >> input;
 
     //Find title
-	int pos = primaryInx.findTitle(input);
+	int pos = 0;
+	primaryInx->matchTitle(input, pos);
 
     //Clear screen
     ClearScreen();
@@ -757,6 +759,9 @@ void addARecord()
         cout << "Count: " << endl;
         cin >> input;
         my_count = atoi(input.c_str());
+        MyClass addRecord(my_title, my_artist, my_type,
+               my_year, my_price, my_count);
+
 
 
 

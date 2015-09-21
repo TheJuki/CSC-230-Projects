@@ -52,7 +52,7 @@ void build()
         //Set position to 1
         long position = 1;
         //Create Primary Index object
-        PrimaryIndex primaryInx;
+        Primary* primaryInx = new Primary();
         //Create Secondary Index objects
         ArtistIndex artistInx;
         YearIndex yearInx;
@@ -124,7 +124,7 @@ void build()
             me.writeIt(outputFile, position);
 
             //Pass Primary Key information to Primary Index(title, position)
-            primaryInx.set_title_key(my_title, position);
+            primaryInx->addTitle(my_title, position);
 
             //Pass Secondary Key information to Secondary Index(artist or year, position)
             artistInx.set_artist_key(my_artist, position);
@@ -139,7 +139,7 @@ void build()
         MyClass writeZeroRecord;
         writeZeroRecord.set_value(outputFile, position);
         //Write Primary Index to a file (open file using ofstream)
-        primaryInx.writePrimary();
+        delete primaryInx;
         //Write Secondary Index to a file (open file using ofstream)
         artistInx.writeSecondary();
         yearInx.writeSecondary();

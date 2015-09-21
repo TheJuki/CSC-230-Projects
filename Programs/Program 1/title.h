@@ -8,39 +8,55 @@ Description: Header for title.cpp
 
 #ifndef MY_PRIMARY_INDEX_H
 #define MY_PRIMARY_INDEX_H
-#include <string>
-#include <cstring>
-#include <iostream>
 #include <fstream>
+#include <string>
+#include <iostream>
+const int MAX_LIMIT = 35;
 
-class PrimaryIndex
-{
+struct MINI {
+    std::string title;
+    int pos;
+    bool dead_flag;
+};
+
+class Primary {
+
 private:
-    struct MINI
-    {
-        std::string title;
-        int pos;
-    } my_list[25];
-    int count;
+    struct MINI my_list[MAX_LIMIT];
+    int count, dead_count, hold, max_count;
 
 public:
-    PrimaryIndex(): count(0) //only a default constructor
-    {
-        for(int i = 1; i < 25; ++i)
-        {
-            my_list[i].title = "0";
-            my_list[i].pos = 0;
+    Primary(): count(0), dead_count(0), max_count(0) {
+        for(hold = 0; hold < MAX_LIMIT; ++hold) {
+            my_list[hold].title = "****";
+            my_list[hold].pos = 0;
+            my_list[hold].dead_flag = false;
+        }
+    }
+    Primary(int my_hold): count(0), dead_count(0), hold(my_hold) {
+        std::ifstream fin("my_primary_index.txt");
+        fin >> max_count;
+        for(hold = 0; hold < max_count; ++hold) {
+                fin >> my_list[hold].title >> my_list[hold].pos;
+                my_list[hold].dead_flag = false;
         }
     }
 
-    bool set_title_key(std::string my_title, int my_key);
+    ~Primary() {
+        std::ofstream fout("my_primary_index.txt");
+        fout << count - dead_count << std::endl;
+        for(hold =0; hold < count; ++hold) {
+            if(!my_list[hold].dead_flag)
+                fout << my_list[hold].title << " "
+                     << my_list[hold].pos << std::endl;
+        }
+        fout.close();
+    }
+    bool matchTitle(std::string, int&);
+    bool updateTitle(std::string /*old title*/, std::string /*new title*/, int /*pos in binary*/);
+    bool addTitle(std::string, int);
+    bool deleteTitle(std::string, int&);
+    bool printTitle(std::string, int&);
 
-    //Read and Write
-    void writePrimary();
-    void readPrimary();
-    void outputKey(); // debugging tool
-    void change_title(std::string new_title, int key);
-    int matchTitle(std::string inTitle);
-    int findTitle(std::string inTitle);
 };
 #endif // MY_PRIMARY_INDEX_H
