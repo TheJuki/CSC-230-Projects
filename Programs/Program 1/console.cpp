@@ -717,11 +717,55 @@ void soldValue()
 
 void addARecord()
 {
-    cout << "addARecord method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+   //Ask user
+	string input;
+	cout << endl << endl << "Enter the title for the new record: ";
+	cin >> input;
+
+    //Find title
+	int pos = primaryInx.findTitle(input);
+
+    //Clear screen
+    ClearScreen();
+
+    string my_title = "", my_artist = "", my_type = "";
+    int my_year = 0, my_price = 0, my_count = 0;
+
+	//If title found, then display it
+	if(pos > 0)
+    {
+
+
+
+    } //end if
+    else // Title not found
+    {
+        cout << "Provide the rest of information for the title: '" << input << endl << endl;
+        //Rest of the information
+        cout << "Artist name: " << endl;
+        cin >> input;
+        my_artist = input;
+        cout << "Type of work: " << endl;
+        cin >> input;
+        my_type = input;
+        cout << "Year produced: " << endl;
+        cin >> input;
+        my_year = atoi(input.c_str());
+        cout << "Price: " << endl;
+        cin >> input;
+        my_price = atoi(input.c_str());
+        cout << "Count: " << endl;
+        cin >> input;
+        my_count = atoi(input.c_str());
+
+
+
+
+
+    }
+
+    //Ask user to return a menu
+    printReturn();
 }
 
 
