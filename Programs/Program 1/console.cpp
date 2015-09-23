@@ -741,7 +741,7 @@ void addARecord()
     artistInx.readSecondary();
     yearInx.readSecondary();
 
-   //Ask user
+    //Ask user
 	string input;
 	cout << endl << endl << " Enter the title for the new record: ";
 	cin >> input;
