@@ -505,7 +505,7 @@ void PrintByTitle()
 
     //Find title
 	int pos = 0;
-	primaryInx->matchTitle(input, pos);
+	primaryInx->printTitle(input, pos);
 
     //Clear screen
     ClearScreen();
@@ -733,40 +733,64 @@ void addARecord()
     string my_title = "", my_artist = "", my_type = "";
     int my_year = 0, my_price = 0, my_count = 0;
 
-	//If title found, then display it
+	//If title found, then throw an error
 	if(pos > 0)
     {
-
-
-
+        cout << "The title: '" << input << "' already exists at index '" << pos << "'" << endl;
     } //end if
     else // Title not found
     {
-        cout << "Provide the rest of information for the title: '" << input << endl << endl;
+        my_title = input;
+
+        cout << "Provide the rest of information for the title: '" << input << "'" << endl;
+
         //Rest of the information
-        cout << "Artist name: " << endl;
+        cout << endl << "Artist name: ";
         cin >> input;
         my_artist = input;
-        cout << "Type of work: " << endl;
+
+        cout << endl <<  "Type of work: ";
         cin >> input;
         my_type = input;
-        cout << "Year produced: " << endl;
+
+        cout << endl <<  "Year produced: ";
         cin >> input;
         my_year = atoi(input.c_str());
-        cout << "Price: " << endl;
+
+        cout << endl <<  "Price: ";
         cin >> input;
         my_price = atoi(input.c_str());
-        cout << "Count: " << endl;
+
+        cout << endl <<  "Count: ";
         cin >> input;
         my_count = atoi(input.c_str());
+
+        //Create a binary object
         MyClass addRecord(my_title, my_artist, my_type,
                my_year, my_price, my_count);
 
+        char outputFileName[80] = "output.bin";
+        //Open Binary file for binary|writing using fstream
+        fstream outputFile(outputFileName, ios::out | ios::binary);
+        //Check to see if file is open
+        if(outputFile.is_open())
+        {
+            //Get number of records
+            int numOfRecords = addRecord.get_value(outputFile);
+            //Write the binary file
+            addRecord.writeIt(outputFile, ++numOfRecords);
+            //Set number of records
+            addRecord.set_value(outputFile, numOfRecords);
+            //Close file
+            outputFile.close();
 
-
-
-
-
+            //Success!
+            cout << endl <<  "The title: '" << my_title << "' was successfully added at index '" << numOfRecords << "'" << endl;
+        }
+        else
+        {
+            cout << endl <<  "The file could not be opened for writing." << endl;
+        }
     }
 
     //Ask user to return a menu
