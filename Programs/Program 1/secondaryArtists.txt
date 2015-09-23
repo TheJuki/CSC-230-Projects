@@ -7,8 +7,4 @@
 1 Dali 8 
 1 Moore 9 
 1 Duchamp1 10 
-1 Duchamp2 11 
-1 Duchamp3 12 
-2 Duchamp4 13 14 
-1 Duchamp5 15 
-1 Duchamp6 16 
+1 Justin 11 

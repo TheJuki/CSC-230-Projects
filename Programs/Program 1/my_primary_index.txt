@@ -1,4 +1,4 @@
-27
+11
 **** 0
 Nighthawks 1
 Music 2
@@ -9,20 +9,4 @@ David 6
 The_Raft_of_the_Medusa 7
 Boat 8
 Reclining_Figure 9
-Fountain1 10
-Fountain2 11
-Fountain3 12
-Fountain4 13
-Fountain5 14
-Fountain6 15
-Fountain7 16
-Fountain8 17
-Fountain9 18
-Fountain10 19
-Fountain11 20
-Fountain12 21
-Fountain13 22
-Fountain114 23
-Fountain14 24
-Fountain15 25
-Fountain16 26
+ 1634231157

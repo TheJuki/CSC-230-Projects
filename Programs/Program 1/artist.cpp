@@ -192,6 +192,7 @@ void ArtistIndex::readSecondary()
         else
             my_list[0].pos[0] = position;
         //Close all files
+        count = my_list[0].pos[0];
         input.close();
     } // end if
 } //end readSecondary

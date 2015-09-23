@@ -36,6 +36,7 @@ public:
     Primary(int my_hold): count(0), dead_count(0), hold(my_hold) {
         std::ifstream fin("my_primary_index.txt");
         fin >> max_count;
+        count = max_count;
         for(hold = 0; hold < max_count; ++hold) {
                 fin >> my_list[hold].title >> my_list[hold].pos;
                 my_list[hold].dead_flag = false;
@@ -57,6 +58,7 @@ public:
     bool addTitle(std::string, int);
     bool deleteTitle(std::string, int&);
     bool printTitle(std::string, int&);
+    int getMaxCount();
 
 };
 #endif // MY_PRIMARY_INDEX_H

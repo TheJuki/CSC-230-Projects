@@ -42,6 +42,7 @@ bool Primary::addTitle(std::string inTitle, int pos)
         int next_title = ++Primary::count;
         Primary::my_list[next_title].title = inTitle;
         Primary::my_list[next_title].pos = pos;
+        ++Primary::max_count;
         return true;
     }
     return false;
@@ -66,4 +67,9 @@ bool Primary::printTitle(std::string inTitle, int& pos)
     }
     //Title not found
     return false;
+}
+
+int Primary::getMaxCount()
+{
+    return Primary::max_count;
 }

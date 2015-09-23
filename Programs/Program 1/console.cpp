@@ -75,16 +75,6 @@ void stopMenu();
 int currentMenu = 0;
 bool indexUpdated = false;
 
-//Binary record
-MyClass record;
-
-//Primary Indexes
-Primary* primaryInx;
-
-//Secondary Indexes
-ArtistIndex artistInx;
-YearIndex yearInx;
-
 //--End Global Variables
 
 using namespace std;
@@ -94,20 +84,10 @@ int main(void)
 {
     //Create Bulk if output.bin does not exist
     checkBulkFile();
-    //Read in index sequential files
-    fillIndexes();
     //Start the Main Menu
     MainMenu();
     //Exit
     return 0;
-}
-
-//Fill Title, Artist, and Year Indexes
-void fillIndexes()
-{
-    primaryInx = new Primary(0);
-    artistInx.readSecondary();
-    yearInx.readSecondary();
 }
 
 //Lame way of clearing the console
@@ -498,6 +478,16 @@ void PrintAll()
 
 void PrintByTitle()
 {
+    //Record
+    MyClass record;
+
+     //Primary Indexes
+    Primary* primaryInx = new Primary(0);
+
+    //Secondary Indexes
+    ArtistIndex artistInx;
+    YearIndex yearInx;
+
     //Ask user
 	string input;
 	cout << endl << endl << "Enter the title to display record: ";
@@ -541,6 +531,16 @@ void PrintByTitle()
 
 void PrintByArtist()
 {
+    //Record
+    MyClass record;
+
+    //Secondary Index
+    ArtistIndex artistInx;
+
+    //Fill
+    artistInx.readSecondary();
+
+
     //Ask user
 	string input;
 	cout << endl << endl << "Enter a artist to display records: ";
@@ -588,6 +588,15 @@ void PrintByArtist()
 
 void PrintByYear()
 {
+    //Record
+    MyClass record;
+
+    //Secondary Index
+    YearIndex yearInx;
+
+    //Fill
+    yearInx.readSecondary();
+
    //Ask user
 	string input;
 	cout << endl << endl << "Enter a year to display records: ";
@@ -648,7 +657,7 @@ void PrintSummary()
 
 void stopMenu()
 {
-    if(indexUpdated)
+    if(1==1)
     {
         char outputFileName[80] = "output.bin";
         //Read in file
@@ -718,6 +727,20 @@ void soldValue()
 
 void addARecord()
 {
+    //Record
+    MyClass record;
+
+     //Primary Indexes
+    Primary* primaryInx = new Primary(0);
+
+    //Secondary Indexes
+    ArtistIndex artistInx;
+    YearIndex yearInx;
+
+    //Fill
+    artistInx.readSecondary();
+    yearInx.readSecondary();
+
    //Ask user
 	string input;
 	cout << endl << endl << "Enter the title for the new record: ";
@@ -766,28 +789,37 @@ void addARecord()
         my_count = atoi(input.c_str());
 
         //Create a binary object
-        MyClass addRecord(my_title, my_artist, my_type,
+        MyClass me(my_title, my_artist, my_type,
                my_year, my_price, my_count);
 
         char outputFileName[80] = "output.bin";
         //Open Binary file for binary|writing using fstream
-        fstream outputFile(outputFileName, ios::in | ios::binary);
+        fstream outputFile(outputFileName, ios::out | ios::binary);
         //Check to see if file is open
         if(outputFile.is_open())
         {
             //Get number of records
-            MyClass GetZeroRecord;
-            int numOfRecords = GetZeroRecord.get_value(outputFile);
-            cout << "Number of Records: " << numOfRecords << endl;
+            int nextIndex = primaryInx->getMaxCount() + 1;
+            cout << "Number of Records: " << nextIndex << endl;
+
             //Write the binary file
-            addRecord.writeIt(outputFile, ++numOfRecords);
-            //Set number of records
-            addRecord.set_value(outputFile, numOfRecords);
+            me.writeIt(outputFile, nextIndex);
+
             //Close file
             outputFile.close();
 
+            //Add Indexes
+            primaryInx->addTitle(my_title, nextIndex);
+            artistInx.set_artist_key(my_artist, nextIndex);
+            yearInx.set_year_key(my_year, nextIndex);
+
+            //Write Indexes
+            delete primaryInx;
+            artistInx.writeSecondary();
+            yearInx.writeSecondary();
+
             //Success!
-            cout << endl <<  "The title: '" << my_title << "' was successfully added at index '" << numOfRecords << "'" << endl;
+            cout << endl <<  "The title: '" << my_title << "' was successfully added at index '" << nextIndex << "'" << endl;
         }
         else
         {

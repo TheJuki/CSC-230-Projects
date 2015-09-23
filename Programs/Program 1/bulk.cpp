@@ -137,7 +137,7 @@ void build()
 
         //Update Binary File record zero with count information
         MyClass writeZeroRecord;
-        writeZeroRecord.set_count(position);
+        writeZeroRecord.set_count(position - 1);
         writeZeroRecord.set_value(outputFile, position);
         //Write Primary Index to a file (open file using ofstream)
         delete primaryInx;
