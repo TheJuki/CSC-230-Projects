@@ -1,4 +1,4 @@
-12
+11
 **** 0
 Nighthawks 1
 Music 2
@@ -10,5 +10,4 @@ The_Raft_of_the_Medusa 7
 Boat 8
 Reclining_Figure 9
 Fountain1 10
-My 11
-23r3ef 12
+No 11

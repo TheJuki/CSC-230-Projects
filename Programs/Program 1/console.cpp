@@ -788,10 +788,6 @@ void addARecord()
         cin >> input;
         my_count = atoi(input.c_str());
 
-        //Create a binary object
-        MyClass me(my_title, my_artist, my_type,
-               my_year, my_price, my_count);
-
         char outputFileName[80] = "output.bin";
         //Open Binary file for binary|writing using fstream
         fstream outputFile(outputFileName, ios::out | ios::binary);
@@ -801,6 +797,10 @@ void addARecord()
             //Get number of records
             int nextIndex = primaryInx->getMaxCount() + 1;
             cout << " Number of Records: " << nextIndex << endl;
+
+            //Create a binary object
+            MyClass me(my_title, my_artist, my_type,
+               my_year, my_price, my_count);
 
             //Write the binary file
             me.writeIt(outputFile, nextIndex);
@@ -884,6 +884,31 @@ void changeByTitle(int selection)
         LoadCurrentMenu();
     }
 
+}
+
+void refillOutput(&List<MyClass> list)
+{
+    char outputFileName[80] = "output.bin";
+    //Read in file
+    fstream file(outputFileName, ios::in | ios::binary);
+
+    int pos = 1;
+    list = new List<MyClass>;
+    MyClass record;
+    //std::cout << record.get_value(file);
+    if(file.is_open())
+    {
+        record.readIt(file, pos);
+        while(!file.eof())
+        {
+            list.push_back(record);
+            pos++;
+            record.readIt(file, pos);
+        }
+        //Close file
+        file.close();
+    }
+    return list;
 }
 
 
