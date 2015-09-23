@@ -137,6 +137,7 @@ void build()
 
         //Update Binary File record zero with count information
         MyClass writeZeroRecord;
+        writeZeroRecord.set_count(position);
         writeZeroRecord.set_value(outputFile, position);
         //Write Primary Index to a file (open file using ofstream)
         delete primaryInx;
@@ -146,6 +147,8 @@ void build()
 
         //Close all files
         input.close();
+         int numOfRecords = writeZeroRecord.get_value(outputFile);
+            cout << "Number of Records: " << numOfRecords << endl;
         outputFile.close();
 
     } // End if

@@ -37,9 +37,9 @@ bool Primary::addTitle(std::string inTitle, int pos)
     if(Primary::matchTitle(inTitle, pos))
         return false;
     //Title does not exist so it is okay to add
-    if((Primary::max_count + 1) != MAX_LIMIT)
+    if((Primary::count + 1) != MAX_LIMIT)
     {
-        int next_title = ++Primary::max_count;
+        int next_title = ++Primary::count;
         Primary::my_list[next_title].title = inTitle;
         Primary::my_list[next_title].pos = pos;
         return true;

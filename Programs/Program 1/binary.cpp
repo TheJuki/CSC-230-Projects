@@ -43,10 +43,11 @@ bool MyClass::get_flag() const
 // for getting the value from zero record
 int MyClass::get_value(std::fstream& inout)
 {
-    char* value  = new char [80];
+    //read in the MyClass object
     inout.seekg(0);
-    inout.read((char*) value, sizeof(value));
-    return atoi(value);
+    inout.read((char*) this, sizeof(MyClass));
+
+    return MyClass::count;
 }
 
 //Set functions
@@ -77,13 +78,9 @@ void MyClass::set_count(int my_count)
 // for setting zero record
 void MyClass::set_value(std::fstream& inout, int value)
 {
+    //write out the MyClass object
     inout.seekp(0);
-    std::stringstream strs;
-    strs << value;
-    std::string temp_str = strs.str();
-    char* writeOut  = new char [80];
-    writeOut = (char*) temp_str.c_str();
-    inout.write((char*) writeOut, sizeof(writeOut));
+    inout.write((char*) this, sizeof(MyClass));
 }
 void MyClass::set_flag()
 {

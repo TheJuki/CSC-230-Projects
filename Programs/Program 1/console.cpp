@@ -658,7 +658,7 @@ void stopMenu()
         //Create binary object
         MyClass record;
         //Create Primary Index object
-        Primary* primaryInx;
+        Primary* primaryInx = new Primary();
         //Create Secondary Index object
         ArtistIndex artistInx;
         YearIndex yearInx;
@@ -771,12 +771,14 @@ void addARecord()
 
         char outputFileName[80] = "output.bin";
         //Open Binary file for binary|writing using fstream
-        fstream outputFile(outputFileName, ios::out | ios::binary);
+        fstream outputFile(outputFileName, ios::in | ios::binary);
         //Check to see if file is open
         if(outputFile.is_open())
         {
             //Get number of records
-            int numOfRecords = addRecord.get_value(outputFile);
+            MyClass GetZeroRecord;
+            int numOfRecords = GetZeroRecord.get_value(outputFile);
+            cout << "Number of Records: " << numOfRecords << endl;
             //Write the binary file
             addRecord.writeIt(outputFile, ++numOfRecords);
             //Set number of records
