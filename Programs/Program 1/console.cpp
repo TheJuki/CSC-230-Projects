@@ -247,7 +247,7 @@ void ChangeByArtistMenu()
 void MainMenuInput()
 {
     string input;
-    cout << "Please enter a selection from the Main Menu (1-7): ";
+    cout << " Please enter a selection from the Main Menu (1-7): ";
     cin >> input;
     if(input.size() > 1)
     {
@@ -283,7 +283,7 @@ void MainMenuInput()
 void PrintMenuInput()
 {
     string input;
-    cout << "Please make a selection (1-5) or type '0' to return: ";
+    cout << " Please make a selection (1-5) or type '0' to return: ";
     cin >> input;
     if(input.size() > 1)
     {
@@ -317,7 +317,7 @@ void PrintMenuInput()
 void DeleteMenuInput()
 {
     string input;
-    cout << "Please make a selection (1-2) or type '0' to return: ";
+    cout << " Please make a selection (1-2) or type '0' to return: ";
     cin >> input;
     if(input.size() > 1)
     {
@@ -346,7 +346,7 @@ void DeleteMenuInput()
 void ChangeRecordMenuInput()
 {
     string input;
-    cout << "Please make a selection (1-2) or type '0' to return: ";
+    cout << " Please make a selection (1-2) or type '0' to return: ";
     cin >> input;
     if(input.size() > 1)
     {
@@ -374,7 +374,7 @@ void ChangeRecordMenuInput()
 void ChangeByTitleMenuInput()
 {
     string input;
-    cout << "Please enter a selection from the Change By Title Menu (1-8): ";
+    cout << " Please enter a selection from the Change By Title Menu (1-8): ";
     cin >> input;
     if(input.size() > 1)
     {
@@ -418,7 +418,7 @@ void printReturn()
 {
     //Ask user to return -Ignores Invalid Input
 	string input;
-	cout << endl << endl << "Enter '1' to go back or '0' for Main Menu: ";
+	cout << endl << endl << " Enter '1' to go back or '0' for Main Menu: ";
 	cin >> input;
 
 	if (input.size() > 1)
@@ -490,7 +490,7 @@ void PrintByTitle()
 
     //Ask user
 	string input;
-	cout << endl << endl << "Enter the title to display record: ";
+	cout << endl << endl << " Enter the title to display record: ";
 	cin >> input;
 
     //Find title
@@ -522,7 +522,7 @@ void PrintByTitle()
     } //end if
     else // Title not found
     {
-        cout << "The title: '" << input << "' does not exist" << endl;
+        cout << " The title: '" << input << "' does not exist" << endl;
     }
 
     //Ask user to return a menu
@@ -543,7 +543,7 @@ void PrintByArtist()
 
     //Ask user
 	string input;
-	cout << endl << endl << "Enter a artist to display records: ";
+	cout << endl << endl << " Enter a artist to display records: ";
 	cin >> input;
 
     //Find artist
@@ -579,7 +579,7 @@ void PrintByArtist()
     } // End if
     else // Title not found
     {
-        cout << "The artist: '" << input << "' does not exist" << endl;
+        cout << " The artist: '" << input << "' does not exist" << endl;
     }
 
     //Ask user to return a menu
@@ -599,7 +599,7 @@ void PrintByYear()
 
    //Ask user
 	string input;
-	cout << endl << endl << "Enter a year to display records: ";
+	cout << endl << endl << " Enter a year to display records: ";
 	cin >> input;
 
     //Find year
@@ -635,7 +635,7 @@ void PrintByYear()
     } // End if
     else // Title not found
     {
-        cout << "The year: '" << input << "' does not exist" << endl;
+        cout << " The year: '" << input << "' does not exist" << endl;
     }
 
     //Ask user to return a menu
@@ -644,7 +644,7 @@ void PrintByYear()
 
 void PrintSummary()
 {
-    cout << "PrintSummary method stubbed" << endl;
+    cout << " PrintSummary method stubbed" << endl;
     string s;
     getline(cin, s);
     getline(cin, s);
@@ -700,7 +700,7 @@ void stopMenu()
         } // end if
     } // end if indexUpdate
 
-    cout << "Program stopped." << endl;
+    cout << " Program stopped." << endl;
     string s;
     getline(cin, s);
     getline(cin, s);
@@ -709,7 +709,7 @@ void stopMenu()
 
 void sellATitle()
 {
-    cout << "SellATitle method stubbed" << endl;
+    cout << " SellATitle method stubbed" << endl;
     string s;
     getline(cin, s);
     getline(cin, s);
@@ -718,7 +718,7 @@ void sellATitle()
 
 void soldValue()
 {
-    cout << "soldValue method stubbed" << endl;
+    cout << " soldValue method stubbed" << endl;
     string s;
     getline(cin, s);
     getline(cin, s);
@@ -743,7 +743,7 @@ void addARecord()
 
    //Ask user
 	string input;
-	cout << endl << endl << "Enter the title for the new record: ";
+	cout << endl << endl << " Enter the title for the new record: ";
 	cin >> input;
 
     //Find title
@@ -759,32 +759,32 @@ void addARecord()
 	//If title found, then throw an error
 	if(pos > 0)
     {
-        cout << "The title: '" << input << "' already exists at index '" << pos << "'" << endl;
+        cout << " The title: '" << input << "' already exists at index '" << pos << "'" << endl;
     } //end if
     else // Title not found
     {
         my_title = input;
 
-        cout << "Provide the rest of information for the title: '" << input << "'" << endl;
+        cout << " Provide the rest of information for the title: '" << input << "'" << endl;
 
         //Rest of the information
-        cout << endl << "Artist name: ";
+        cout << endl << " Artist name: ";
         cin >> input;
         my_artist = input;
 
-        cout << endl <<  "Type of work: ";
+        cout << endl <<  " Type of work: ";
         cin >> input;
         my_type = input;
 
-        cout << endl <<  "Year produced: ";
+        cout << endl <<  " Year produced: ";
         cin >> input;
         my_year = atoi(input.c_str());
 
-        cout << endl <<  "Price: ";
+        cout << endl <<  " Price: ";
         cin >> input;
         my_price = atoi(input.c_str());
 
-        cout << endl <<  "Count: ";
+        cout << endl <<  " Count: ";
         cin >> input;
         my_count = atoi(input.c_str());
 
@@ -800,7 +800,7 @@ void addARecord()
         {
             //Get number of records
             int nextIndex = primaryInx->getMaxCount() + 1;
-            cout << "Number of Records: " << nextIndex << endl;
+            cout << " Number of Records: " << nextIndex << endl;
 
             //Write the binary file
             me.writeIt(outputFile, nextIndex);
@@ -819,11 +819,11 @@ void addARecord()
             yearInx.writeSecondary();
 
             //Success!
-            cout << endl <<  "The title: '" << my_title << "' was successfully added at index '" << nextIndex << "'" << endl;
+            cout << endl <<  " The title: '" << my_title << "' was successfully added at index '" << nextIndex << "'" << endl;
         }
         else
         {
-            cout << endl <<  "The file could not be opened for writing." << endl;
+            cout << endl <<  " The file could not be opened for writing." << endl;
         }
     }
 
@@ -838,7 +838,7 @@ void addARecord()
 
 void deleteByTitle()
 {
-    cout << "deleteByTitle method stubbed" << endl;
+    cout << " deleteByTitle method stubbed" << endl;
     string s;
     getline(cin, s);
     getline(cin, s);
@@ -847,7 +847,7 @@ void deleteByTitle()
 
 void deleteByArtist()
 {
-    cout << "deleteByArtist method stubbed" << endl;
+    cout << " deleteByArtist method stubbed" << endl;
     string s;
     getline(cin, s);
     getline(cin, s);
@@ -860,7 +860,7 @@ void deleteByArtist()
 
 void changeByArtist()
 {
-    cout << "changeByArtist method stubbed" << endl;
+    cout << " changeByArtist method stubbed" << endl;
     string s;
     getline(cin, s);
     getline(cin, s);
@@ -877,7 +877,7 @@ void changeByTitle(int selection)
     }
     else //Everything else for now
     {
-        cout << "changeByTitle method stubbed" << endl;
+        cout << " changeByTitle method stubbed" << endl;
         string s;
         getline(cin, s);
         getline(cin, s);

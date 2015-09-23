@@ -1,10 +1,2 @@
-1 Hopper 1 
-1 Klimt 2 
-2 Gericault 3 7 
-1 Rodin 4 
-1 Warhol 5 
-1 Michelangelo 6 
-1 Dali 8 
-1 Moore 9 
-1 Duchamp1 10 
+10  1 2 3 4 5 6 7 8 9 10 
 1 Justin 11 

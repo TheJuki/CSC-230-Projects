@@ -1,12 +1,3 @@
-11
+2
 **** 0
-Nighthawks 1
-Music 2
-Medusa 3
-The_Thinker 4
-Jackie 5
-David 6
-The_Raft_of_the_Medusa 7
-Boat 8
-Reclining_Figure 9
- 1634231157
+ 1
