@@ -877,9 +877,9 @@ void addARecord()
            else
            {
                 cout << endl << " The record for the title: '"
-                << my_title << "' has incomplete fields." << endl;
+                << my_title << "' has invalid fields." << endl;
 
-                cout << " Please make sure to fill in a value for each field." << endl;
+                cout << " Please make sure to fill in a valid value for each field." << endl;
                 cout << " Also, use '_' instead a spaces." << endl;
                 //Get user to try again
                 printTryAgain('A');
