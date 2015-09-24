@@ -47,6 +47,9 @@ void ChangeByTitleMenuInput();
 //Used for InvalidInput
 void LoadCurrentMenu();
 
+//Used for Add / Delete / Change
+void printTryAgain(char type);
+
 //Print Menu functions
 void printReturn();
 void PrintAll();
@@ -433,13 +436,45 @@ void printReturn()
 		{
 		case('0') : MainMenu();
 			break;
-		case('1') : PrintMenu();
+		case('1') : LoadCurrentMenu();
 			break;
-		default: PrintMenu();
+		default: LoadCurrentMenu();
 			break;
 		} // end switch
 	} // end else
 }
+
+void printTryAgain(char type)
+{
+    //Ask user to return -Ignores Invalid Input
+	string input;
+	cout << endl << endl << " Enter '1' to try again or '0' to go back: ";
+	cin >> input;
+
+	if (input.size() > 1)
+	{
+		PrintMenu();
+	} // end if
+	else
+	{
+		const char* p_c_str = input.c_str();
+		char inputChar = p_c_str[0];
+		if(type == 'A')
+        {
+            switch (inputChar)
+            {
+            case('0') : LoadCurrentMenu();
+                break;
+            case('1') : addARecord();
+                break;
+            default: LoadCurrentMenu();
+                break;
+            } // end switch
+        }
+
+	} // end else
+}
+
 //Print all records
 void PrintAll()
 {
@@ -741,6 +776,12 @@ void addARecord()
     artistInx.readSecondary();
     yearInx.readSecondary();
 
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Adding a new record" << endl
+         << endl  << endl  << endl;
+
     //Ask user
 	string input;
 	cout << endl << endl << " Enter the title for the new record: ";
@@ -750,22 +791,24 @@ void addARecord()
 	int pos = 0;
 	primaryInx->matchTitle(input, pos);
 
-    //Clear screen
-    ClearScreen();
-
     string my_title = "", my_artist = "", my_type = "";
     int my_year = 0, my_price = 0, my_count = 0;
 
 	//If title found, then throw an error
 	if(pos > 0)
     {
-        cout << " The title: '" << input << "' already exists at index '" << pos << "'" << endl;
+        cout << endl << " The record for the title: '"
+        << input << "' already exists at index '" << pos << "'" << endl;
+
+        //Get user to try again
+        printTryAgain('A');
+
     } //end if
     else // Title not found
     {
         my_title = input;
 
-        cout << " Provide the rest of information for the title: '" << input << "'" << endl;
+        cout << endl << " Provide the rest of information for the title: '" << input << "'" << endl;
 
         //Rest of the information
         cout << endl << " Artist name: ";
@@ -788,46 +831,62 @@ void addARecord()
         cin >> input;
         my_count = atoi(input.c_str());
 
-        char outputFileName[80] = "output.bin";
-        //Open Binary file for binary|writing using fstream
-        //ios::in | ios::out | ios::binary used for adding/changing
-        fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
-        //Check to see if file is open
-        if(outputFile.is_open())
-        {
-            //Get number of records
-            int nextIndex = primaryInx->getMaxCount() + 1;
-            cout << " Number of Records: " << nextIndex << endl;
+        if(my_artist != "" && my_title != "" &&  my_type != ""
+           && my_count >= 0 && my_year > 0 && my_price >= 0)
+           {
+                char outputFileName[80] = "output.bin";
+                //Open Binary file for binary|writing using fstream
+                //ios::in | ios::out | ios::binary used for adding/changing
+                fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
+                //Check to see if file is open
+                if(outputFile.is_open())
+                {
+                    //Get number of records
+                    int nextIndex = primaryInx->getMaxCount() + 1;
+                    cout << " Number of Records: " << nextIndex << endl;
 
-            //Create a binary object
-            MyClass me(my_title, my_artist, my_type,
-               my_year, my_price, my_count);
+                    //Create a binary object
+                    MyClass me(my_title, my_artist, my_type,
+                       my_year, my_price, my_count);
 
-            //Write the binary file
-            me.writeIt(outputFile, nextIndex);
+                    //Write the binary file
+                    me.writeIt(outputFile, nextIndex);
 
-            //Close file
-            outputFile.close();
+                    //Close file
+                    outputFile.close();
 
-            //Add Indexes
-            primaryInx->addTitle(my_title, nextIndex);
-            artistInx.set_artist_key(my_artist, nextIndex);
-            yearInx.set_year_key(my_year, nextIndex);
+                    //Add Indexes
+                    primaryInx->addTitle(my_title, nextIndex);
+                    artistInx.set_artist_key(my_artist, nextIndex);
+                    yearInx.set_year_key(my_year, nextIndex);
 
-            //Write Indexes
-            delete primaryInx;
-            artistInx.writeSecondary();
-            yearInx.writeSecondary();
+                    //Write Indexes
+                    delete primaryInx;
+                    artistInx.writeSecondary();
+                    yearInx.writeSecondary();
 
-            //Success!
-            cout << endl <<  " The title: '" << my_title
-                 << "' was successfully added at index '" << nextIndex << "'" << endl;
-        }
-        else
-        {
-            cout << endl <<  " The file could not be opened for writing." << endl;
-        }
-    }
+                    //Success!
+                    cout << endl <<  " The title: '" << my_title
+                         << "' was successfully added at index '" << nextIndex << "'" << endl;
+                } // If Open
+                else
+                {
+                    cout << endl <<  " The file could not be opened for writing." << endl;
+                } // Else Not Open
+           } // If Info filled in filled in correctly
+           else
+           {
+                cout << endl << " The record for the title: '"
+                << my_title << "' has incomplete fields." << endl;
+
+                cout << " Please make sure to fill in a value for each field." << endl;
+                cout << " Also, use '_' instead a spaces." << endl;
+                //Get user to try again
+                printTryAgain('A');
+
+           } // Else Info not filled in correctly
+
+    } // Else Title Not Found
 
     //Ask user to return a menu
     printReturn();
