@@ -790,7 +790,7 @@ void addARecord()
 
         char outputFileName[80] = "output.bin";
         //Open Binary file for binary|writing using fstream
-        fstream outputFile(outputFileName, ios::out | ios::binary);
+        fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
         //Check to see if file is open
         if(outputFile.is_open())
         {
@@ -885,32 +885,3 @@ void changeByTitle(int selection)
     }
 
 }
-
-void refillOutput(&List<MyClass> list)
-{
-    char outputFileName[80] = "output.bin";
-    //Read in file
-    fstream file(outputFileName, ios::in | ios::binary);
-
-    int pos = 1;
-    list = new List<MyClass>;
-    MyClass record;
-    //std::cout << record.get_value(file);
-    if(file.is_open())
-    {
-        record.readIt(file, pos);
-        while(!file.eof())
-        {
-            list.push_back(record);
-            pos++;
-            record.readIt(file, pos);
-        }
-        //Close file
-        file.close();
-    }
-    return list;
-}
-
-
-
-

@@ -1,9 +1,9 @@
 # depslib dependency file v1.0
-1441204641 source:c:\users\justin\documents\github\csc-230-projects\binaryfileexample\main.cpp
+1441377806 source:c:\users\justin\documents\github\csc-230-projects\binaryfileexample\main.cpp
 	<fstream>
 	<iostream>
 	<string>
 
-1441233282 source:c:\users\justin\documents\github\csc-230-projects\binaryfileexample\binary.cpp
+1441377806 source:c:\users\justin\documents\github\csc-230-projects\binaryfileexample\binary.cpp
 	<string>
 
