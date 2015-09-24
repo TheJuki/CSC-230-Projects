@@ -657,7 +657,7 @@ void PrintSummary()
 
 void stopMenu()
 {
-    if(1==1)
+    if(indexUpdated)
     {
         char outputFileName[80] = "output.bin";
         //Read in file
@@ -790,6 +790,7 @@ void addARecord()
 
         char outputFileName[80] = "output.bin";
         //Open Binary file for binary|writing using fstream
+        //ios::in | ios::out | ios::binary used for adding/changing
         fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
         //Check to see if file is open
         if(outputFile.is_open())
@@ -819,7 +820,8 @@ void addARecord()
             yearInx.writeSecondary();
 
             //Success!
-            cout << endl <<  " The title: '" << my_title << "' was successfully added at index '" << nextIndex << "'" << endl;
+            cout << endl <<  " The title: '" << my_title
+                 << "' was successfully added at index '" << nextIndex << "'" << endl;
         }
         else
         {
@@ -838,11 +840,47 @@ void addARecord()
 
 void deleteByTitle()
 {
-    cout << " deleteByTitle method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+   //Record
+    MyClass record;
+
+     //Primary Indexes
+    Primary* primaryInx = new Primary(0);
+
+    //Secondary Indexes
+    ArtistIndex artistInx;
+    YearIndex yearInx;
+
+    //Fill
+    artistInx.readSecondary();
+    yearInx.readSecondary();
+
+    //Ask user
+	string input;
+	cout << endl << endl << " Enter the title of the record for deletion: ";
+	cin >> input;
+
+    //Find title
+	int pos = 0;
+	primaryInx->matchTitle(input, pos);
+
+    //Clear screen
+    ClearScreen();
+
+    string my_title = "", my_artist = "", my_type = "";
+    int my_year = 0, my_price = 0, my_count = 0;
+
+	//If title found, delete it
+	if(pos > 0)
+    {
+        cout << " The title: '" << input << "' already exists at index '" << pos << "'" << endl;
+    } //end if
+    else // Title not found
+    {
+        cout << " The record for the title: '" << input << "' could not found for deletion." << endl;
+    }
+
+    printReturn();
+
 }
 
 void deleteByArtist()
