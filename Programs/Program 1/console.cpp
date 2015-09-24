@@ -471,6 +471,19 @@ void printTryAgain(char type)
                 break;
             } // end switch
         }
+        else if(type == 'T')
+        {
+            switch (inputChar)
+            {
+            case('0') : LoadCurrentMenu();
+                break;
+            case('1') : deleteByTitle();
+                break;
+            default: LoadCurrentMenu();
+                break;
+            } // end switch
+        }
+
 
 	} // end else
 }
@@ -925,17 +938,31 @@ void deleteByTitle()
     //Clear screen
     ClearScreen();
 
-    string my_title = "", my_artist = "", my_type = "";
-    int my_year = 0, my_price = 0, my_count = 0;
+    string my_title = "", my_artist = "";
+    int my_year = 0;
 
 	//If title found, delete it
 	if(pos > 0)
     {
-        cout << " The title: '" << input << "' already exists at index '" << pos << "'" << endl;
+        my_title = input;
+        cout << " The record for the title: '" << my_title << "' can be deleted '" << pos << "'" << endl;
+        MyClass record;
+        //Update Record (Dead)
+        record.UpdateBinary(pos, my_artist, my_year);
+        //Delete Title Index
+        primaryInx->deleteTitle(my_title, pos);
+        //Delete Artist Index
+        artistInx.deleteArtist(my_artist, pos);
+
+         //Write Indexes
+        delete primaryInx;
+        artistInx.writeSecondary();
+        yearInx.writeSecondary();
     } //end if
     else // Title not found
     {
         cout << " The record for the title: '" << input << "' could not found for deletion." << endl;
+        printTryAgain('T');
     }
 
     printReturn();

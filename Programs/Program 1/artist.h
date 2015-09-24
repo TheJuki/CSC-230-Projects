@@ -43,5 +43,6 @@ public:
     void readSecondary();
     bool matchArtist(std::string inArtist, int pos[]);
     int * findArtist(std::string inArtist);
+    bool deleteArtist(std::string inArtist, int pos);
 };
 #endif // MY_ARTIST_INDEX_H

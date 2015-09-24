@@ -54,6 +54,7 @@ bool Primary::deleteTitle(std::string inTitle, int& pos)
         my_list[pos].title = "****";
         my_list[pos].pos = 0;
         my_list[pos].dead_flag = true;
+        ++dead_count;
         return true;
     }
     //Title not found

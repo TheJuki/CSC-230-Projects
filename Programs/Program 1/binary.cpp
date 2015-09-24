@@ -10,6 +10,7 @@ Description: Binary object - A record in the binary file
 #include <stdlib.h>
 #include <sstream>
 #include <string>
+#include <fstream>
 
 //Get functions
 std::string MyClass::get_title()
@@ -89,6 +90,29 @@ void MyClass::set_flag()
 void MyClass::unset_flag()
 {
     MyClass::dead_flag = false;
+}
+
+void MyClass::UpdateBinary(int pos, std::string& artist, int& year)
+{
+    char outputFileName[80] = "output.bin";
+    //Open Binary file for binary|writing using fstream
+    //ios::in | ios::out | ios::binary used for adding/changing
+    std::fstream outputFile(outputFileName, std::ios::in | std::ios::out | std::ios::binary);
+    //Check to see if file is open
+    if(outputFile.is_open())
+    {
+        //Get record
+        this->readIt(outputFile, pos);
+        //Set artist and year
+        artist = this->get_artist();
+        year = this->get_year();
+        //Declare dead
+        this->set_flag();
+        //Write out that change (Dead)
+        this->writeIt(outputFile, pos);
+        //Close file
+        outputFile.close();
+    }
 }
 
 // Read & write a File

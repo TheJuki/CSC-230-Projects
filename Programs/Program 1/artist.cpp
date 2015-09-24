@@ -17,14 +17,14 @@ std::string ArtistIndex::get_artist(int pos) const
     return ArtistIndex::my_list[pos].artist;
 }
 
-void ArtistIndex::set_artist_key(std::string my_artist, int my_key)
+void ArtistIndex::set_artist_key(std::string inArtist, int my_key)
 {
     //Check for artist
     bool foundArtist = false;
      //For each item in my_list
     for(int i = 1; i < 15; ++i)
     {
-        if(ArtistIndex::my_list[i].artist.compare(my_artist) == 0)
+        if(ArtistIndex::my_list[i].artist == inArtist)
         {
             //Found Artist
             foundArtist = true;
@@ -48,13 +48,42 @@ void ArtistIndex::set_artist_key(std::string my_artist, int my_key)
         //Set the next artist position
         int next_artist = ++ArtistIndex::count;
         //Set the artist
-        ArtistIndex::my_list[next_artist].artist = my_artist;
+        ArtistIndex::my_list[next_artist].artist = inArtist;
         //Set the first key
         ArtistIndex::my_list[next_artist].pos[1] = my_key;
         //Set zero record to 1
         ArtistIndex::my_list[next_artist].pos[0] = 1;
     } //end if
 } // end set_artist_key
+
+bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
+{
+    //Check for artist
+    bool foundArtist = false;
+     //For each item in my_list
+    for(int i = 1; i < 15; ++i)
+    {
+        if(ArtistIndex::my_list[i].artist == (inArtist))
+        {
+            //Found Artist
+            foundArtist = true;
+            //for each item in pos
+             for(int k = 1; k < 11; ++k)
+             {
+                 if(ArtistIndex::my_list[i].pos[k] == pos)
+                 {
+                     ArtistIndex::my_list[i].pos[k] = 0;
+                      --ArtistIndex::my_list[i].pos[0];
+                      if(ArtistIndex::my_list[i].pos[0] == 0)
+                      {
+                          ArtistIndex::my_list[i].artist = "0";
+                      }
+                 } //end if
+             } // end for
+        } // end if
+    } // end for
+    return foundArtist;
+}
 
 void ArtistIndex::updateArtist(std::string new_artist, int pos[])
 {

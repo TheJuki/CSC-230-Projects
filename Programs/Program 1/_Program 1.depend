@@ -69,14 +69,14 @@
 	<cstring>
 	<fstream>
 
-1443027029 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
+1443123746 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<stdlib.h>
 
-1442853410 c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.h
+1443123224 c:\users\justin\documents\github\csc-230-projects\programs\program 1\artist.h
 	<string>
 	<cstring>
 	<iostream>
@@ -84,13 +84,14 @@
 
 1442339091 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\ay.cpp
 
-1443046888 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.cpp
+1443123972 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.cpp
 	"binary.h"
 	<stdlib.h>
 	<sstream>
 	<string>
+	<fstream>
 
-1442324851 c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.h
+1443123764 c:\users\justin\documents\github\csc-230-projects\programs\program 1\binary.h
 	<string>
 	<cstring>
 	<fstream>
@@ -105,7 +106,7 @@
 	<fstream>
 	<cstdlib>
 
-1443119455 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
+1443124127 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<fstream>
@@ -119,7 +120,7 @@
 	<string>
 	<iostream>
 
-1443046375 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.cpp
+1443122587 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1\title.cpp
 	"title.h"
 	<stdlib.h>
 
