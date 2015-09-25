@@ -1,7 +1,6 @@
-13
+9
 **** 0
 Nighthawks 1
-Music 2
 Medusa 3
 The_Thinker 4
 Jackie 5
@@ -10,6 +9,3 @@ The_Raft_of_the_Medusa 7
 Boat 8
 Reclining_Figure 9
 Fountain1 10
-My 11
-Test 12
-5 13

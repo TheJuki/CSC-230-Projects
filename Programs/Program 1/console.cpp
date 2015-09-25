@@ -61,6 +61,7 @@ void PrintSummary();
 //Delete Menu Functions
 void deleteByArtist();
 void deleteByTitle();
+bool confirmDelete();
 
 //Change Menu Functions
 void changeByArtist();
@@ -910,6 +911,37 @@ void addARecord()
 //           Delete Menu Functions
 //--------------------------------------------------//
 
+bool confirmDelete()
+{
+    //confirm boolean
+    bool isYes = false;
+
+    //Ask user to return -Ignores Invalid Input
+	string input;
+	cout << endl << endl << " Delete record (Y/N)? ";
+	cin >> input;
+
+	if (input.size() > 1)
+	{
+		isYes = false;
+	} // end if
+	else
+	{
+		const char* p_c_str = input.c_str();
+		char inputChar = p_c_str[0];
+		switch (inputChar)
+		{
+		case('Y') : isYes = true;
+			break;
+        case('y') : isYes = true;
+            break;
+		default: isYes = false;
+			break;
+		} // end switch
+	} // end else
+
+	return isYes;
+}
 void deleteByTitle()
 {
    //Record
@@ -945,19 +977,33 @@ void deleteByTitle()
 	if(pos > 0)
     {
         my_title = input;
-        cout << " The record for the title: '" << my_title << "' can be deleted '" << pos << "'" << endl;
-        MyClass record;
-        //Update Record (Dead)
-        record.UpdateBinary(pos, my_artist, my_year);
-        //Delete Title Index
-        primaryInx->deleteTitle(my_title, pos);
-        //Delete Artist Index
-        artistInx.deleteArtist(my_artist, pos);
+        cout << " The record for the title: '" << my_title << "' can be deleted at index '" << pos << "'" << endl;
+        if(confirmDelete())
+        {
+             MyClass record;
+            //Update Record (Dead)
+            record.UpdateBinary(pos, my_artist, my_year);
+            //Delete Title Index
+            primaryInx->deleteTitle(my_title, pos);
+            //Delete Artist Index
+            artistInx.deleteArtist(my_artist, pos);
+            //Delete Year Index
+            yearInx.deleteYear(my_year, pos);
 
-         //Write Indexes
-        delete primaryInx;
-        artistInx.writeSecondary();
-        yearInx.writeSecondary();
+             //Write Indexes
+            delete primaryInx;
+            artistInx.writeSecondary();
+            yearInx.writeSecondary();
+
+            //Success!
+            cout << " The record for the title: '" << my_title << "' was deleted." << endl;
+
+        } // end if confirm
+        else
+        {
+             cout << " Delete operation canceled." << endl;
+        }
+
     } //end if
     else // Title not found
     {
@@ -965,6 +1011,7 @@ void deleteByTitle()
         printTryAgain('T');
     }
 
+    //Go back or main menu
     printReturn();
 
 }

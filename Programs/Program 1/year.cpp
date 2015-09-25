@@ -68,33 +68,33 @@ void YearIndex::updateYear(int new_year, int pos[])
     }
 }
 
-bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
+bool YearIndex::deleteYear(int inYear, int pos)
 {
     //Check for year
     bool foundYear = false;
      //For each item in my_list
     for(int i = 1; i < 15; ++i)
     {
-        if(ArtistIndex::my_list[i].artist == (inArtist))
+        if(YearIndex::my_list[i].year == (inYear))
         {
-            //Found Artist
-            foundArtist = true;
+            //Found Year
+            foundYear = true;
             //for each item in pos
              for(int k = 1; k < 11; ++k)
              {
-                 if(ArtistIndex::my_list[i].pos[k] == pos)
+                 if(YearIndex::my_list[i].pos[k] == pos)
                  {
-                     ArtistIndex::my_list[i].pos[k] = 0;
-                      --ArtistIndex::my_list[i].pos[0];
-                      if(ArtistIndex::my_list[i].pos[0] == 0)
+                     YearIndex::my_list[i].pos[k] = 0;
+                      --YearIndex::my_list[i].pos[0];
+                      if(YearIndex::my_list[i].pos[0] == 0)
                       {
-                          ArtistIndex::my_list[i].artist = "0";
+                          YearIndex::my_list[i].year = 0;
                       }
                  } //end if
              } // end for
         } // end if
     } // end for
-    return foundArtist;
+    return foundYear;
 }
 
 void YearIndex::writeSecondary()

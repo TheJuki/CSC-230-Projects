@@ -42,5 +42,6 @@ public:
     void readSecondary();
     bool matchYear(int inYear, int pos[]);
     int * findYear(int inYear);
+    bool deleteYear(int inYear, int pos);
 };
 #endif // MY_YEAR_INDEX_H
