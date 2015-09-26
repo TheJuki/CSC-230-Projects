@@ -35,18 +35,30 @@ public:
     }
     Primary(int my_hold): count(0), dead_count(0), hold(my_hold) {
         std::ifstream fin("my_primary_index.txt");
+        for(hold = 0; hold < MAX_LIMIT; ++hold) {
+            my_list[hold].title = "****";
+            my_list[hold].pos = 0;
+            my_list[hold].dead_flag = false;
+        }
         fin >> max_count;
         count = max_count;
         for(hold = 0; hold < (max_count + 1); ++hold) {
                 fin >> my_list[hold].title >> my_list[hold].pos;
                 my_list[hold].dead_flag = false;
         }
-        dead_count = my_list[0].pos;
     }
 
     ~Primary() {
         std::ofstream fout("my_primary_index.txt");
-        fout << count - dead_count << std::endl;
+        int my_count = 0;
+         for(int i = 1; i < MAX_LIMIT; ++i)
+         {
+             if(my_list[i].pos != 0 && !my_list[i].dead_flag)
+             {
+                 ++my_count;
+             }
+         }
+        fout << my_count << std::endl;
         for(hold =0; hold < (count + 1); ++hold) {
             if(!my_list[hold].dead_flag)
                 fout << my_list[hold].title << " "

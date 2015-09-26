@@ -11,7 +11,7 @@ Description: Code for title data
 
 bool Primary::matchTitle(std::string inTitle, int& pos)
 {
-     for(int i = 1; i < MAX_LIMIT; ++i)
+     for(int i = 1; i < (count + 1); ++i)
     {
         if(Primary::my_list[i].title == inTitle)
         {
@@ -49,15 +49,18 @@ bool Primary::addTitle(std::string inTitle, int pos)
 }
 bool Primary::deleteTitle(std::string inTitle, int& pos)
 {
-    if(Primary::matchTitle(inTitle, pos))
+    for(int i = 1; i < (count + 1); ++i)
     {
-        my_list[pos].title = "****";
-        my_list[pos].pos = 0;
-        my_list[pos].dead_flag = true;
-        //Set zero record to dead count
-        my_list[0].title = "Dead_Count";
-        setDeadCount(1);
-        return true;
+        if(Primary::my_list[i].title == inTitle)
+        {
+            my_list[i].title = "****";
+            my_list[i].pos = 0;
+            my_list[i].dead_flag = true;
+            //Set zero record to dead count
+            my_list[0].title = "Dead_Count";
+            setDeadCount(1);
+            return true;
+        }
     }
     //Title not found
     return false;

@@ -1,5 +1,5 @@
-7
-Dead_Count 1
+11
+Dead_Count 0
 Nighthawks 1
 The_Thinker 4
 Jackie 5
@@ -7,4 +7,7 @@ David 6
 The_Raft_of_the_Medusa 7
 Boat 8
 Reclining_Figure 9
-JK 2
+New2 2
+New3 3
+Fountain1 10
+New11Right 11

@@ -894,7 +894,6 @@ void addARecord()
                     //Write Indexes
                     cout << "MaxCount: " <<  primaryInx->getMaxCount();
                     cout << "DeadCount " << primaryInx->getDeadCount();
-                    cout << "added: " << primaryInx->getMaxCount() - primaryInx->getDeadCount();
                     delete primaryInx;
                     artistInx.writeSecondary();
                     yearInx.writeSecondary();
