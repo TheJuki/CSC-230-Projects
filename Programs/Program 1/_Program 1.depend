@@ -1,13 +1,14 @@
 # depslib dependency file v1.0
 1442410798 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\ay.cpp
 
-1443018417 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\binary.cpp
+1443277786 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\binary.cpp
 	"binary.h"
 	<stdlib.h>
 	<sstream>
 	<string>
+	<fstream>
 
-1443015153 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\bulk.cpp
+1443056371 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -17,7 +18,7 @@
 	<fstream>
 	<cstdlib>
 
-1443018179 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
+1443282827 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<fstream>
@@ -31,40 +32,40 @@
 	<string>
 	<iostream>
 
-1442628646 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\year.cpp
+1443277786 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\year.cpp
 	"year.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<stdlib.h>
 
-1442628638 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\artist.cpp
+1443277786 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<stdlib.h>
 
-1442626813 c:\users\theju\documents\github\csc-230-projects\programs\program 1\artist.h
+1443277786 c:\users\theju\documents\github\csc-230-projects\programs\program 1\artist.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 
-1443016189 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\title.cpp
+1443283538 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\title.cpp
 	"title.h"
 	<stdlib.h>
 
-1443015153 c:\users\theju\documents\github\csc-230-projects\programs\program 1\title.h
+1443283323 c:\users\theju\documents\github\csc-230-projects\programs\program 1\title.h
 	<fstream>
 	<string>
 	<iostream>
 
-1442626995 c:\users\theju\documents\github\csc-230-projects\programs\program 1\year.h
+1443277786 c:\users\theju\documents\github\csc-230-projects\programs\program 1\year.h
 	<iostream>
 	<fstream>
 
-1442191550 c:\users\theju\documents\github\csc-230-projects\programs\program 1\binary.h
+1443277786 c:\users\theju\documents\github\csc-230-projects\programs\program 1\binary.h
 	<string>
 	<cstring>
 	<fstream>

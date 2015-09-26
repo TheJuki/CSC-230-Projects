@@ -3,6 +3,6 @@
 1 Rodin 4 
 1 Warhol 5 
 1 Michelangelo 6 
-1 Dali 8 
 1 Moore 9 
 1 Duchamp1 10 
+1 JK 2 

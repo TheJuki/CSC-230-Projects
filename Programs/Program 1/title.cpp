@@ -15,7 +15,7 @@ bool Primary::matchTitle(std::string inTitle, int& pos)
     {
         if(Primary::my_list[i].title == inTitle)
         {
-            pos = i;
+            pos = Primary::my_list[i].pos;
             return true;
         }
     }
@@ -42,7 +42,7 @@ bool Primary::addTitle(std::string inTitle, int pos)
         int next_title = ++Primary::count;
         Primary::my_list[next_title].title = inTitle;
         Primary::my_list[next_title].pos = pos;
-        ++Primary::max_count;
+        Primary::max_count = Primary::count;
         return true;
     }
     return false;
@@ -54,7 +54,9 @@ bool Primary::deleteTitle(std::string inTitle, int& pos)
         my_list[pos].title = "****";
         my_list[pos].pos = 0;
         my_list[pos].dead_flag = true;
-        ++dead_count;
+        //Set zero record to dead count
+        my_list[0].title = "Dead_Count";
+        setDeadCount(1);
         return true;
     }
     //Title not found
@@ -72,5 +74,16 @@ bool Primary::printTitle(std::string inTitle, int& pos)
 
 int Primary::getMaxCount()
 {
-    return Primary::max_count;
+    return max_count;
+}
+
+int Primary::getDeadCount()
+{
+    return my_list[0].pos;
+}
+
+void Primary::setDeadCount(int count)
+{
+    my_list[0].pos += count;
+    dead_count += count;
 }

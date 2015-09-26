@@ -41,6 +41,7 @@ public:
                 fin >> my_list[hold].title >> my_list[hold].pos;
                 my_list[hold].dead_flag = false;
         }
+        dead_count = my_list[0].pos;
     }
 
     ~Primary() {
@@ -59,6 +60,8 @@ public:
     bool deleteTitle(std::string, int&);
     bool printTitle(std::string, int&);
     int getMaxCount();
+    int getDeadCount();
+    void setDeadCount(int count);
 
 };
 #endif // MY_PRIMARY_INDEX_H

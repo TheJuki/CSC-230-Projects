@@ -73,6 +73,9 @@ void sellATitle();
 void soldValue();
 void stopMenu();
 
+//Check for Dead Flags
+bool checkDeadFlags(std::fstream& input, int& pos);
+
 //--End Prototypes
 
 //Global Variables
@@ -855,13 +858,27 @@ void addARecord()
                 //Check to see if file is open
                 if(outputFile.is_open())
                 {
-                    //Get number of records
+
                     int nextIndex = primaryInx->getMaxCount() + 1;
-                    cout << " Number of Records: " << nextIndex << endl;
 
                     //Create a binary object
                     MyClass me(my_title, my_artist, my_type,
                        my_year, my_price, my_count);
+
+                    //Check dead count
+                    if(primaryInx->getDeadCount() > 0)
+                    {
+                        //Check for any available dead flag spot
+                        if(!checkDeadFlags(outputFile, nextIndex))
+                        {
+                             //Get number of records
+                             nextIndex = primaryInx->getMaxCount() + 1;
+                        }
+                        else
+                        {
+                            primaryInx->setDeadCount(-1);
+                        }
+                    }
 
                     //Write the binary file
                     me.writeIt(outputFile, nextIndex);
@@ -875,6 +892,9 @@ void addARecord()
                     yearInx.set_year_key(my_year, nextIndex);
 
                     //Write Indexes
+                    cout << "MaxCount: " <<  primaryInx->getMaxCount();
+                    cout << "DeadCount " << primaryInx->getDeadCount();
+                    cout << "added: " << primaryInx->getMaxCount() - primaryInx->getDeadCount();
                     delete primaryInx;
                     artistInx.writeSecondary();
                     yearInx.writeSecondary();
@@ -1055,4 +1075,29 @@ void changeByTitle(int selection)
         LoadCurrentMenu();
     }
 
+}
+
+//--------------------------------------------------//
+//           Check for a Dead Record slot
+//--------------------------------------------------//
+bool checkDeadFlags(fstream& input, int& pos)
+{
+    MyClass record;
+    pos = 1;
+    if(input.is_open())
+    {
+        record.readIt(input, pos);
+        while(!input.eof())
+        {
+            if(record.get_flag())
+            {
+                //Dead record slot found
+                return true;
+            }
+            pos++;
+            record.readIt(input, pos);
+        }
+    }
+
+    return false;
 }
