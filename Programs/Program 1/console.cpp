@@ -51,6 +51,7 @@ void PrintMenuInput();
 void DeleteMenuInput();
 void ChangeRecordMenuInput();
 void ChangeByTitleMenuInput();
+void ChangeByArtistYearMenuInput();
 
 //Used for InvalidInput
 void LoadCurrentMenu();
@@ -72,8 +73,10 @@ void deleteByTitle();
 bool confirmDelete();
 
 //Change Menu Functions
-void changeByArtist();
-void changeByTitle(int selection);
+void ChangeByArtistYearMenu();
+void ChangeByTitleMenu();
+void changeByTitle(int selection, MyClass& me);
+void changeByArtistYear(recordMember member);
 
 //Other Menu Functions
 void addARecord();
@@ -140,11 +143,11 @@ void LoadCurrentMenu()
                  break;
         case(2): PrintMenu();
                  break;
-        case(3): ChangeByArtistMenu();
+        case(3): ChangeByTitleMenu();
                  break;
-        case(4): ClearScreen();
+        case(4): ChangeByArtistYearMenu();
                  break;
-        case(5): ClearScreen();
+        case(5): ChangeByTitleMenu();
                  break;
         case(6): DeleteMenu();
                  break;
@@ -232,7 +235,25 @@ void ChangeRecordMenu()
 } // end ChangeRecordMenu
 
 //The Change By Title print
-void ChangeByArtistMenu()
+void ChangeByArtistYearMenu()
+{
+    currentMenu = 4;
+    ClearScreen();
+    Header();
+    cout << "  Change by Artist or Year" << endl << endl;
+    cout << "  1  Change by Artist" << endl
+         << "  2  Change by Year" << endl
+         << endl //3
+         << endl //4
+         << endl //5
+         << endl //6
+         << endl //7
+         << "\n\n\n\n";
+     ChangeByArtistYearMenuInput();
+} // end MainMenu
+
+//The Change By Title print
+void ChangeByTitleMenu()
 {
     currentMenu = 3;
     ClearScreen();
@@ -371,9 +392,9 @@ void ChangeRecordMenuInput()
         {
             case('0'): MainMenu();
                      break;
-            case('1'): changeByArtist();
+            case('1'): ChangeByArtistYearMenu();
                      break;
-            case('2'): ChangeByArtistMenu();
+            case('2'): ChangeByTitleMenu();
                      break;
             default: InvalidInput();
                      break;
@@ -381,9 +402,38 @@ void ChangeRecordMenuInput()
     } // end else
 } // end ChangeRecordMenuInput
 
+//Change By Artist or Year Menu selection
+void ChangeByArtistYearMenuInput()
+{
+    string input;
+    cout << " Please make a selection (1-2) or type '0' to return: ";
+    cin >> input;
+    if(input.size() > 1)
+    {
+        InvalidInput();
+    } // end if
+    else
+    {
+        const char* p_c_str = input.c_str();
+        char inputChar = p_c_str[0];
+        switch(inputChar)
+        {
+            case('0'): ChangeRecordMenu();
+                     break;
+            case('1'): changeByArtistYear(ARTIST);
+                     break;
+            case('2'): changeByArtistYear(YEAR);
+                     break;
+            default: InvalidInput();
+                     break;
+        } // end switch
+    } // end else
+} // end ChangeByArtistYearMenuInput
+
 //Change By Title Menu Input selection
 void ChangeByTitleMenuInput()
 {
+    MyClass me;
     string input;
     cout << " Please enter a selection from the Change By Title Menu (1-8): ";
     cin >> input;
@@ -397,21 +447,21 @@ void ChangeByTitleMenuInput()
         char inputChar = p_c_str[0];
         switch(inputChar)
         {
-            case('1'): changeByTitle(1);
+            case('1'): changeByTitle(1, me);
                      break;
-            case('2'): changeByTitle(2);
+            case('2'): changeByTitle(2, me);
                      break;
-            case('3'): changeByTitle(3);
+            case('3'): changeByTitle(3, me);
                      break;
-            case('4'): changeByTitle(4);
+            case('4'): changeByTitle(4, me);
                      break;
-            case('5'): changeByTitle(5);
+            case('5'): changeByTitle(5, me);
                      break;
-            case('6'): changeByTitle(6);
+            case('6'): changeByTitle(6, me);
                      break;
-            case('7'): changeByTitle(7);
+            case('7'): changeByTitle(7, me);
                      break;
-            case('8'): changeByTitle(8);
+            case('8'): changeByTitle(8, me);
                      break;
             default: InvalidInput();
                      break;
@@ -461,36 +511,40 @@ void printTryAgain(addChangeDelete type)
 
 	if (input.size() > 1)
 	{
-		PrintMenu();
+		LoadCurrentMenu();
 	} // end if
 	else
 	{
 		const char* p_c_str = input.c_str();
 		char inputChar = p_c_str[0];
-		if(type == addChangeDelete.ADD_BY_TITLE)
-        {
-            switch (inputChar)
-            {
-            case('0') : LoadCurrentMenu();
+		switch (type)
+		{
+		    case(ADD_BY_TITLE) :
+                switch(inputChar)
+                {
+                    case('0') : LoadCurrentMenu();
+                        break;
+                    case('1') : addARecord();
+                        break;
+                    default: LoadCurrentMenu();
+                        break;
+                } // end switch ADD_BY_TITLE
                 break;
-            case('1') : addARecord();
+
+            case(DELETE_BY_TITLE) :
+                switch(inputChar)
+                {
+                    case('0') : LoadCurrentMenu();
+                        break;
+                    case('1') : deleteByTitle();
+                        break;
+                    default: LoadCurrentMenu();
+                        break;
+                } // end switch deleteByTitle
                 break;
             default: LoadCurrentMenu();
                 break;
-            } // end switch
-        }
-        else if(type == addChangeDelete.DELETE_BY_TITLE)
-        {
-            switch (inputChar)
-            {
-            case('0') : LoadCurrentMenu();
-                break;
-            case('1') : deleteByTitle();
-                break;
-            default: LoadCurrentMenu();
-                break;
-            } // end switch
-        }
+		} // end switch type
 	} // end else
 }
 
@@ -878,7 +932,7 @@ void addARecord()
                 << input << "' already exists at index '" << pos << "'" << endl << endl << endl << endl;
 
                 //Get user to try again
-                printTryAgain('A');
+                printTryAgain(ADD_BY_TITLE);
 
             } //end if
             else // Title not found
@@ -979,7 +1033,7 @@ void addARecord()
                         cout << " Please make sure to fill in a valid value for each field." << endl;
                         cout << " Also, use '_' instead a spaces." << endl << endl << endl << endl;
                         //Get user to try again
-                        printTryAgain(ADD_CHANGE_DELETE.ADD_BY_TITLE);
+                        printTryAgain(ADD_BY_TITLE);
 
                    } // Else Info not filled in correctly
 
@@ -1124,7 +1178,7 @@ void deleteByTitle()
         cout << " The record for the title: '" << input << "' could not found for deletion." << endl << endl << endl << endl;
 
         //Ask user to try again
-        printTryAgain('T');
+        printTryAgain(DELETE_BY_TITLE);
     }
 
 }
@@ -1142,16 +1196,16 @@ void deleteByArtist()
 //           Change Record Menu Functions
 //--------------------------------------------------//
 
-void changeByArtist()
+void changeByArtistYear(recordMember member)
 {
-    cout << " changeByArtist method stubbed" << endl;
+    cout << " changeByArtistYear method stubbed" << endl;
     string s;
     getline(cin, s);
     getline(cin, s);
     LoadCurrentMenu();
 }
 
-void changeByTitle(int selection)
+void changeByTitle(int selection, MyClass& me)
 {
     //Quit
     if(selection == 1)

@@ -1,6 +1,5 @@
-10
-Dead_Count 0
-Rec1 1
+9
+Dead_Count 1
 Rec2 2
 Rec3 3
 Rec4 4
