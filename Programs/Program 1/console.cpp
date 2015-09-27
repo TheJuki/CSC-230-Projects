@@ -1198,11 +1198,116 @@ void deleteByArtist()
 
 void changeByArtistYear(recordMember member)
 {
-    cout << " changeByArtistYear method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+    string type;
+
+    switch (member)
+    {
+    case(ARTIST) : type = "Artist";
+        break;
+    case(YEAR) : type = "Year";
+        break;
+    default : // Nothing
+        break;
+    }
+    //Record
+    MyClass record;
+
+     //Primary Indexes
+    Primary* primaryInx = new Primary(0);
+
+    //Secondary Indexes
+    ArtistIndex artistInx;
+    YearIndex yearInx;
+
+    //Fill
+    artistInx.readSecondary();
+    yearInx.readSecondary();
+
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Changing by " << type << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " To change a record, provide an existing " << type << " first."<< endl;
+    cout << " Then provide a new " << type << "." << endl << endl << endl << endl;
+
+    //Ask user
+	string input;
+	cout << endl << endl << " Enter the " << type << " for the records that are to be updated: ";
+	cin >> input;
+
+    //Find title
+	int* pos;
+	switch (member)
+    {
+    case(ARTIST) : pos = artistInx.findArtist(input);
+        break;
+    case(YEAR) : pos = yearInx.findYear(atoi(input.c_str()));
+        break;
+    default : //Nothing
+        break;
+    }
+
+    string my_title = "", my_artist = "";
+    int my_year = 0;
+
+	//If title found, delete it
+	if(pos > 0)
+    {
+        my_title = input;
+        cout << endl << endl << " -INFORMATION-" << endl << endl;
+        cout << " The record for the title: '" << my_title << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
+        if(confirmDelete())
+        {
+             MyClass record;
+            //Update Record (Dead)
+            record.UpdateBinary(pos, my_artist, my_year);
+            //Delete Title Index
+            primaryInx->deleteTitle(my_title, pos);
+            //Delete Artist Index
+            artistInx.deleteArtist(my_artist, pos);
+            //Delete Year Index
+            yearInx.deleteYear(my_year, pos);
+
+             //Write Indexes
+            delete primaryInx;
+            artistInx.writeSecondary();
+            yearInx.writeSecondary();
+
+            //Success!
+            cout << endl << " -INFORMATION-" << endl << endl;
+            cout <<  " Delete operation successful." << endl;
+            cout << " The index: '" << pos << "' is now available." << endl;
+            cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
+
+            //Ask user to return a menu
+            printReturn();
+
+        } // end if confirm
+        else
+        {
+            cout << endl << " -INFORMATION-" << endl << endl;
+            cout <<  " Delete operation canceled." << endl;
+            cout << " No records were affected." << endl << endl << endl << endl;
+
+            //Ask user to return a menu
+            printReturn();
+        }
+
+    } //end if
+    else // Title not found
+    {
+        cout << endl << " -NOTICE-" << endl << endl;
+        cout <<  " Delete operation canceled."<< endl;
+        cout << " No records were affected." << endl;
+        cout << " The record for the title: '" << input << "' could not found for deletion." << endl << endl << endl << endl;
+
+        //Ask user to try again
+        printTryAgain(DELETE_BY_TITLE);
+    }
 }
 
 void changeByTitle(int selection, MyClass& me)
