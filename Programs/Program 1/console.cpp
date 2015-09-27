@@ -15,6 +15,14 @@ Description: Main Driver. Handles Console output.
 #include "year.h"
 #include "binary.h"
 
+//Global Variables
+int currentMenu = 0;
+bool indexUpdated = false;
+
+enum recordMember {TITLE, ARTIST, TYPE, YEAR, PRICE, COUNT};
+enum addChangeDelete {ADD_BY_TITLE, CHANGE_BY_TITLE, CHANGE_BY_ARTIST, CHANGE_BY_YEAR,
+                        DELETE_BY_TITLE, DELETE_BY_ARTIST, DELETE_BY_YEAR};
+
 //Prototypes
 
 //Bulk
@@ -48,7 +56,7 @@ void ChangeByTitleMenuInput();
 void LoadCurrentMenu();
 
 //Used for Add / Delete / Change
-void printTryAgain(char type);
+void printTryAgain(addChangeDelete type);
 
 //Print Menu functions
 void printReturn();
@@ -77,10 +85,6 @@ void stopMenu();
 bool checkDeadFlags(std::fstream& input, int& pos);
 
 //--End Prototypes
-
-//Global Variables
-int currentMenu = 0;
-bool indexUpdated = false;
 
 //--End Global Variables
 
@@ -448,7 +452,7 @@ void printReturn()
 	} // end else
 }
 
-void printTryAgain(char type)
+void printTryAgain(addChangeDelete type)
 {
     //Ask user to return -Ignores Invalid Input
 	string input;
@@ -463,7 +467,7 @@ void printTryAgain(char type)
 	{
 		const char* p_c_str = input.c_str();
 		char inputChar = p_c_str[0];
-		if(type == 'A')
+		if(type == addChangeDelete.ADD_BY_TITLE)
         {
             switch (inputChar)
             {
@@ -475,7 +479,7 @@ void printTryAgain(char type)
                 break;
             } // end switch
         }
-        else if(type == 'T')
+        else if(type == addChangeDelete.DELETE_BY_TITLE)
         {
             switch (inputChar)
             {
@@ -487,8 +491,6 @@ void printTryAgain(char type)
                 break;
             } // end switch
         }
-
-
 	} // end else
 }
 
@@ -497,6 +499,15 @@ void PrintAll()
 {
     //Clear screen
     ClearScreen();
+    Header();
+    cout << " Display all records" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " All records are displayed." << endl
+    << endl << endl;
+
     char outputFileName[80] = "output.bin";
     //Read in file
     fstream file(outputFileName, ios::in | ios::binary);
@@ -540,6 +551,17 @@ void PrintByTitle()
     ArtistIndex artistInx;
     YearIndex yearInx;
 
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Display a record by title" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " Provide the title of the specific record to display."<< endl;
+    cout << endl << endl << endl << endl;
+
     //Ask user
 	string input;
 	cout << endl << endl << " Enter the title to display record: ";
@@ -548,9 +570,6 @@ void PrintByTitle()
     //Find title
 	int pos = 0;
 	primaryInx->printTitle(input, pos);
-
-    //Clear screen
-    ClearScreen();
 
 	//If title found, then display it
 	if(pos > 0)
@@ -561,8 +580,9 @@ void PrintByTitle()
         record.readIt(file, pos);
         if(!record.get_flag())
         {
+            cout << endl << endl << " -INFORMATION-" << endl << endl;
             cout << " Here is the record for the title '"
-                 << input << "'." << endl << endl;
+                 << input << "'." << endl << endl << endl;
             cout << "-----------" << endl;
             cout << " Record " << pos <<endl;
             cout << "-----------" << endl;
@@ -571,14 +591,19 @@ void PrintByTitle()
 
         //Close file
         file.close();
+
+        //Ask user to return a menu
+        printReturn();
     } //end if
     else // Title not found
     {
-        cout << " The title: '" << input << "' does not exist" << endl;
-    }
+        cout << endl << endl << " -NOTICE-" << endl << endl;
+        cout << " The title: '" << input << "' does not exist"
+        << endl << endl << endl << endl;
 
-    //Ask user to return a menu
-    printReturn();
+        //Ask user to return a menu
+        printReturn();
+    }
 }
 
 void PrintByArtist()
@@ -592,6 +617,16 @@ void PrintByArtist()
     //Fill
     artistInx.readSecondary();
 
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Display records by artist" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " Provide the artist of records to display."<< endl;
+    cout << " Up to 10 records with the provided artist will be displayed." << endl << endl << endl << endl;
 
     //Ask user
 	string input;
@@ -601,14 +636,12 @@ void PrintByArtist()
     //Find artist
 	int* pos = artistInx.findArtist(input);
 
-    //Clear screen
-    ClearScreen();
-
 	//If artist found, then display it
 	if(*pos > 0)
     {
+        cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " Here are the records for the artist '"
-             << input << "'." << endl << endl;
+             << input << "'." << endl << endl << endl << endl;
 
         char outputFileName[80] = "output.bin";
         //Read in file
@@ -628,14 +661,19 @@ void PrintByArtist()
 
         //Close file
         file.close();
+
+        //Ask user to return a menu
+        printReturn();
     } // End if
     else // Title not found
     {
-        cout << " The artist: '" << input << "' does not exist" << endl;
+        cout << endl << endl << " -NOTICE-" << endl << endl;
+        cout << " The artist: '" << input << "' does not exist"
+        << endl << endl << endl;
+        //Ask user to return a menu
+        printReturn();
     }
 
-    //Ask user to return a menu
-    printReturn();
 }
 
 void PrintByYear()
@@ -649,6 +687,17 @@ void PrintByYear()
     //Fill
     yearInx.readSecondary();
 
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Display records by year" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " Provide the year of records to display."<< endl;
+    cout << " Up to 10 records with the provided year will be displayed." << endl << endl << endl << endl;
+
    //Ask user
 	string input;
 	cout << endl << endl << " Enter a year to display records: ";
@@ -657,14 +706,12 @@ void PrintByYear()
     //Find year
 	int* pos = yearInx.findYear(atoi(input.c_str()));
 
-    //Clear screen
-    ClearScreen();
-
 	//If year found, then display it
 	if(*pos > 0)
     {
+        cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " Here are the records for the year '"
-             << input << "'." << endl << endl;
+             << input << "'." << endl << endl << endl << endl;
 
         char outputFileName[80] = "output.bin";
         //Read in file
@@ -684,14 +731,19 @@ void PrintByYear()
 
         //Close file
         file.close();
+        //Ask user to return a menu
+        printReturn();
     } // End if
     else // Title not found
     {
-        cout << " The year: '" << input << "' does not exist" << endl;
+        cout << endl << endl << " -NOTICE-" << endl << endl;
+        cout << " The year: '" << input << "' does not exist" << endl
+        << endl << endl << endl;
+
+        //Ask user to return a menu
+        printReturn();
     }
 
-    //Ask user to return a menu
-    printReturn();
 }
 
 void PrintSummary()
@@ -799,130 +851,150 @@ void addARecord()
     cout << " Adding a new record" << endl
          << endl  << endl  << endl;
 
-    //Ask user
-	string input;
-	cout << endl << endl << " Enter the title for the new record: ";
-	cin >> input;
+    if(primaryInx->getMaxCount() != (MAX_LIMIT - 1))
+       {
+           //Provide general information
+           cout << " -INFORMATION-" << endl << endl;
+           cout <<  " To add a record, provide a new, non-existing title first."<< endl;
+           cout << " Then provide the artist, type, year, price, and count." << endl << endl << endl << endl;
 
-    //Find title
-	int pos = 0;
-	primaryInx->matchTitle(input, pos);
+           //Ask user
+            string input;
+            cout << endl << endl << " Enter the title for the new record: ";
+            cin >> input;
 
-    string my_title = "", my_artist = "", my_type = "";
-    int my_year = 0, my_price = 0, my_count = 0;
+            //Find title
+            int pos = 0;
+            primaryInx->matchTitle(input, pos);
 
-	//If title found, then throw an error
-	if(pos > 0)
-    {
-        cout << endl << " The record for the title: '"
-        << input << "' already exists at index '" << pos << "'" << endl;
+            string my_title = "", my_artist = "", my_type = "";
+            int my_year = 0, my_price = 0, my_count = 0;
 
-        //Get user to try again
-        printTryAgain('A');
+            //If title found, then throw an error
+            if(pos > 0)
+            {
+                cout << endl << endl << " -NOTICE-" << endl << endl;
+                cout << " The record for the title: '"
+                << input << "' already exists at index '" << pos << "'" << endl << endl << endl << endl;
 
-    } //end if
-    else // Title not found
-    {
-        my_title = input;
-
-        cout << endl << " Provide the rest of information for the title: '" << input << "'" << endl;
-
-        //Rest of the information
-        cout << endl << " Artist name: ";
-        cin >> input;
-        my_artist = input;
-
-        cout << endl <<  " Type of work: ";
-        cin >> input;
-        my_type = input;
-
-        cout << endl <<  " Year produced: ";
-        cin >> input;
-        my_year = atoi(input.c_str());
-
-        cout << endl <<  " Price: ";
-        cin >> input;
-        my_price = atoi(input.c_str());
-
-        cout << endl <<  " Count: ";
-        cin >> input;
-        my_count = atoi(input.c_str());
-
-        if(my_artist != "" && my_title != "" &&  my_type != ""
-           && my_count >= 0 && my_year > 0 && my_price >= 0)
-           {
-                char outputFileName[80] = "output.bin";
-                //Open Binary file for binary|writing using fstream
-                //ios::in | ios::out | ios::binary used for adding/changing
-                fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
-                //Check to see if file is open
-                if(outputFile.is_open())
-                {
-
-                    int nextIndex = primaryInx->getMaxCount() + 1;
-
-                    //Create a binary object
-                    MyClass me(my_title, my_artist, my_type,
-                       my_year, my_price, my_count);
-
-                    //Check dead count
-                    if(primaryInx->getDeadCount() > 0)
-                    {
-                        //Check for any available dead flag spot
-                        if(!checkDeadFlags(outputFile, nextIndex))
-                        {
-                             //Get number of records
-                             nextIndex = primaryInx->getMaxCount() + 1;
-                        }
-                        else
-                        {
-                            primaryInx->setDeadCount(-1);
-                        }
-                    }
-
-                    //Write the binary file
-                    me.writeIt(outputFile, nextIndex);
-
-                    //Close file
-                    outputFile.close();
-
-                    //Add Indexes
-                    primaryInx->addTitle(my_title, nextIndex);
-                    artistInx.set_artist_key(my_artist, nextIndex);
-                    yearInx.set_year_key(my_year, nextIndex);
-
-                    //Write Indexes
-                    cout << "MaxCount: " <<  primaryInx->getMaxCount();
-                    cout << "DeadCount " << primaryInx->getDeadCount();
-                    delete primaryInx;
-                    artistInx.writeSecondary();
-                    yearInx.writeSecondary();
-
-                    //Success!
-                    cout << endl <<  " The title: '" << my_title
-                         << "' was successfully added at index '" << nextIndex << "'" << endl;
-                } // If Open
-                else
-                {
-                    cout << endl <<  " The file could not be opened for writing." << endl;
-                } // Else Not Open
-           } // If Info filled in filled in correctly
-           else
-           {
-                cout << endl << " The record for the title: '"
-                << my_title << "' has invalid fields." << endl;
-
-                cout << " Please make sure to fill in a valid value for each field." << endl;
-                cout << " Also, use '_' instead a spaces." << endl;
                 //Get user to try again
                 printTryAgain('A');
 
-           } // Else Info not filled in correctly
+            } //end if
+            else // Title not found
+            {
+                my_title = input;
 
-    } // Else Title Not Found
+                cout << endl << " Provide the rest of information for the title: '" << input << "'" << endl;
 
-    //Ask user to return a menu
-    printReturn();
+                //Rest of the information
+                cout << endl << " Artist name: ";
+                cin >> input;
+                my_artist = input;
+
+                cout << endl <<  " Type of work: ";
+                cin >> input;
+                my_type = input;
+
+                cout << endl <<  " Year produced: ";
+                cin >> input;
+                my_year = atoi(input.c_str());
+
+                cout << endl <<  " Price: ";
+                cin >> input;
+                my_price = atoi(input.c_str());
+
+                cout << endl <<  " Count: ";
+                cin >> input;
+                my_count = atoi(input.c_str());
+
+                if(my_artist != "" && my_title != "" &&  my_type != ""
+                   && my_count >= 0 && my_year > 0 && my_price >= 0)
+                   {
+                        char outputFileName[80] = "output.bin";
+                        //Open Binary file for binary|writing using fstream
+                        //ios::in | ios::out | ios::binary used for adding/changing
+                        fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
+                        //Check to see if file is open
+                        if(outputFile.is_open())
+                        {
+
+                            int nextIndex = primaryInx->getMaxCount() + 1;
+
+                            //Create a binary object
+                            MyClass me(my_title, my_artist, my_type,
+                               my_year, my_price, my_count);
+
+                            //Check dead count
+                            if(primaryInx->getDeadCount() > 0)
+                            {
+                                //Check for any available dead flag spot
+                                if(!checkDeadFlags(outputFile, nextIndex))
+                                {
+                                     //Get number of records
+                                     nextIndex = primaryInx->getMaxCount() + 1;
+                                }
+                                else
+                                {
+                                    primaryInx->setDeadCount(-1);
+                                }
+                            }
+
+                            //Write the binary file
+                            me.writeIt(outputFile, nextIndex);
+
+                            //Close file
+                            outputFile.close();
+
+                            //Add Indexes
+                            primaryInx->addTitle(my_title, nextIndex);
+                            artistInx.set_artist_key(my_artist, nextIndex);
+                            yearInx.set_year_key(my_year, nextIndex);
+
+                            //Write Indexes
+                            delete primaryInx;
+                            artistInx.writeSecondary();
+                            yearInx.writeSecondary();
+
+                            //Success!
+                            cout << endl << endl << " -INFORMATION-" << endl << endl;
+                            cout <<  " The title: '" << my_title
+                                 << "' was successfully added at index '" << nextIndex << "'."  << endl << endl << endl << endl;
+                            //Ask user to return a menu
+                            printReturn();
+                        } // If Open
+                        else
+                        {
+                            cout << endl << endl << " -NOTICE-" << endl << endl;
+                            cout << endl <<  " The file could not be opened for writing." << endl << endl << endl << endl;
+                            //Ask user to return a menu
+                            printReturn();
+                        } // Else Not Open
+                   } // If Info filled in filled in correctly
+                   else
+                   {
+                        cout << endl << endl << " -NOTICE-" << endl << endl;
+                        cout << " The record for the title: '"
+                        << my_title << "' has invalid fields." << endl;
+                        cout << " Please make sure to fill in a valid value for each field." << endl;
+                        cout << " Also, use '_' instead a spaces." << endl << endl << endl << endl;
+                        //Get user to try again
+                        printTryAgain(ADD_CHANGE_DELETE.ADD_BY_TITLE);
+
+                   } // Else Info not filled in correctly
+
+            }// Else Title Not Found
+       } //If Records not at limit
+       else
+       {
+           //Provide error information
+           cout << " -NOTICE-" << endl << endl;
+           cout <<  " The max number of records '" << MAX_LIMIT - 1 << "' has been reached." << endl;
+           cout << " Delete a record to add a new record." << endl << endl << endl << endl;
+
+            //Ask user to return a menu
+            printReturn();
+       }
 }
 
 
@@ -977,6 +1049,17 @@ void deleteByTitle()
     artistInx.readSecondary();
     yearInx.readSecondary();
 
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Deleting a new record" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " To delete a record, provide an existing title first."<< endl;
+    cout << " Then confirm the deletion of the record." << endl << endl << endl << endl;
+
     //Ask user
 	string input;
 	cout << endl << endl << " Enter the title of the record for deletion: ";
@@ -986,9 +1069,6 @@ void deleteByTitle()
 	int pos = 0;
 	primaryInx->matchTitle(input, pos);
 
-    //Clear screen
-    ClearScreen();
-
     string my_title = "", my_artist = "";
     int my_year = 0;
 
@@ -996,7 +1076,8 @@ void deleteByTitle()
 	if(pos > 0)
     {
         my_title = input;
-        cout << " The record for the title: '" << my_title << "' can be deleted at index '" << pos << "'" << endl;
+        cout << endl << endl << " -INFORMATION-" << endl << endl;
+        cout << " The record for the title: '" << my_title << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
         if(confirmDelete())
         {
              MyClass record;
@@ -1015,23 +1096,36 @@ void deleteByTitle()
             yearInx.writeSecondary();
 
             //Success!
-            cout << " The record for the title: '" << my_title << "' was deleted." << endl;
+            cout << endl << " -INFORMATION-" << endl << endl;
+            cout <<  " Delete operation successful." << endl;
+            cout << " The index: '" << pos << "' is now available." << endl;
+            cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
+
+            //Ask user to return a menu
+            printReturn();
 
         } // end if confirm
         else
         {
-             cout << " Delete operation canceled." << endl;
+            cout << endl << " -INFORMATION-" << endl << endl;
+            cout <<  " Delete operation canceled." << endl;
+            cout << " No records were affected." << endl << endl << endl << endl;
+
+            //Ask user to return a menu
+            printReturn();
         }
 
     } //end if
     else // Title not found
     {
-        cout << " The record for the title: '" << input << "' could not found for deletion." << endl;
+        cout << endl << " -NOTICE-" << endl << endl;
+        cout <<  " Delete operation canceled."<< endl;
+        cout << " No records were affected." << endl;
+        cout << " The record for the title: '" << input << "' could not found for deletion." << endl << endl << endl << endl;
+
+        //Ask user to try again
         printTryAgain('T');
     }
-
-    //Go back or main menu
-    printReturn();
 
 }
 

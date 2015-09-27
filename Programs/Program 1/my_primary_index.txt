@@ -1,13 +1,12 @@
-11
+10
 Dead_Count 0
-Nighthawks 1
-The_Thinker 4
-Jackie 5
-David 6
-The_Raft_of_the_Medusa 7
-Boat 8
-Reclining_Figure 9
-New2 2
-New3 3
-Fountain1 10
-New11Right 11
+Rec1 1
+Rec2 2
+Rec3 3
+Rec4 4
+Rec5 5
+Rec6 6
+Rec7 7
+Rec8 8
+Rec9 9
+Rec10 10

@@ -147,8 +147,6 @@ void build()
 
         //Close all files
         input.close();
-         int numOfRecords = writeZeroRecord.get_value(outputFile);
-            cout << "Number of Records: " << numOfRecords << endl;
         outputFile.close();
 
     } // End if

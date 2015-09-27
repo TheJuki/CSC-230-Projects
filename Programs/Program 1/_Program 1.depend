@@ -8,7 +8,7 @@
 	<string>
 	<fstream>
 
-1443311928 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\bulk.cpp
+1443315559 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -18,7 +18,7 @@
 	<fstream>
 	<cstdlib>
 
-1443311936 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
+1443318900 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1\console.cpp
 	<string>
 	<iostream>
 	<fstream>
