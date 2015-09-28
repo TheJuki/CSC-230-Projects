@@ -571,9 +571,6 @@ void printTryAgain(addChangeDelete type)
         case(ADD_BY_TITLE) :
             switch(inputChar)
             {
-            case('0') :
-                LoadCurrentMenu();
-                break;
             case('1') :
                 addARecord();
                 break;
@@ -586,16 +583,35 @@ void printTryAgain(addChangeDelete type)
         case(DELETE_BY_TITLE) :
             switch(inputChar)
             {
-            case('0') :
-                LoadCurrentMenu();
-                break;
             case('1') :
                 deleteByTitle();
                 break;
             default:
                 LoadCurrentMenu();
                 break;
-            } // end switch deleteByTitle
+            } // end switch DELETE_BY_TITLE
+            break;
+        case(CHANGE_BY_ARTIST) :
+            switch(inputChar)
+            {
+            case('1') :
+                changeByArtistYear(ARTIST);
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch CHANGE_BY_ARTIST
+            break;
+        case(CHANGE_BY_YEAR) :
+            switch(inputChar)
+            {
+            case('1') :
+                changeByArtistYear(YEAR);
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch CHANGE_BY_YEAR
             break;
         default:
             LoadCurrentMenu();
@@ -1401,9 +1417,6 @@ void changeByArtistYear(recordMember member)
         default : //Nothing
             break;
         }
-
-        //Ask user to return a menu
-        printReturn();
     } // end else
 }
 
