@@ -13,53 +13,62 @@ Description: Header for title.cpp
 #include <iostream>
 const int MAX_LIMIT = 35;
 
-struct MINI {
+struct MINI
+{
     std::string title;
     int pos;
     bool dead_flag;
 };
 
-class Primary {
+class Primary
+{
 
 private:
     struct MINI my_list[MAX_LIMIT];
     int count, dead_count, hold, max_count;
 
 public:
-    Primary(): count(0), dead_count(0), max_count(0) {
-        for(hold = 0; hold < MAX_LIMIT; ++hold) {
+    Primary(): count(0), dead_count(0), max_count(0)
+    {
+        for(hold = 0; hold < MAX_LIMIT; ++hold)
+        {
             my_list[hold].title = "****";
             my_list[hold].pos = 0;
             my_list[hold].dead_flag = false;
         }
     }
-    Primary(int my_hold): count(0), dead_count(0), hold(my_hold) {
+    Primary(int my_hold): count(0), dead_count(0), hold(my_hold)
+    {
         std::ifstream fin("my_primary_index.txt");
-        for(hold = 0; hold < MAX_LIMIT; ++hold) {
+        for(hold = 0; hold < MAX_LIMIT; ++hold)
+        {
             my_list[hold].title = "****";
             my_list[hold].pos = 0;
             my_list[hold].dead_flag = false;
         }
         fin >> max_count;
         count = max_count;
-        for(hold = 0; hold < (max_count + 1); ++hold) {
-                fin >> my_list[hold].title >> my_list[hold].pos;
-                my_list[hold].dead_flag = false;
+        for(hold = 0; hold < (max_count + 1); ++hold)
+        {
+            fin >> my_list[hold].title >> my_list[hold].pos;
+            my_list[hold].dead_flag = false;
         }
     }
 
-    ~Primary() {
+    ~Primary()
+    {
         std::ofstream fout("my_primary_index.txt");
         int my_count = 0;
-         for(int i = 1; i < MAX_LIMIT; ++i)
-         {
-             if(my_list[i].pos != 0 && !my_list[i].dead_flag)
-             {
-                 ++my_count;
-             }
-         }
+        for(int i = 1; i < MAX_LIMIT; ++i)
+        {
+            if(my_list[i].pos != 0 && !my_list[i].dead_flag)
+            {
+                ++my_count;
+            }
+        }
         fout << my_count << std::endl;
-        for(hold =0; hold < (count + 1); ++hold) {
+        for(hold =0; hold < (count + 1); ++hold)
+        {
             if(!my_list[hold].dead_flag)
                 fout << my_list[hold].title << " "
                      << my_list[hold].pos << std::endl;

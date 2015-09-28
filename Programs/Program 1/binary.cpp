@@ -54,7 +54,7 @@ int MyClass::get_value(std::fstream& inout)
 //Set functions
 void MyClass::set_title(std::string my_title)
 {
-     strcpy(MyClass::title, my_title.c_str());
+    strcpy(MyClass::title, my_title.c_str());
 }
 void MyClass::set_artist(std::string my_artist)
 {
@@ -118,7 +118,7 @@ void MyClass::UpdateBinary(int pos, std::string& artist, int& year)
 // Read & write a File
 void MyClass::writeIt(std::fstream& out, long position) const
 {
-     //write out the MyClass object
+    //write out the MyClass object
     out.seekp(position * (sizeof(MyClass)));
     out.write((char*) this, sizeof(MyClass));
 }

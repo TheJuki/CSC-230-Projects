@@ -35,12 +35,12 @@ public:
     int get_year(int pos) const; // debugging tool
 
     void set_year_key(int my_year, int my_key);
-    void updateYear(int new_year, int pos[]);
+    void updateYear(int old_year, int new_year);
 
     //Read and Write
     void writeSecondary();
     void readSecondary();
-    bool matchYear(int inYear, int pos[]);
+    bool matchYear(int inYear, int& location);
     int * findYear(int inYear);
     bool deleteYear(int inYear, int pos);
 };

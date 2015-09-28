@@ -21,7 +21,7 @@ void YearIndex::set_year_key(int my_year, int my_key)
 {
     //Check for year
     bool foundYear = false;
-     //For each item in my_list
+    //For each item in my_list
     for(int i = 1; i < 15; ++i)
     {
         if(YearIndex::my_list[i].year == my_year)
@@ -56,23 +56,49 @@ void YearIndex::set_year_key(int my_year, int my_key)
     } //end if
 } // end YearIndex
 
-void YearIndex::updateYear(int new_year, int pos[])
+void YearIndex::updateYear(int old_year, int new_year)
 {
-     for(int i = 1; i < 15; ++i)
+    int new_location = 0;
+    int old_location = 0;
+
+    if(!matchYear(new_year, new_location))
     {
-         if(YearIndex::my_list[i].pos == pos)
-         {
-             YearIndex::my_list[i].year = new_year;
-             break;
-         }
-    }
+        for(int i = 1; i < 15; ++i)
+        {
+            if(my_list[i].year == old_year)
+            {
+                //Change year
+                my_list[i].year = new_year;
+                break;
+            } // end if
+        } // end for
+    } // end if
+    else
+    {
+        //Copy positions to new location
+        //Delete old year
+        matchYear(old_year, old_location);
+        for (int i = 1; i < 11; ++i)
+        {
+            for (int k = 1; k < 11; ++k)
+            {
+                if(my_list[old_location].pos[i] != 0 && my_list[new_location].pos[k] == 0)
+                {
+                    my_list[new_location].pos[k] = my_list[old_location].pos[i];
+                    ++my_list[new_location].pos[0];
+                    deleteYear(old_year, my_list[old_location].pos[i]);
+                    break;
+                } // end if
+            } // end for k
+        } // end for i
+    } // end else
 }
 
 bool YearIndex::deleteYear(int inYear, int pos)
 {
     //Check for year
     bool foundYear = false;
-     //For each item in my_list
+    //For each item in my_list
     for(int i = 1; i < 15; ++i)
     {
         if(YearIndex::my_list[i].year == (inYear))
@@ -80,18 +106,18 @@ bool YearIndex::deleteYear(int inYear, int pos)
             //Found Year
             foundYear = true;
             //for each item in pos
-             for(int k = 1; k < 11; ++k)
-             {
-                 if(YearIndex::my_list[i].pos[k] == pos)
-                 {
-                     YearIndex::my_list[i].pos[k] = 0;
-                      --YearIndex::my_list[i].pos[0];
-                      if(YearIndex::my_list[i].pos[0] == 0)
-                      {
-                          YearIndex::my_list[i].year = 0;
-                      }
-                 } //end if
-             } // end for
+            for(int k = 1; k < 11; ++k)
+            {
+                if(YearIndex::my_list[i].pos[k] == pos)
+                {
+                    YearIndex::my_list[i].pos[k] = 0;
+                    --YearIndex::my_list[i].pos[0];
+                    if(YearIndex::my_list[i].pos[0] == 0)
+                    {
+                        YearIndex::my_list[i].year = 0;
+                    }
+                } //end if
+            } // end for
         } // end if
     } // end for
     return foundYear;
@@ -100,57 +126,57 @@ bool YearIndex::deleteYear(int inYear, int pos)
 void YearIndex::writeSecondary()
 {
     //Sequential file for Secondary indices
-   std::ofstream outSecondary ("secondaryYears.txt");
+    std::ofstream outSecondary ("secondaryYears.txt");
 
     //A normal string used as a string builder
     std::string buildLine;
     std::string numOfKeys;
 
     //For each item in my_list
-     for(int i = 1; i < 15; ++i)
-     {
-         //Default
-         buildLine = " ";
+    for(int i = 1; i < 15; ++i)
+    {
+        //Default
+        buildLine = " ";
 
-         //Number of Keys
-         std::stringstream strs;
-         strs << YearIndex::my_list[i].pos[0];
-         std::string temp_str = strs.str();
-         //Add number of keys to numOfKeys
-         numOfKeys = temp_str + " ";
+        //Number of Keys
+        std::stringstream strs;
+        strs << YearIndex::my_list[i].pos[0];
+        std::string temp_str = strs.str();
+        //Add number of keys to numOfKeys
+        numOfKeys = temp_str + " ";
 
-         //for each item in pos
-         for(int k = 1; k < 11; ++k)
-         {
-             if(YearIndex::my_list[i].pos[k] != 0)
-             {
-                 //Convert the key to a string
-                 std::stringstream strs;
-                 strs << YearIndex::my_list[i].pos[k];
-                 std::string temp_str = strs.str();
-                 //Add key to buildLine
-                 buildLine += temp_str + " ";
-             } //end if
-         } // end for
+        //for each item in pos
+        for(int k = 1; k < 11; ++k)
+        {
+            if(YearIndex::my_list[i].pos[k] != 0)
+            {
+                //Convert the key to a string
+                std::stringstream strs;
+                strs << YearIndex::my_list[i].pos[k];
+                std::string temp_str = strs.str();
+                //Add key to buildLine
+                buildLine += temp_str + " ";
+            } //end if
+        } // end for
 
-         //If there is at least 1 key then write to file
-         if(YearIndex::my_list[i].pos[0] != 0)
-         {
-             //Write to file
+        //If there is at least 1 key then write to file
+        if(YearIndex::my_list[i].pos[0] != 0)
+        {
+            //Write to file
             outSecondary << numOfKeys
                          << YearIndex::my_list[i].year
                          << buildLine
                          << std::endl;
-         } // end if
-     } //end for
+        } // end if
+    } //end for
 
-     //Close file
-     outSecondary.close();
+    //Close file
+    outSecondary.close();
 }
 
 void YearIndex::readSecondary()
 {
-     //Open Sequential file for reading using ifstream
+    //Open Sequential file for reading using ifstream
     std::ifstream input;
     input.open ("secondaryYears.txt", std::fstream::in);
 
@@ -185,26 +211,26 @@ void YearIndex::readSecondary()
             //Get Number of keys
             if ((pos = line.find(delimiter)) != std::string::npos)
             {
-                 part = line.substr(0, pos);
-                 line.erase(0, pos + delimiter.length());
-                 numOfKeys = atoi(part.c_str());
-                 YearIndex::my_list[position].pos[0] = numOfKeys;
+                part = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+                numOfKeys = atoi(part.c_str());
+                YearIndex::my_list[position].pos[0] = numOfKeys;
             }
             //Get year
             if ((pos = line.find(delimiter)) != std::string::npos)
             {
-                 part = line.substr(0, pos);
-                 line.erase(0, pos + delimiter.length());
-                 YearIndex::my_list[position].year = atoi(part.c_str());
+                part = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+                YearIndex::my_list[position].year = atoi(part.c_str());
             }
             //Set pos to keys in line
             for(int i = 1; i < (numOfKeys + 1); ++i)
             {
                 if((pos = line.find(delimiter)) != std::string::npos)
                 {
-                     part = line.substr(0, pos);
-                     YearIndex::my_list[position].pos[i] = atoi(part.c_str());
-                     line.erase(0, pos + delimiter.length());
+                    part = line.substr(0, pos);
+                    YearIndex::my_list[position].pos[i] = atoi(part.c_str());
+                    line.erase(0, pos + delimiter.length());
                 }
             }
 
@@ -214,7 +240,7 @@ void YearIndex::readSecondary()
         } // End eof while
 
         //Set zero record to number of indexes
-         if(position > 14)
+        if(position > 14)
             my_list[0].pos[0] = 14;
         else
             my_list[0].pos[0] = position;
@@ -224,18 +250,12 @@ void YearIndex::readSecondary()
     } // end if
 } //end readSecondary
 
-bool YearIndex::matchYear(int inYear, int pos[])
+bool YearIndex::matchYear(int inYear, int& location)
 {
-    int location, count;
-
     for (location = 1; location <= YearIndex::my_list[0].pos[0]; ++location)
     {
         if(YearIndex::my_list[location].year == inYear)
         {
-            for(count = 1; count <= YearIndex::my_list[location].pos[0]; ++count)
-            {
-                pos[count - 1] = YearIndex::my_list[location].pos[count];
-            }
             return true;
         }
     }

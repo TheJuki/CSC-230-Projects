@@ -11,7 +11,7 @@ Description: Code for title data
 
 bool Primary::matchTitle(std::string inTitle, int& pos)
 {
-     for(int i = 1; i < (count + 1); ++i)
+    for(int i = 1; i < (count + 1); ++i)
     {
         if(Primary::my_list[i].title == inTitle)
         {

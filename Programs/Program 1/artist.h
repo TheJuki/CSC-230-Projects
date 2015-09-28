@@ -36,12 +36,12 @@ public:
     std::string get_artist(int pos) const; // debugging tool
 
     void set_artist_key(std::string my_artist, int my_key);
-    void updateArtist(std::string new_artist, int pos[]);
+    void updateArtist(std::string old_artist, std::string new_artist);
 
     //Read and Write
     void writeSecondary();
     void readSecondary();
-    bool matchArtist(std::string inArtist, int pos[]);
+    bool matchArtist(std::string inArtist, int& location);
     int * findArtist(std::string inArtist);
     bool deleteArtist(std::string inArtist, int pos);
 };

@@ -21,7 +21,8 @@ bool indexUpdated = false;
 
 enum recordMember {TITLE, ARTIST, TYPE, YEAR, PRICE, COUNT};
 enum addChangeDelete {ADD_BY_TITLE, CHANGE_BY_TITLE, CHANGE_BY_ARTIST, CHANGE_BY_YEAR,
-                        DELETE_BY_TITLE, DELETE_BY_ARTIST, DELETE_BY_YEAR};
+                      DELETE_BY_TITLE, DELETE_BY_ARTIST, DELETE_BY_YEAR
+                     };
 
 //Prototypes
 
@@ -135,26 +136,35 @@ void Header()
 //Load Current Menu
 void LoadCurrentMenu()
 {
-     switch(currentMenu)
+    switch(currentMenu)
     {
-        case(0): MainMenu();
-                 break;
-        case(1): ClearScreen();
-                 break;
-        case(2): PrintMenu();
-                 break;
-        case(3): ChangeByTitleMenu();
-                 break;
-        case(4): ChangeByArtistYearMenu();
-                 break;
-        case(5): ChangeByTitleMenu();
-                 break;
-        case(6): DeleteMenu();
-                 break;
-        case(7): ChangeRecordMenu();
-                 break;
-        default: InvalidInput();
-                 break;
+    case(0):
+        MainMenu();
+        break;
+    case(1):
+        ClearScreen();
+        break;
+    case(2):
+        PrintMenu();
+        break;
+    case(3):
+        ChangeByTitleMenu();
+        break;
+    case(4):
+        ChangeByArtistYearMenu();
+        break;
+    case(5):
+        ChangeByTitleMenu();
+        break;
+    case(6):
+        DeleteMenu();
+        break;
+    case(7):
+        ChangeRecordMenu();
+        break;
+    default:
+        InvalidInput();
+        break;
     }
 } // end LoadCurrentMenu
 
@@ -177,7 +187,7 @@ void MainMenu()
          << "  6  Delete a record" << endl
          << "  7  Change a record" << endl
          << "\n\n\n\n";
-     MainMenuInput();
+    MainMenuInput();
 } // end MainMenu
 
 //The Print Menu print
@@ -195,7 +205,7 @@ void PrintMenu()
          << endl //6
          << endl //7
          << "\n\n\n\n";
-     PrintMenuInput();
+    PrintMenuInput();
 } // end PrintMenu
 
 //The Delete Menu print
@@ -213,7 +223,7 @@ void DeleteMenu()
          << endl //6
          << endl //7
          << "\n\n\n\n";
-     DeleteMenuInput();
+    DeleteMenuInput();
 } // end DeleteMenu
 
 //The Change Record Menu print
@@ -231,7 +241,7 @@ void ChangeRecordMenu()
          << endl //6
          << endl //7
          << "\n\n\n\n";
-     ChangeRecordMenuInput();
+    ChangeRecordMenuInput();
 } // end ChangeRecordMenu
 
 //The Change By Title print
@@ -249,7 +259,7 @@ void ChangeByArtistYearMenu()
          << endl //6
          << endl //7
          << "\n\n\n\n";
-     ChangeByArtistYearMenuInput();
+    ChangeByArtistYearMenuInput();
 } // end MainMenu
 
 //The Change By Title print
@@ -268,7 +278,7 @@ void ChangeByTitleMenu()
          << "  7  Price" << endl
          << "  8  Count" << endl
          << "\n\n\n";
-     ChangeByTitleMenuInput();
+    ChangeByTitleMenuInput();
 } // end MainMenu
 
 //--------------------------------------------------//
@@ -283,7 +293,7 @@ void MainMenuInput()
     cin >> input;
     if(input.size() > 1)
     {
-       InvalidInput();
+        InvalidInput();
     }
     else
     {
@@ -291,22 +301,30 @@ void MainMenuInput()
         char inputChar = p_c_str[0];
         switch(inputChar)
         {
-            case('1'): stopMenu();
-                     break;
-            case('2'): PrintMenu();
-                     break;
-            case('3'): sellATitle();
-                     break;
-            case('4'): soldValue();
-                     break;
-            case('5'): addARecord();
-                     break;
-            case('6'): DeleteMenu();
-                     break;
-            case('7'): ChangeRecordMenu();
-                     break;
-            default: InvalidInput();
-                     break;
+        case('1'):
+            stopMenu();
+            break;
+        case('2'):
+            PrintMenu();
+            break;
+        case('3'):
+            sellATitle();
+            break;
+        case('4'):
+            soldValue();
+            break;
+        case('5'):
+            addARecord();
+            break;
+        case('6'):
+            DeleteMenu();
+            break;
+        case('7'):
+            ChangeRecordMenu();
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end MainMenuInput
@@ -327,20 +345,27 @@ void PrintMenuInput()
         char inputChar = p_c_str[0];
         switch(inputChar)
         {
-            case('0'): MainMenu();
-                     break;
-            case('1'): PrintAll();
-                     break;
-            case('2'): PrintByTitle();
-                     break;
-            case('3'): PrintByArtist();
-                     break;
-            case('4'): PrintByYear();
-                     break;
-            case('5'): PrintSummary();
-                     break;
-            default: InvalidInput();
-                     break;
+        case('0'):
+            MainMenu();
+            break;
+        case('1'):
+            PrintAll();
+            break;
+        case('2'):
+            PrintByTitle();
+            break;
+        case('3'):
+            PrintByArtist();
+            break;
+        case('4'):
+            PrintByYear();
+            break;
+        case('5'):
+            PrintSummary();
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end PrintMenuInput
@@ -361,14 +386,18 @@ void DeleteMenuInput()
         char inputChar = p_c_str[0];
         switch(inputChar)
         {
-            case('0'): MainMenu();
-                     break;
-            case('1'): deleteByTitle();
-                     break;
-            case('2'): deleteByArtist();
-                     break;
-            default: InvalidInput();
-                     break;
+        case('0'):
+            MainMenu();
+            break;
+        case('1'):
+            deleteByTitle();
+            break;
+        case('2'):
+            deleteByArtist();
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end DeleteMenuInput
@@ -390,14 +419,18 @@ void ChangeRecordMenuInput()
         char inputChar = p_c_str[0];
         switch(inputChar)
         {
-            case('0'): MainMenu();
-                     break;
-            case('1'): ChangeByArtistYearMenu();
-                     break;
-            case('2'): ChangeByTitleMenu();
-                     break;
-            default: InvalidInput();
-                     break;
+        case('0'):
+            MainMenu();
+            break;
+        case('1'):
+            ChangeByArtistYearMenu();
+            break;
+        case('2'):
+            ChangeByTitleMenu();
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end ChangeRecordMenuInput
@@ -418,14 +451,18 @@ void ChangeByArtistYearMenuInput()
         char inputChar = p_c_str[0];
         switch(inputChar)
         {
-            case('0'): ChangeRecordMenu();
-                     break;
-            case('1'): changeByArtistYear(ARTIST);
-                     break;
-            case('2'): changeByArtistYear(YEAR);
-                     break;
-            default: InvalidInput();
-                     break;
+        case('0'):
+            ChangeRecordMenu();
+            break;
+        case('1'):
+            changeByArtistYear(ARTIST);
+            break;
+        case('2'):
+            changeByArtistYear(YEAR);
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end ChangeByArtistYearMenuInput
@@ -439,7 +476,7 @@ void ChangeByTitleMenuInput()
     cin >> input;
     if(input.size() > 1)
     {
-       InvalidInput();
+        InvalidInput();
     }
     else
     {
@@ -447,24 +484,33 @@ void ChangeByTitleMenuInput()
         char inputChar = p_c_str[0];
         switch(inputChar)
         {
-            case('1'): changeByTitle(1, me);
-                     break;
-            case('2'): changeByTitle(2, me);
-                     break;
-            case('3'): changeByTitle(3, me);
-                     break;
-            case('4'): changeByTitle(4, me);
-                     break;
-            case('5'): changeByTitle(5, me);
-                     break;
-            case('6'): changeByTitle(6, me);
-                     break;
-            case('7'): changeByTitle(7, me);
-                     break;
-            case('8'): changeByTitle(8, me);
-                     break;
-            default: InvalidInput();
-                     break;
+        case('1'):
+            changeByTitle(1, me);
+            break;
+        case('2'):
+            changeByTitle(2, me);
+            break;
+        case('3'):
+            changeByTitle(3, me);
+            break;
+        case('4'):
+            changeByTitle(4, me);
+            break;
+        case('5'):
+            changeByTitle(5, me);
+            break;
+        case('6'):
+            changeByTitle(6, me);
+            break;
+        case('7'):
+            changeByTitle(7, me);
+            break;
+        case('8'):
+            changeByTitle(8, me);
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end ChangeByTitleMenuInput
@@ -478,74 +524,84 @@ void ChangeByTitleMenuInput()
 void printReturn()
 {
     //Ask user to return -Ignores Invalid Input
-	string input;
-	cout << endl << endl << " Enter '1' to go back or '0' for Main Menu: ";
-	cin >> input;
+    string input;
+    cout << endl << endl << " Enter '1' to go back or '0' for Main Menu: ";
+    cin >> input;
 
-	if (input.size() > 1)
-	{
-		PrintMenu();
-	} // end if
-	else
-	{
-		const char* p_c_str = input.c_str();
-		char inputChar = p_c_str[0];
-		switch (inputChar)
-		{
-		case('0') : MainMenu();
-			break;
-		case('1') : LoadCurrentMenu();
-			break;
-		default: LoadCurrentMenu();
-			break;
-		} // end switch
-	} // end else
+    if (input.size() > 1)
+    {
+        PrintMenu();
+    } // end if
+    else
+    {
+        const char* p_c_str = input.c_str();
+        char inputChar = p_c_str[0];
+        switch (inputChar)
+        {
+        case('0') :
+            MainMenu();
+            break;
+        case('1') :
+            LoadCurrentMenu();
+            break;
+        default:
+            LoadCurrentMenu();
+            break;
+        } // end switch
+    } // end else
 }
 
 void printTryAgain(addChangeDelete type)
 {
     //Ask user to return -Ignores Invalid Input
-	string input;
-	cout << endl << endl << " Enter '1' to try again or '0' to go back: ";
-	cin >> input;
+    string input;
+    cout << endl << endl << " Enter '1' to try again or '0' to go back: ";
+    cin >> input;
 
-	if (input.size() > 1)
-	{
-		LoadCurrentMenu();
-	} // end if
-	else
-	{
-		const char* p_c_str = input.c_str();
-		char inputChar = p_c_str[0];
-		switch (type)
-		{
-		    case(ADD_BY_TITLE) :
-                switch(inputChar)
-                {
-                    case('0') : LoadCurrentMenu();
-                        break;
-                    case('1') : addARecord();
-                        break;
-                    default: LoadCurrentMenu();
-                        break;
-                } // end switch ADD_BY_TITLE
+    if (input.size() > 1)
+    {
+        LoadCurrentMenu();
+    } // end if
+    else
+    {
+        const char* p_c_str = input.c_str();
+        char inputChar = p_c_str[0];
+        switch (type)
+        {
+        case(ADD_BY_TITLE) :
+            switch(inputChar)
+            {
+            case('0') :
+                LoadCurrentMenu();
                 break;
+            case('1') :
+                addARecord();
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch ADD_BY_TITLE
+            break;
 
-            case(DELETE_BY_TITLE) :
-                switch(inputChar)
-                {
-                    case('0') : LoadCurrentMenu();
-                        break;
-                    case('1') : deleteByTitle();
-                        break;
-                    default: LoadCurrentMenu();
-                        break;
-                } // end switch deleteByTitle
+        case(DELETE_BY_TITLE) :
+            switch(inputChar)
+            {
+            case('0') :
+                LoadCurrentMenu();
                 break;
-            default: LoadCurrentMenu();
+            case('1') :
+                deleteByTitle();
                 break;
-		} // end switch type
-	} // end else
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch deleteByTitle
+            break;
+        default:
+            LoadCurrentMenu();
+            break;
+        } // end switch type
+    } // end else
 }
 
 //Print all records
@@ -560,7 +616,7 @@ void PrintAll()
     //Provide general information
     cout << " -INFORMATION-" << endl << endl;
     cout <<  " All records are displayed." << endl
-    << endl << endl;
+         << endl << endl;
 
     char outputFileName[80] = "output.bin";
     //Read in file
@@ -598,7 +654,7 @@ void PrintByTitle()
     //Record
     MyClass record;
 
-     //Primary Indexes
+    //Primary Indexes
     Primary* primaryInx = new Primary(0);
 
     //Secondary Indexes
@@ -617,16 +673,16 @@ void PrintByTitle()
     cout << endl << endl << endl << endl;
 
     //Ask user
-	string input;
-	cout << endl << endl << " Enter the title to display record: ";
-	cin >> input;
+    string input;
+    cout << endl << endl << " Enter the title to display record: ";
+    cin >> input;
 
     //Find title
-	int pos = 0;
-	primaryInx->printTitle(input, pos);
+    int pos = 0;
+    primaryInx->printTitle(input, pos);
 
-	//If title found, then display it
-	if(pos > 0)
+    //If title found, then display it
+    if(pos > 0)
     {
         char outputFileName[80] = "output.bin";
         //Read in file
@@ -653,7 +709,7 @@ void PrintByTitle()
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The title: '" << input << "' does not exist"
-        << endl << endl << endl << endl;
+             << endl << endl << endl << endl;
 
         //Ask user to return a menu
         printReturn();
@@ -683,15 +739,15 @@ void PrintByArtist()
     cout << " Up to 10 records with the provided artist will be displayed." << endl << endl << endl << endl;
 
     //Ask user
-	string input;
-	cout << endl << endl << " Enter a artist to display records: ";
-	cin >> input;
+    string input;
+    cout << endl << endl << " Enter a artist to display records: ";
+    cin >> input;
 
     //Find artist
-	int* pos = artistInx.findArtist(input);
+    int* pos = artistInx.findArtist(input);
 
-	//If artist found, then display it
-	if(*pos > 0)
+    //If artist found, then display it
+    if(*pos > 0)
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " Here are the records for the artist '"
@@ -723,7 +779,7 @@ void PrintByArtist()
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The artist: '" << input << "' does not exist"
-        << endl << endl << endl;
+             << endl << endl << endl;
         //Ask user to return a menu
         printReturn();
     }
@@ -752,16 +808,16 @@ void PrintByYear()
     cout <<  " Provide the year of records to display."<< endl;
     cout << " Up to 10 records with the provided year will be displayed." << endl << endl << endl << endl;
 
-   //Ask user
-	string input;
-	cout << endl << endl << " Enter a year to display records: ";
-	cin >> input;
+    //Ask user
+    string input;
+    cout << endl << endl << " Enter a year to display records: ";
+    cin >> input;
 
     //Find year
-	int* pos = yearInx.findYear(atoi(input.c_str()));
+    int* pos = yearInx.findYear(atoi(input.c_str()));
 
-	//If year found, then display it
-	if(*pos > 0)
+    //If year found, then display it
+    if(*pos > 0)
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " Here are the records for the year '"
@@ -792,7 +848,7 @@ void PrintByYear()
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The year: '" << input << "' does not exist" << endl
-        << endl << endl << endl;
+             << endl << endl << endl;
 
         //Ask user to return a menu
         printReturn();
@@ -838,7 +894,7 @@ void stopMenu()
                 if(!record.get_flag())
                 {
                     //Pass Primary Key information to Primary Index(title, position)
-                     primaryInx->addTitle(record.get_title(), pos);
+                    primaryInx->addTitle(record.get_title(), pos);
 
                     //Pass Secondary Key information to Secondary Index(artist or year, position)
                     artistInx.set_artist_key(record.get_artist(), pos);
@@ -888,7 +944,7 @@ void addARecord()
     //Record
     MyClass record;
 
-     //Primary Indexes
+    //Primary Indexes
     Primary* primaryInx = new Primary(0);
 
     //Secondary Indexes
@@ -906,149 +962,149 @@ void addARecord()
          << endl  << endl  << endl;
 
     if(primaryInx->getMaxCount() != (MAX_LIMIT - 1))
-       {
-           //Provide general information
-           cout << " -INFORMATION-" << endl << endl;
-           cout <<  " To add a record, provide a new, non-existing title first."<< endl;
-           cout << " Then provide the artist, type, year, price, and count." << endl << endl << endl << endl;
+    {
+        //Provide general information
+        cout << " -INFORMATION-" << endl << endl;
+        cout <<  " To add a record, provide a new, non-existing title first."<< endl;
+        cout << " Then provide the artist, type, year, price, and count." << endl << endl << endl << endl;
 
-           //Ask user
-            string input;
-            cout << endl << endl << " Enter the title for the new record: ";
+        //Ask user
+        string input;
+        cout << endl << endl << " Enter the title for the new record: ";
+        cin >> input;
+
+        //Find title
+        int pos = 0;
+        primaryInx->matchTitle(input, pos);
+
+        string my_title = "", my_artist = "", my_type = "";
+        int my_year = 0, my_price = 0, my_count = 0;
+
+        //If title found, then throw an error
+        if(pos > 0)
+        {
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The record for the title: '"
+                 << input << "' already exists at index '" << pos << "'" << endl << endl << endl << endl;
+
+            //Get user to try again
+            printTryAgain(ADD_BY_TITLE);
+
+        } //end if
+        else // Title not found
+        {
+            my_title = input;
+
+            cout << endl << " Provide the rest of information for the title: '" << input << "'" << endl;
+
+            //Rest of the information
+            cout << endl << " Artist name: ";
             cin >> input;
+            my_artist = input;
 
-            //Find title
-            int pos = 0;
-            primaryInx->matchTitle(input, pos);
+            cout << endl <<  " Type of work: ";
+            cin >> input;
+            my_type = input;
 
-            string my_title = "", my_artist = "", my_type = "";
-            int my_year = 0, my_price = 0, my_count = 0;
+            cout << endl <<  " Year produced: ";
+            cin >> input;
+            my_year = atoi(input.c_str());
 
-            //If title found, then throw an error
-            if(pos > 0)
+            cout << endl <<  " Price: ";
+            cin >> input;
+            my_price = atoi(input.c_str());
+
+            cout << endl <<  " Count: ";
+            cin >> input;
+            my_count = atoi(input.c_str());
+
+            if(my_artist != "" && my_title != "" &&  my_type != ""
+                    && my_count >= 0 && my_year > 0 && my_price >= 0)
+            {
+                char outputFileName[80] = "output.bin";
+                //Open Binary file for binary|writing using fstream
+                //ios::in | ios::out | ios::binary used for adding/changing
+                fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
+                //Check to see if file is open
+                if(outputFile.is_open())
+                {
+
+                    int nextIndex = primaryInx->getMaxCount() + 1;
+
+                    //Create a binary object
+                    MyClass me(my_title, my_artist, my_type,
+                               my_year, my_price, my_count);
+
+                    //Check dead count
+                    if(primaryInx->getDeadCount() > 0)
+                    {
+                        //Check for any available dead flag spot
+                        if(!checkDeadFlags(outputFile, nextIndex))
+                        {
+                            //Get number of records
+                            nextIndex = primaryInx->getMaxCount() + 1;
+                        }
+                        else
+                        {
+                            primaryInx->setDeadCount(-1);
+                        }
+                    }
+
+                    //Write the binary file
+                    me.writeIt(outputFile, nextIndex);
+
+                    //Close file
+                    outputFile.close();
+
+                    //Add Indexes
+                    primaryInx->addTitle(my_title, nextIndex);
+                    artistInx.set_artist_key(my_artist, nextIndex);
+                    yearInx.set_year_key(my_year, nextIndex);
+
+                    //Write Indexes
+                    delete primaryInx;
+                    artistInx.writeSecondary();
+                    yearInx.writeSecondary();
+
+                    //Success!
+                    cout << endl << endl << " -INFORMATION-" << endl << endl;
+                    cout <<  " The title: '" << my_title
+                         << "' was successfully added at index '" << nextIndex << "'."  << endl << endl << endl << endl;
+                    //Ask user to return a menu
+                    printReturn();
+                } // If Open
+                else
+                {
+                    cout << endl << endl << " -NOTICE-" << endl << endl;
+                    cout << endl <<  " The file could not be opened for writing." << endl << endl << endl << endl;
+                    //Ask user to return a menu
+                    printReturn();
+                } // Else Not Open
+            } // If Info filled in filled in correctly
+            else
             {
                 cout << endl << endl << " -NOTICE-" << endl << endl;
                 cout << " The record for the title: '"
-                << input << "' already exists at index '" << pos << "'" << endl << endl << endl << endl;
-
+                     << my_title << "' has invalid fields." << endl;
+                cout << " Please make sure to fill in a valid value for each field." << endl;
+                cout << " Also, use '_' instead a spaces." << endl << endl << endl << endl;
                 //Get user to try again
                 printTryAgain(ADD_BY_TITLE);
 
-            } //end if
-            else // Title not found
-            {
-                my_title = input;
+            } // Else Info not filled in correctly
 
-                cout << endl << " Provide the rest of information for the title: '" << input << "'" << endl;
+        }// Else Title Not Found
+    } //If Records not at limit
+    else
+    {
+        //Provide error information
+        cout << " -NOTICE-" << endl << endl;
+        cout <<  " The max number of records '" << MAX_LIMIT - 1 << "' has been reached." << endl;
+        cout << " Delete a record to add a new record." << endl << endl << endl << endl;
 
-                //Rest of the information
-                cout << endl << " Artist name: ";
-                cin >> input;
-                my_artist = input;
-
-                cout << endl <<  " Type of work: ";
-                cin >> input;
-                my_type = input;
-
-                cout << endl <<  " Year produced: ";
-                cin >> input;
-                my_year = atoi(input.c_str());
-
-                cout << endl <<  " Price: ";
-                cin >> input;
-                my_price = atoi(input.c_str());
-
-                cout << endl <<  " Count: ";
-                cin >> input;
-                my_count = atoi(input.c_str());
-
-                if(my_artist != "" && my_title != "" &&  my_type != ""
-                   && my_count >= 0 && my_year > 0 && my_price >= 0)
-                   {
-                        char outputFileName[80] = "output.bin";
-                        //Open Binary file for binary|writing using fstream
-                        //ios::in | ios::out | ios::binary used for adding/changing
-                        fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
-                        //Check to see if file is open
-                        if(outputFile.is_open())
-                        {
-
-                            int nextIndex = primaryInx->getMaxCount() + 1;
-
-                            //Create a binary object
-                            MyClass me(my_title, my_artist, my_type,
-                               my_year, my_price, my_count);
-
-                            //Check dead count
-                            if(primaryInx->getDeadCount() > 0)
-                            {
-                                //Check for any available dead flag spot
-                                if(!checkDeadFlags(outputFile, nextIndex))
-                                {
-                                     //Get number of records
-                                     nextIndex = primaryInx->getMaxCount() + 1;
-                                }
-                                else
-                                {
-                                    primaryInx->setDeadCount(-1);
-                                }
-                            }
-
-                            //Write the binary file
-                            me.writeIt(outputFile, nextIndex);
-
-                            //Close file
-                            outputFile.close();
-
-                            //Add Indexes
-                            primaryInx->addTitle(my_title, nextIndex);
-                            artistInx.set_artist_key(my_artist, nextIndex);
-                            yearInx.set_year_key(my_year, nextIndex);
-
-                            //Write Indexes
-                            delete primaryInx;
-                            artistInx.writeSecondary();
-                            yearInx.writeSecondary();
-
-                            //Success!
-                            cout << endl << endl << " -INFORMATION-" << endl << endl;
-                            cout <<  " The title: '" << my_title
-                                 << "' was successfully added at index '" << nextIndex << "'."  << endl << endl << endl << endl;
-                            //Ask user to return a menu
-                            printReturn();
-                        } // If Open
-                        else
-                        {
-                            cout << endl << endl << " -NOTICE-" << endl << endl;
-                            cout << endl <<  " The file could not be opened for writing." << endl << endl << endl << endl;
-                            //Ask user to return a menu
-                            printReturn();
-                        } // Else Not Open
-                   } // If Info filled in filled in correctly
-                   else
-                   {
-                        cout << endl << endl << " -NOTICE-" << endl << endl;
-                        cout << " The record for the title: '"
-                        << my_title << "' has invalid fields." << endl;
-                        cout << " Please make sure to fill in a valid value for each field." << endl;
-                        cout << " Also, use '_' instead a spaces." << endl << endl << endl << endl;
-                        //Get user to try again
-                        printTryAgain(ADD_BY_TITLE);
-
-                   } // Else Info not filled in correctly
-
-            }// Else Title Not Found
-       } //If Records not at limit
-       else
-       {
-           //Provide error information
-           cout << " -NOTICE-" << endl << endl;
-           cout <<  " The max number of records '" << MAX_LIMIT - 1 << "' has been reached." << endl;
-           cout << " Delete a record to add a new record." << endl << endl << endl << endl;
-
-            //Ask user to return a menu
-            printReturn();
-       }
+        //Ask user to return a menu
+        printReturn();
+    }
 }
 
 
@@ -1062,37 +1118,40 @@ bool confirmDelete()
     bool isYes = false;
 
     //Ask user to return -Ignores Invalid Input
-	string input;
-	cout << endl << endl << " Delete record (Y/N)? ";
-	cin >> input;
+    string input;
+    cout << endl << endl << " Delete record (Y/N)? ";
+    cin >> input;
 
-	if (input.size() > 1)
-	{
-		isYes = false;
-	} // end if
-	else
-	{
-		const char* p_c_str = input.c_str();
-		char inputChar = p_c_str[0];
-		switch (inputChar)
-		{
-		case('Y') : isYes = true;
-			break;
-        case('y') : isYes = true;
+    if (input.size() > 1)
+    {
+        isYes = false;
+    } // end if
+    else
+    {
+        const char* p_c_str = input.c_str();
+        char inputChar = p_c_str[0];
+        switch (inputChar)
+        {
+        case('Y') :
+            isYes = true;
             break;
-		default: isYes = false;
-			break;
-		} // end switch
-	} // end else
+        case('y') :
+            isYes = true;
+            break;
+        default:
+            isYes = false;
+            break;
+        } // end switch
+    } // end else
 
-	return isYes;
+    return isYes;
 }
 void deleteByTitle()
 {
-   //Record
+    //Record
     MyClass record;
 
-     //Primary Indexes
+    //Primary Indexes
     Primary* primaryInx = new Primary(0);
 
     //Secondary Indexes
@@ -1115,26 +1174,26 @@ void deleteByTitle()
     cout << " Then confirm the deletion of the record." << endl << endl << endl << endl;
 
     //Ask user
-	string input;
-	cout << endl << endl << " Enter the title of the record for deletion: ";
-	cin >> input;
+    string input;
+    cout << endl << endl << " Enter the title of the record for deletion: ";
+    cin >> input;
 
     //Find title
-	int pos = 0;
-	primaryInx->matchTitle(input, pos);
+    int pos = 0;
+    primaryInx->matchTitle(input, pos);
 
     string my_title = "", my_artist = "";
     int my_year = 0;
 
-	//If title found, delete it
-	if(pos > 0)
+    //If title found, delete it
+    if(pos > 0)
     {
         my_title = input;
         cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " The record for the title: '" << my_title << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
         if(confirmDelete())
         {
-             MyClass record;
+            MyClass record;
             //Update Record (Dead)
             record.UpdateBinary(pos, my_artist, my_year);
             //Delete Title Index
@@ -1144,7 +1203,7 @@ void deleteByTitle()
             //Delete Year Index
             yearInx.deleteYear(my_year, pos);
 
-             //Write Indexes
+            //Write Indexes
             delete primaryInx;
             artistInx.writeSecondary();
             yearInx.writeSecondary();
@@ -1202,9 +1261,11 @@ void changeByArtistYear(recordMember member)
 
     switch (member)
     {
-    case(ARTIST) : type = "Artist";
+    case(ARTIST) :
+        type = "artist";
         break;
-    case(YEAR) : type = "Year";
+    case(YEAR) :
+        type = "year";
         break;
     default : // Nothing
         break;
@@ -1212,7 +1273,7 @@ void changeByArtistYear(recordMember member)
     //Record
     MyClass record;
 
-     //Primary Indexes
+    //Primary Indexes
     Primary* primaryInx = new Primary(0);
 
     //Secondary Indexes
@@ -1235,86 +1296,124 @@ void changeByArtistYear(recordMember member)
     cout << " Then provide a new " << type << "." << endl << endl << endl << endl;
 
     //Ask user
-	string input;
-	cout << endl << endl << " Enter the " << type << " for the records that are to be updated: ";
-	cin >> input;
+    string input;
+    cout << endl << endl << " Enter the " << type << " of the records that are to be updated: ";
+    cin >> input;
 
     //Find title
-	int* pos;
-	switch (member)
+    int* pos;
+    string old_input = input;
+    switch (member)
     {
-    case(ARTIST) : pos = artistInx.findArtist(input);
+    case(ARTIST) :
+        pos = artistInx.findArtist(input);
         break;
-    case(YEAR) : pos = yearInx.findYear(atoi(input.c_str()));
+    case(YEAR) :
+        pos = yearInx.findYear(atoi(input.c_str()));
         break;
     default : //Nothing
         break;
     }
 
-    string my_title = "", my_artist = "";
-    int my_year = 0;
-
-	//If title found, delete it
-	if(pos > 0)
+    //If artist/year found, ask to change it
+    if(*pos > 0)
     {
-        my_title = input;
         cout << endl << endl << " -INFORMATION-" << endl << endl;
-        cout << " The record for the title: '" << my_title << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
-        if(confirmDelete())
-        {
-             MyClass record;
-            //Update Record (Dead)
-            record.UpdateBinary(pos, my_artist, my_year);
-            //Delete Title Index
-            primaryInx->deleteTitle(my_title, pos);
-            //Delete Artist Index
-            artistInx.deleteArtist(my_artist, pos);
-            //Delete Year Index
-            yearInx.deleteYear(my_year, pos);
+        cout << "'" << *pos << "' record(s) found." << endl << endl << endl << endl;
 
-             //Write Indexes
-            delete primaryInx;
+        //Ask user
+        string input;
+        cout << endl << endl << " Enter the new " << type << " for these records: ";
+        cin >> input;
+
+        char outputFileName[80] = "output.bin";
+        //Read in file
+        fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
+
+        if(outputFile.is_open())
+        {
+            for(int i = 1; i < (*pos + 1); i++)
+            {
+                //Read in the record
+                record.readIt(outputFile, *(pos + i));
+
+                //Update data member
+                switch (member)
+                {
+                case(ARTIST) :
+                    record.set_artist(input);
+                    break;
+                case(YEAR) :
+                    record.set_year(atoi(input.c_str()));
+                    break;
+                default : //Nothing
+                    break;
+                }
+
+                //Write out the record
+                record.writeIt(outputFile, *(pos + i));
+
+                //Success!
+                cout << endl << " -INFORMATION-" << endl << endl;
+                cout <<  " Change operation successful." << endl;
+                cout << " The record at index: '" << *(pos + i) << "' has been updated." << endl;
+                cout << "--------" << endl;
+                cout << record;
+
+                outputFile.close();
+            } // end for
+
+        } // end if file is open
+
+        //Update appropriate index
+        switch (member)
+        {
+        case(ARTIST) :
+            artistInx.updateArtist(old_input, input);
             artistInx.writeSecondary();
+            break;
+        case(YEAR) :
+            yearInx.updateYear(atoi(old_input.c_str()), atoi(input.c_str()));
             yearInx.writeSecondary();
-
-            //Success!
-            cout << endl << " -INFORMATION-" << endl << endl;
-            cout <<  " Delete operation successful." << endl;
-            cout << " The index: '" << pos << "' is now available." << endl;
-            cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
-
-            //Ask user to return a menu
-            printReturn();
-
-        } // end if confirm
-        else
-        {
-            cout << endl << " -INFORMATION-" << endl << endl;
-            cout <<  " Delete operation canceled." << endl;
-            cout << " No records were affected." << endl << endl << endl << endl;
-
-            //Ask user to return a menu
-            printReturn();
+            break;
+        default : //Nothing
+            break;
         }
 
-    } //end if
-    else // Title not found
+        //Ask user to return a menu
+        printReturn();
+
+    } //end if record found
+    else // Record not found
     {
         cout << endl << " -NOTICE-" << endl << endl;
-        cout <<  " Delete operation canceled."<< endl;
-        cout << " No records were affected." << endl;
-        cout << " The record for the title: '" << input << "' could not found for deletion." << endl << endl << endl << endl;
+        cout << " No records were affected."<< endl;
+        cout << " The records for the " << type << " '" << input << "' could not be found." << endl << endl << endl << endl;
 
         //Ask user to try again
-        printTryAgain(DELETE_BY_TITLE);
-    }
+        switch (member)
+        {
+        case(ARTIST) :
+            printTryAgain(CHANGE_BY_ARTIST);
+            break;
+        case(YEAR) :
+            printTryAgain(CHANGE_BY_YEAR);
+            break;
+        default : //Nothing
+            break;
+        }
+
+        //Ask user to return a menu
+        printReturn();
+    } // end else
 }
 
 void changeByTitle(int selection, MyClass& me)
 {
     //Quit
     if(selection == 1)
-    {   //Go to Change By Menu
+    {
+        //Go to Change By Menu
         currentMenu = 7;
         LoadCurrentMenu();
     }

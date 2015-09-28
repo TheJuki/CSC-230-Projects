@@ -91,22 +91,29 @@ void build()
             //Find each part separated by the delimiter and
             //Set the respective variables
             //Ex. TITLE ARTIST TYPE YEAR PRICE COUNT
-            do {
+            do
+            {
                 pos = line.find(delimiter);
                 part = line.substr(0, pos);
                 switch (partNumber)
                 {
-                case(1) : my_title = part;
+                case(1) :
+                    my_title = part;
                     break;
-                case(2) : my_artist = part;
+                case(2) :
+                    my_artist = part;
                     break;
-                case(3) : my_type = part;
+                case(3) :
+                    my_type = part;
                     break;
-                case(4) : my_year = std::atoi(part.c_str());
+                case(4) :
+                    my_year = std::atoi(part.c_str());
                     break;
-                case(5) : my_price = std::atoi(part.c_str());
+                case(5) :
+                    my_price = std::atoi(part.c_str());
                     break;
-                case(6) : my_count = std::atoi(part.c_str());
+                case(6) :
+                    my_count = std::atoi(part.c_str());
                     break;
                 default: //None
                     break;
@@ -114,11 +121,12 @@ void build()
 
                 line.erase(0, pos + delimiter.length());
                 partNumber++;
-            } while (pos != string::npos); // end delimiter While
+            }
+            while (pos != string::npos);   // end delimiter While
 
             //Convert line into binary file object named me
             MyClass me(my_title, my_artist, my_type,
-               my_year, my_price, my_count);
+                       my_year, my_price, my_count);
 
             //Seek position and write record in binary file
             me.writeIt(outputFile, position);

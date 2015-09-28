@@ -21,7 +21,7 @@ void ArtistIndex::set_artist_key(std::string inArtist, int my_key)
 {
     //Check for artist
     bool foundArtist = false;
-     //For each item in my_list
+    //For each item in my_list
     for(int i = 1; i < 15; ++i)
     {
         if(ArtistIndex::my_list[i].artist == inArtist)
@@ -60,7 +60,7 @@ bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
 {
     //Check for artist
     bool foundArtist = false;
-     //For each item in my_list
+    //For each item in my_list
     for(int i = 1; i < 15; ++i)
     {
         if(ArtistIndex::my_list[i].artist == (inArtist))
@@ -68,84 +68,111 @@ bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
             //Found Artist
             foundArtist = true;
             //for each item in pos
-             for(int k = 1; k < 11; ++k)
-             {
-                 if(ArtistIndex::my_list[i].pos[k] == pos)
-                 {
-                     ArtistIndex::my_list[i].pos[k] = 0;
-                      --ArtistIndex::my_list[i].pos[0];
-                      if(ArtistIndex::my_list[i].pos[0] == 0)
-                      {
-                          ArtistIndex::my_list[i].artist = "0";
-                      }
-                 } //end if
-             } // end for
+            for(int k = 1; k < 11; ++k)
+            {
+                if(ArtistIndex::my_list[i].pos[k] == pos)
+                {
+                    ArtistIndex::my_list[i].pos[k] = 0;
+                    --ArtistIndex::my_list[i].pos[0];
+                    if(ArtistIndex::my_list[i].pos[0] == 0)
+                    {
+                        ArtistIndex::my_list[i].artist = "0";
+                    }
+                } //end if
+            } // end for
         } // end if
     } // end for
     return foundArtist;
 }
 
-void ArtistIndex::updateArtist(std::string new_artist, int pos[])
+void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist)
 {
-     for(int i = 1; i < 15; ++i)
+    int new_location = 0;
+    int old_location = 0;
+
+    if(!matchArtist(new_artist, new_location))
     {
-         if(ArtistIndex::my_list[i].pos == pos)
-         {
-             ArtistIndex::my_list[i].artist = new_artist;
-             break;
-         }
-    }
+        for(int i = 1; i < 15; ++i)
+        {
+            if(my_list[i].artist == old_artist)
+            {
+                //Change artist
+                my_list[i].artist = new_artist;
+                break;
+            } // end if
+        } // end for
+    } // end if
+    else
+    {
+        //Copy positions to new location
+        //Delete old artist
+        matchArtist(old_artist, old_location);
+        for (int i = 1; i < 11; ++i)
+        {
+            for (int k = 1; k < 11; ++k)
+            {
+                if(my_list[old_location].pos[i] != 0 && my_list[new_location].pos[k] == 0)
+                {
+                    my_list[new_location].pos[k] = my_list[old_location].pos[i];
+                    ++my_list[new_location].pos[0];
+                    deleteArtist(old_artist, my_list[old_location].pos[i]);
+                    break;
+                } // end if
+            } // end for k
+        } // end for i
+    } // end else
+
 }
 
 void ArtistIndex::writeSecondary()
 {
-   //Sequential file for Secondary indices
-   std::ofstream outSecondary ("secondaryArtists.txt");
+    //Sequential file for Secondary indices
+    std::ofstream outSecondary ("secondaryArtists.txt");
 
     //A normal string used as a string builder
     std::string buildLine;
     std::string numOfKeys;
 
     //For each item in my_list
-     for(int i = 1; i < 15; ++i)
-     {
-         //Default
-         buildLine = " ";
+    for(int i = 1; i < 15; ++i)
+    {
+        //Default
+        buildLine = " ";
 
-         //Number of Keys
-         std::stringstream strs;
-         strs << ArtistIndex::my_list[i].pos[0];
-         std::string temp_str = strs.str();
-         //Add number of keys to numOfKeys
-         numOfKeys = temp_str + " ";
+        //Number of Keys
+        std::stringstream strs;
+        strs << ArtistIndex::my_list[i].pos[0];
+        std::string temp_str = strs.str();
+        //Add number of keys to numOfKeys
+        numOfKeys = temp_str + " ";
 
-         //for each item in pos
-         for(int k = 1; k < 11; ++k)
-         {
-             if(ArtistIndex::my_list[i].pos[k] != 0)
-             {
-                 //Convert the key to a string
-                 std::stringstream strs;
-                 strs << ArtistIndex::my_list[i].pos[k];
-                 std::string temp_str = strs.str();
-                 //Add key to buildLine
-                 buildLine += temp_str + " ";
-             } //end if
-         } // end for
+        //for each item in pos
+        for(int k = 1; k < 11; ++k)
+        {
+            if(ArtistIndex::my_list[i].pos[k] != 0)
+            {
+                //Convert the key to a string
+                std::stringstream strs;
+                strs << ArtistIndex::my_list[i].pos[k];
+                std::string temp_str = strs.str();
+                //Add key to buildLine
+                buildLine += temp_str + " ";
+            } //end if
+        } // end for
 
-         //If there is at least 1 key then write to file
-         if(ArtistIndex::my_list[i].pos[0] != 0)
-         {
-             //Write to file
+        //If there is at least 1 key then write to file
+        if(ArtistIndex::my_list[i].pos[0] != 0)
+        {
+            //Write to file
             outSecondary << numOfKeys
                          << ArtistIndex::my_list[i].artist
                          << buildLine
                          << std::endl;
-         } // end if
-     } //end for
+        } // end if
+    } //end for
 
-     //Close file
-     outSecondary.close();
+    //Close file
+    outSecondary.close();
 
 } // End writeSecondary
 
@@ -187,26 +214,26 @@ void ArtistIndex::readSecondary()
             //Get Number of keys
             if ((pos = line.find(delimiter)) != std::string::npos)
             {
-                 part = line.substr(0, pos);
-                 line.erase(0, pos + delimiter.length());
-                 numOfKeys = atoi(part.c_str());
-                 ArtistIndex::my_list[position].pos[0] = numOfKeys;
+                part = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+                numOfKeys = atoi(part.c_str());
+                ArtistIndex::my_list[position].pos[0] = numOfKeys;
             }
             //Get artist name
             if ((pos = line.find(delimiter)) != std::string::npos)
             {
-                 part = line.substr(0, pos);
-                 line.erase(0, pos + delimiter.length());
-                 ArtistIndex::my_list[position].artist = part;
+                part = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+                ArtistIndex::my_list[position].artist = part;
             }
             //Set pos to keys in line
             for(int i = 1; i < (numOfKeys + 1); ++i)
             {
                 if((pos = line.find(delimiter)) != std::string::npos)
                 {
-                     part = line.substr(0, pos);
-                     ArtistIndex::my_list[position].pos[i] = atoi(part.c_str());
-                     line.erase(0, pos + delimiter.length());
+                    part = line.substr(0, pos);
+                    ArtistIndex::my_list[position].pos[i] = atoi(part.c_str());
+                    line.erase(0, pos + delimiter.length());
                 }
             }
 
@@ -226,18 +253,12 @@ void ArtistIndex::readSecondary()
     } // end if
 } //end readSecondary
 
-bool ArtistIndex::matchArtist(std::string inArtist, int pos[])
+bool ArtistIndex::matchArtist(std::string inArtist, int& location)
 {
-    int location, count;
-
     for (location = 1; location <= ArtistIndex::my_list[0].pos[0]; ++location)
     {
         if(my_list[location].artist == inArtist)
         {
-            for(count = 1; count <= ArtistIndex::my_list[location].pos[0]; ++count)
-            {
-                pos[count - 1] = ArtistIndex::my_list[location].pos[count];
-            }
             return true;
         }
     }
