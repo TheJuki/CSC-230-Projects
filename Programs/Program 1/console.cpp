@@ -1069,7 +1069,9 @@ void addARecord()
                     //Success!
                     cout << endl << endl << " -INFORMATION-" << endl << endl;
                     cout <<  " The title: '" << my_title
-                         << "' was successfully added at index '" << nextIndex << "'."  << endl << endl << endl << endl;
+                         << "' was successfully added at index '" << nextIndex << "'."  << endl;
+                    cout << "--------" << endl;
+                    cout << me  << endl << endl;
                     //Ask user to return a menu
                     printReturn();
                 } // If Open
@@ -1272,9 +1274,6 @@ void changeByArtistYear(recordMember member)
     }
     //Record
     MyClass record;
-
-    //Primary Indexes
-    Primary* primaryInx = new Primary(0);
 
     //Secondary Indexes
     ArtistIndex artistInx;
