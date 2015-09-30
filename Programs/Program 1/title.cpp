@@ -37,15 +37,16 @@ bool Primary::addTitle(std::string inTitle, int pos)
     if(Primary::matchTitle(inTitle, pos))
         return false;
     //Title does not exist so it is okay to add
-    if((Primary::count + 1) != MAX_LIMIT)
+    if((Primary::count + 1) == Primary::capacity)
     {
-        int next_title = ++Primary::count;
-        Primary::my_list[next_title].title = inTitle;
-        Primary::my_list[next_title].pos = pos;
-        Primary::max_count = Primary::count;
-        return true;
+         Primary::resize();
     }
-    return false;
+
+    int next_title = ++Primary::count;
+    Primary::my_list[next_title].title = inTitle;
+    Primary::my_list[next_title].pos = pos;
+    Primary::max_count = Primary::count;
+    return true;
 }
 bool Primary::deleteTitle(std::string inTitle, int& pos)
 {
@@ -85,8 +86,26 @@ int Primary::getDeadCount()
     return my_list[0].pos;
 }
 
+int Primary::getCapacity()
+{
+    return capacity;
+}
+
 void Primary::setDeadCount(int count)
 {
     my_list[0].pos += count;
     dead_count += count;
+}
+
+void Primary::resize()
+{
+    int new_capacity = 2*capacity;
+    MINI * my_new = new MINI[new_capacity];
+    for(int i =0; i < capacity; ++i)
+    {
+        my_new[i] = my_list[i];
+    }
+    capacity = new_capacity;
+    delete[] my_list;
+    my_list = my_new;
 }

@@ -977,7 +977,7 @@ void addARecord()
     cout << " Adding a new record" << endl
          << endl  << endl  << endl;
 
-    if(primaryInx->getMaxCount() != (MAX_LIMIT - 1))
+    if(primaryInx->getMaxCount() != (primaryInx->getCapacity() - 1))
     {
         //Provide general information
         cout << " -INFORMATION-" << endl << endl;
@@ -1117,7 +1117,7 @@ void addARecord()
     {
         //Provide error information
         cout << " -NOTICE-" << endl << endl;
-        cout <<  " The max number of records '" << MAX_LIMIT - 1 << "' has been reached." << endl;
+        cout <<  " The max number of records '" << primaryInx->getCapacity() - 1 << "' has been reached." << endl;
         cout << " Delete a record to add a new record." << endl << endl << endl << endl;
 
         //Ask user to return a menu

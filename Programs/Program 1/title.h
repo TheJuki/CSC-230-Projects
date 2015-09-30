@@ -11,7 +11,6 @@ Description: Header for title.cpp
 #include <fstream>
 #include <string>
 #include <iostream>
-const int MAX_LIMIT = 35;
 
 struct MINI
 {
@@ -24,13 +23,15 @@ class Primary
 {
 
 private:
-    struct MINI my_list[MAX_LIMIT];
-    int count, dead_count, hold, max_count;
+    struct MINI * my_list;
+    int count, dead_count, hold, max_count, capacity;
 
 public:
-    Primary(): count(0), dead_count(0), max_count(0)
+    Primary(): count(0), dead_count(0), max_count(0), capacity(10)
     {
-        for(hold = 0; hold < MAX_LIMIT; ++hold)
+        my_list = new MINI[capacity];
+
+        for(hold = 0; hold < capacity; ++hold)
         {
             my_list[hold].title = "****";
             my_list[hold].pos = 0;
@@ -40,14 +41,18 @@ public:
     Primary(int my_hold): count(0), dead_count(0), hold(my_hold)
     {
         std::ifstream fin("my_primary_index.txt");
-        for(hold = 0; hold < MAX_LIMIT; ++hold)
+        fin >> max_count;
+        count = max_count;
+        capacity = max_count;
+        my_list = new MINI[capacity];
+
+        for(hold = 0; hold < capacity; ++hold)
         {
             my_list[hold].title = "****";
             my_list[hold].pos = 0;
             my_list[hold].dead_flag = false;
         }
-        fin >> max_count;
-        count = max_count;
+
         for(hold = 0; hold < (max_count + 1); ++hold)
         {
             fin >> my_list[hold].title >> my_list[hold].pos;
@@ -59,7 +64,7 @@ public:
     {
         std::ofstream fout("my_primary_index.txt");
         int my_count = 0;
-        for(int i = 1; i < MAX_LIMIT; ++i)
+        for(int i = 1; i < capacity; ++i)
         {
             if(my_list[i].pos != 0 && !my_list[i].dead_flag)
             {
@@ -74,6 +79,7 @@ public:
                      << my_list[hold].pos << std::endl;
         }
         fout.close();
+        delete[] my_list;
     }
     bool matchTitle(std::string, int&);
     bool updateTitle(std::string /*old title*/, std::string /*new title*/, int /*pos in binary*/);
@@ -83,6 +89,8 @@ public:
     int getMaxCount();
     int getDeadCount();
     void setDeadCount(int count);
+    int getCapacity();
+    void resize();
 
 };
 #endif // MY_PRIMARY_INDEX_H
