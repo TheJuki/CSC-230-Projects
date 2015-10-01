@@ -53,7 +53,7 @@ public:
             my_list[hold].dead_flag = false;
         }
 
-        for(hold = 0; hold < (max_count + 1); ++hold)
+        for(hold = 0; hold < capacity; ++hold)
         {
             fin >> my_list[hold].title >> my_list[hold].pos;
             my_list[hold].dead_flag = false;
