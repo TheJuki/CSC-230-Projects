@@ -12,48 +12,46 @@ Description: Header for title.cpp
 #include <string>
 #include <iostream>
 
-struct MINI
-{
-    std::string title;
-    int pos;
-    bool dead_flag;
-};
-
 class Primary
 {
 
 private:
-    struct MINI * my_list;
-    int count, dead_count, hold, max_count, capacity;
+    struct MINI
+    {
+        std::string title;
+        int pos;
+        bool dead_flag;
+    };
+    MINI * my_list;
+    int count, dead_count, capacity;
 
 public:
-    Primary(): count(0), dead_count(0), max_count(0), capacity(11)
+    Primary(): count(0), dead_count(0), capacity(10)
     {
         my_list = new MINI[capacity];
 
-        for(hold = 0; hold < capacity; ++hold)
+        for(int hold = 0; hold < capacity; ++hold)
         {
             my_list[hold].title = "****";
             my_list[hold].pos = 0;
             my_list[hold].dead_flag = false;
         }
     }
-    Primary(int my_hold): count(0), dead_count(0), hold(my_hold)
+    Primary(int new_capacity): count(0), dead_count(0)
     {
         std::ifstream fin("my_primary_index.txt");
-        fin >> max_count;
-        count = max_count;
-        capacity = max_count + 1;
+        fin >> count;
+        capacity = count + 1;
         my_list = new MINI[capacity];
 
-        for(hold = 0; hold < capacity; ++hold)
+        for(int hold = 0; hold < capacity; ++hold)
         {
             my_list[hold].title = "****";
             my_list[hold].pos = 0;
             my_list[hold].dead_flag = false;
         }
 
-        for(hold = 0; hold < capacity; ++hold)
+        for(int hold = 0; hold < capacity; ++hold)
         {
             fin >> my_list[hold].title >> my_list[hold].pos;
             my_list[hold].dead_flag = false;
@@ -72,7 +70,7 @@ public:
             }
         }
         fout << my_count << std::endl;
-        for(hold =0; hold < (count + 1); ++hold)
+        for(int hold = 0; hold < (count + 1); ++hold)
         {
             if(!my_list[hold].dead_flag)
                 fout << my_list[hold].title << " "

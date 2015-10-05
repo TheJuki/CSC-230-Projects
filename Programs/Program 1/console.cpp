@@ -824,10 +824,7 @@ void PrintByYear()
     MyClass record;
 
     //Secondary Index
-    YearIndex yearInx;
-
-    //Fill
-    yearInx.readSecondary();
+    YearIndex* yearInx = new YearIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -846,7 +843,8 @@ void PrintByYear()
     cin >> input;
 
     //Find year
-    int* pos = yearInx.findYear(atoi(input.c_str()));
+    int* pos = yearInx->findYear(atoi(input.c_str()));
+    delete yearInx;
 
     //If year found, then display it
     if(*pos > 0)
@@ -916,7 +914,7 @@ void stopMenu()
         Primary* primaryInx = new Primary();
         //Create Secondary Index object
         ArtistIndex artistInx;
-        YearIndex yearInx;
+        YearIndex* yearInx = new YearIndex();
 
         if(outputFile.is_open())
         {
@@ -930,7 +928,7 @@ void stopMenu()
 
                     //Pass Secondary Key information to Secondary Index(artist or year, position)
                     artistInx.set_artist_key(record.get_artist(), pos);
-                    yearInx.set_year_key(record.get_year(), pos);
+                    yearInx->addYear(record.get_year(), pos);
                 }
                 pos++;
                 record.readIt(outputFile, pos);
@@ -940,7 +938,7 @@ void stopMenu()
             delete primaryInx;
             //Write Secondary Index to a file (open file using ofstream)
             artistInx.writeSecondary();
-            yearInx.writeSecondary();
+            delete yearInx;
             //Close file
             outputFile.close();
         } // end if
@@ -981,11 +979,10 @@ void addARecord()
 
     //Secondary Indexes
     ArtistIndex artistInx;
-    YearIndex yearInx;
+    YearIndex* yearInx = new YearIndex(0);
 
     //Fill
     artistInx.readSecondary();
-    yearInx.readSecondary();
 
     //Clear screen
     ClearScreen();
@@ -1089,12 +1086,12 @@ void addARecord()
                 //Add Indexes
                 primaryInx->addTitle(my_title, nextIndex);
                 artistInx.set_artist_key(my_artist, nextIndex);
-                yearInx.set_year_key(my_year, nextIndex);
+                yearInx->addYear(my_year, nextIndex);
 
                 //Write Indexes
                 delete primaryInx;
                 artistInx.writeSecondary();
-                yearInx.writeSecondary();
+                delete yearInx;
 
                 //Success!
                 cout << endl << endl << " -INFORMATION-" << endl << endl;
@@ -1177,11 +1174,10 @@ void deleteByTitle()
 
     //Secondary Indexes
     ArtistIndex artistInx;
-    YearIndex yearInx;
+    YearIndex* yearInx = new YearIndex(0);
 
     //Fill
     artistInx.readSecondary();
-    yearInx.readSecondary();
 
     //Clear screen
     ClearScreen();
@@ -1222,12 +1218,12 @@ void deleteByTitle()
             //Delete Artist Index
             artistInx.deleteArtist(my_artist, pos);
             //Delete Year Index
-            yearInx.deleteYear(my_year, pos);
+            yearInx->deleteYear(my_year, pos);
 
             //Write Indexes
             delete primaryInx;
             artistInx.writeSecondary();
-            yearInx.writeSecondary();
+            delete yearInx;
 
             //Success!
             cout << endl << " -INFORMATION-" << endl << endl;
@@ -1296,11 +1292,10 @@ void changeByArtistYear(recordMember member)
 
     //Secondary Indexes
     ArtistIndex artistInx;
-    YearIndex yearInx;
+    YearIndex* yearInx = new YearIndex(0);
 
     //Fill
     artistInx.readSecondary();
-    yearInx.readSecondary();
 
     //Clear screen
     ClearScreen();
@@ -1326,7 +1321,7 @@ void changeByArtistYear(recordMember member)
         pos = artistInx.findArtist(old_input);
         break;
     case(YEAR) :
-        pos = yearInx.findYear(atoi(old_input.c_str()));
+        pos = yearInx->findYear(atoi(old_input.c_str()));
         break;
     default : //Nothing
         break;
@@ -1390,12 +1385,13 @@ void changeByArtistYear(recordMember member)
             artistInx.writeSecondary();
             break;
         case(YEAR) :
-            yearInx.updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()));
-            yearInx.writeSecondary();
+            yearInx->updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()));
             break;
         default : //Nothing
             break;
         }
+
+        delete yearInx;
 
         //Ask user to return a menu
         printReturn();
@@ -1403,6 +1399,8 @@ void changeByArtistYear(recordMember member)
     } //end if record found
     else // Record not found
     {
+        delete yearInx;
+
         cout << endl << " -NOTICE-" << endl << endl;
         cout << " No records were affected."<< endl;
         cout << " The records for the " << type << " '" << old_input << "' could not be found." << endl << endl << endl << endl;
@@ -1532,12 +1530,11 @@ void changeByTitle(int selection, MyClass& me, const int position)
             }
             if(flag_yearChanged)
             {
-                YearIndex yearInx;
-                yearInx.readSecondary();
+                YearIndex* yearInx = new YearIndex(0);
 
                 //Update year index
-                yearInx.updateYear(old_record.get_year(), me.get_year());
-                yearInx.writeSecondary();
+                yearInx->updateYear(old_record.get_year(), me.get_year());
+                delete yearInx;
             }
 
             me.writeIt(file, position);

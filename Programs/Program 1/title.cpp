@@ -45,7 +45,6 @@ bool Primary::addTitle(std::string inTitle, int pos)
     int next_title = ++Primary::count;
     Primary::my_list[next_title].title = inTitle;
     Primary::my_list[next_title].pos = pos;
-    Primary::max_count = Primary::count;
     return true;
 }
 bool Primary::deleteTitle(std::string inTitle, int& pos)
@@ -78,7 +77,7 @@ bool Primary::printTitle(std::string inTitle, int& pos)
 
 int Primary::getMaxCount()
 {
-    return max_count;
+    return count;
 }
 
 int Primary::getDeadCount()
@@ -104,7 +103,7 @@ void Primary::resize()
     //Create new list
     MINI * my_new = new MINI[new_capacity];
     //Default all spots
-    for(hold = 0; hold < new_capacity; ++hold)
+    for(int hold = 0; hold < new_capacity; ++hold)
     {
         my_new[hold].title = "****";
         my_new[hold].pos = 0;
