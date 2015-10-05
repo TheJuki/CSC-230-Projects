@@ -1,7 +1,7 @@
 /*
 File       : title.cpp
-Program    : Program 1 - Array Based Indexes
-Due Date   : September 21, 2015
+Program    : Program 1 - Dynamic Array Based Indexes
+Due Date   : October 12, 2015
 Author     : Justin Kirk
 Description: Code for title data
 */
@@ -9,6 +9,9 @@ Description: Code for title data
 #include "title.h"
 #include <stdlib.h>
 
+//Search array of title indexes for the given title
+//Set pos to found key
+//Return found or not
 bool Primary::matchTitle(std::string inTitle, int& pos)
 {
     for(int i = 1; i < (count + 1); ++i)
@@ -21,17 +24,29 @@ bool Primary::matchTitle(std::string inTitle, int& pos)
     }
 
     return false;
-}
+} // end matchTitle
+
+//Search array of title indexes for the old title
+//Set old title to new title
+//Return found or not
 bool Primary::updateTitle(std::string oldTitle, std::string newTitle, int pos)
 {
-    if(Primary::matchTitle(oldTitle, pos))
+   for(int i = 1; i < (count + 1); ++i)
     {
-        Primary::my_list[pos].title = newTitle;
-        return true;
+        if(Primary::my_list[i].title == oldTitle)
+        {
+            Primary::my_list[i].title = newTitle;
+            return true;
+        }
     }
     //Title not found
     return false;
-}
+} // end updateTitle
+
+//Search array of title indexes for the given title
+//Resize array if necessary
+//Add new title index to the next position
+//Return found or not
 bool Primary::addTitle(std::string inTitle, int pos)
 {
     if(Primary::matchTitle(inTitle, pos))
@@ -46,7 +61,11 @@ bool Primary::addTitle(std::string inTitle, int pos)
     Primary::my_list[next_title].title = inTitle;
     Primary::my_list[next_title].pos = pos;
     return true;
-}
+} // end addTitle
+
+//Search array of title indexes for the given title
+//Default the title for deletion and set dead flag
+//Return found or not
 bool Primary::deleteTitle(std::string inTitle, int& pos)
 {
     for(int i = 1; i < (count + 1); ++i)
@@ -64,7 +83,10 @@ bool Primary::deleteTitle(std::string inTitle, int& pos)
     }
     //Title not found
     return false;
-}
+} // end deleteTitle
+
+//Search array of title indexes for the given title
+//Return found or not
 bool Primary::printTitle(std::string inTitle, int& pos)
 {
     if(Primary::matchTitle(inTitle, pos))
@@ -73,29 +95,31 @@ bool Primary::printTitle(std::string inTitle, int& pos)
     }
     //Title not found
     return false;
-}
+} // end printTitle
 
+//Get count
 int Primary::getMaxCount()
 {
     return count;
 }
-
+//Get dead count
 int Primary::getDeadCount()
 {
     return my_list[0].pos;
 }
-
+//Get capacity
 int Primary::getCapacity()
 {
     return capacity;
 }
-
+//Set dead count
 void Primary::setDeadCount(int count)
 {
     my_list[0].pos += count;
     dead_count += count;
 }
-
+//Create a new resized array
+//Delete old array
 void Primary::resize()
 {
     //Grow capacity 2 times
@@ -120,4 +144,5 @@ void Primary::resize()
     delete[] my_list;
     //Set new list
     my_list = my_new;
-}
+
+} // end resize
