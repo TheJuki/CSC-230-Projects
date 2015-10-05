@@ -12,11 +12,16 @@ Description: Code for year data
 #include <sstream>
 #include <stdlib.h>
 
+//Return year for a given position
 int YearIndex::get_year(int pos) const
 {
     return YearIndex::my_list[pos].year;
 }
 
+//Search array of year indexes for the given year
+//Resize array if necessary
+//Add new year index as appropriate
+//Return nothing
 void YearIndex::addYear(int my_year, int my_key)
 {
     //location (i)
@@ -54,6 +59,9 @@ void YearIndex::addYear(int my_year, int my_key)
     } // end else
 } // end addYear
 
+//Search array of year indexes for the given year
+//Update the old year index with a new year appropriately
+//Return nothing
 void YearIndex::updateYear(int old_year, int new_year)
 {
     int new_location = 0;
@@ -86,8 +94,11 @@ void YearIndex::updateYear(int old_year, int new_year)
             } // end for k
         } // end for i
     } // end else
-}
+} // end updateYear
 
+//Search array of year indexes for the given year
+//Default the year for deletion and set dead flag
+//Return found or not
 bool YearIndex::deleteYear(int inYear, int pos)
 {
     //Check for year
@@ -114,8 +125,11 @@ bool YearIndex::deleteYear(int inYear, int pos)
         } // end if
 
     return foundYear;
-}
+} // end deleteYear
 
+//Search array of year indexes for the given year
+//Set location to location in array
+//Return found or not
 bool YearIndex::matchYear(int inYear, int& location)
 {
     for(int i = 1; i < (count + 1); ++i)
@@ -126,12 +140,15 @@ bool YearIndex::matchYear(int inYear, int& location)
             //but location in the list
             location = i;
             return true;
-        }
-    }
+        } // end if
+    } // end for
 
     return false;
-} // matchYear
+} // end matchYear
 
+//Search array of year indexes for the given year
+//Return int array of keys if found
+//Return an empty int array if not found
 int * YearIndex::findYear(int inYear)
 {
     int location;
@@ -144,6 +161,8 @@ int * YearIndex::findYear(int inYear)
     return emptyArray;
 } // End findYear
 
+//Create a new resized array
+//Delete old array
 void YearIndex::resize()
 {
     //Grow capacity 2 times
@@ -168,8 +187,4 @@ void YearIndex::resize()
     delete[] my_list;
     //Set new list
     my_list = my_new;
-}
-
-
-
-
+} // end resize

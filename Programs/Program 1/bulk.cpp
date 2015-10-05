@@ -25,9 +25,11 @@ using namespace std;
 char inputFileName[80] = "input.txt";
 char outputFileName[80] = "output.bin";
 
+//Check for preexisting binary file
+//Build file if it does not exist
 void checkBulkFile()
 {
-    ifstream tryIt(outputFileName, ios::in);
+    ifstream tryIt(outputFileName);
 
     //If file does not exist, create it
     if(!tryIt)
@@ -39,11 +41,12 @@ void checkBulkFile()
 
 } // checkBulkFile
 
+//Build binary file from scratch
 void build()
 {
     //Open Sequential file for reading using ifstream
     ifstream input;
-    input.open (inputFileName, fstream::in);
+    input.open (inputFileName);
 
     if (input.is_open())
     {
@@ -138,7 +141,6 @@ void build()
             artistInx->addArtist(my_artist, position);
             yearInx->addYear(my_year, position);
 
-            //position++
             position++;
 
         } // End eof while

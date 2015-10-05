@@ -12,11 +12,16 @@ Description: Artist - secondary index
 #include <sstream>
 #include <stdlib.h>
 
+//Return artist for a given position
 std::string ArtistIndex::get_artist(int pos) const
 {
     return ArtistIndex::my_list[pos].artist;
 }
 
+//Search array of artist indexes for the given artist
+//Resize array if necessary
+//Add new artist index as appropriate
+//Return nothing
 void ArtistIndex::addArtist(std::string inArtist, int my_key)
 {
     //location (i)
@@ -54,6 +59,9 @@ void ArtistIndex::addArtist(std::string inArtist, int my_key)
     } // end else
 } // end addArtist
 
+//Search array of artist indexes for the given artist
+//Default the artist for deletion and set dead flag
+//Return found or not
 bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
 {
     //Check for artist
@@ -80,13 +88,17 @@ bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
             } // end for
         } // end if
     return foundArtist;
-}
+} // end deleteArtist
 
+//Search array of artist indexes for the given artist
+//Update the old artist index with a new artist appropriately
+//Return nothing
 void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist)
 {
     int new_location = 0;
     int old_location = 0;
 
+    //If new artist does not currently exist...
     if(!matchArtist(new_artist, new_location))
     {
         if(matchArtist(old_artist, old_location))
@@ -114,9 +126,11 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist)
             } // end for k
         } // end for i
     } // end else
+} // end updateArtist
 
-}
-
+//Search array of artist indexes for the given artist
+//Set location to location in array
+//Return found or not
 bool ArtistIndex::matchArtist(std::string inArtist, int& location)
 {
     for(int i = 1; i < (count + 1); ++i)
@@ -127,12 +141,15 @@ bool ArtistIndex::matchArtist(std::string inArtist, int& location)
             //but location in the list
             location = i;
             return true;
-        }
-    }
+        } // end if
+    } // end for
 
     return false;
-} // matchArtist
+} // end matchArtist
 
+//Search array of artist indexes for the given artist
+//Return int array of keys if found
+//Return an empty int array if not found
 int * ArtistIndex::findArtist(std::string inArtist)
 {
     int location;
@@ -145,6 +162,9 @@ int * ArtistIndex::findArtist(std::string inArtist)
     return emptyArray;
 } // End findArtist
 
+
+//Create a new resized array
+//Delete old array
 void ArtistIndex::resize()
 {
     //Grow capacity 2 times
@@ -169,9 +189,4 @@ void ArtistIndex::resize()
     delete[] my_list;
     //Set new list
     my_list = my_new;
-}
-
-
-
-
-
+} // end resize

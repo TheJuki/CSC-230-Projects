@@ -1509,7 +1509,7 @@ void changeByTitle(int selection, MyClass& me, const int position)
                 Primary * primaryInx = new Primary(0);
 
                 //Update title index
-                int title_pos;
+                int title_pos = 0;
                 primaryInx->updateTitle(old_record.get_title(), me.get_title(), title_pos);
                 delete primaryInx;
             }
