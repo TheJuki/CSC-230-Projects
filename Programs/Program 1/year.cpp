@@ -61,16 +61,12 @@ void YearIndex::updateYear(int old_year, int new_year)
 
     if(!matchYear(new_year, new_location))
     {
-        for(int i = 1; i < 15; ++i)
-        {
-            if(my_list[i].year == old_year)
+            if(matchYear(old_year, old_location))
             {
                 //Change year
-                my_list[i].year = new_year;
-                break;
+                my_list[old_location].year = new_year;
             } // end if
-        } // end for
-    } // end if
+        } // end if
     else
     {
         //Copy positions to new location
@@ -97,27 +93,26 @@ bool YearIndex::deleteYear(int inYear, int pos)
     //Check for year
     bool foundYear = false;
     //For each item in my_list
-    for(int i = 1; i < 15; ++i)
-    {
-        if(YearIndex::my_list[i].year == (inYear))
+    int location;
+        if(matchYear(inYear, location))
         {
             //Found Year
             foundYear = true;
             //for each item in pos
             for(int k = 1; k < 11; ++k)
             {
-                if(YearIndex::my_list[i].pos[k] == pos)
+                if(YearIndex::my_list[location].pos[k] == pos)
                 {
-                    YearIndex::my_list[i].pos[k] = 0;
-                    --YearIndex::my_list[i].pos[0];
-                    if(YearIndex::my_list[i].pos[0] == 0)
+                    YearIndex::my_list[location].pos[k] = 0;
+                    --YearIndex::my_list[location].pos[0];
+                    if(YearIndex::my_list[location].pos[0] == 0)
                     {
-                        YearIndex::my_list[i].year = 0;
+                        YearIndex::my_list[location].year = 0;
                     }
                 } //end if
             } // end for
         } // end if
-    } // end for
+
     return foundYear;
 }
 

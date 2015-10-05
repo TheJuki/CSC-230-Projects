@@ -54,7 +54,7 @@ void build()
         //Create Primary Index object
         Primary* primaryInx = new Primary();
         //Create Secondary Index objects
-        ArtistIndex artistInx;
+        ArtistIndex* artistInx = new ArtistIndex();
         YearIndex* yearInx = new YearIndex();
         //delimiter is a space
         string delimiter = " ";
@@ -135,7 +135,7 @@ void build()
             primaryInx->addTitle(my_title, position);
 
             //Pass Secondary Key information to Secondary Index(artist or year, position)
-            artistInx.set_artist_key(my_artist, position);
+            artistInx->addArtist(my_artist, position);
             yearInx->addYear(my_year, position);
 
             //position++
@@ -150,7 +150,7 @@ void build()
         //Write Primary Index to a file (open file using ofstream)
         delete primaryInx;
         //Write Secondary Index to a file (open file using ofstream)
-        artistInx.writeSecondary();
+        delete artistInx;
         delete yearInx;
 
         //Close all files

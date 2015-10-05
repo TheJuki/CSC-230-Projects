@@ -166,6 +166,9 @@ void LoadCurrentMenu()
     case(7):
         ChangeRecordMenu();
         break;
+    case(8):
+        MainMenu();
+        break;
     default:
         InvalidInput();
         break;
@@ -753,11 +756,7 @@ void PrintByArtist()
     //Record
     MyClass record;
 
-    //Secondary Index
-    ArtistIndex artistInx;
-
-    //Fill
-    artistInx.readSecondary();
+    ArtistIndex* artistInx = new ArtistIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -776,7 +775,8 @@ void PrintByArtist()
     cin >> input;
 
     //Find artist
-    int* pos = artistInx.findArtist(input);
+    int* pos = artistInx->findArtist(input);
+    delete artistInx;
 
     //If artist found, then display it
     if(*pos > 0)
@@ -913,7 +913,7 @@ void stopMenu()
         //Create Primary Index object
         Primary* primaryInx = new Primary();
         //Create Secondary Index object
-        ArtistIndex artistInx;
+        ArtistIndex* artistInx = new ArtistIndex();
         YearIndex* yearInx = new YearIndex();
 
         if(outputFile.is_open())
@@ -927,7 +927,7 @@ void stopMenu()
                     primaryInx->addTitle(record.get_title(), pos);
 
                     //Pass Secondary Key information to Secondary Index(artist or year, position)
-                    artistInx.set_artist_key(record.get_artist(), pos);
+                    artistInx->addArtist(record.get_artist(), pos);
                     yearInx->addYear(record.get_year(), pos);
                 }
                 pos++;
@@ -937,7 +937,7 @@ void stopMenu()
             //Write Primary Index to a file (open file using ofstream)
             delete primaryInx;
             //Write Secondary Index to a file (open file using ofstream)
-            artistInx.writeSecondary();
+            delete artistInx;
             delete yearInx;
             //Close file
             outputFile.close();
@@ -971,6 +971,8 @@ void soldValue()
 
 void addARecord()
 {
+    currentMenu = 8;
+
     //Record
     MyClass record;
 
@@ -978,11 +980,8 @@ void addARecord()
     Primary* primaryInx = new Primary(0);
 
     //Secondary Indexes
-    ArtistIndex artistInx;
+    ArtistIndex* artistInx = new ArtistIndex(0);
     YearIndex* yearInx = new YearIndex(0);
-
-    //Fill
-    artistInx.readSecondary();
 
     //Clear screen
     ClearScreen();
@@ -1085,12 +1084,12 @@ void addARecord()
 
                 //Add Indexes
                 primaryInx->addTitle(my_title, nextIndex);
-                artistInx.set_artist_key(my_artist, nextIndex);
+                artistInx->addArtist(my_artist, nextIndex);
                 yearInx->addYear(my_year, nextIndex);
 
                 //Write Indexes
                 delete primaryInx;
-                artistInx.writeSecondary();
+                delete artistInx;
                 delete yearInx;
 
                 //Success!
@@ -1173,11 +1172,8 @@ void deleteByTitle()
     Primary* primaryInx = new Primary(0);
 
     //Secondary Indexes
-    ArtistIndex artistInx;
+    ArtistIndex* artistInx = new ArtistIndex(0);
     YearIndex* yearInx = new YearIndex(0);
-
-    //Fill
-    artistInx.readSecondary();
 
     //Clear screen
     ClearScreen();
@@ -1216,13 +1212,13 @@ void deleteByTitle()
             //Delete Title Index
             primaryInx->deleteTitle(my_title, pos);
             //Delete Artist Index
-            artistInx.deleteArtist(my_artist, pos);
+            artistInx->deleteArtist(my_artist, pos);
             //Delete Year Index
             yearInx->deleteYear(my_year, pos);
 
             //Write Indexes
             delete primaryInx;
-            artistInx.writeSecondary();
+            delete artistInx;
             delete yearInx;
 
             //Success!
@@ -1291,11 +1287,8 @@ void changeByArtistYear(recordMember member)
     MyClass record;
 
     //Secondary Indexes
-    ArtistIndex artistInx;
+    ArtistIndex* artistInx = new ArtistIndex(0);
     YearIndex* yearInx = new YearIndex(0);
-
-    //Fill
-    artistInx.readSecondary();
 
     //Clear screen
     ClearScreen();
@@ -1318,7 +1311,7 @@ void changeByArtistYear(recordMember member)
     switch (member)
     {
     case(ARTIST) :
-        pos = artistInx.findArtist(old_input);
+        pos = artistInx->findArtist(old_input);
         break;
     case(YEAR) :
         pos = yearInx->findYear(atoi(old_input.c_str()));
@@ -1381,8 +1374,7 @@ void changeByArtistYear(recordMember member)
         switch (member)
         {
         case(ARTIST) :
-            artistInx.updateArtist(old_input, new_input);
-            artistInx.writeSecondary();
+            artistInx->updateArtist(old_input, new_input);
             break;
         case(YEAR) :
             yearInx->updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()));
@@ -1392,6 +1384,7 @@ void changeByArtistYear(recordMember member)
         }
 
         delete yearInx;
+        delete artistInx;
 
         //Ask user to return a menu
         printReturn();
@@ -1400,6 +1393,7 @@ void changeByArtistYear(recordMember member)
     else // Record not found
     {
         delete yearInx;
+        delete artistInx;
 
         cout << endl << " -NOTICE-" << endl << endl;
         cout << " No records were affected."<< endl;
@@ -1521,12 +1515,11 @@ void changeByTitle(int selection, MyClass& me, const int position)
             }
             if(flag_artistChanged)
             {
-                ArtistIndex artistInx;
-                artistInx.readSecondary();
+               ArtistIndex* artistInx = new ArtistIndex(0);
 
                 //Update artist index
-                artistInx.updateArtist(old_record.get_artist(), me.get_artist());
-                artistInx.writeSecondary();
+                artistInx->updateArtist(old_record.get_artist(), me.get_artist());
+                delete artistInx;
             }
             if(flag_yearChanged)
             {
