@@ -24,7 +24,7 @@ bool flag_yearChanged = false;
 
 enum recordMember {TITLE, ARTIST, TYPE, YEAR, PRICE, COUNT};
 enum addChangeDelete {ADD_BY_TITLE, CHANGE_BY_TITLE, CHANGE_BY_ARTIST, CHANGE_BY_YEAR,
-                      DELETE_BY_TITLE, DELETE_BY_ARTIST, DELETE_BY_YEAR
+                      DELETE_BY_TITLE, DELETE_BY_ARTIST, DELETE_BY_YEAR, SELL
                      };
 
 //Prototypes
@@ -947,11 +947,77 @@ void stopMenu()
 
 void sellATitle()
 {
-    cout << " SellATitle method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+    currentMenu = 9;
+
+    //Record
+    MyClass record;
+
+    //Primary Indexes
+    Primary* primaryInx = new Primary(0);
+
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Sell a Title" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " To sell a title, provide an existing title first."<< endl;
+    cout << " Then provide the count sold." << endl << endl << endl << endl;
+
+    //Ask user
+    string input;
+    cout << endl << endl << " Enter the title of the title sold: ";
+    cin >> input;
+
+    //Find title
+    int pos = 0;
+    primaryInx->matchTitle(input, pos);
+
+    //If title found, then throw an error
+    if(pos > 0)
+    {
+        fstream file("output.bin", ios::in | ios::out | ios::binary);
+        //Read in record
+        record.readIt(file, pos);
+
+        cout << endl << endl << " -INFORMATION-" << endl << endl;
+        cout << " The record for the title: '"
+             << input << "' currently has a count of " << record.get_count() << endl << endl << endl << endl;
+
+        int input_sold = 0;
+        cout << endl << endl << " Enter the amount sold: ";
+        cin >> input_sold;
+
+        record.set_count(record.get_count() - input_sold);
+        if(record.get_count() < 0)
+        {
+             cout << endl << endl << " -Notice-" << endl << endl;
+             cout << " Amount sold exceeds current stock" << endl;
+             cout << " The record for the title: '"
+             << input << "' only has a count of" << record.get_count() << endl << endl << endl << endl;
+             printTryAgain(SELL);
+        }
+        else
+        {
+            record.writeIt(file, pos);
+              cout << endl << endl << " -INFORMATION-" << endl << endl;
+              cout << " The record for the title: '"
+             << input << "' now has a count of " << record.get_count() << endl << endl << endl << endl;
+             printReturn();
+        }
+    } //end if
+    else // Title not found
+    {
+        cout << endl << endl << " -NOTICE-" << endl << endl;
+        cout << " The record for the title: '"
+             << input << "' does not exist" << endl << endl << endl << endl;
+
+        //Get user to try again
+        printTryAgain(SELL);
+
+    }// Else Title Not Found
 }
 
 void soldValue()
