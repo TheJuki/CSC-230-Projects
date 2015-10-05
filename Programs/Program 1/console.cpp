@@ -115,6 +115,8 @@ void ClearScreen()
     cout << string(100, '\n');
 } // end ClearScreen
 
+//Complain about an invalid input
+//Load last known menu
 void InvalidInput()
 {
     string s;
@@ -304,8 +306,7 @@ void MainMenuInput()
     }
     else
     {
-        const char* p_c_str = input.c_str();
-        char inputChar = p_c_str[0];
+        char inputChar = input[0];
         switch(inputChar)
         {
         case('1'):
@@ -348,8 +349,7 @@ void PrintMenuInput()
     } // end if
     else
     {
-        const char* p_c_str = input.c_str();
-        char inputChar = p_c_str[0];
+        char inputChar = input[0];
         switch(inputChar)
         {
         case('0'):
@@ -389,8 +389,7 @@ void DeleteMenuInput()
     } // end if
     else
     {
-        const char* p_c_str = input.c_str();
-        char inputChar = p_c_str[0];
+        char inputChar = input[0];
         switch(inputChar)
         {
         case('0'):
@@ -422,8 +421,7 @@ void ChangeRecordMenuInput()
     } // end if
     else
     {
-        const char* p_c_str = input.c_str();
-        char inputChar = p_c_str[0];
+        char inputChar = input[0];
         switch(inputChar)
         {
         case('0'):
@@ -454,8 +452,7 @@ void ChangeByArtistYearMenuInput()
     } // end if
     else
     {
-        const char* p_c_str = input.c_str();
-        char inputChar = p_c_str[0];
+        char inputChar = input[0];
         switch(inputChar)
         {
         case('0'):
@@ -487,8 +484,7 @@ void ChangeByTitleMenuInput(MyClass& me, int position)
     }
     else
     {
-        const char* p_c_str = input.c_str();
-        char inputChar = p_c_str[0];
+        char inputChar = input[0];
         switch(inputChar)
         {
         case('1'):
@@ -542,8 +538,7 @@ void printReturn()
     } // end if
     else
     {
-        const char* p_c_str = input.c_str();
-        char inputChar = p_c_str[0];
+        char inputChar = input[0];
         switch (inputChar)
         {
         case('0') :
@@ -572,8 +567,7 @@ void printTryAgain(addChangeDelete type)
     } // end if
     else
     {
-        const char* p_c_str = input.c_str();
-        char inputChar = p_c_str[0];
+        char inputChar = input[0];
         switch (type)
         {
         case(ADD_BY_TITLE) :
@@ -962,8 +956,44 @@ void sellATitle()
 
 void soldValue()
 {
-    cout << " soldValue method stubbed" << endl;
+    //Total value
+    int total_value = 0;
     string s;
+
+    char outputFileName[80] = "output.bin";
+    //Read in file
+    fstream file(outputFileName, ios::in | ios::binary);
+
+    int pos = 1;
+    MyClass record;
+    if(file.is_open())
+    {
+        record.readIt(file, pos);
+        while(!file.eof())
+        {
+            if(!record.get_flag())
+            {
+                total_value += record.get_price();
+            }
+            pos++;
+            record.readIt(file, pos);
+        }
+        //Close file
+        file.close();
+    }
+
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Sold Value" << endl
+         << endl  << endl  << endl;
+
+    cout << " -INFORMATION-" << endl << endl;
+            cout <<  " Total sold value of all " << pos << " records" << endl << endl;
+            cout << "-----------------" << endl;
+            cout << " Total: $" << total_value << endl;
+            cout << "-----------------" << endl;
+    cout << endl << endl << " Press Enter to return to the Main Menu";
     getline(cin, s);
     getline(cin, s);
     LoadCurrentMenu();
