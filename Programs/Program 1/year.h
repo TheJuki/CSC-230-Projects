@@ -52,8 +52,6 @@ public:
                 my_list[hold].pos[k] = 0;
         }
 
-         std::cout << capacity << std::endl;
-
         if (input.is_open())
         {
             //Set position to 1
