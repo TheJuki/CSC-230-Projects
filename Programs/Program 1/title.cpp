@@ -99,13 +99,26 @@ void Primary::setDeadCount(int count)
 
 void Primary::resize()
 {
+    //Grow capacity 2 times
     int new_capacity = 2*capacity;
+    //Create new list
     MINI * my_new = new MINI[new_capacity];
+    //Default all spots
+    for(hold = 0; hold < new_capacity; ++hold)
+    {
+        my_new[hold].title = "****";
+        my_new[hold].pos = 0;
+        my_new[hold].dead_flag = false;
+    }
+    //Fill in new list with current list items
     for(int i =0; i < capacity; ++i)
     {
         my_new[i] = my_list[i];
     }
+    //Set capacity
     capacity = new_capacity;
+    //Delete old list
     delete[] my_list;
+    //Set new list
     my_list = my_new;
 }
