@@ -39,6 +39,9 @@ public:
         strcpy(type, my_type.c_str());
     }
 
+    //Destructor
+    ~MyClass(){}
+
     //Get functions
     std::string get_title();
     std::string get_artist();

@@ -27,7 +27,7 @@ private:
     int count, dead_count, hold, max_count, capacity;
 
 public:
-    Primary(): count(0), dead_count(0), max_count(0), capacity(10)
+    Primary(): count(0), dead_count(0), max_count(0), capacity(11)
     {
         my_list = new MINI[capacity];
 
@@ -43,7 +43,7 @@ public:
         std::ifstream fin("my_primary_index.txt");
         fin >> max_count;
         count = max_count;
-        capacity = max_count;
+        capacity = max_count + 1;
         my_list = new MINI[capacity];
 
         for(hold = 0; hold < capacity; ++hold)

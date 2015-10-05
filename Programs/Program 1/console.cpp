@@ -51,7 +51,7 @@ void MainMenuInput();
 void PrintMenuInput();
 void DeleteMenuInput();
 void ChangeRecordMenuInput();
-void ChangeByTitleMenuInput();
+void ChangeByTitleMenuInput(MyClass& me, int position);
 void ChangeByArtistYearMenuInput();
 
 //Used for InvalidInput
@@ -75,8 +75,9 @@ bool confirmDelete();
 
 //Change Menu Functions
 void ChangeByArtistYearMenu();
-void ChangeByTitleMenu();
-void changeByTitle(int selection, MyClass& me);
+void ChangeByTitleMenu(MyClass& me, int position);
+void changeByTitle(int selection, MyClass& me, int position);
+void ChangeByTitlePreMenu();
 void changeByArtistYear(recordMember member);
 
 //Other Menu Functions
@@ -148,13 +149,13 @@ void LoadCurrentMenu()
         PrintMenu();
         break;
     case(3):
-        ChangeByTitleMenu();
+        //Just Break and Return
         break;
     case(4):
         ChangeByArtistYearMenu();
         break;
     case(5):
-        ChangeByTitleMenu();
+        ChangeByTitlePreMenu();
         break;
     case(6):
         DeleteMenu();
@@ -263,7 +264,7 @@ void ChangeByArtistYearMenu()
 } // end MainMenu
 
 //The Change By Title print
-void ChangeByTitleMenu()
+void ChangeByTitleMenu(MyClass& me, int position)
 {
     currentMenu = 3;
     ClearScreen();
@@ -278,7 +279,7 @@ void ChangeByTitleMenu()
          << "  7  Price" << endl
          << "  8  Count" << endl
          << "\n\n\n";
-    ChangeByTitleMenuInput();
+    ChangeByTitleMenuInput(me, position);
 } // end MainMenu
 
 //--------------------------------------------------//
@@ -426,7 +427,7 @@ void ChangeRecordMenuInput()
             ChangeByArtistYearMenu();
             break;
         case('2'):
-            ChangeByTitleMenu();
+            ChangeByTitlePreMenu();
             break;
         default:
             InvalidInput();
@@ -468,15 +469,15 @@ void ChangeByArtistYearMenuInput()
 } // end ChangeByArtistYearMenuInput
 
 //Change By Title Menu Input selection
-void ChangeByTitleMenuInput()
+void ChangeByTitleMenuInput(MyClass& me, int position)
 {
-    MyClass me;
     string input;
     cout << " Please enter a selection from the Change By Title Menu (1-8): ";
     cin >> input;
     if(input.size() > 1)
     {
         InvalidInput();
+        ChangeByTitleMenu(me, position);
     }
     else
     {
@@ -485,31 +486,32 @@ void ChangeByTitleMenuInput()
         switch(inputChar)
         {
         case('1'):
-            changeByTitle(1, me);
+            changeByTitle(1, me, position);
             break;
         case('2'):
-            changeByTitle(2, me);
+            changeByTitle(2, me, position);
             break;
         case('3'):
-            changeByTitle(3, me);
+            changeByTitle(3, me, position);
             break;
         case('4'):
-            changeByTitle(4, me);
+            changeByTitle(4, me, position);
             break;
         case('5'):
-            changeByTitle(5, me);
+            changeByTitle(5, me, position);
             break;
         case('6'):
-            changeByTitle(6, me);
+            changeByTitle(6, me, position);
             break;
         case('7'):
-            changeByTitle(7, me);
+            changeByTitle(7, me, position);
             break;
         case('8'):
-            changeByTitle(8, me);
+            changeByTitle(8, me, position);
             break;
         default:
             InvalidInput();
+            ChangeByTitleMenu(me, position);
             break;
         } // end switch
     } // end else
@@ -590,6 +592,17 @@ void printTryAgain(addChangeDelete type)
                 LoadCurrentMenu();
                 break;
             } // end switch DELETE_BY_TITLE
+            break;
+        case(CHANGE_BY_TITLE) :
+            switch(inputChar)
+            {
+            case('1') :
+                ChangeByTitlePreMenu();
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch CHANGE_BY_ARTIST
             break;
         case(CHANGE_BY_ARTIST) :
             switch(inputChar)
@@ -1420,22 +1433,82 @@ void changeByArtistYear(recordMember member)
     } // end else
 }
 
-void changeByTitle(int selection, MyClass& me)
+void ChangeByTitlePreMenu()
 {
-    //Quit
+    //Record
+    MyClass record;
+
+    //Primary Index
+    Primary * PrimaryInx = new Primary(0);
+
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Changing by Title" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " To change a record, provide an existing title first."<< endl;
+    cout << " Then provide any changes on the next menu." << endl << endl << endl << endl;
+
+    //Ask user
+    string input;
+    cout << endl << endl << " Enter the title of the record that is to be updated: ";
+    cin >> input;
+
+    //Find title
+    int pos = 0;
+    PrimaryInx->matchTitle(input, pos);
+
+    //If title found, ask to change it
+    if(pos > 0)
+    {
+        cout << endl << endl << " -INFORMATION-" << endl << endl;
+        cout << " A record was found at index: " << pos << endl << endl << endl << endl;
+        MyClass me;
+        fstream file("output.bin", ios::in | ios::binary);
+        me.readIt(file, pos);
+
+        //Ask user to return -Ignores Invalid Input
+        input = "";
+        cout << endl << endl << " Press Enter to continue ";
+        getline(cin, input);
+        getline(cin, input);
+
+        ChangeByTitleMenu(me, pos);
+
+    } //end if record found
+    else // Record not found
+    {
+        cout << endl << " -NOTICE-" << endl << endl;
+        cout << " No records were affected."<< endl;
+        cout << " The record for the title '" << input << "' could not be found." << endl << endl << endl << endl;
+
+        printTryAgain(CHANGE_BY_TITLE);
+
+    } // end else
+}
+
+
+void changeByTitle(int selection, MyClass& me, int position)
+{
     if(selection == 1)
     {
         //Go to Change By Menu
         currentMenu = 7;
         LoadCurrentMenu();
     }
-    else //Everything else for now
+    else if(selection == 2)
     {
-        cout << " changeByTitle method stubbed" << endl;
-        string s;
-        getline(cin, s);
-        getline(cin, s);
-        LoadCurrentMenu();
+        //Submit
+        fstream file("output.bin", ios::in | ios::out);
+        me.writeIt(file, position);
+        cout << endl << endl << " -INFORMATION-" << endl << endl;
+        cout << " The record at index: " << pos << "was successfully updated." <<endl << endl << endl << endl;
+        cout << record;
+
+        printReturn();
     }
 
 }
