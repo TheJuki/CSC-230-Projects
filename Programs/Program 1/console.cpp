@@ -72,7 +72,7 @@ void PrintByYear();
 void PrintSummary();
 
 //Delete Menu Functions
-void deleteByArtist();
+void deleteByArtistYear(recordMember member);
 void deleteByTitle();
 bool confirmDelete();
 
@@ -157,7 +157,7 @@ void LoadCurrentMenu()
             //Just Break and Return
             break;
         case(4):
-            ChangeByArtistYearMenu();
+            ChangeRecordMenu();
             break;
         case(5):
             ChangeByTitlePreMenu();
@@ -224,9 +224,9 @@ void DeleteMenu()
     ClearScreen();
     Header();
     cout << "  Delete Menu" << endl << endl;
-    cout << "  1  Delete a record by title" << endl
-         << "  2  Delete a record by artist or year" << endl
-         << endl //3
+    cout << "  1  Delete a record by Title" << endl
+         << "  2  Delete a record by Artist" << endl
+         << "  3  Delete a record by Year" << endl
          << endl //4
          << endl //5
          << endl //6
@@ -242,8 +242,9 @@ void ChangeRecordMenu()
     ClearScreen();
     Header();
     cout << "  Change Record Menu" << endl << endl;
-    cout << "  1  Change by Artist/Year" << endl
-         << "  2  Change By Title" << endl
+    cout << "  1  Change by Title" << endl
+         << "  2  Change by Artist" << endl
+         << "  3  Change By Year" << endl
          << endl //3
          << endl //4
          << endl //5
@@ -252,24 +253,6 @@ void ChangeRecordMenu()
          << "\n\n\n\n";
     ChangeRecordMenuInput();
 } // end ChangeRecordMenu
-
-//The Change By Title print
-void ChangeByArtistYearMenu()
-{
-    currentMenu = 4;
-    ClearScreen();
-    Header();
-    cout << "  Change by Artist or Year" << endl << endl;
-    cout << "  1  Change by Artist" << endl
-         << "  2  Change by Year" << endl
-         << endl //3
-         << endl //4
-         << endl //5
-         << endl //6
-         << endl //7
-         << "\n\n\n\n";
-    ChangeByArtistYearMenuInput();
-} // end MainMenu
 
 //The Change By Title print
 void ChangeByTitleMenu(MyClass& me, int position)
@@ -381,7 +364,7 @@ void PrintMenuInput()
 void DeleteMenuInput()
 {
     string input;
-    cout << " Please make a selection (1-2) or type '0' to return: ";
+    cout << " Please make a selection (1-3) or type '0' to return: ";
     cin >> input;
     if(input.size() > 1)
     {
@@ -399,7 +382,10 @@ void DeleteMenuInput()
                 deleteByTitle();
                 break;
             case('2'):
-                deleteByArtist();
+                deleteByArtistYear(ARTIST);
+                break;
+            case('3'):
+                deleteByArtistYear(YEAR);
                 break;
             default:
                 InvalidInput();
@@ -413,7 +399,7 @@ void DeleteMenuInput()
 void ChangeRecordMenuInput()
 {
     string input;
-    cout << " Please make a selection (1-2) or type '0' to return: ";
+    cout << " Please make a selection (1-3) or type '0' to return: ";
     cin >> input;
     if(input.size() > 1)
     {
@@ -428,40 +414,12 @@ void ChangeRecordMenuInput()
                 MainMenu();
                 break;
             case('1'):
-                ChangeByArtistYearMenu();
-                break;
-            case('2'):
                 ChangeByTitlePreMenu();
                 break;
-            default:
-                InvalidInput();
-                break;
-        } // end switch
-    } // end else
-} // end ChangeRecordMenuInput
-
-//Change By Artist or Year Menu selection
-void ChangeByArtistYearMenuInput()
-{
-    string input;
-    cout << " Please make a selection (1-2) or type '0' to return: ";
-    cin >> input;
-    if(input.size() > 1)
-    {
-        InvalidInput();
-    } // end if
-    else
-    {
-        char inputChar = input[0];
-        switch(inputChar)
-        {
-            case('0'):
-                ChangeRecordMenu();
-                break;
-            case('1'):
+            case('2'):
                 changeByArtistYear(ARTIST);
                 break;
-            case('2'):
+            case('3'):
                 changeByArtistYear(YEAR);
                 break;
             default:
@@ -469,7 +427,7 @@ void ChangeByArtistYearMenuInput()
                 break;
         } // end switch
     } // end else
-} // end ChangeByArtistYearMenuInput
+} // end ChangeRecordMenuInput
 
 //Change By Title Menu Input selection
 void ChangeByTitleMenuInput(MyClass& me, int position)
@@ -1378,9 +1336,9 @@ void deleteByTitle()
 
 }
 
-void deleteByArtist()
+void deleteByArtistYear(recordMember member)
 {
-    cout << " deleteByArtist method stubbed" << endl;
+    cout << " deleteByArtistYear method stubbed" << endl;
     string s;
     getline(cin, s);
     getline(cin, s);

@@ -1,7 +1,6 @@
-10
-**** 0
+9
+Dead_Count 1
 Nighthawks1 1
-Music1 2
 Medusa1 3
 The_Thinker1 4
 Jackie1 5
