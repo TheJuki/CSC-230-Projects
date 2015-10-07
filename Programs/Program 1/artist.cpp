@@ -70,7 +70,6 @@ bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
     int location;
         if(matchArtist(inArtist, location))
         {
-
             //Found Artist
             foundArtist = true;
             //for each item in pos
