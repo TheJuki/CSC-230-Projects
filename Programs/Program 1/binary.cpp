@@ -92,27 +92,20 @@ void MyClass::unset_flag()
     MyClass::dead_flag = false;
 }
 
-void MyClass::UpdateBinary(int pos, std::string& artist, int& year)
+void MyClass::deleteRecord(std::fstream& file, int pos,
+                           std::string& artist, int& year,
+                           std::string& title)
 {
-    char outputFileName[80] = "output.bin";
-    //Open Binary file for binary|writing using fstream
-    //ios::in | ios::out | ios::binary used for adding/changing
-    std::fstream outputFile(outputFileName, std::ios::in | std::ios::out | std::ios::binary);
-    //Check to see if file is open
-    if(outputFile.is_open())
-    {
-        //Get record
-        this->readIt(outputFile, pos);
-        //Set artist and year
-        artist = this->get_artist();
-        year = this->get_year();
-        //Declare dead
-        this->set_flag();
-        //Write out that change (Dead)
-        this->writeIt(outputFile, pos);
-        //Close file
-        outputFile.close();
-    }
+    //Get record
+    this->readIt(file, pos);
+    //Set artist and year
+    artist = this->get_artist();
+    year = this->get_year();
+    title = this->get_year();
+    //Declare dead
+    set_flag();
+    //Write out that change (Dead)
+    writeIt(file, pos);
 }
 
 // Read & write a File

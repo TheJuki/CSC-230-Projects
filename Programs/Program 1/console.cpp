@@ -987,9 +987,9 @@ void sellATitle()
         } // end if is open
         else
         {
-             cout << endl << endl << " -NOTICE-" << endl << endl;
-             cout << " The file for writing does not exist" << endl << endl << endl << endl;
-             printReturn();
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for writing does not exist" << endl << endl << endl << endl;
+            printReturn();
         } // end else not open
 
     } //end if
@@ -1287,26 +1287,37 @@ void deleteByTitle()
         cout << " The record for the title: '" << my_title << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
         if(confirmDelete())
         {
-            MyClass record;
-            //Update Record (Dead)
-            record.UpdateBinary(pos, my_artist, my_year);
-            //Delete Title Index
-            primaryInx->deleteTitle(my_title, pos);
-            //Delete Artist Index
-            artistInx->deleteArtist(my_artist, pos);
-            //Delete Year Index
-            yearInx->deleteYear(my_year, pos);
+            fstream file("output.bin", ios::in | ios::out | ios::binary);
+            if(file.is_open())
+            {
+                MyClass record;
+                //Update Record (Dead)
+                record.deleteRecord(file, pos, my_artist, my_year, my_title);
+                //Delete Title Index
+                primaryInx->deleteTitle(my_title, pos);
+                //Delete Artist Index
+                artistInx->deleteArtist(my_artist, pos);
+                //Delete Year Index
+                yearInx->deleteYear(my_year, pos);
+
+                //Success!
+                cout << endl << " -INFORMATION-" << endl << endl;
+                cout <<  " Delete operation successful." << endl;
+                cout << " The index: '" << pos << "' is now available." << endl;
+                cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
+
+                file.close();
+            } // if file is open
+            else
+            {
+
+            }
 
             //Write Indexes
             delete primaryInx;
             delete artistInx;
             delete yearInx;
 
-            //Success!
-            cout << endl << " -INFORMATION-" << endl << endl;
-            cout <<  " Delete operation successful." << endl;
-            cout << " The index: '" << pos << "' is now available." << endl;
-            cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
 
             //Ask user to return a menu
             printReturn();
@@ -1338,7 +1349,7 @@ void deleteByTitle()
 
 void deleteByArtistYear(recordMember member)
 {
-   string type;
+    string type;
 
     switch (member)
     {
@@ -1353,6 +1364,9 @@ void deleteByArtistYear(recordMember member)
     }
     //Record
     MyClass record;
+
+    //Primary Index
+    Primary * primaryInx = new Primary(0);
 
     //Secondary Indexes
     ArtistIndex* artistInx = new ArtistIndex(0);
@@ -1388,7 +1402,7 @@ void deleteByArtistYear(recordMember member)
             break;
     }
 
-     string my_title = "", my_artist = "";
+    string my_title = "", my_artist = "";
     int my_year = 0;
 
     //If artist/year found, ask to change it
@@ -1399,21 +1413,34 @@ void deleteByArtistYear(recordMember member)
 
         if(confirmDelete())
         {
-            MyClass record;
-            //Update Record (Dead)
-            record.UpdateBinary(pos, my_artist, my_year);
-            //Delete Title Index
-            primaryInx->deleteTitle(my_title, pos);
-            //Delete Artist Index
-            artistInx->deleteArtist(my_artist, pos);
-            //Delete Year Index
-            yearInx->deleteYear(my_year, pos);
+            fstream file("output.bin", ios::in | ios::out | ios::binary);
+            for(int i = 1; i < (*pos + 1); i++)
+            {
+                if(file.is_open())
+                {
+                    MyClass record;
+                    //Update Record (Dead)
+                    record.deleteRecord(file, *(pos + i), my_artist, my_year, my_title);
+                    //Delete Title Index
+                    primaryInx->deleteTitle(my_title, *(pos + i));
+                    //Delete Artist Index
+                    artistInx->deleteArtist(my_artist, *(pos + i));
+                    //Delete Year Index
+                    yearInx->deleteYear(my_year, *(pos + i));
 
-            //Success!
-            cout << endl << " -INFORMATION-" << endl << endl;
-            cout <<  " Delete operation successful." << endl;
-            cout << " The index: '" << pos << "' is now available." << endl;
-            cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
+                    //Success!
+                    cout << endl << " -INFORMATION-" << endl << endl;
+                    cout <<  " Delete operation successful." << endl;
+                    cout << " The index: '" << *(pos + i) << "' is now available." << endl;
+                    cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
+
+                    file.close();
+                } // end if open
+                else
+                {
+
+                } // end if not open
+            } // end for
 
         } // end if confirm
         else

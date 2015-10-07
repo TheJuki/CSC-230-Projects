@@ -68,7 +68,7 @@ public:
     void readIt(std::fstream& input, long position) const;
 
     //Update
-    void UpdateBinary(int pos, std::string& artist, int& year);
+    void deleteRecord(std::fstream& file, int pos, std::string& artist, int& year, std::string& title);
 
     friend std::ostream& operator <<(std::ostream& out, const MyClass& me);
 };
