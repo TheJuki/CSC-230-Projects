@@ -56,6 +56,7 @@ public:
             fin >> my_list[hold].title >> my_list[hold].pos;
             my_list[hold].dead_flag = false;
         }
+        fin.close();
     }
 
     ~Primary()
