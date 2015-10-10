@@ -144,36 +144,36 @@ void LoadCurrentMenu()
 {
     switch(currentMenu)
     {
-        case(0):
-            MainMenu();
-            break;
-        case(1):
-            ClearScreen();
-            break;
-        case(2):
-            PrintMenu();
-            break;
-        case(3):
-            //Just Break and Return
-            break;
-        case(4):
-            ChangeRecordMenu();
-            break;
-        case(5):
-            ChangeByTitlePreMenu();
-            break;
-        case(6):
-            DeleteMenu();
-            break;
-        case(7):
-            ChangeRecordMenu();
-            break;
-        case(8):
-            MainMenu();
-            break;
-        default:
-            InvalidInput();
-            break;
+    case(0):
+        MainMenu();
+        break;
+    case(1):
+        ClearScreen();
+        break;
+    case(2):
+        PrintMenu();
+        break;
+    case(3):
+        //Just Break and Return
+        break;
+    case(4):
+        ChangeRecordMenu();
+        break;
+    case(5):
+        ChangeByTitlePreMenu();
+        break;
+    case(6):
+        DeleteMenu();
+        break;
+    case(7):
+        ChangeRecordMenu();
+        break;
+    case(8):
+        MainMenu();
+        break;
+    default:
+        InvalidInput();
+        break;
     }
 } // end LoadCurrentMenu
 
@@ -292,30 +292,30 @@ void MainMenuInput()
         char inputChar = input[0];
         switch(inputChar)
         {
-            case('1'):
-                stopMenu();
-                break;
-            case('2'):
-                PrintMenu();
-                break;
-            case('3'):
-                sellATitle();
-                break;
-            case('4'):
-                soldValue();
-                break;
-            case('5'):
-                addARecord();
-                break;
-            case('6'):
-                DeleteMenu();
-                break;
-            case('7'):
-                ChangeRecordMenu();
-                break;
-            default:
-                InvalidInput();
-                break;
+        case('1'):
+            stopMenu();
+            break;
+        case('2'):
+            PrintMenu();
+            break;
+        case('3'):
+            sellATitle();
+            break;
+        case('4'):
+            soldValue();
+            break;
+        case('5'):
+            addARecord();
+            break;
+        case('6'):
+            DeleteMenu();
+            break;
+        case('7'):
+            ChangeRecordMenu();
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end MainMenuInput
@@ -335,27 +335,27 @@ void PrintMenuInput()
         char inputChar = input[0];
         switch(inputChar)
         {
-            case('0'):
-                MainMenu();
-                break;
-            case('1'):
-                PrintAll();
-                break;
-            case('2'):
-                PrintByTitle();
-                break;
-            case('3'):
-                PrintByArtist();
-                break;
-            case('4'):
-                PrintByYear();
-                break;
-            case('5'):
-                PrintSummary();
-                break;
-            default:
-                InvalidInput();
-                break;
+        case('0'):
+            MainMenu();
+            break;
+        case('1'):
+            PrintAll();
+            break;
+        case('2'):
+            PrintByTitle();
+            break;
+        case('3'):
+            PrintByArtist();
+            break;
+        case('4'):
+            PrintByYear();
+            break;
+        case('5'):
+            PrintSummary();
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end PrintMenuInput
@@ -375,21 +375,21 @@ void DeleteMenuInput()
         char inputChar = input[0];
         switch(inputChar)
         {
-            case('0'):
-                MainMenu();
-                break;
-            case('1'):
-                deleteByTitle();
-                break;
-            case('2'):
-                deleteByArtistYear(ARTIST);
-                break;
-            case('3'):
-                deleteByArtistYear(YEAR);
-                break;
-            default:
-                InvalidInput();
-                break;
+        case('0'):
+            MainMenu();
+            break;
+        case('1'):
+            deleteByTitle();
+            break;
+        case('2'):
+            deleteByArtistYear(ARTIST);
+            break;
+        case('3'):
+            deleteByArtistYear(YEAR);
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end DeleteMenuInput
@@ -410,21 +410,21 @@ void ChangeRecordMenuInput()
         char inputChar = input[0];
         switch(inputChar)
         {
-            case('0'):
-                MainMenu();
-                break;
-            case('1'):
-                ChangeByTitlePreMenu();
-                break;
-            case('2'):
-                changeByArtistYear(ARTIST);
-                break;
-            case('3'):
-                changeByArtistYear(YEAR);
-                break;
-            default:
-                InvalidInput();
-                break;
+        case('0'):
+            MainMenu();
+            break;
+        case('1'):
+            ChangeByTitlePreMenu();
+            break;
+        case('2'):
+            changeByArtistYear(ARTIST);
+            break;
+        case('3'):
+            changeByArtistYear(YEAR);
+            break;
+        default:
+            InvalidInput();
+            break;
         } // end switch
     } // end else
 } // end ChangeRecordMenuInput
@@ -445,34 +445,34 @@ void ChangeByTitleMenuInput(MyClass& me, int position)
         char inputChar = input[0];
         switch(inputChar)
         {
-            case('1'):
-                changeByTitle(1, me, position);
-                break;
-            case('2'):
-                changeByTitle(2, me, position);
-                break;
-            case('3'):
-                changeByTitle(3, me, position);
-                break;
-            case('4'):
-                changeByTitle(4, me, position);
-                break;
-            case('5'):
-                changeByTitle(5, me, position);
-                break;
-            case('6'):
-                changeByTitle(6, me, position);
-                break;
-            case('7'):
-                changeByTitle(7, me, position);
-                break;
-            case('8'):
-                changeByTitle(8, me, position);
-                break;
-            default:
-                InvalidInput();
-                ChangeByTitleMenu(me, position);
-                break;
+        case('1'):
+            changeByTitle(1, me, position);
+            break;
+        case('2'):
+            changeByTitle(2, me, position);
+            break;
+        case('3'):
+            changeByTitle(3, me, position);
+            break;
+        case('4'):
+            changeByTitle(4, me, position);
+            break;
+        case('5'):
+            changeByTitle(5, me, position);
+            break;
+        case('6'):
+            changeByTitle(6, me, position);
+            break;
+        case('7'):
+            changeByTitle(7, me, position);
+            break;
+        case('8'):
+            changeByTitle(8, me, position);
+            break;
+        default:
+            InvalidInput();
+            ChangeByTitleMenu(me, position);
+            break;
         } // end switch
     } // end else
 } // end ChangeByTitleMenuInput
@@ -499,15 +499,15 @@ void printReturn()
         char inputChar = input[0];
         switch (inputChar)
         {
-            case('0') :
-                MainMenu();
-                break;
-            case('1') :
-                LoadCurrentMenu();
-                break;
-            default:
-                LoadCurrentMenu();
-                break;
+        case('0') :
+            MainMenu();
+            break;
+        case('1') :
+            LoadCurrentMenu();
+            break;
+        default:
+            LoadCurrentMenu();
+            break;
         } // end switch
     } // end else
 }
@@ -528,76 +528,76 @@ void printTryAgain(addChangeDelete type)
         char inputChar = input[0];
         switch (type)
         {
-            case(ADD_BY_TITLE) :
-                switch(inputChar)
-                {
-                    case('1') :
-                        addARecord();
-                        break;
-                    default:
-                        LoadCurrentMenu();
-                        break;
-                } // end switch ADD_BY_TITLE
-                break;
-
-            case(DELETE_BY_TITLE) :
-                switch(inputChar)
-                {
-                    case('1') :
-                        deleteByTitle();
-                        break;
-                    default:
-                        LoadCurrentMenu();
-                        break;
-                } // end switch DELETE_BY_TITLE
-                break;
-            case(CHANGE_BY_TITLE) :
-                switch(inputChar)
-                {
-                    case('1') :
-                        ChangeByTitlePreMenu();
-                        break;
-                    default:
-                        LoadCurrentMenu();
-                        break;
-                } // end switch CHANGE_BY_ARTIST
-                break;
-            case(CHANGE_BY_ARTIST) :
-                switch(inputChar)
-                {
-                    case('1') :
-                        changeByArtistYear(ARTIST);
-                        break;
-                    default:
-                        LoadCurrentMenu();
-                        break;
-                } // end switch CHANGE_BY_ARTIST
-                break;
-            case(CHANGE_BY_YEAR) :
-                switch(inputChar)
-                {
-                    case('1') :
-                        changeByArtistYear(YEAR);
-                        break;
-                    default:
-                        LoadCurrentMenu();
-                        break;
-                } // end switch CHANGE_BY_YEAR
-                break;
-            case(SELL) :
-                switch(inputChar)
-                {
-                    case('1') :
-                        sellATitle();
-                        break;
-                    default:
-                        LoadCurrentMenu();
-                        break;
-                } // end switch CHANGE_BY_YEAR
+        case(ADD_BY_TITLE) :
+            switch(inputChar)
+            {
+            case('1') :
+                addARecord();
                 break;
             default:
                 LoadCurrentMenu();
                 break;
+            } // end switch ADD_BY_TITLE
+            break;
+
+        case(DELETE_BY_TITLE) :
+            switch(inputChar)
+            {
+            case('1') :
+                deleteByTitle();
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch DELETE_BY_TITLE
+            break;
+        case(CHANGE_BY_TITLE) :
+            switch(inputChar)
+            {
+            case('1') :
+                ChangeByTitlePreMenu();
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch CHANGE_BY_ARTIST
+            break;
+        case(CHANGE_BY_ARTIST) :
+            switch(inputChar)
+            {
+            case('1') :
+                changeByArtistYear(ARTIST);
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch CHANGE_BY_ARTIST
+            break;
+        case(CHANGE_BY_YEAR) :
+            switch(inputChar)
+            {
+            case('1') :
+                changeByArtistYear(YEAR);
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch CHANGE_BY_YEAR
+            break;
+        case(SELL) :
+            switch(inputChar)
+            {
+            case('1') :
+                sellATitle();
+                break;
+            default:
+                LoadCurrentMenu();
+                break;
+            } // end switch CHANGE_BY_YEAR
+            break;
+        default:
+            LoadCurrentMenu();
+            break;
         } // end switch type
     } // end else
 }
@@ -1230,15 +1230,15 @@ bool confirmDelete()
         char inputChar = p_c_str[0];
         switch (inputChar)
         {
-            case('Y') :
-                isYes = true;
-                break;
-            case('y') :
-                isYes = true;
-                break;
-            default:
-                isYes = false;
-                break;
+        case('Y') :
+            isYes = true;
+            break;
+        case('y') :
+            isYes = true;
+            break;
+        default:
+            isYes = false;
+            break;
         } // end switch
     } // end else
 
@@ -1353,14 +1353,14 @@ void deleteByArtistYear(recordMember member)
 
     switch (member)
     {
-        case(ARTIST) :
-            type = "artist";
-            break;
-        case(YEAR) :
-            type = "year";
-            break;
-        default : // Nothing
-            break;
+    case(ARTIST) :
+        type = "artist";
+        break;
+    case(YEAR) :
+        type = "year";
+        break;
+    default : // Nothing
+        break;
     }
     //Record
     MyClass record;
@@ -1392,20 +1392,20 @@ void deleteByArtistYear(recordMember member)
     int* pos;
     switch (member)
     {
-        case(ARTIST) :
-            pos = artistInx->findArtist(input);
-            break;
-        case(YEAR) :
-            pos = yearInx->findYear(atoi(input.c_str()));
-            break;
-        default : //Nothing
-            break;
+    case(ARTIST) :
+        pos = artistInx->findArtist(input);
+        break;
+    case(YEAR) :
+        pos = yearInx->findYear(atoi(input.c_str()));
+        break;
+    default : //Nothing
+        break;
     }
 
     string my_title = "", my_artist = "";
     int my_year = 0;
 
-    //If artist/year found, ask to change it
+    //If artist/year found, ask to delete it
     if(*pos > 0)
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
@@ -1414,10 +1414,11 @@ void deleteByArtistYear(recordMember member)
         if(confirmDelete())
         {
             fstream file("output.bin", ios::in | ios::out | ios::binary);
-            for(int i = 1; i < (*pos + 1); i++)
+            if(file.is_open())
             {
-                if(file.is_open())
+                for(int i = 1; i < (*pos + 1); ++i)
                 {
+
                     MyClass record;
                     //Update Record (Dead)
                     record.deleteRecord(file, *(pos + i), my_artist, my_year, my_title);
@@ -1434,13 +1435,15 @@ void deleteByArtistYear(recordMember member)
                     cout << " The index: '" << *(pos + i) << "' is now available." << endl;
                     cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
 
-                    file.close();
-                } // end if open
-                else
-                {
 
-                } // end if not open
-            } // end for
+                } // end for
+                file.close();
+            } // end if open
+            else
+            {
+
+            } // end if not open
+
 
         } // end if confirm
         else
@@ -1469,14 +1472,14 @@ void deleteByArtistYear(recordMember member)
         //Ask user to try again
         switch (member)
         {
-            case(ARTIST) :
-                printTryAgain(DELETE_BY_ARTIST);
-                break;
-            case(YEAR) :
-                printTryAgain(DELETE_BY_YEAR);
-                break;
-            default : //Nothing
-                break;
+        case(ARTIST) :
+            printTryAgain(DELETE_BY_ARTIST);
+            break;
+        case(YEAR) :
+            printTryAgain(DELETE_BY_YEAR);
+            break;
+        default : //Nothing
+            break;
         }
     }//else
 }
@@ -1491,15 +1494,16 @@ void changeByArtistYear(recordMember member)
 
     switch (member)
     {
-        case(ARTIST) :
-            type = "artist";
-            break;
-        case(YEAR) :
-            type = "year";
-            break;
-        default : // Nothing
-            break;
+    case(ARTIST) :
+        type = "artist";
+        break;
+    case(YEAR) :
+        type = "year";
+        break;
+    default : // Nothing
+        break;
     }
+
     //Record
     MyClass record;
 
@@ -1527,14 +1531,14 @@ void changeByArtistYear(recordMember member)
     int* pos;
     switch (member)
     {
-        case(ARTIST) :
-            pos = artistInx->findArtist(old_input);
-            break;
-        case(YEAR) :
-            pos = yearInx->findYear(atoi(old_input.c_str()));
-            break;
-        default : //Nothing
-            break;
+    case(ARTIST) :
+        pos = artistInx->findArtist(old_input);
+        break;
+    case(YEAR) :
+        pos = yearInx->findYear(atoi(old_input.c_str()));
+        break;
+    default : //Nothing
+        break;
     }
 
     //If artist/year found, ask to change it
@@ -1554,50 +1558,54 @@ void changeByArtistYear(recordMember member)
 
         if(outputFile.is_open())
         {
-            for(int i = 1; i < (*pos + 1); i++)
+            for(int i = 1; i < (*pos + 1); ++i)
             {
+                //Set position
+                int position = *(pos + i);
+
                 //Read in the record
-                record.readIt(outputFile, *(pos + i));
+                record.readIt(outputFile, position);
 
                 //Update data member
                 switch (member)
                 {
-                    case(ARTIST) :
-                        record.set_artist(new_input);
-                        break;
-                    case(YEAR) :
-                        record.set_year(atoi(new_input.c_str()));
-                        break;
-                    default : //Nothing
-                        break;
+                case(ARTIST) :
+                    record.set_artist(new_input);
+                    break;
+                case(YEAR) :
+                    record.set_year(atoi(new_input.c_str()));
+                    break;
+                default : //Nothing
+                    break;
                 }
 
                 //Write out the record
-                record.writeIt(outputFile, *(pos + i));
+                record.writeIt(outputFile, position);
 
                 //Success!
                 cout << endl << " -INFORMATION-" << endl << endl;
                 cout <<  " Change operation successful." << endl;
-                cout << " The record at index: '" << *(pos + i) << "' has been updated." << endl;
+                cout << " The record at index: '" << position << "' has been updated." << endl;
                 cout << "--------" << endl;
                 cout << record;
 
-                outputFile.close();
             } // end for
+
+            outputFile.close();
 
         } // end if file is open
 
         //Update appropriate index
         switch (member)
         {
-            case(ARTIST) :
-                artistInx->updateArtist(old_input, new_input);
-                break;
-            case(YEAR) :
-                yearInx->updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()));
-                break;
-            default : //Nothing
-                break;
+        case(ARTIST) :
+            artistInx->updateArtist(old_input, new_input);
+            break;
+        case(YEAR) :
+            yearInx->updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()));
+            break;
+        default : //Nothing
+            break;
         }
 
         delete yearInx;
@@ -1619,14 +1627,14 @@ void changeByArtistYear(recordMember member)
         //Ask user to try again
         switch (member)
         {
-            case(ARTIST) :
-                printTryAgain(CHANGE_BY_ARTIST);
-                break;
-            case(YEAR) :
-                printTryAgain(CHANGE_BY_YEAR);
-                break;
-            default : //Nothing
-                break;
+        case(ARTIST) :
+            printTryAgain(CHANGE_BY_ARTIST);
+            break;
+        case(YEAR) :
+            printTryAgain(CHANGE_BY_YEAR);
+            break;
+        default : //Nothing
+            break;
         }
     } // end else
 }

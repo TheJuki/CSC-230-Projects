@@ -93,19 +93,19 @@ void MyClass::unset_flag()
 }
 
 void MyClass::deleteRecord(std::fstream& file, int pos,
-                           std::string& artist, int& year,
-                           std::string& title)
+                           std::string& inArtist, int& inYear,
+                           std::string& inTitle)
 {
     //Get record
     this->readIt(file, pos);
     //Set artist and year
-    artist = this->get_artist();
-    year = this->get_year();
-    title = this->get_year();
+    inArtist = this->get_artist();
+    inYear = this->get_year();
+    inTitle = this->get_year();
     //Declare dead
-    set_flag();
+    this->set_flag();
     //Write out that change (Dead)
-    writeIt(file, pos);
+    this->writeIt(file, pos);
 }
 
 // Read & write a File
