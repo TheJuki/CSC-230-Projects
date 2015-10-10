@@ -934,26 +934,52 @@ void sellATitle()
             cout << endl << endl << " Enter the amount sold: ";
             cin >> input_sold;
 
-            if((record.get_count() - input_sold) < 0)
+            if(input_sold > 0)
             {
-                cout << endl << endl << " -Notice-" << endl << endl;
-                cout << " Amount sold exceeds current stock" << endl;
-                cout << " The record for the title: '"
-                     << input << "' only has a count of " << record.get_count() << endl << endl << endl << endl;
-                printTryAgain(SELL);
-            } // end if count is good
+                if((record.get_count() - input_sold) < 0)
+                {
+                    if(record.get_count() < 0)
+                        record.set_count(0);
+
+                    cout << endl << endl << " -Notice-" << endl << endl;
+                    cout << " Amount sold exceeds current stock" << endl;
+                    cout << " The record for the title: '"
+                         << input << "' only has a count of " << record.get_count() << endl << endl << endl << endl;
+                    printTryAgain(SELL);
+                } // end if count is good
+                else
+                {
+                    //Preserve price
+                    int my_price = 0, my_count = 0;
+                    my_price = record.get_price();
+                    //Set count
+                    record.set_count(record.get_count() - input_sold);
+                    my_count = record.get_count();
+                    //Write changes
+                    record.writeIt(file, pos);
+
+                    //Update zero record
+                    record.get_value(file);
+                    record.set_count(record.get_count() + input_sold);
+                    record.set_price(record.get_price() + my_price*input_sold);
+                    record.set_value(file);
+
+                    //Close file
+                    file.close();
+                    cout << endl << endl << " -INFORMATION-" << endl << endl;
+                    cout << " The record for the title: '"
+                         << input << "' now has a count of " << my_count << endl << endl << endl << endl;
+                    printReturn();
+                } // end else count too high
+            } // end if count is greater than 0
             else
             {
-                record.set_count(record.get_count() - input_sold);
-                //Write changes
-                record.writeIt(file, pos);
-                //Close file
-                file.close();
-                cout << endl << endl << " -INFORMATION-" << endl << endl;
-                cout << " The record for the title: '"
-                     << input << "' now has a count of " << record.get_count() << endl << endl << endl << endl;
-                printReturn();
-            } // end else count is bad
+                cout << endl << endl << " -NOTICE-" << endl << endl;
+                cout << " Enter a count sold that is greater than 0" << endl << endl << endl << endl;
+
+                //Get user to try again
+                printTryAgain(SELL);
+            } // end else count is less than 0
         } // end if is open
         else
         {
@@ -979,26 +1005,18 @@ void soldValue()
 {
     //Total value
     int total_value = 0;
+    int total_sold = 0;
     string s;
 
     char outputFileName[80] = "output.bin";
     //Read in file
     fstream file(outputFileName, ios::in | ios::binary);
 
-    int pos = 1;
     MyClass record;
     if(file.is_open())
     {
-        record.readIt(file, pos);
-        while(!file.eof())
-        {
-            if(!record.get_flag())
-            {
-                total_value += record.get_price();
-            }
-            pos++;
-            record.readIt(file, pos);
-        }
+        total_value = record.get_value(file);
+        total_sold = record.get_count();
         //Close file
         file.close();
     }
@@ -1010,7 +1028,7 @@ void soldValue()
          << endl  << endl  << endl;
 
     cout << " -INFORMATION-" << endl << endl;
-    cout <<  " Total sold value of all " << pos << " records" << endl << endl;
+    cout <<  " Total sold value of all " << total_sold << " sold records" << endl << endl;
     cout << "-----------------" << endl;
     cout << " Total: $" << total_value << endl;
     cout << "-----------------" << endl;
@@ -1257,7 +1275,7 @@ void deleteByTitle()
             if(file.is_open())
             {
 
-               deleteRecord(file, pos, primaryInx, artistInx, yearInx);
+                deleteRecord(file, pos, primaryInx, artistInx, yearInx);
 
                 //Success!
                 cout << endl << " -INFORMATION-" << endl << endl;
@@ -1370,7 +1388,7 @@ void deleteByArtistYear(recordMember member)
         fstream file("output.bin", ios::in | ios::out | ios::binary);
         if(file.is_open())
         {
-             for(int i = 1; i < 11; ++i)
+            for(int i = 1; i < 11; ++i)
             {
                 int position = *(pos + i);
 

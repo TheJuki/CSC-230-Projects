@@ -145,9 +145,8 @@ void build()
 
         } // End eof while
 
-        //Update Binary File record zero with count information
+        //Write zero record
         MyClass writeZeroRecord;
-        writeZeroRecord.set_count(position - 1);
         writeZeroRecord.set_value(outputFile);
         //Write TitleIndex Index to a file (open file using ofstream)
         delete primaryInx;
