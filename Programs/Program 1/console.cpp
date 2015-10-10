@@ -1170,7 +1170,7 @@ void SoldValue()
         //Close file
         file.close();
         cout << " -INFORMATION-" << endl << endl;
-        cout <<  " Total sold value of all " << total_sold << " sold records" << endl << endl;
+        cout <<  " Total sold value of all " << total_sold << " sold items" << endl << endl;
         cout << "-----------------" << endl;
         cout << " Total: $" << total_value << endl;
         cout << "-----------------" << endl;
@@ -1836,23 +1836,17 @@ void ChangeByTitle(int selection, MyClass& me, const int position)
             //Update any changed indexes
             if(flag_titleChanged)
             {
-                TitleIndex * primaryInx = new TitleIndex(0);
-
                 //Update title index
                 int title_pos = 0;
                 primaryInx->updateTitle(old_record.get_title(), me.get_title(), title_pos);
             }
             if(flag_artistChanged)
             {
-                ArtistIndex* artistInx = new ArtistIndex(0);
-
                 //Update artist index
                 artistInx->updateArtist(old_record.get_artist(), me.get_artist());
             }
             if(flag_yearChanged)
             {
-                YearIndex* yearInx = new YearIndex(0);
-
                 //Update year index
                 yearInx->updateYear(old_record.get_year(), me.get_year());
             }
