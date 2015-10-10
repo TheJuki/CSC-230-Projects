@@ -647,7 +647,13 @@ void PrintAll()
         }
         //Close file
         file.close();
-    }
+    } // if file is open
+    else
+    {
+        cout << endl << endl << " -NOTICE-" << endl << endl;
+        cout << " The file for reading does not exist" << endl << endl << endl << endl;
+        printReturn();
+    } // end file not open
 
     //Ask user to return a menu
     printReturn();
@@ -689,23 +695,32 @@ void PrintByTitle()
     //If title found, then display it
     if(pos > 0)
     {
-        char outputFileName[80] = "output.bin";
         //Read in file
-        fstream file(outputFileName, ios::in | ios::binary);
-        record.readIt(file, pos);
-        if(!record.get_flag())
+        fstream file("output.bin", ios::in | ios::binary);
+        if(file.is_open())
         {
-            cout << endl << endl << " -INFORMATION-" << endl << endl;
-            cout << " Here is the record for the title '"
-                 << input << "'." << endl << endl << endl;
-            cout << "-----------" << endl;
-            cout << " Record " << pos <<endl;
-            cout << "-----------" << endl;
-            cout << record;
-        } //  end if
+            record.readIt(file, pos);
+            if(!record.get_flag())
+            {
+                cout << endl << endl << " -INFORMATION-" << endl << endl;
+                cout << " Here is the record for the title '"
+                     << input << "'." << endl << endl << endl;
+                cout << "-----------" << endl;
+                cout << " Record " << pos <<endl;
+                cout << "-----------" << endl;
+                cout << record;
+            } //  end if
 
-        //Close file
-        file.close();
+            //Close file
+            file.close();
+
+        } // if file is open
+        else
+        {
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+            printReturn();
+        } // end file not open
 
         //Ask user to return a menu
         printReturn();
@@ -755,24 +770,32 @@ void PrintByArtist()
         cout << " Here are the records for the artist '"
              << input << "'." << endl << endl << endl << endl;
 
-        char outputFileName[80] = "output.bin";
         //Read in file
-        fstream file(outputFileName, ios::in | ios::binary);
+        fstream file("output.bin", ios::in | ios::binary);
 
-        for(int i = 1; i < (*pos + 1); i++)
+        if(file.is_open())
         {
-            record.readIt(file, *(pos + i));
-            if(!record.get_flag())
+            for(int i = 1; i < (*pos + 1); i++)
             {
-                cout << "-----------" << endl;
-                cout << " Record " << *(pos + i) <<endl;
-                cout << "-----------" << endl;
-                cout << record;
-            } // End if
-        } // end for
+                record.readIt(file, *(pos + i));
+                if(!record.get_flag())
+                {
+                    cout << "-----------" << endl;
+                    cout << " Record " << *(pos + i) <<endl;
+                    cout << "-----------" << endl;
+                    cout << record;
+                } // End if
+            } // end for
 
-        //Close file
-        file.close();
+            //Close file
+            file.close();
+        } // if file is open
+        else
+        {
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+            printReturn();
+        } // end file not open
 
         //Ask user to return a menu
         printReturn();
@@ -823,24 +846,33 @@ void PrintByYear()
         cout << " Here are the records for the year '"
              << input << "'." << endl << endl << endl << endl;
 
-        char outputFileName[80] = "output.bin";
         //Read in file
-        fstream file(outputFileName, ios::in | ios::binary);
+        fstream file( "output.bin", ios::in | ios::binary);
 
-        for(int i = 1; i < (*pos + 1); i++)
+        if(file.is_open())
         {
-            record.readIt(file, *(pos + i));
-            if(!record.get_flag())
+            for(int i = 1; i < (*pos + 1); i++)
             {
-                cout << "-----------" << endl;
-                cout << " Record " << *(pos + i) <<endl;
-                cout << "-----------" << endl;
-                cout << record;
-            } // End if
-        } // end for
+                record.readIt(file, *(pos + i));
+                if(!record.get_flag())
+                {
+                    cout << "-----------" << endl;
+                    cout << " Record " << *(pos + i) <<endl;
+                    cout << "-----------" << endl;
+                    cout << record;
+                } // End if
+            } // end for
 
-        //Close file
-        file.close();
+            //Close file
+            file.close();
+
+        } // if file is open
+        else
+        {
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+            printReturn();
+        } // end file not open
         //Ask user to return a menu
         printReturn();
     } // End if
@@ -858,11 +890,7 @@ void PrintByYear()
 
 void PrintSummary()
 {
-    cout << " PrintSummary method stubbed" << endl;
-    string s;
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
+   wfegrht;
 }
 
 //--------------------------------------------------//
@@ -1019,7 +1047,13 @@ void soldValue()
         total_sold = record.get_count();
         //Close file
         file.close();
-    }
+    } // if file is open
+    else
+    {
+        cout << endl << endl << " -NOTICE-" << endl << endl;
+        cout << " The file for reading does not exist" << endl << endl << endl << endl;
+        printReturn();
+    } // end file not open
 
     //Clear screen
     ClearScreen();
@@ -1169,14 +1203,13 @@ void addARecord()
                 cout << me  << endl << endl;
                 //Ask user to return a menu
                 printReturn();
-            } // If Open
+            } // if file is open
             else
             {
                 cout << endl << endl << " -NOTICE-" << endl << endl;
-                cout << endl <<  " The file could not be opened for writing." << endl << endl << endl << endl;
-                //Ask user to return a menu
+                cout << " The file for reading does not exist" << endl << endl << endl << endl;
                 printReturn();
-            } // Else Not Open
+            } // end file not open
         } // If Info filled in filled in correctly
         else
         {
@@ -1287,8 +1320,10 @@ void deleteByTitle()
             } // if file is open
             else
             {
-
-            }
+                cout << endl << endl << " -NOTICE-" << endl << endl;
+                cout << " The file for reading does not exist" << endl << endl << endl << endl;
+                printReturn();
+            } // end file not open
 
             //Write Indexes
             delete primaryInx;
@@ -1416,11 +1451,13 @@ void deleteByArtistYear(recordMember member)
                 }
             } // end for
             file.close();
-        } // end if open
+        } // if file is open
         else
         {
-
-        } // end if not open
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+            printReturn();
+        } // end file not open
 
         delete primaryInx;
         delete yearInx;
@@ -1563,26 +1600,35 @@ void changeByArtistYear(recordMember member)
 
             outputFile.close();
 
-        } // end if file is open
+            //Update appropriate index
+            switch (member)
+            {
+            case(ARTIST) :
+                artistInx->updateArtist(old_input, new_input);
+                break;
+            case(YEAR) :
+                yearInx->updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()));
+                break;
+            default : //Nothing
+                break;
+            }
 
-        //Update appropriate index
-        switch (member)
+            delete yearInx;
+            delete artistInx;
+
+            //Ask user to return a menu
+            printReturn();
+
+        } // if file is open
+        else
         {
-        case(ARTIST) :
-            artistInx->updateArtist(old_input, new_input);
-            break;
-        case(YEAR) :
-            yearInx->updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()));
-            break;
-        default : //Nothing
-            break;
-        }
+            delete yearInx;
+            delete artistInx;
 
-        delete yearInx;
-        delete artistInx;
-
-        //Ask user to return a menu
-        printReturn();
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+            printReturn();
+        } // end file not open
 
     } //end if record found
     else // Record not found
@@ -1653,15 +1699,24 @@ void ChangeByTitlePreMenu()
         {
             me.readIt(file, pos);
             file.close();
-        }
 
-        //Move to actual menu
-        input = "";
-        cout << endl << endl << " Press Enter to continue ";
-        getline(cin, input);
-        getline(cin, input);
+            //Move to actual menu
+            input = "";
+            cout << endl << endl << " Press Enter to continue ";
+            getline(cin, input);
+            getline(cin, input);
 
-        ChangeByTitleMenu(me, pos);
+            ChangeByTitleMenu(me, pos);
+        } // if file is open
+        else
+        {
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+            printReturn();
+        } // end file not open
+
+
+
 
     } //end if record found
     else // Record not found
@@ -1730,7 +1785,12 @@ void changeByTitle(int selection, MyClass& me, const int position)
             cout << " The record at index: " << position << " was successfully updated." <<endl << endl << endl << endl;
             cout << me;
             file.close();
-        }
+        } // if file is open
+        else
+        {
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for writing does not exist" << endl << endl << endl << endl;
+        } // end file not open
 
         //Unset flags
         flag_titleChanged = false;
