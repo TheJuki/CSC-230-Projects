@@ -16,8 +16,8 @@ Description: Code for bulk
 #include <cstdlib>
 
 //Prototypes
-void build();
-void checkBulkFile();
+void Build();
+void CheckBulkFile();
 
 using namespace std;
 
@@ -27,7 +27,7 @@ char outputFileName[80] = "output.bin";
 
 //Check for preexisting binary file
 //Build file if it does not exist
-void checkBulkFile()
+void CheckBulkFile()
 {
     ifstream tryIt(outputFileName);
 
@@ -35,14 +35,14 @@ void checkBulkFile()
     if(!tryIt)
     {
         //tryIt.close();
-        build();
+        Build();
     }
     tryIt.close();
 
 } // checkBulkFile
 
 //Build binary file from scratch
-void build()
+void Build()
 {
     //Open Sequential file for reading using ifstream
     ifstream input;

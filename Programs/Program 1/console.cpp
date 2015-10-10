@@ -15,7 +15,9 @@ Description: Main Driver. Handles Console output.
 #include "year.h"
 #include "binary.h"
 
-//Global Variables
+
+//--Global Variables
+
 int currentMenu = 0;
 bool flag_titleChanged = false;
 bool flag_artistChanged = false;
@@ -26,19 +28,18 @@ TitleIndex * primaryInx;
 ArtistIndex * artistInx;
 YearIndex * yearInx;
 
-
 enum recordMember {TITLE, ARTIST, TYPE, YEAR, PRICE, COUNT};
 enum addChangeDelete {ADD_BY_TITLE, CHANGE_BY_TITLE, CHANGE_BY_ARTIST, CHANGE_BY_YEAR,
                       DELETE_BY_TITLE, DELETE_BY_ARTIST, DELETE_BY_YEAR, SELL
                      };
 
-//Prototypes
+//--End Global Variables
+
+
+//--Prototypes
 
 //Bulk
-void checkBulkFile();
-
-//Indexes
-void fillIndexes();
+void CheckBulkFile();
 
 //Menu lists
 void MainMenu();
@@ -66,7 +67,7 @@ void ChangeByArtistYearMenuInput();
 void LoadCurrentMenu();
 
 //Used for Add / Delete / Change / Sell
-void printTryAgain(addChangeDelete type);
+void PrintTryAgain(addChangeDelete type);
 
 //Print Menu functions
 void printReturn();
@@ -77,39 +78,39 @@ void PrintByYear();
 void PrintSummary();
 
 //Delete Menu Functions
-void deleteByArtistYear(recordMember member);
-void deleteByTitle();
-bool confirmDelete();
+void DeleteByArtistYear(recordMember member);
+void DeleteByTitle();
+bool ConfirmDelete();
 
 //Change Menu Functions
 void ChangeByArtistYearMenu();
 void ChangeByTitleMenu(MyClass& me, const int position);
-void changeByTitle(int selection, MyClass& me, const int position);
+void ChangeByTitle(int selection, MyClass& me, const int position);
 void ChangeByTitlePreMenu();
-void changeByArtistYear(recordMember member);
+void ChangeByArtistYear(recordMember member);
 
 //Other Menu Functions
-void addARecord();
-void sellATitle();
-void soldValue();
-void stopMenu();
-void deleteRecord(std::fstream& file, const int& pos, TitleIndex* primaryInx,
+void AddRecord();
+void SellTitle();
+void SoldValue();
+void StopMenu();
+void DeleteRecord(std::fstream& file, const int& pos, TitleIndex* primaryInx,
                   ArtistIndex* artistInx, YearIndex* yearInx);
 
 //Check for Dead Flags
-bool checkDeadFlags(std::fstream& input, int& pos);
+bool CheckDeadFlags(std::fstream& input, int& pos);
 
 //--End Prototypes
 
-//--End Global Variables
-
 using namespace std;
 
-//main
+//--------------------------------------------------//
+//  Check for Binary, load indexes, start Main Menu
+//--------------------------------------------------//
 int main(void)
 {
     //Create Bulk if output.bin does not exist
-    checkBulkFile();
+    CheckBulkFile();
 
     //Read in Indexes
     primaryInx = new TitleIndex(0);
@@ -122,14 +123,17 @@ int main(void)
     return 0;
 }
 
-//Lame way of clearing the console
+//--------------------------------------------------//
+//      Add 100 lines to "clear" the console
+//--------------------------------------------------//
 void ClearScreen()
 {
     cout << string(100, '\n');
 } // end ClearScreen
 
-//Complain about an invalid input
-//Load last known menu
+//--------------------------------------------------//
+// Print Invalid selection and call LoadCurrentMenu
+//--------------------------------------------------//
 void InvalidInput()
 {
     string s;
@@ -139,7 +143,9 @@ void InvalidInput()
     LoadCurrentMenu();
 } // end InvalidInput
 
-//Header displayed on all menus
+//--------------------------------------------------//
+//                  Print Header
+//--------------------------------------------------//
 void Header()
 {
     cout << "*****************************************************************" << endl
@@ -152,7 +158,9 @@ void Header()
          << "\n\n";
 } // end Header
 
-//Load Current Menu
+//--------------------------------------------------//
+//       Call current Print Menu function
+//--------------------------------------------------//
 void LoadCurrentMenu()
 {
     switch(currentMenu)
@@ -191,10 +199,13 @@ void LoadCurrentMenu()
 } // end LoadCurrentMenu
 
 //--------------------------------------------------//
-//           cout Menu Functions
+//              Print Menu Functions
 //--------------------------------------------------//
 
-//The Main Menu print
+
+//--------------------------------------------------//
+//          Print Main Menu
+//--------------------------------------------------//
 void MainMenu()
 {
     currentMenu = 0;
@@ -212,7 +223,9 @@ void MainMenu()
     MainMenuInput();
 } // end MainMenu
 
-//The Print Menu print
+//--------------------------------------------------//
+//          Print 'Print' Menu
+//--------------------------------------------------//
 void PrintMenu()
 {
     currentMenu = 2;
@@ -230,7 +243,9 @@ void PrintMenu()
     PrintMenuInput();
 } // end PrintMenu
 
-//The Delete Menu print
+//--------------------------------------------------//
+//          Print Delete Menu
+//--------------------------------------------------//
 void DeleteMenu()
 {
     currentMenu = 6;
@@ -248,7 +263,9 @@ void DeleteMenu()
     DeleteMenuInput();
 } // end DeleteMenu
 
-//The Change Record Menu print
+//--------------------------------------------------//
+//          Print Change Record Menu
+//--------------------------------------------------//
 void ChangeRecordMenu()
 {
     currentMenu = 7;
@@ -267,7 +284,9 @@ void ChangeRecordMenu()
     ChangeRecordMenuInput();
 } // end ChangeRecordMenu
 
-//The Change By Title print
+//--------------------------------------------------//
+//          Print Change By Title Menu
+//--------------------------------------------------//
 void ChangeByTitleMenu(MyClass& me, int position)
 {
     currentMenu = 3;
@@ -290,7 +309,10 @@ void ChangeByTitleMenu(MyClass& me, int position)
 //           Menu Selection Functions
 //--------------------------------------------------//
 
-//Main Menu selection
+
+//--------------------------------------------------//
+//            Main Menu Selection
+//--------------------------------------------------//
 void MainMenuInput()
 {
     string input;
@@ -306,19 +328,19 @@ void MainMenuInput()
         switch(inputChar)
         {
         case('1'):
-            stopMenu();
+            StopMenu();
             break;
         case('2'):
             PrintMenu();
             break;
         case('3'):
-            sellATitle();
+            SellTitle();
             break;
         case('4'):
-            soldValue();
+            SoldValue();
             break;
         case('5'):
-            addARecord();
+            AddRecord();
             break;
         case('6'):
             DeleteMenu();
@@ -333,7 +355,9 @@ void MainMenuInput()
     } // end else
 } // end MainMenuInput
 
-//Print Menu selection
+//--------------------------------------------------//
+//            Print Menu Selection
+//--------------------------------------------------//
 void PrintMenuInput()
 {
     string input;
@@ -373,7 +397,9 @@ void PrintMenuInput()
     } // end else
 } // end PrintMenuInput
 
-//Delete Menu selection
+//--------------------------------------------------//
+//            Delete Menu Selection
+//--------------------------------------------------//
 void DeleteMenuInput()
 {
     string input;
@@ -392,13 +418,13 @@ void DeleteMenuInput()
             MainMenu();
             break;
         case('1'):
-            deleteByTitle();
+            DeleteByTitle();
             break;
         case('2'):
-            deleteByArtistYear(ARTIST);
+            DeleteByArtistYear(ARTIST);
             break;
         case('3'):
-            deleteByArtistYear(YEAR);
+            DeleteByArtistYear(YEAR);
             break;
         default:
             InvalidInput();
@@ -408,7 +434,9 @@ void DeleteMenuInput()
 } // end DeleteMenuInput
 
 
-//Change Record Menu selection
+//--------------------------------------------------//
+//           Change Record Menu Selection
+//--------------------------------------------------//
 void ChangeRecordMenuInput()
 {
     string input;
@@ -430,10 +458,10 @@ void ChangeRecordMenuInput()
             ChangeByTitlePreMenu();
             break;
         case('2'):
-            changeByArtistYear(ARTIST);
+            ChangeByArtistYear(ARTIST);
             break;
         case('3'):
-            changeByArtistYear(YEAR);
+            ChangeByArtistYear(YEAR);
             break;
         default:
             InvalidInput();
@@ -442,7 +470,9 @@ void ChangeRecordMenuInput()
     } // end else
 } // end ChangeRecordMenuInput
 
-//Change By Title Menu Input selection
+//--------------------------------------------------//
+//          Change By Title Menu Selection
+//--------------------------------------------------//
 void ChangeByTitleMenuInput(MyClass& me, int position)
 {
     string input;
@@ -459,28 +489,28 @@ void ChangeByTitleMenuInput(MyClass& me, int position)
         switch(inputChar)
         {
         case('1'):
-            changeByTitle(1, me, position);
+            ChangeByTitle(1, me, position);
             break;
         case('2'):
-            changeByTitle(2, me, position);
+            ChangeByTitle(2, me, position);
             break;
         case('3'):
-            changeByTitle(3, me, position);
+            ChangeByTitle(3, me, position);
             break;
         case('4'):
-            changeByTitle(4, me, position);
+            ChangeByTitle(4, me, position);
             break;
         case('5'):
-            changeByTitle(5, me, position);
+            ChangeByTitle(5, me, position);
             break;
         case('6'):
-            changeByTitle(6, me, position);
+            ChangeByTitle(6, me, position);
             break;
         case('7'):
-            changeByTitle(7, me, position);
+            ChangeByTitle(7, me, position);
             break;
         case('8'):
-            changeByTitle(8, me, position);
+            ChangeByTitle(8, me, position);
             break;
         default:
             InvalidInput();
@@ -496,7 +526,10 @@ void ChangeByTitleMenuInput(MyClass& me, int position)
 //--------------------------------------------------//
 
 
-void printReturn()
+//--------------------------------------------------//
+//   Ask to return to previous menu or Main Menu
+//--------------------------------------------------//
+void PrintReturn()
 {
     //Ask user to return -Ignores Invalid Input
     string input;
@@ -523,9 +556,12 @@ void printReturn()
             break;
         } // end switch
     } // end else
-}
+} // end printReturn
 
-void printTryAgain(addChangeDelete type)
+//--------------------------------------------------//
+//  Display a try again message and return to a menu
+//--------------------------------------------------//
+void PrintTryAgain(addChangeDelete type)
 {
     //Ask user to return -Ignores Invalid Input
     string input;
@@ -545,7 +581,7 @@ void printTryAgain(addChangeDelete type)
             switch(inputChar)
             {
             case('1') :
-                addARecord();
+                AddRecord();
                 break;
             default:
                 LoadCurrentMenu();
@@ -557,7 +593,7 @@ void printTryAgain(addChangeDelete type)
             switch(inputChar)
             {
             case('1') :
-                deleteByTitle();
+                DeleteByTitle();
                 break;
             default:
                 LoadCurrentMenu();
@@ -579,7 +615,7 @@ void printTryAgain(addChangeDelete type)
             switch(inputChar)
             {
             case('1') :
-                changeByArtistYear(ARTIST);
+                ChangeByArtistYear(ARTIST);
                 break;
             default:
                 LoadCurrentMenu();
@@ -590,7 +626,7 @@ void printTryAgain(addChangeDelete type)
             switch(inputChar)
             {
             case('1') :
-                changeByArtistYear(YEAR);
+                ChangeByArtistYear(YEAR);
                 break;
             default:
                 LoadCurrentMenu();
@@ -601,7 +637,7 @@ void printTryAgain(addChangeDelete type)
             switch(inputChar)
             {
             case('1') :
-                sellATitle();
+                SellTitle();
                 break;
             default:
                 LoadCurrentMenu();
@@ -613,9 +649,11 @@ void printTryAgain(addChangeDelete type)
             break;
         } // end switch type
     } // end else
-}
+} // end printTryAgain
 
-//Print all records
+//--------------------------------------------------//
+//               Display all records
+//--------------------------------------------------//
 void PrintAll()
 {
     //Clear screen
@@ -657,25 +695,21 @@ void PrintAll()
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The file for reading does not exist" << endl << endl << endl << endl;
-        printReturn();
+        PrintReturn();
     } // end file not open
 
     //Ask user to return a menu
-    printReturn();
+    PrintReturn();
 
 } // End PrintAll
 
+//--------------------------------------------------//
+//       Display all records with given title
+//--------------------------------------------------//
 void PrintByTitle()
 {
     //Record
     MyClass record;
-
-    //TitleIndex Indexes
-    TitleIndex* primaryInx = new TitleIndex(0);
-
-    //Secondary Indexes
-    ArtistIndex artistInx;
-    YearIndex yearInx;
 
     //Clear screen
     ClearScreen();
@@ -724,11 +758,11 @@ void PrintByTitle()
         {
             cout << endl << endl << " -NOTICE-" << endl << endl;
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
-            printReturn();
         } // end file not open
 
         //Ask user to return a menu
-        printReturn();
+        PrintReturn();
+
     } //end if
     else // Title not found
     {
@@ -737,16 +771,17 @@ void PrintByTitle()
              << endl << endl << endl << endl;
 
         //Ask user to return a menu
-        printReturn();
+        PrintReturn();
     }
-}
+} // end PrintByTitle
 
+//--------------------------------------------------//
+//       Display all records with given artist
+//--------------------------------------------------//
 void PrintByArtist()
 {
     //Record
     MyClass record;
-
-    ArtistIndex* artistInx = new ArtistIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -766,7 +801,6 @@ void PrintByArtist()
 
     //Find artist
     int* pos = artistInx->findArtist(input);
-    delete artistInx;
 
     //If artist found, then display it
     if(*pos > 0)
@@ -799,11 +833,10 @@ void PrintByArtist()
         {
             cout << endl << endl << " -NOTICE-" << endl << endl;
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
-            printReturn();
         } // end file not open
 
         //Ask user to return a menu
-        printReturn();
+        PrintReturn();
     } // End if
     else // Title not found
     {
@@ -811,18 +844,17 @@ void PrintByArtist()
         cout << " The artist: '" << input << "' does not exist"
              << endl << endl << endl;
         //Ask user to return a menu
-        printReturn();
+        PrintReturn();
     }
+} // end PrintByArtist
 
-}
-
+//--------------------------------------------------//
+//       Display all records with given year
+//--------------------------------------------------//
 void PrintByYear()
 {
     //Record
     MyClass record;
-
-    //Secondary Index
-    YearIndex* yearInx = new YearIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -842,7 +874,6 @@ void PrintByYear()
 
     //Find year
     int* pos = yearInx->findYear(atoi(input.c_str()));
-    delete yearInx;
 
     //If year found, then display it
     if(*pos > 0)
@@ -876,10 +907,9 @@ void PrintByYear()
         {
             cout << endl << endl << " -NOTICE-" << endl << endl;
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
-            printReturn();
         } // end file not open
         //Ask user to return a menu
-        printReturn();
+        PrintReturn();
     } // End if
     else // Title not found
     {
@@ -888,11 +918,13 @@ void PrintByYear()
              << endl << endl << endl;
 
         //Ask user to return a menu
-        printReturn();
+        PrintReturn();
     }
+} // end PrintByYear
 
-}
-
+//--------------------------------------------------//
+// Display a summary (average price and average sold)
+//--------------------------------------------------//
 void PrintSummary()
 {
     //Clear screen
@@ -966,26 +998,28 @@ void PrintSummary()
         //Dead Count
         cout << "--------------------------" << endl;
         cout << " Deleted records: " << primaryInx->getDeadCount() << endl;
-        cout << "--------------------------" << endl;
-
+        cout << "--------------------------" << endl << endl << endl;
 
     } // if file is open
     else
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The file for reading does not exist" << endl << endl << endl << endl;
-        printReturn();
     } // end file not open
 
     //Ask user to return a menu
-    printReturn();
-}
+    PrintReturn();
+} // end printSummary
 
 //--------------------------------------------------//
 //           Other Main Menu Functions
 //--------------------------------------------------//
 
-void stopMenu()
+
+//--------------------------------------------------//
+//         Delete (Write) Indexes and Quit
+//--------------------------------------------------//
+void StopMenu()
 {
     //Write out indexes
     //Delete Index object pointers
@@ -1000,15 +1034,15 @@ void stopMenu()
     //Exit Program -Go back to main method
 } // end stopMenu
 
-void sellATitle()
+//--------------------------------------------------//
+//  Get the number of items sold for a given title
+//--------------------------------------------------//
+void SellTitle()
 {
     currentMenu = 0;
 
     //Record
     MyClass record;
-
-    //TitleIndex Indexes
-    TitleIndex* primaryInx = new TitleIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -1061,7 +1095,7 @@ void sellATitle()
                     cout << " Amount sold exceeds current stock" << endl;
                     cout << " The record for the title: '"
                          << input << "' only has a count of " << record.get_count() << endl << endl << endl << endl;
-                    printTryAgain(SELL);
+                    PrintTryAgain(SELL);
                 } // end if count is good
                 else
                 {
@@ -1085,7 +1119,7 @@ void sellATitle()
                     cout << endl << endl << " -INFORMATION-" << endl << endl;
                     cout << " The record for the title: '"
                          << input << "' now has a count of " << my_count << endl << endl << endl << endl;
-                    printReturn();
+                    PrintReturn();
                 } // end else count too high
             } // end if count is greater than 0
             else
@@ -1094,14 +1128,14 @@ void sellATitle()
                 cout << " Enter a count sold that is greater than 0" << endl << endl << endl << endl;
 
                 //Get user to try again
-                printTryAgain(SELL);
+                PrintTryAgain(SELL);
             } // end else count is less than 0
         } // end if is open
         else
         {
             cout << endl << endl << " -NOTICE-" << endl << endl;
             cout << " The file for writing does not exist" << endl << endl << endl << endl;
-            printReturn();
+            PrintReturn();
         } // end else not open
 
     } //end if
@@ -1112,12 +1146,15 @@ void sellATitle()
              << input << "' does not exist" << endl << endl << endl << endl;
 
         //Get user to try again
-        printTryAgain(SELL);
+        PrintTryAgain(SELL);
 
     }// Else Title Not Found
-}
+} // end sellATitle
 
-void soldValue()
+//--------------------------------------------------//
+//         Get and display the sold value
+//--------------------------------------------------//
+void SoldValue()
 {
     //Clear screen
     ClearScreen();
@@ -1154,24 +1191,21 @@ void soldValue()
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The file for reading does not exist" << endl << endl << endl << endl;
-        printReturn();
+
+        //Ask user to return a menu
+        PrintReturn();
     } // end file not open
+} // end soldValue
 
-}
-
-void addARecord()
+//--------------------------------------------------//
+//     Add a new record with given attributes
+//--------------------------------------------------//
+void AddRecord()
 {
     currentMenu = 8;
 
     //Record
     MyClass record;
-
-    //TitleIndex Indexes
-    TitleIndex* primaryInx = new TitleIndex(0);
-
-    //Secondary Indexes
-    ArtistIndex* artistInx = new ArtistIndex(0);
-    YearIndex* yearInx = new YearIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -1204,7 +1238,7 @@ void addARecord()
              << input << "' already exists at index '" << pos << "'" << endl << endl << endl << endl;
 
         //Get user to try again
-        printTryAgain(ADD_BY_TITLE);
+        PrintTryAgain(ADD_BY_TITLE);
 
     } //end if
     else // Title not found
@@ -1253,7 +1287,7 @@ void addARecord()
                 if(primaryInx->getDeadCount() > 0)
                 {
                     //Check for any available dead flag spot
-                    if(!checkDeadFlags(outputFile, nextIndex))
+                    if(!CheckDeadFlags(outputFile, nextIndex))
                     {
                         //Get number of records
                         nextIndex = primaryInx->getMaxCount() + 1;
@@ -1275,26 +1309,23 @@ void addARecord()
                 artistInx->addArtist(my_artist, nextIndex);
                 yearInx->addYear(my_year, nextIndex);
 
-                //Write Indexes
-                delete primaryInx;
-                delete artistInx;
-                delete yearInx;
-
                 //Success!
                 cout << endl << endl << " -INFORMATION-" << endl << endl;
                 cout <<  " The title: '" << my_title
                      << "' was successfully added at index '" << nextIndex << "'."  << endl;
                 cout << "--------" << endl;
                 cout << me  << endl << endl;
-                //Ask user to return a menu
-                printReturn();
+
             } // if file is open
             else
             {
                 cout << endl << endl << " -NOTICE-" << endl << endl;
                 cout << " The file for reading does not exist" << endl << endl << endl << endl;
-                printReturn();
             } // end file not open
+
+
+            //Ask user to return a menu
+            PrintReturn();
         } // If Info filled in filled in correctly
         else
         {
@@ -1304,19 +1335,23 @@ void addARecord()
             cout << " Please make sure to fill in a valid value for each field." << endl;
             cout << " Also, use '_' instead of spaces." << endl << endl << endl << endl;
             //Get user to try again
-            printTryAgain(ADD_BY_TITLE);
+            PrintTryAgain(ADD_BY_TITLE);
 
         } // Else Info not filled in correctly
 
     }// Else Title Not Found
-}
+} // end addARecord
 
 
 //--------------------------------------------------//
 //           Delete Menu Functions
 //--------------------------------------------------//
 
-bool confirmDelete()
+
+//--------------------------------------------------//
+//          Ask user to confirm deletion
+//--------------------------------------------------//
+bool ConfirmDelete()
 {
     //confirm boolean
     bool isYes = false;
@@ -1349,18 +1384,15 @@ bool confirmDelete()
     } // end else
 
     return isYes;
-}
-void deleteByTitle()
+} // end confirmDelete
+
+//--------------------------------------------------//
+//           Delete a record by Title
+//--------------------------------------------------//
+void DeleteByTitle()
 {
     //Record
     MyClass record;
-
-    //TitleIndex Indexes
-    TitleIndex* primaryInx = new TitleIndex(0);
-
-    //Secondary Indexes
-    ArtistIndex* artistInx = new ArtistIndex(0);
-    YearIndex* yearInx = new YearIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -1387,13 +1419,13 @@ void deleteByTitle()
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " The record for the title: '" << input << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
-        if(confirmDelete())
+        if(ConfirmDelete())
         {
             fstream file("output.bin", ios::in | ios::out | ios::binary);
             if(file.is_open())
             {
 
-                deleteRecord(file, pos, primaryInx, artistInx, yearInx);
+                DeleteRecord(file, pos, primaryInx, artistInx, yearInx);
 
                 //Success!
                 cout << endl << " -INFORMATION-" << endl << endl;
@@ -1407,16 +1439,10 @@ void deleteByTitle()
             {
                 cout << endl << endl << " -NOTICE-" << endl << endl;
                 cout << " The file for reading does not exist" << endl << endl << endl << endl;
-                printReturn();
             } // end file not open
 
-            //Write Indexes
-            delete primaryInx;
-            delete artistInx;
-            delete yearInx;
-
             //Ask user to return a menu
-            printReturn();
+            PrintReturn();
 
         } // end if confirm
         else
@@ -1426,7 +1452,7 @@ void deleteByTitle()
             cout << " No records were affected." << endl << endl << endl << endl;
 
             //Ask user to return a menu
-            printReturn();
+            PrintReturn();
         }
 
     } //end if
@@ -1438,12 +1464,14 @@ void deleteByTitle()
         cout << " The record for the title: '" << input << "' could not found for deletion." << endl << endl << endl << endl;
 
         //Ask user to try again
-        printTryAgain(DELETE_BY_TITLE);
+        PrintTryAgain(DELETE_BY_TITLE);
     }
+} // end deleteByTitle
 
-}
-
-void deleteByArtistYear(recordMember member)
+//--------------------------------------------------//
+//  Delete records with the given artist or year
+//--------------------------------------------------//
+void DeleteByArtistYear(recordMember member)
 {
     string type;
 
@@ -1460,13 +1488,6 @@ void deleteByArtistYear(recordMember member)
     }
     //Record
     MyClass record;
-
-    //TitleIndex Index
-    TitleIndex * primaryInx = new TitleIndex(0);
-
-    //Secondary Indexes
-    ArtistIndex* artistInx = new ArtistIndex(0);
-    YearIndex* yearInx = new YearIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -1518,15 +1539,16 @@ void deleteByArtistYear(recordMember member)
                 cout << endl << endl << " -INFORMATION-" << endl << endl;
                 cout << "The record for the index '" << position << "' can be deleted." << endl << endl << endl << endl;
 
-                if(confirmDelete())
+                if(ConfirmDelete())
                 {
-                    deleteRecord(file, position, primaryInx, artistInx, yearInx);
+                    DeleteRecord(file, position, primaryInx, artistInx, yearInx);
 
                     //Success!
                     cout << endl << " -INFORMATION-" << endl << endl;
                     cout <<  " Delete operation successful." << endl;
                     cout << " The index: '" << position << "' is now available." << endl;
                     cout << " The record at index: '" << position << "' was deleted." << endl << endl << endl << endl;
+
                 } // end if confirm
                 else
                 {
@@ -1541,21 +1563,14 @@ void deleteByArtistYear(recordMember member)
         {
             cout << endl << endl << " -NOTICE-" << endl << endl;
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
-            printReturn();
         } // end file not open
 
-        delete primaryInx;
-        delete yearInx;
-        delete artistInx;
-
         //Ask user to return a menu
-        printReturn();
+        PrintReturn();
 
     } //end if record found
     else // Record not found
     {
-        delete yearInx;
-        delete artistInx;
 
         cout << endl << " -NOTICE-" << endl << endl;
         cout << " No records were affected."<< endl;
@@ -1565,22 +1580,26 @@ void deleteByArtistYear(recordMember member)
         switch (member)
         {
         case(ARTIST) :
-            printTryAgain(DELETE_BY_ARTIST);
+            PrintTryAgain(DELETE_BY_ARTIST);
             break;
         case(YEAR) :
-            printTryAgain(DELETE_BY_YEAR);
+            PrintTryAgain(DELETE_BY_YEAR);
             break;
         default : //Nothing
             break;
         }
     }//else
-}
+} // end deleteByArtistYear
 
 //--------------------------------------------------//
-//           Change Record Menu Functions
+//          Change Record Menu Functions
 //--------------------------------------------------//
 
-void changeByArtistYear(recordMember member)
+
+//--------------------------------------------------//
+//         Change records' artist or year
+//--------------------------------------------------//
+void ChangeByArtistYear(recordMember member)
 {
     string type;
 
@@ -1598,10 +1617,6 @@ void changeByArtistYear(recordMember member)
 
     //Record
     MyClass record;
-
-    //Secondary Indexes
-    ArtistIndex* artistInx = new ArtistIndex(0);
-    YearIndex* yearInx = new YearIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -1697,29 +1712,19 @@ void changeByArtistYear(recordMember member)
                 break;
             }
 
-            delete yearInx;
-            delete artistInx;
-
-            //Ask user to return a menu
-            printReturn();
-
         } // if file is open
         else
         {
-            delete yearInx;
-            delete artistInx;
-
             cout << endl << endl << " -NOTICE-" << endl << endl;
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
-            printReturn();
         } // end file not open
+
+        //Ask user to return a menu
+        PrintReturn();
 
     } //end if record found
     else // Record not found
     {
-        delete yearInx;
-        delete artistInx;
-
         cout << endl << " -NOTICE-" << endl << endl;
         cout << " No records were affected."<< endl;
         cout << " The records for the " << type << " '" << old_input << "' could not be found." << endl << endl << endl << endl;
@@ -1728,24 +1733,24 @@ void changeByArtistYear(recordMember member)
         switch (member)
         {
         case(ARTIST) :
-            printTryAgain(CHANGE_BY_ARTIST);
+            PrintTryAgain(CHANGE_BY_ARTIST);
             break;
         case(YEAR) :
-            printTryAgain(CHANGE_BY_YEAR);
+            PrintTryAgain(CHANGE_BY_YEAR);
             break;
         default : //Nothing
             break;
         }
     } // end else
-}
+} // end changeByArtistYear
 
+//--------------------------------------------------//
+//   Ask for a title to change every attribute
+//--------------------------------------------------//
 void ChangeByTitlePreMenu()
 {
     //Record
     MyClass record;
-
-    //TitleIndex Index
-    TitleIndex * TitleIndexInx = new TitleIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -1765,8 +1770,7 @@ void ChangeByTitlePreMenu()
 
     //Find title
     int pos = 0;
-    TitleIndexInx->matchTitle(input, pos);
-    delete TitleIndexInx;
+    primaryInx->matchTitle(input, pos);
 
     //If title found, ask to change it
     if(pos > 0)
@@ -1796,12 +1800,10 @@ void ChangeByTitlePreMenu()
         {
             cout << endl << endl << " -NOTICE-" << endl << endl;
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
-            printReturn();
+
+            //Ask user to return a menu
+            PrintReturn();
         } // end file not open
-
-
-
-
     } //end if record found
     else // Record not found
     {
@@ -1809,13 +1811,15 @@ void ChangeByTitlePreMenu()
         cout << " No records were affected."<< endl;
         cout << " The record for the title '" << input << "' could not be found." << endl << endl << endl << endl;
 
-        printTryAgain(CHANGE_BY_TITLE);
+        PrintTryAgain(CHANGE_BY_TITLE);
 
     } // end else
-}
+} // end ChangeByTitlePreMenu
 
-
-void changeByTitle(int selection, MyClass& me, const int position)
+//--------------------------------------------------//
+//  Change a record by title menu selection control
+//--------------------------------------------------//
+void ChangeByTitle(int selection, MyClass& me, const int position)
 {
     if(selection == 1)
     {
@@ -1845,7 +1849,6 @@ void changeByTitle(int selection, MyClass& me, const int position)
                 //Update title index
                 int title_pos = 0;
                 primaryInx->updateTitle(old_record.get_title(), me.get_title(), title_pos);
-                delete primaryInx;
             }
             if(flag_artistChanged)
             {
@@ -1853,7 +1856,6 @@ void changeByTitle(int selection, MyClass& me, const int position)
 
                 //Update artist index
                 artistInx->updateArtist(old_record.get_artist(), me.get_artist());
-                delete artistInx;
             }
             if(flag_yearChanged)
             {
@@ -1861,7 +1863,6 @@ void changeByTitle(int selection, MyClass& me, const int position)
 
                 //Update year index
                 yearInx->updateYear(old_record.get_year(), me.get_year());
-                delete yearInx;
             }
 
             me.writeIt(file, position);
@@ -1883,7 +1884,8 @@ void changeByTitle(int selection, MyClass& me, const int position)
 
         //Ask to return
         currentMenu = 7;
-        printReturn();
+        //Ask user to return a menu
+        PrintReturn();
     }
     else if(selection == 3)
     {
@@ -1891,7 +1893,6 @@ void changeByTitle(int selection, MyClass& me, const int position)
         string my_title;
         cout << endl << " Enter the new title: ";
         cin >> my_title;
-        TitleIndex * primaryInx = new TitleIndex(0);
         int temp;
         if(primaryInx->matchTitle(my_title, temp))
         {
@@ -1905,7 +1906,6 @@ void changeByTitle(int selection, MyClass& me, const int position)
             //Set Flag
             flag_titleChanged = true;
         }
-        delete primaryInx;
 
         //Return to menu
         ChangeByTitleMenu(me, position);
@@ -1971,13 +1971,12 @@ void changeByTitle(int selection, MyClass& me, const int position)
         //Return to menu
         ChangeByTitleMenu(me, position);
     }
-
-}
+} // end changeByTitle
 
 //--------------------------------------------------//
 //           Check for a Dead Record slot
 //--------------------------------------------------//
-bool checkDeadFlags(fstream& input, int& pos)
+bool CheckDeadFlags(fstream& input, int& pos)
 {
     MyClass record;
     pos = 1;
@@ -1997,9 +1996,12 @@ bool checkDeadFlags(fstream& input, int& pos)
     }
 
     return false;
-}
+} // end checkDeadFlags
 
-void deleteRecord(fstream& file, const int& pos, TitleIndex* primaryInx,
+//--------------------------------------------------//
+//   Delete a record from binary file and indexes
+//--------------------------------------------------//
+void DeleteRecord(fstream& file, const int& pos, TitleIndex* primaryInx,
                   ArtistIndex* artistInx, YearIndex* yearInx)
 {
     MyClass record;
@@ -2015,4 +2017,6 @@ void deleteRecord(fstream& file, const int& pos, TitleIndex* primaryInx,
     record.set_flag();
     //Write out that change (Dead)
     record.writeIt(file, pos);
-}
+} // end deleteRecord
+
+//END console.cpp
