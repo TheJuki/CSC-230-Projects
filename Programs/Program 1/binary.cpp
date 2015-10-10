@@ -48,7 +48,7 @@ int MyClass::get_value(std::fstream& inout)
     inout.seekg(0);
     inout.read((char*) this, sizeof(MyClass));
 
-    return MyClass::count;
+    return this->get_price(); // Sold Value
 }
 
 //Set functions
@@ -77,7 +77,7 @@ void MyClass::set_count(int my_count)
     MyClass::count = my_count;
 }
 // for setting zero record
-void MyClass::set_value(std::fstream& inout, int value)
+void MyClass::set_value(std::fstream& inout)
 {
     //write out the MyClass object
     inout.seekp(0);
@@ -90,22 +90,6 @@ void MyClass::set_flag()
 void MyClass::unset_flag()
 {
     MyClass::dead_flag = false;
-}
-
-void MyClass::deleteRecord(std::fstream& file, int pos,
-                           std::string& inArtist, int& inYear,
-                           std::string& inTitle)
-{
-    //Get record
-    this->readIt(file, pos);
-    //Set artist and year
-    inArtist = this->get_artist();
-    inYear = this->get_year();
-    inTitle = this->get_year();
-    //Declare dead
-    this->set_flag();
-    //Write out that change (Dead)
-    this->writeIt(file, pos);
 }
 
 // Read & write a File

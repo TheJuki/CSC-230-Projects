@@ -59,16 +59,13 @@ public:
     void set_year(int my_year);
     void set_price(int my_price);
     void set_count(int my_count);
-    void set_value(std::fstream& inout, int value); // for setting zero record
+    void set_value(std::fstream& inout); // for setting zero record
     void set_flag();
     void unset_flag();
 
     // Read & write a File
     void writeIt(std::fstream& out, long position) const;
     void readIt(std::fstream& input, long position) const;
-
-    //Update
-    void deleteRecord(std::fstream& file, int pos, std::string& artist, int& year, std::string& title);
 
     friend std::ostream& operator <<(std::ostream& out, const MyClass& me);
 };

@@ -54,8 +54,8 @@ void build()
         fstream outputFile(outputFileName, ios::out | ios::binary);
         //Set position to 1
         long position = 1;
-        //Create Primary Index object
-        Primary* primaryInx = new Primary();
+        //Create TitleIndex Index object
+        TitleIndex* primaryInx = new TitleIndex();
         //Create Secondary Index objects
         ArtistIndex* artistInx = new ArtistIndex();
         YearIndex* yearInx = new YearIndex();
@@ -134,7 +134,7 @@ void build()
             //Seek position and write record in binary file
             me.writeIt(outputFile, position);
 
-            //Pass Primary Key information to Primary Index(title, position)
+            //Pass TitleIndex Key information to TitleIndex Index(title, position)
             primaryInx->addTitle(my_title, position);
 
             //Pass Secondary Key information to Secondary Index(artist or year, position)
@@ -148,10 +148,10 @@ void build()
         //Update Binary File record zero with count information
         MyClass writeZeroRecord;
         writeZeroRecord.set_count(position - 1);
-        writeZeroRecord.set_value(outputFile, position);
-        //Write Primary Index to a file (open file using ofstream)
+        writeZeroRecord.set_value(outputFile);
+        //Write TitleIndex Index to a file (open file using ofstream)
         delete primaryInx;
-        //Write Secondary Index to a file (open file using ofstream)
+        //Write Secondary Indexes to a file (open file using ofstream)
         delete artistInx;
         delete yearInx;
 

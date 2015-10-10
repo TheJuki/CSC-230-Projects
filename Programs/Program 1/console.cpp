@@ -17,10 +17,15 @@ Description: Main Driver. Handles Console output.
 
 //Global Variables
 int currentMenu = 0;
-bool indexUpdated = false;
 bool flag_titleChanged = false;
 bool flag_artistChanged = false;
 bool flag_yearChanged = false;
+
+//Global Index Objects
+TitleIndex * primaryInx;
+ArtistIndex * artistInx;
+YearIndex * yearInx;
+
 
 enum recordMember {TITLE, ARTIST, TYPE, YEAR, PRICE, COUNT};
 enum addChangeDelete {ADD_BY_TITLE, CHANGE_BY_TITLE, CHANGE_BY_ARTIST, CHANGE_BY_YEAR,
@@ -88,6 +93,8 @@ void addARecord();
 void sellATitle();
 void soldValue();
 void stopMenu();
+void deleteRecord(std::fstream& file, const int& pos, TitleIndex* primaryInx,
+                  ArtistIndex* artistInx, YearIndex* yearInx);
 
 //Check for Dead Flags
 bool checkDeadFlags(std::fstream& input, int& pos);
@@ -652,8 +659,8 @@ void PrintByTitle()
     //Record
     MyClass record;
 
-    //Primary Indexes
-    Primary* primaryInx = new Primary(0);
+    //TitleIndex Indexes
+    TitleIndex* primaryInx = new TitleIndex(0);
 
     //Secondary Indexes
     ArtistIndex artistInx;
@@ -864,48 +871,11 @@ void PrintSummary()
 
 void stopMenu()
 {
-    if(indexUpdated)
-    {
-        char outputFileName[80] = "output.bin";
-        //Read in file
-        fstream outputFile(outputFileName, ios::in | ios::binary);
-
-        int pos = 1;
-        //Create binary object
-        MyClass record;
-        //Create Primary Index object
-        Primary* primaryInx = new Primary();
-        //Create Secondary Index object
-        ArtistIndex* artistInx = new ArtistIndex();
-        YearIndex* yearInx = new YearIndex();
-
-        if(outputFile.is_open())
-        {
-            record.readIt(outputFile, pos);
-            while(!outputFile.eof())
-            {
-                if(!record.get_flag())
-                {
-                    //Pass Primary Key information to Primary Index(title, position)
-                    primaryInx->addTitle(record.get_title(), pos);
-
-                    //Pass Secondary Key information to Secondary Index(artist or year, position)
-                    artistInx->addArtist(record.get_artist(), pos);
-                    yearInx->addYear(record.get_year(), pos);
-                }
-                pos++;
-                record.readIt(outputFile, pos);
-            } // end while
-
-            //Write Primary Index to a file (open file using ofstream)
-            delete primaryInx;
-            //Write Secondary Index to a file (open file using ofstream)
-            delete artistInx;
-            delete yearInx;
-            //Close file
-            outputFile.close();
-        } // end if
-    } // end if indexUpdate
+    //Write out indexes
+    //Delete Index object pointers
+    delete artistInx;
+    delete primaryInx;
+    delete yearInx;
 
     cout << " Program stopped." << endl;
     string s;
@@ -921,8 +891,8 @@ void sellATitle()
     //Record
     MyClass record;
 
-    //Primary Indexes
-    Primary* primaryInx = new Primary(0);
+    //TitleIndex Indexes
+    TitleIndex* primaryInx = new TitleIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -1057,8 +1027,8 @@ void addARecord()
     //Record
     MyClass record;
 
-    //Primary Indexes
-    Primary* primaryInx = new Primary(0);
+    //TitleIndex Indexes
+    TitleIndex* primaryInx = new TitleIndex(0);
 
     //Secondary Indexes
     ArtistIndex* artistInx = new ArtistIndex(0);
@@ -1249,8 +1219,8 @@ void deleteByTitle()
     //Record
     MyClass record;
 
-    //Primary Indexes
-    Primary* primaryInx = new Primary(0);
+    //TitleIndex Indexes
+    TitleIndex* primaryInx = new TitleIndex(0);
 
     //Secondary Indexes
     ArtistIndex* artistInx = new ArtistIndex(0);
@@ -1276,35 +1246,24 @@ void deleteByTitle()
     int pos = 0;
     primaryInx->matchTitle(input, pos);
 
-    string my_title = "", my_artist = "";
-    int my_year = 0;
-
     //If title found, delete it
     if(pos > 0)
     {
-        my_title = input;
         cout << endl << endl << " -INFORMATION-" << endl << endl;
-        cout << " The record for the title: '" << my_title << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
+        cout << " The record for the title: '" << input << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
         if(confirmDelete())
         {
             fstream file("output.bin", ios::in | ios::out | ios::binary);
             if(file.is_open())
             {
-                MyClass record;
-                //Update Record (Dead)
-                record.deleteRecord(file, pos, my_artist, my_year, my_title);
-                //Delete Title Index
-                primaryInx->deleteTitle(my_title, pos);
-                //Delete Artist Index
-                artistInx->deleteArtist(my_artist, pos);
-                //Delete Year Index
-                yearInx->deleteYear(my_year, pos);
+
+               deleteRecord(file, pos, primaryInx, artistInx, yearInx);
 
                 //Success!
                 cout << endl << " -INFORMATION-" << endl << endl;
                 cout <<  " Delete operation successful." << endl;
                 cout << " The index: '" << pos << "' is now available." << endl;
-                cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
+                cout << " The record for the title: '" << input << "' was deleted." << endl << endl << endl << endl;
 
                 file.close();
             } // if file is open
@@ -1317,7 +1276,6 @@ void deleteByTitle()
             delete primaryInx;
             delete artistInx;
             delete yearInx;
-
 
             //Ask user to return a menu
             printReturn();
@@ -1365,8 +1323,8 @@ void deleteByArtistYear(recordMember member)
     //Record
     MyClass record;
 
-    //Primary Index
-    Primary * primaryInx = new Primary(0);
+    //TitleIndex Index
+    TitleIndex * primaryInx = new TitleIndex(0);
 
     //Secondary Indexes
     ArtistIndex* artistInx = new ArtistIndex(0);
@@ -1402,57 +1360,51 @@ void deleteByArtistYear(recordMember member)
         break;
     }
 
-    string my_title = "", my_artist = "";
-    int my_year = 0;
-
     //If artist/year found, ask to delete it
     if(*pos > 0)
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << "'" << *pos << "' record(s) found." << endl << endl << endl << endl;
 
-        if(confirmDelete())
-        {
-            fstream file("output.bin", ios::in | ios::out | ios::binary);
-            if(file.is_open())
-            {
-                for(int i = 1; i < (*pos + 1); ++i)
-                {
 
-                    MyClass record;
-                    //Update Record (Dead)
-                    record.deleteRecord(file, *(pos + i), my_artist, my_year, my_title);
-                    //Delete Title Index
-                    primaryInx->deleteTitle(my_title, *(pos + i));
-                    //Delete Artist Index
-                    artistInx->deleteArtist(my_artist, *(pos + i));
-                    //Delete Year Index
-                    yearInx->deleteYear(my_year, *(pos + i));
+        fstream file("output.bin", ios::in | ios::out | ios::binary);
+        if(file.is_open())
+        {
+             for(int i = 1; i < 11; ++i)
+            {
+                int position = *(pos + i);
+
+                if(position == 0)
+                    break;
+
+                cout << endl << endl << " -INFORMATION-" << endl << endl;
+                cout << "The record for the index '" << position << "' can be deleted." << endl << endl << endl << endl;
+
+                if(confirmDelete())
+                {
+                    deleteRecord(file, position, primaryInx, artistInx, yearInx);
 
                     //Success!
                     cout << endl << " -INFORMATION-" << endl << endl;
                     cout <<  " Delete operation successful." << endl;
-                    cout << " The index: '" << *(pos + i) << "' is now available." << endl;
-                    cout << " The record for the title: '" << my_title << "' was deleted." << endl << endl << endl << endl;
-
-
-                } // end for
-                file.close();
-            } // end if open
-            else
-            {
-
-            } // end if not open
-
-
-        } // end if confirm
+                    cout << " The index: '" << position << "' is now available." << endl;
+                    cout << " The record at index: '" << position << "' was deleted." << endl << endl << endl << endl;
+                } // end if confirm
+                else
+                {
+                    cout << endl << " -INFORMATION-" << endl << endl;
+                    cout <<  " Delete operation canceled." << endl;
+                    cout << " No records were affected." << endl << endl << endl << endl;
+                }
+            } // end for
+            file.close();
+        } // end if open
         else
         {
-            cout << endl << " -INFORMATION-" << endl << endl;
-            cout <<  " Delete operation canceled." << endl;
-            cout << " No records were affected." << endl << endl << endl << endl;
-        }
 
+        } // end if not open
+
+        delete primaryInx;
         delete yearInx;
         delete artistInx;
 
@@ -1644,8 +1596,8 @@ void ChangeByTitlePreMenu()
     //Record
     MyClass record;
 
-    //Primary Index
-    Primary * PrimaryInx = new Primary(0);
+    //TitleIndex Index
+    TitleIndex * TitleIndexInx = new TitleIndex(0);
 
     //Clear screen
     ClearScreen();
@@ -1665,8 +1617,8 @@ void ChangeByTitlePreMenu()
 
     //Find title
     int pos = 0;
-    PrimaryInx->matchTitle(input, pos);
-    delete PrimaryInx;
+    TitleIndexInx->matchTitle(input, pos);
+    delete TitleIndexInx;
 
     //If title found, ask to change it
     if(pos > 0)
@@ -1731,7 +1683,7 @@ void changeByTitle(int selection, MyClass& me, const int position)
             //Update any changed indexes
             if(flag_titleChanged)
             {
-                Primary * primaryInx = new Primary(0);
+                TitleIndex * primaryInx = new TitleIndex(0);
 
                 //Update title index
                 int title_pos = 0;
@@ -1777,7 +1729,7 @@ void changeByTitle(int selection, MyClass& me, const int position)
         string my_title;
         cout << endl << " Enter the new title: ";
         cin >> my_title;
-        Primary * primaryInx = new Primary(0);
+        TitleIndex * primaryInx = new TitleIndex(0);
         int temp;
         if(primaryInx->matchTitle(my_title, temp))
         {
@@ -1883,4 +1835,22 @@ bool checkDeadFlags(fstream& input, int& pos)
     }
 
     return false;
+}
+
+void deleteRecord(fstream& file, const int& pos, TitleIndex* primaryInx,
+                  ArtistIndex* artistInx, YearIndex* yearInx)
+{
+    MyClass record;
+    //Read record
+    record.readIt(file, pos);
+    //Delete Title Index
+    primaryInx->deleteTitle(record.get_title());
+    //Delete Artist Index
+    artistInx->deleteArtist(record.get_artist(), pos);
+    //Delete Year Index
+    yearInx->deleteYear(record.get_year(), pos);
+    //Declare dead
+    record.set_flag();
+    //Write out that change (Dead)
+    record.writeIt(file, pos);
 }
