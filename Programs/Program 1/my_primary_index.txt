@@ -7,6 +7,6 @@ The_Thinker1 4
 Jackie1 5
 David1 6
 The_Raft_of_the_Medusa1 7
-Boat1 8
+Boat2 8
 Reclining_Figure1 9
 Fountain1 10

@@ -1767,12 +1767,23 @@ void changeByTitle(int selection, MyClass& me, const int position)
     {
         //Change Title
         string my_title;
-        cout << endl << "Enter the new title: ";
+        cout << endl << " Enter the new title: ";
         cin >> my_title;
-        me.set_title(my_title);
-
-        //Set Flag
-        flag_titleChanged = true;
+        Primary * primaryInx = new Primary(0);
+        int temp;
+        if(primaryInx->matchTitle(my_title, temp))
+        {
+            cout << " This title already exists. Title reset.";
+            getline(cin, my_title);
+            getline(cin, my_title);
+        }
+        else
+        {
+            me.set_title(my_title);
+            //Set Flag
+            flag_titleChanged = true;
+        }
+        delete primaryInx;
 
         //Return to menu
         ChangeByTitleMenu(me, position);
@@ -1781,7 +1792,7 @@ void changeByTitle(int selection, MyClass& me, const int position)
     {
         //Change Artist
         string my_artist;
-        cout << endl << "Enter the new artist: ";
+        cout << endl << " Enter the new artist: ";
         cin >> my_artist;
         me.set_artist(my_artist);
 
@@ -1795,7 +1806,7 @@ void changeByTitle(int selection, MyClass& me, const int position)
     {
         //Change Type
         string my_type;
-        cout << endl << "Enter the new type: ";
+        cout << endl << " Enter the new type: ";
         cin >> my_type;
         me.set_type(my_type);
 
@@ -1806,7 +1817,7 @@ void changeByTitle(int selection, MyClass& me, const int position)
     {
         //Change Year
         int my_year;
-        cout << endl << "Enter the new year: ";
+        cout << endl << " Enter the new year: ";
         cin >> my_year;
         me.set_year(my_year);
 
@@ -1820,7 +1831,7 @@ void changeByTitle(int selection, MyClass& me, const int position)
     {
         //Change Price
         int my_price;
-        cout << endl << "Enter the new price: ";
+        cout << endl << " Enter the new price: ";
         cin >> my_price;
         me.set_price(my_price);
 
@@ -1831,7 +1842,7 @@ void changeByTitle(int selection, MyClass& me, const int position)
     {
         //Change Count
         int my_count;
-        cout << endl << "Enter the new count: ";
+        cout << endl << " Enter the new count: ";
         cin >> my_count;
         me.set_count(my_count);
 
