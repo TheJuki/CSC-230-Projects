@@ -695,7 +695,6 @@ void PrintAll()
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The file for reading does not exist" << endl << endl << endl << endl;
-        PrintReturn();
     } // end file not open
 
     //Ask user to return a menu
@@ -760,19 +759,15 @@ void PrintByTitle()
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
         } // end file not open
 
-        //Ask user to return a menu
-        PrintReturn();
-
     } //end if
     else // Title not found
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The title: '" << input << "' does not exist"
              << endl << endl << endl << endl;
-
-        //Ask user to return a menu
-        PrintReturn();
     }
+     //Ask user to return a menu
+        PrintReturn();
 } // end PrintByTitle
 
 //--------------------------------------------------//
@@ -835,17 +830,15 @@ void PrintByArtist()
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
         } // end file not open
 
-        //Ask user to return a menu
-        PrintReturn();
     } // End if
     else // Title not found
     {
         cout << endl << endl << " -NOTICE-" << endl << endl;
         cout << " The artist: '" << input << "' does not exist"
              << endl << endl << endl;
-        //Ask user to return a menu
-        PrintReturn();
     }
+    //Ask user to return a menu
+        PrintReturn();
 } // end PrintByArtist
 
 //--------------------------------------------------//
@@ -908,8 +901,6 @@ void PrintByYear()
             cout << endl << endl << " -NOTICE-" << endl << endl;
             cout << " The file for reading does not exist" << endl << endl << endl << endl;
         } // end file not open
-        //Ask user to return a menu
-        PrintReturn();
     } // End if
     else // Title not found
     {
@@ -917,9 +908,10 @@ void PrintByYear()
         cout << " The year: '" << input << "' does not exist" << endl
              << endl << endl << endl;
 
-        //Ask user to return a menu
-        PrintReturn();
+
     }
+    //Ask user to return a menu
+        PrintReturn();
 } // end PrintByYear
 
 //--------------------------------------------------//
