@@ -110,6 +110,12 @@ int main(void)
 {
     //Create Bulk if output.bin does not exist
     checkBulkFile();
+
+    //Read in Indexes
+    primaryInx = new TitleIndex(0);
+    artistInx = new ArtistIndex(0);
+    yearInx = new YearIndex(0);
+
     //Start the Main Menu
     MainMenu();
     //Exit
@@ -623,9 +629,8 @@ void PrintAll()
     cout <<  " All records are displayed." << endl
          << endl << endl;
 
-    char outputFileName[80] = "output.bin";
     //Read in file
-    fstream file(outputFileName, ios::in | ios::binary);
+    fstream file("output.bin", ios::in | ios::binary);
 
     int pos = 1;
     MyClass record;
@@ -890,7 +895,90 @@ void PrintByYear()
 
 void PrintSummary()
 {
-   wfegrht;
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Summary" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " The average price and average sold are displayed." << endl
+         << endl << endl;
+
+    fstream file("output.bin", ios::in | ios::binary);
+
+    int pos = 1;
+
+    int total_items = 0;
+    int total_price = 0;
+    MyClass record;
+    //std::cout << record.get_value(file);
+    if(file.is_open())
+    {
+        record.readIt(file, pos);
+        while(!file.eof())
+        {
+            if(!record.get_flag())
+            {
+                total_price += record.get_price() * record.get_count();
+                total_items += record.get_count();
+            }
+            pos++;
+            record.readIt(file, pos);
+        } // end while
+
+        //Close file
+        file.close();
+        //Reopen file
+        file.open("output.bin", ios::in | ios::binary);
+
+        //Read zero record
+        record.get_value(file);
+
+        //Average Price
+        if(total_items == 0)
+        {
+            cout << "--------------------------" << endl;
+            cout << " Average Price: $" << 0 << endl;
+            cout << "--------------------------" << endl;
+        }
+        else
+        {
+            cout << "--------------------------" << endl;
+            cout << " Average Price: $" << total_price / total_items << endl;
+            cout << "--------------------------" << endl;
+        }
+
+        //Average Sold Value
+        if(record.get_count() == 0)
+        {
+            cout << "--------------------------" << endl;
+            cout << " Average sold: $" << 0 << endl;
+            cout << "--------------------------" << endl;
+        }
+        else
+        {
+            cout << "--------------------------" << endl;
+            cout << " Average sold: $" << record.get_price() / record.get_count() << endl;
+            cout << "--------------------------" << endl;
+        }
+        //Dead Count
+        cout << "--------------------------" << endl;
+        cout << " Deleted records: " << primaryInx->getDeadCount() << endl;
+        cout << "--------------------------" << endl;
+
+
+    } // if file is open
+    else
+    {
+        cout << endl << endl << " -NOTICE-" << endl << endl;
+        cout << " The file for reading does not exist" << endl << endl << endl << endl;
+        printReturn();
+    } // end file not open
+
+    //Ask user to return a menu
+    printReturn();
 }
 
 //--------------------------------------------------//
@@ -1031,14 +1119,19 @@ void sellATitle()
 
 void soldValue()
 {
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Sold Value" << endl
+         << endl  << endl  << endl;
+
     //Total value
     int total_value = 0;
     int total_sold = 0;
     string s;
 
-    char outputFileName[80] = "output.bin";
     //Read in file
-    fstream file(outputFileName, ios::in | ios::binary);
+    fstream file("output.bin", ios::in | ios::binary);
 
     MyClass record;
     if(file.is_open())
@@ -1047,6 +1140,15 @@ void soldValue()
         total_sold = record.get_count();
         //Close file
         file.close();
+        cout << " -INFORMATION-" << endl << endl;
+        cout <<  " Total sold value of all " << total_sold << " sold records" << endl << endl;
+        cout << "-----------------" << endl;
+        cout << " Total: $" << total_value << endl;
+        cout << "-----------------" << endl;
+        cout << endl << endl << " Press Enter to return to the Main Menu";
+        getline(cin, s);
+        getline(cin, s);
+        LoadCurrentMenu();
     } // if file is open
     else
     {
@@ -1055,21 +1157,6 @@ void soldValue()
         printReturn();
     } // end file not open
 
-    //Clear screen
-    ClearScreen();
-    Header();
-    cout << " Sold Value" << endl
-         << endl  << endl  << endl;
-
-    cout << " -INFORMATION-" << endl << endl;
-    cout <<  " Total sold value of all " << total_sold << " sold records" << endl << endl;
-    cout << "-----------------" << endl;
-    cout << " Total: $" << total_value << endl;
-    cout << "-----------------" << endl;
-    cout << endl << endl << " Press Enter to return to the Main Menu";
-    getline(cin, s);
-    getline(cin, s);
-    LoadCurrentMenu();
 }
 
 void addARecord()
@@ -1150,10 +1237,8 @@ void addARecord()
         if(my_artist != "" && my_title != "" &&  my_type != ""
                 && my_count >= 0 && my_year > 0 && my_price >= 0)
         {
-            char outputFileName[80] = "output.bin";
             //Open Binary file for binary|writing using fstream
-            //ios::in | ios::out | ios::binary used for adding/changing
-            fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
+            fstream outputFile("output.bin", ios::in | ios::out | ios::binary);
             //Check to see if file is open
             if(outputFile.is_open())
             {
@@ -1559,9 +1644,8 @@ void changeByArtistYear(recordMember member)
         cout << endl << endl << " Enter the new " << type << " for these records: ";
         cin >> new_input;
 
-        char outputFileName[80] = "output.bin";
         //Read in file
-        fstream outputFile(outputFileName, ios::in | ios::out | ios::binary);
+        fstream outputFile("output.bin", ios::in | ios::out | ios::binary);
 
         if(outputFile.is_open())
         {
