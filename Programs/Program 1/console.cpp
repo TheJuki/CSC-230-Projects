@@ -1,6 +1,6 @@
 /*
 File       : console.cpp
-Program    : Program 1 - Dynamic Array Based Indexes
+Program    : Program 2 - Dynamic Array Indexes
 Due Date   : October 12, 2015
 Author     : Justin Kirk
 Description: Main Driver. Handles Console output.

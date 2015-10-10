@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="_Program 1" />
+		<Option title="Program 2" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -34,8 +34,6 @@
 		</Compiler>
 		<Unit filename="artist.cpp" />
 		<Unit filename="artist.h" />
-		<Unit filename="ay.cpp" />
-		<Unit filename="ay.h" />
 		<Unit filename="binary.cpp" />
 		<Unit filename="binary.h" />
 		<Unit filename="bulk.cpp" />
