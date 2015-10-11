@@ -35,6 +35,11 @@ public:
         }
     }
 
+    TitleIndex(int read): count(0), dead_count(0)
+    {
+        readPrimary();
+    }
+
     bool matchTitle(std::string, int&);
     bool updateTitle(std::string /*old title*/, std::string /*new title*/, int /*pos in binary*/);
     bool addTitle(std::string, int);
@@ -45,6 +50,7 @@ public:
     void setDeadCount(int count);
     void readPrimary();
     void writePrimary();
+    void outputKey(); //Debug
 
 };
 #endif // MY_PRIMARY_INDEX_H

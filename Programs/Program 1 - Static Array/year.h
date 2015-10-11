@@ -34,6 +34,12 @@ public:
         }
     }
 
+    YearIndex(int read): count(0)
+    {
+        readSecondary();
+    }
+
+
     int get_year(int pos) const; // debugging tool
 
     void addYear(int my_year, int my_key);

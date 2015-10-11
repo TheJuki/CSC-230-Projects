@@ -32,6 +32,12 @@ public:
         }
     }
 
+    ArtistIndex(int read): count(0)
+    {
+        readSecondary();
+    }
+
+
     std::string get_artist(int pos) const; // debugging tool
 
     void addArtist(std::string my_artist, int my_key);

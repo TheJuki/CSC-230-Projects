@@ -112,9 +112,9 @@ int main(void)
     CheckBulkFile();
 
     //Read in Indexes
-    primaryInx.readPrimary();
-    artistInx.readSecondary();
-    yearInx.readSecondary();
+    primaryInx = TitleIndex(0);
+    artistInx = ArtistIndex(0);
+    yearInx = YearIndex(0);
 
     //Start the Main Menu
     MainMenu();

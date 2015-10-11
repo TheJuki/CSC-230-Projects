@@ -59,6 +59,7 @@ public:
     void resize();
     void readPrimary();
     void writePrimary();
+    void outputKey(); //Debug
 
 };
 #endif // MY_PRIMARY_INDEX_H

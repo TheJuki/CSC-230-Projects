@@ -1,7 +1,7 @@
 9
 3 Hopper 1 11 21 
 3 Klimt 2 12 22 
-1 Gericault 7 
+5 Gericault 3 7 13 17 23 
 3 Rodin 4 14 24 
 2 Warhol 5 15 
 2 Michelangelo 6 16 

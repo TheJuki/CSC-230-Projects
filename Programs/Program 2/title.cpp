@@ -9,6 +9,17 @@ Description: Code for title data
 #include "title.h"
 #include <stdlib.h>
 
+//Print array to screen
+void TitleIndex::outputKey()
+{
+    for(int i = 0; i < (count + 1); ++i)
+    {
+        std::cout << "Title: " << my_list[i].title
+        << " Key:" << my_list[i].pos << std::endl;
+    }
+
+} // end outputKey
+
 //Search array of title indexes for the given title
 //Set pos to found key
 //Return found or not

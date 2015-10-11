@@ -6,7 +6,7 @@
 	<sstream>
 	<stdlib.h>
 
-1444521119 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\artist.h
+1444587161 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\artist.h
 	<iostream>
 	<fstream>
 
@@ -32,18 +32,18 @@
 	<fstream>
 	<cstdlib>
 
-1444521262 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\year.h
+1444587175 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\year.h
 	<iostream>
 	<fstream>
 	<sstream>
 	<stdlib.h>
 
-1444521095 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\title.h
+1444586821 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\title.h
 	<fstream>
 	<string>
 	<iostream>
 
-1444526565 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\console.cpp
+1444586964 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\console.cpp
 	<string>
 	<iostream>
 	<fstream>
@@ -53,7 +53,7 @@
 	"year.h"
 	"binary.h"
 
-1444521732 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\title.cpp
+1444586888 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\title.cpp
 	"title.h"
 	<stdlib.h>
 
