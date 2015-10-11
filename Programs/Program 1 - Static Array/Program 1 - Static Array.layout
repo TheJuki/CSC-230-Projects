@@ -3,52 +3,52 @@
 	<ActiveTarget name="Debug" />
 	<File name="bulk.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4641" topLine="123" />
+			<Cursor1 position="1354" topLine="45" />
 		</Cursor>
 	</File>
 	<File name="title.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4992" topLine="166" />
-		</Cursor>
-	</File>
-	<File name="artist.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1395" topLine="34" />
-		</Cursor>
-	</File>
-	<File name="binary.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1971" topLine="45" />
-		</Cursor>
-	</File>
-	<File name="console.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="59387" topLine="1967" />
-		</Cursor>
-	</File>
-	<File name="binary.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2960" topLine="102" />
-		</Cursor>
-	</File>
-	<File name="title.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1462" topLine="37" />
+			<Cursor1 position="2869" topLine="15" />
 		</Cursor>
 	</File>
 	<File name="year.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1322" topLine="35" />
-		</Cursor>
-	</File>
-	<File name="year.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9455" topLine="289" />
+			<Cursor1 position="963" topLine="21" />
 		</Cursor>
 	</File>
 	<File name="artist.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="9804" topLine="305" />
+			<Cursor1 position="2200" topLine="190" />
+		</Cursor>
+	</File>
+	<File name="artist.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="72" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="binary.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1863" topLine="100" />
+		</Cursor>
+	</File>
+	<File name="binary.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="72" topLine="46" />
+		</Cursor>
+	</File>
+	<File name="year.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2668" topLine="96" />
+		</Cursor>
+	</File>
+	<File name="console.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="43901" topLine="2000" />
+		</Cursor>
+	</File>
+	<File name="title.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="26" topLine="21" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
