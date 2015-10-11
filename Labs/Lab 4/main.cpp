@@ -1,3 +1,12 @@
+/*
+File       : main.cpp
+Program    : Lab 4 -Detecting Hash Table Collisions
+Due Date   : October 14, 2015
+Author     : Justin Kirk
+Description: Lab 4 uses 3 different formulas to hash titles into hash numbers
+             and checks for collisions within each formula.
+*/
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -53,9 +62,9 @@ int main()
     //check if file can be opened
     if(input.is_open())
     {
-        cout << "----------------------------------------------------" << endl;
+        cout << string(75, '-') << endl;
         cout << " Formula 1 | Formula 2 | Formula 3 | Title " << endl;
-        cout << "----------------------------------------------------" << endl;
+        cout << string(75, '-') << endl;
         do
         {
             //Get title
@@ -66,9 +75,9 @@ int main()
             hash_num_3 = Formula_3(title);
 
             //Get collisions
-            collsion_1 += MatchHash(array, 0, (counter + 1), hash_num_1);
-            collsion_2 += MatchHash(array, 1, (counter + 1), hash_num_2);
-            collsion_3 += MatchHash(array, 2, (counter + 1), hash_num_3);
+            collsion_1 += MatchHash(array, 0, counter, hash_num_1);
+            collsion_2 += MatchHash(array, 1, counter, hash_num_2);
+            collsion_3 += MatchHash(array, 2, counter, hash_num_3);
 
             //Set those 3 hash numbers in the array
             array[counter][0]= hash_num_1;
@@ -94,9 +103,9 @@ int main()
         while(!input.eof() && counter != rows);
 
         //Display Collisions
-        cout << "----------------------------------------------------" << endl;
+        cout << string(75, '-') << endl;
         cout << " Collisions | Collisions | Collisions " << endl;
-        cout << "----------------------------------------------------" << endl;
+        cout << string(75, '-') << endl;
 
         line = "    ";
         line += PadNumber(collsion_1);
@@ -130,7 +139,7 @@ int main()
                     highest = 3;
                 }
             } // end if
-            else if(collsion_1 == collsion_2)
+            else if((collsion_1 == collsion_2) && (collsion_1 > collsion_3))
             {
                 highest = 0;
             }
@@ -151,42 +160,43 @@ int main()
             } // end else
         } // end collisions not equal
 
+        //Display highest collision formulas
         switch(highest)
         {
         case(-1):
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             cout << "        All Formulas have equal collisions " << endl;
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             break;
         case(0):
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             cout << "    Formula 1 and 2 have the highest collisions " << endl;
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             break;
         case(1):
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             cout << "        Formula 1 has the highest collisions " << endl;
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             break;
         case(2):
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             cout << "        Formula 2 has the highest collisions " << endl;
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             break;
         case(3):
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             cout << "        Formula 3 has the highest collisions " << endl;
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             break;
         case(4):
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             cout << "    Formula 1 and 3 have the highest collisions " << endl;
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             break;
         case(5):
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             cout << "    Formula 2 and 3 have the highest collisions " << endl;
-            cout << "----------------------------------------------------" << endl;
+            cout << string(75, '-') << endl;
             break;
         default : //Nothing
             break;
@@ -203,35 +213,43 @@ int main()
     return 0;
 }
 
+//Formula 1 - Start at 1 and go up the length of M
 int Formula_1(string M)
 {
-    int sum;
+    int sum = 0;
     int length = M.length();
+    int factor = 1;
 
     for (int N = 1; N <= length; ++N)
     {
-        sum += N*M[N];
+        factor = N;
+        sum += factor*M[N];
     }
 
     return sum % 73;
 }
 
+//Formula 2 - Start at the length of M and go down to 1
 int Formula_2(string M)
 {
-    int sum;
+    int sum = 0;
     int length = M.length();
+    int factor = length;
 
-    for (int N = length; N > 0; --N)
+    for (int N = 1; N <= length; ++N)
     {
-        sum += N*M[N];
+        sum += factor*M[N];
+        --factor;
     }
 
     return sum % 73;
 }
 
+//Formula 3 - Set factor to 2N+1
+//Start at 1 and go up the length of M
 int Formula_3(string M)
 {
-    int sum;
+    int sum = 0;
     int factor;
     int length = M.length();
 
@@ -244,6 +262,8 @@ int Formula_3(string M)
     return sum % 73;
 }
 
+//Attempt to pad numbers as ###
+//Return the padded number as a string
 string PadNumber(int num)
 {
     //string stream for
@@ -266,6 +286,8 @@ string PadNumber(int num)
     return padded_num;
 }
 
+//Find an existing hash number with the given column/formula
+//Return 1 if one is found
 int MatchHash(int array[][3], int column, int numOfrows, int hash)
 {
     for (int i = 0; i < numOfrows; i++)
@@ -273,10 +295,10 @@ int MatchHash(int array[][3], int column, int numOfrows, int hash)
         if(array[i][column] == hash)
         {
             //Found
+            cout <<  "Collision " << "Column: " << column << " Hash: "<< hash << endl;
             return 1;
         }
     } // end for
 
     return 0;
 }
-
