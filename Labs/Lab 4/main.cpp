@@ -93,6 +93,7 @@ int main()
         }
         while(!input.eof() && counter != rows);
 
+        //Display Collisions
         cout << "----------------------------------------------------" << endl;
         cout << " Collisions | Collisions | Collisions " << endl;
         cout << "----------------------------------------------------" << endl;
@@ -107,8 +108,93 @@ int main()
 
         cout << line << endl;
 
+        int highest = -1;
+        if((collsion_1 == collsion_2) && (collsion_1 == collsion_3))
+        {
+            highest = -1;
+        } // end if
+        else
+        {
+            if(collsion_1 > collsion_2)
+            {
+                if(collsion_1 > collsion_3)
+                {
+                    highest = 1;
+                }
+                else if(collsion_1 == collsion_3)
+                {
+                    highest = 4;
+                }
+                else
+                {
+                    highest = 3;
+                }
+            } // end if
+            else if(collsion_1 == collsion_2)
+            {
+                highest = 0;
+            }
+            else
+            {
+                if(collsion_2 > collsion_3)
+                {
+                    highest = 2;
+                }
+                else if(collsion_2 == collsion_3)
+                {
+                    highest = 5;
+                }
+                else
+                {
+                    highest = 3;
+                }
+            } // end else
+        } // end collisions not equal
 
-    } // end if
+        switch(highest)
+        {
+        case(-1):
+            cout << "----------------------------------------------------" << endl;
+            cout << "        All Formulas have equal collisions " << endl;
+            cout << "----------------------------------------------------" << endl;
+            break;
+        case(0):
+            cout << "----------------------------------------------------" << endl;
+            cout << "    Formula 1 and 2 have the highest collisions " << endl;
+            cout << "----------------------------------------------------" << endl;
+            break;
+        case(1):
+            cout << "----------------------------------------------------" << endl;
+            cout << "        Formula 1 has the highest collisions " << endl;
+            cout << "----------------------------------------------------" << endl;
+            break;
+        case(2):
+            cout << "----------------------------------------------------" << endl;
+            cout << "        Formula 2 has the highest collisions " << endl;
+            cout << "----------------------------------------------------" << endl;
+            break;
+        case(3):
+            cout << "----------------------------------------------------" << endl;
+            cout << "        Formula 3 has the highest collisions " << endl;
+            cout << "----------------------------------------------------" << endl;
+            break;
+        case(4):
+            cout << "----------------------------------------------------" << endl;
+            cout << "    Formula 1 and 3 have the highest collisions " << endl;
+            cout << "----------------------------------------------------" << endl;
+            break;
+        case(5):
+            cout << "----------------------------------------------------" << endl;
+            cout << "    Formula 2 and 3 have the highest collisions " << endl;
+            cout << "----------------------------------------------------" << endl;
+            break;
+        default : //Nothing
+            break;
+        }
+
+        //Display Collisions
+        input.close();
+    } // end if file open
 
     //Wait for Enter
     cout << endl << endl << endl << endl << " Press Enter to Quit";
