@@ -227,8 +227,6 @@ void YearIndex::readSecondary()
             //Read in a line from the sequential file
             getline (input,line);
 
-            //cout << line;
-
             //Defaults
             pos = 0;
             part = "";

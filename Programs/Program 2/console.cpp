@@ -81,6 +81,7 @@ void PrintSummary();
 void DeleteByArtistYear(recordMember member);
 void DeleteByTitle();
 bool ConfirmDelete();
+void DeleteRecord(std::fstream& file, const int& pos);
 
 //Change Menu Functions
 void ChangeByArtistYearMenu();
@@ -94,8 +95,6 @@ void AddRecord();
 void SellTitle();
 void SoldValue();
 void StopMenu();
-void DeleteRecord(std::fstream& file, const int& pos, TitleIndex* primaryInx,
-                  ArtistIndex* artistInx, YearIndex* yearInx);
 
 //Check for Dead Flags
 bool CheckDeadFlags(std::fstream& input, int& pos);
@@ -153,7 +152,7 @@ void Header()
          << "*****************************************************************" << endl
          << "*                          Justin Kirk                          *" << endl
          << "*****************************************************************" << endl
-         << "*                           Program 1                           *" << endl
+         << "*                           Program 2                           *" << endl
          << "*****************************************************************" << endl
          << "\n\n";
 } // end Header
@@ -766,8 +765,8 @@ void PrintByTitle()
         cout << " The title: '" << input << "' does not exist"
              << endl << endl << endl << endl;
     }
-     //Ask user to return a menu
-        PrintReturn();
+    //Ask user to return a menu
+    PrintReturn();
 } // end PrintByTitle
 
 //--------------------------------------------------//
@@ -838,7 +837,7 @@ void PrintByArtist()
              << endl << endl << endl;
     }
     //Ask user to return a menu
-        PrintReturn();
+    PrintReturn();
 } // end PrintByArtist
 
 //--------------------------------------------------//
@@ -911,7 +910,7 @@ void PrintByYear()
 
     }
     //Ask user to return a menu
-        PrintReturn();
+    PrintReturn();
 } // end PrintByYear
 
 //--------------------------------------------------//
@@ -1411,41 +1410,42 @@ void DeleteByTitle()
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " The record for the title: '" << input << "' can be deleted at index '" << pos << "'." << endl << endl << endl << endl;
-        if(ConfirmDelete())
-        {
-            fstream file("output.bin", ios::in | ios::out | ios::binary);
-            if(file.is_open())
-            {
 
-                DeleteRecord(file, pos, primaryInx, artistInx, yearInx);
+        fstream file("output.bin", ios::in | ios::out | ios::binary);
+        if(file.is_open())
+        {
+            cout << "--------" << endl;
+            //Display record
+            record.readIt(file, pos);
+            cout << record;
+
+            if(ConfirmDelete())
+            {
+                DeleteRecord(file, pos);
 
                 //Success!
                 cout << endl << " -INFORMATION-" << endl << endl;
                 cout <<  " Delete operation successful." << endl;
                 cout << " The index: '" << pos << "' is now available." << endl;
                 cout << " The record for the title: '" << input << "' was deleted." << endl << endl << endl << endl;
-
                 file.close();
-            } // if file is open
+            } // end if confirm
             else
             {
-                cout << endl << endl << " -NOTICE-" << endl << endl;
-                cout << " The file for reading does not exist" << endl << endl << endl << endl;
-            } // end file not open
-
-            //Ask user to return a menu
-            PrintReturn();
-
-        } // end if confirm
+                file.close();
+                cout << endl << " -INFORMATION-" << endl << endl;
+                cout <<  " Delete operation canceled." << endl;
+                cout << " No records were affected." << endl << endl << endl << endl;
+            }
+        } // if file is open
         else
         {
-            cout << endl << " -INFORMATION-" << endl << endl;
-            cout <<  " Delete operation canceled." << endl;
-            cout << " No records were affected." << endl << endl << endl << endl;
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+        } // end file not open
 
-            //Ask user to return a menu
-            PrintReturn();
-        }
+        //Ask user to return a menu
+        PrintReturn();
 
     } //end if
     else // Title not found
@@ -1529,11 +1529,16 @@ void DeleteByArtistYear(recordMember member)
                     break;
 
                 cout << endl << endl << " -INFORMATION-" << endl << endl;
-                cout << "The record for the index '" << position << "' can be deleted." << endl << endl << endl << endl;
+                cout << "The record for the index '" << position << "' can be deleted." << endl;
+
+                cout << "--------" << endl;
+                //Display record
+                record.readIt(file, position);
+                cout << record;
 
                 if(ConfirmDelete())
                 {
-                    DeleteRecord(file, position, primaryInx, artistInx, yearInx);
+                    DeleteRecord(file, position);
 
                     //Success!
                     cout << endl << " -INFORMATION-" << endl << endl;
@@ -1987,8 +1992,7 @@ bool CheckDeadFlags(fstream& input, int& pos)
 //--------------------------------------------------//
 //   Delete a record from binary file and indexes
 //--------------------------------------------------//
-void DeleteRecord(fstream& file, const int& pos, TitleIndex* primaryInx,
-                  ArtistIndex* artistInx, YearIndex* yearInx)
+void DeleteRecord(fstream& file, const int& pos)
 {
     MyClass record;
     //Read record

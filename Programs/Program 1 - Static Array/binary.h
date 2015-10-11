@@ -1,6 +1,6 @@
 /*
 File       : binary.h
-Program    : Program 2 - Dynamic Array Indexes
+Program    : Program 1 - Static Array Indexes
 Due Date   : October 12, 2015
 Author     : Justin Kirk
 Description: Header for binary.cpp

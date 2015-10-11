@@ -1,6 +1,6 @@
 /*
 File       : title.cpp
-Program    : Program 2 - Dynamic Array Indexes
+Program    : Program 1 - Static Array Indexes
 Due Date   : October 12, 2015
 Author     : Justin Kirk
 Description: Code for title data
@@ -31,7 +31,7 @@ bool TitleIndex::matchTitle(std::string inTitle, int& pos)
 //Return found or not
 bool TitleIndex::updateTitle(std::string oldTitle, std::string newTitle, int pos)
 {
-   for(int i = 1; i < (count + 1); ++i)
+    for(int i = 1; i < (count + 1); ++i)
     {
         if(TitleIndex::my_list[i].title == oldTitle)
         {
@@ -52,14 +52,12 @@ bool TitleIndex::addTitle(std::string inTitle, int pos)
     if(TitleIndex::matchTitle(inTitle, pos))
         return false;
     //Title does not exist so it is okay to add
-    if((TitleIndex::count + 1) == TitleIndex::capacity)
+    if((TitleIndex::count + 1) != 25)
     {
-         TitleIndex::resize();
+        int next_title = ++TitleIndex::count;
+        TitleIndex::my_list[next_title].title = inTitle;
+        TitleIndex::my_list[next_title].pos = pos;
     }
-
-    int next_title = ++TitleIndex::count;
-    TitleIndex::my_list[next_title].title = inTitle;
-    TitleIndex::my_list[next_title].pos = pos;
     return true;
 } // end addTitle
 
@@ -107,88 +105,54 @@ int TitleIndex::getDeadCount()
 {
     return my_list[0].pos;
 }
-//Get capacity
-int TitleIndex::getCapacity()
-{
-    return capacity;
-}
+
 //Set dead count
 void TitleIndex::setDeadCount(int count)
 {
     my_list[0].pos += count;
     dead_count += count;
 }
-//Create a new resized array
-//Delete old array
-void TitleIndex::resize()
-{
-    //Grow capacity 2 times
-    int new_capacity = 2*capacity;
-    //Create new list
-    MINI * my_new = new MINI[new_capacity];
-    //Default all spots
-    for(int hold = 0; hold < new_capacity; ++hold)
-    {
-        my_new[hold].title = "****";
-        my_new[hold].pos = 0;
-        my_new[hold].dead_flag = false;
-    }
-    //Fill in new list with current list items
-    for(int i =0; i < capacity; ++i)
-    {
-        my_new[i] = my_list[i];
-    }
-    //Set capacity
-    capacity = new_capacity;
-    //Delete old list
-    delete[] my_list;
-    //Set new list
-    my_list = my_new;
-
-} // end resize
 
 //Read sequential file and populate array
 void TitleIndex::readPrimary()
 {
     std::ifstream fin("my_primary_index.txt");
-        fin >> count;
-        capacity = count + 5;
-        my_list = new MINI[capacity];
+    fin >> count;
 
-        for(int hold = 0; hold < capacity; ++hold)
-        {
-            my_list[hold].title = "****";
-            my_list[hold].pos = 0;
-            my_list[hold].dead_flag = false;
-        }
+    for(int hold = 0; hold < 25; ++hold)
+    {
+        my_list[hold].title = "****";
+        my_list[hold].pos = 0;
+        my_list[hold].dead_flag = false;
+    }
 
-        for(int hold = 0; hold < capacity; ++hold)
-        {
-            fin >> my_list[hold].title >> my_list[hold].pos;
-            my_list[hold].dead_flag = false;
-        }
-        fin.close();
+    for(int hold = 0; hold < 25; ++hold)
+    {
+        fin >> my_list[hold].title >> my_list[hold].pos;
+        my_list[hold].dead_flag = false;
+    }
+    fin.close();
 } // end readPrimary
 
 //Write sequential file from array
 void TitleIndex::writePrimary()
 {
     std::ofstream fout("my_primary_index.txt");
-        int my_count = 0;
-        for(int i = 1; i < capacity; ++i)
+    int my_count = 0;
+    for(int i = 1; i < 25; ++i)
+    {
+        if(my_list[i].pos != 0 && !my_list[i].dead_flag)
         {
-            if(my_list[i].pos != 0 && !my_list[i].dead_flag)
-            {
-                ++my_count;
-            }
+            ++my_count;
         }
-        fout << my_count << std::endl;
-        for(int hold = 0; hold < (count + 1); ++hold)
-        {
-            if(!my_list[hold].dead_flag)
-                fout << my_list[hold].title << " "
-                     << my_list[hold].pos << std::endl;
-        }
-        fout.close();
+    }
+    fout << my_count << std::endl;
+    for(int hold = 0; hold < (count + 1); ++hold)
+    {
+        if(!my_list[hold].dead_flag)
+            fout << my_list[hold].title << " "
+                 << my_list[hold].pos << std::endl;
+    }
+    fout.close();
 } // end writePrimary
 

@@ -1,7 +1,7 @@
 
 /*
 File       : bulk.cpp
-Program    : Program 2 - Dynamic Array Indexes
+Program    : Program 1 - Static Array Indexes
 Due Date   : October 12, 2015
 Author     : Justin Kirk
 Description: Code for bulk
@@ -56,10 +56,10 @@ void Build()
         //Set position to 1
         long position = 1;
         //Create TitleIndex Index object
-        TitleIndex* primaryInx = new TitleIndex();
+        TitleIndex primaryInx;
         //Create Secondary Index objects
-        ArtistIndex* artistInx = new ArtistIndex();
-        YearIndex* yearInx = new YearIndex();
+        ArtistIndex artistInx;
+        YearIndex yearInx;
         //delimiter is a space
         string delimiter = " ";
         //size of string
@@ -136,11 +136,11 @@ void Build()
             me.writeIt(outputFile, position);
 
             //Pass TitleIndex Key information to TitleIndex Index(title, position)
-            primaryInx->addTitle(my_title, position);
+            primaryInx.addTitle(my_title, position);
 
             //Pass Secondary Key information to Secondary Index(artist or year, position)
-            artistInx->addArtist(my_artist, position);
-            yearInx->addYear(my_year, position);
+            artistInx.addArtist(my_artist, position);
+            yearInx.addYear(my_year, position);
 
             position++;
 
@@ -150,10 +150,10 @@ void Build()
         MyClass writeZeroRecord;
         writeZeroRecord.set_value(outputFile);
         //Write TitleIndex Index to a file (open file using ofstream)
-        delete primaryInx;
+        primaryInx.writePrimary();
         //Write Secondary Indexes to a file (open file using ofstream)
-        delete artistInx;
-        delete yearInx;
+        artistInx.writeSecondary();
+        yearInx.writeSecondary();
 
         //Close all files
         input.close();

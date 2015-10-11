@@ -207,8 +207,6 @@ void ArtistIndex::readSecondary()
             my_list[hold].pos[k] = 0;
     }
 
-    std::cout << capacity << std::endl;
-
     if (input.is_open())
     {
         //Set position to 1
@@ -229,8 +227,6 @@ void ArtistIndex::readSecondary()
         {
             //Read in a line from the sequential file
             getline (input,line);
-
-            //cout << line;
 
             //Defaults
             pos = 0;

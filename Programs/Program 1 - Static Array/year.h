@@ -1,6 +1,6 @@
 /*
 File       : year.h
-Program    : Program 2 - Dynamic Array Indexes
+Program    : Program 1 - Static Array Indexes
 Due Date   : October 12, 2015
 Author     : Justin Kirk
 Description: Header for year.cpp
@@ -20,31 +20,18 @@ private:
     {
         int year;
         int pos[11];
-    };
-    MINI * my_list;
-    int count, capacity;
+    } my_list[15];
+    int count;
 
 public:
-    YearIndex(): count(0), capacity(6) //only a default constructor
+    YearIndex(): count(0) //only a default constructor
     {
-        my_list = new MINI[capacity];
-
-        for(int i = 1; i < capacity; ++i)
+        for(int i = 1; i < 15; ++i)
         {
             my_list[i].year = 0;
             for(int k = 0; k < 11; ++k)
                 my_list[i].pos[k] = 0;
         }
-    }
-    YearIndex(int new_capacity): count(0)
-    {
-        readSecondary();
-    }
-
-    ~YearIndex()
-    {
-        writeSecondary();
-        delete[] my_list;
     }
 
     int get_year(int pos) const; // debugging tool
@@ -55,7 +42,6 @@ public:
     bool matchYear(int inYear, int& location);
     int * findYear(int inYear);
     bool deleteYear(int inYear, int pos);
-    void resize();
     void readSecondary();
     void writeSecondary();
 };

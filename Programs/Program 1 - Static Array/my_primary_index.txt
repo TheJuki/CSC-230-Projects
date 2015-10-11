@@ -1,2 +1,22 @@
-0
-**** 0
+20
+Dead_Count 4
+Nighthawks1 1
+Music1 2
+The_Thinker1 4
+Jackie1 5
+David1 6
+The_Raft_of_the_Medusa1 7
+Boat1 8
+Reclining_Figure1 9
+Fountain1 10
+Nighthawks2 11
+Music2 12
+The_Thinker2 14
+Jackie2 15
+David2 16
+Boat2 18
+Reclining_Figure2 19
+Fountain2 20
+Nighthawks3 21
+Music3 22
+The_Thinker3 24

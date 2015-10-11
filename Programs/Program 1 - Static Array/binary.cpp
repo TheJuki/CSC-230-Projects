@@ -1,6 +1,6 @@
 /*
 File       : binary.cpp
-Program    : Program 2 - Dynamic Array Indexes
+Program    : Program 1 - Static Array Indexes
 Due Date   : October 12, 2015
 Author     : Justin Kirk
 Description: Binary object - A record in the binary file

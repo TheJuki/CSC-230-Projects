@@ -1,6 +1,6 @@
 /*
 File       : artist.cpp
-Program    : Program 2 - Dynamic Array Indexes
+Program    : Program 1 - Static Array Indexes
 Due Date   : October 12, 2015
 Author     : Justin Kirk
 Description: Artist - secondary index
@@ -44,18 +44,17 @@ void ArtistIndex::addArtist(std::string inArtist, int my_key)
     else
     {
         //A duplicate year was not found
-        if((ArtistIndex::count + 1) == ArtistIndex::capacity)
+        if((ArtistIndex::count + 1) != 15)
         {
-            ArtistIndex::resize();
+            //Set the next year position
+            int next_artist = ++ArtistIndex::count;
+            //Set the year
+            ArtistIndex::my_list[next_artist].artist = inArtist;
+            //Set the first key
+            ArtistIndex::my_list[next_artist].pos[1] = my_key;
+            //Set zero record to 1
+            ArtistIndex::my_list[next_artist].pos[0] = 1;
         }
-        //Set the next year position
-        int next_artist = ++ArtistIndex::count;
-        //Set the year
-        ArtistIndex::my_list[next_artist].artist = inArtist;
-        //Set the first key
-        ArtistIndex::my_list[next_artist].pos[1] = my_key;
-        //Set zero record to 1
-        ArtistIndex::my_list[next_artist].pos[0] = 1;
     } // end else
 } // end addArtist
 
@@ -161,35 +160,6 @@ int * ArtistIndex::findArtist(std::string inArtist)
     return emptyArray;
 } // End findArtist
 
-
-//Create a new resized array
-//Delete old array
-void ArtistIndex::resize()
-{
-    //Grow capacity 2 times
-    int new_capacity = 2*capacity;
-    //Create new list
-    MINI * my_new = new MINI[new_capacity];
-    //Default all spots
-    for(int hold = 0; hold < new_capacity; ++hold)
-    {
-        my_new[hold].artist = "****";
-        for(int k = 0; k < 11; ++k)
-            my_new[hold].pos[k] = 0;
-    }
-    //Fill in new list with current list items
-    for(int i =0; i < capacity; ++i)
-    {
-        my_new[i] = my_list[i];
-    }
-    //Set capacity
-    capacity = new_capacity;
-    //Delete old list
-    delete[] my_list;
-    //Set new list
-    my_list = my_new;
-} // end resize
-
 //Read sequential file and populate array
 void ArtistIndex::readSecondary()
 {
@@ -197,17 +167,13 @@ void ArtistIndex::readSecondary()
     std::string line;
     getline (input,line);
     count = atoi(line.c_str());
-    capacity = count + 1;
-    my_list = new MINI[capacity];
 
-    for(int hold = 0; hold < capacity; ++hold)
+    for(int hold = 0; hold < 15; ++hold)
     {
         my_list[hold].artist = "****";
         for(int k = 0; k < 11; ++k)
             my_list[hold].pos[k] = 0;
     }
-
-    std::cout << capacity << std::endl;
 
     if (input.is_open())
     {
@@ -276,7 +242,7 @@ void ArtistIndex::writeSecondary()
 {
     std::ofstream fout("my_artist_index.txt");
     int my_count = 0;
-    for(int i = 1; i < capacity; ++i)
+    for(int i = 1; i < 15; ++i)
     {
         if(my_list[i].pos[0] != 0)
         {
@@ -290,7 +256,7 @@ void ArtistIndex::writeSecondary()
     std::string numOfKeys;
 
     //For each item in my_list
-    for(int i = 1; i < capacity; ++i)
+    for(int i = 1; i < 15; ++i)
     {
         //Default
         buildLine = " ";
