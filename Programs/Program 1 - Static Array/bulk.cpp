@@ -35,7 +35,6 @@ void CheckBulkFile()
     //If file does not exist, create it
     if(!tryIt)
     {
-        //tryIt.close();
         Build();
     }
     tryIt.close();
