@@ -220,10 +220,10 @@ int Formula_1(string M)
     int length = M.length();
     int factor = 1;
 
-    for (int N = 1; N <= length; ++N)
+    for (int i = 0; i < length; ++i)
     {
-        factor = N;
-        sum += factor*M[N];
+        sum += factor*M[i];
+        ++factor;
     }
 
     return sum % 73;
@@ -236,9 +236,9 @@ int Formula_2(string M)
     int length = M.length();
     int factor = length;
 
-    for (int N = 1; N <= length; ++N)
+    for (int i = 0; i < length; ++i)
     {
-        sum += factor*M[N];
+        sum += factor*M[i];
         --factor;
     }
 
@@ -250,13 +250,15 @@ int Formula_2(string M)
 int Formula_3(string M)
 {
     int sum = 0;
-    int factor;
+    int factor = 0;
     int length = M.length();
+    int N = 1;
 
-    for (int N = 1; N <= length; ++N)
+    for (int i = 0; i < length; ++i)
     {
         factor = (2*N)+1;
-        sum += factor*M[N];
+        sum += factor*M[i];
+        ++N;
     }
 
     return sum % 73;
@@ -295,7 +297,7 @@ int MatchHash(int array[][3], int column, int numOfrows, int hash)
         if(array[i][column] == hash)
         {
             //Found
-            cout <<  "Collision " << "Column: " << column << " Hash: "<< hash << endl;
+            //cout <<  "Collision " << "Column: " << column << " Hash: "<< hash << endl;
             return 1;
         }
     } // end for
