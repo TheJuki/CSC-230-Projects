@@ -208,3 +208,58 @@
 	"year.h"
 	"binary.h"
 
+1444667959 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\artist.cpp
+	"artist.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+
+1444667959 c:\users\justin\documents\github\csc-230-projects\programs\program 2\artist.h
+	<iostream>
+	<fstream>
+
+1444667961 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\binary.cpp
+	"binary.h"
+	<stdlib.h>
+	<sstream>
+	<string>
+	<fstream>
+
+1444667961 c:\users\justin\documents\github\csc-230-projects\programs\program 2\binary.h
+	<string>
+	<cstring>
+	<fstream>
+
+1444667961 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\console.cpp
+	<string>
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	"title.h"
+	"artist.h"
+	"year.h"
+	"binary.h"
+
+1444667961 c:\users\justin\documents\github\csc-230-projects\programs\program 2\title.h
+	<fstream>
+	<string>
+	<iostream>
+
+1444667961 c:\users\justin\documents\github\csc-230-projects\programs\program 2\year.h
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+
+1444667961 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\title.cpp
+	"title.h"
+	<stdlib.h>
+
+1444667961 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\year.cpp
+	"year.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+

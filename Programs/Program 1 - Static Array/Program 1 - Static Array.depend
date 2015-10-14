@@ -64,3 +64,68 @@
 	<sstream>
 	<stdlib.h>
 
+1444667956 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\artist.cpp
+	"artist.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+
+1444667956 c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\artist.h
+	<iostream>
+	<fstream>
+
+1444667958 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\binary.cpp
+	"binary.h"
+	<stdlib.h>
+	<sstream>
+	<string>
+	<fstream>
+
+1444667958 c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\binary.h
+	<string>
+	<cstring>
+	<fstream>
+
+1444667958 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\console.cpp
+	<string>
+	<iostream>
+	<fstream>
+	<stdlib.h>
+	"title.h"
+	"artist.h"
+	"year.h"
+	"binary.h"
+
+1444667958 c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\title.h
+	<fstream>
+	<string>
+	<iostream>
+
+1444667958 c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\year.h
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+
+1444667958 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\title.cpp
+	"title.h"
+	<stdlib.h>
+
+1444667958 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\year.cpp
+	"year.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+
+1444682925 source:c:\users\justin\documents\github\csc-230-projects\programs\program 1 - static array\bulk.cpp
+	"binary.h"
+	"artist.h"
+	"year.h"
+	"title.h"
+	<iostream>
+	<string>
+	<fstream>
+	<cstdlib>
+
