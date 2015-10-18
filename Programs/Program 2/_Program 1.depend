@@ -143,20 +143,20 @@
 	<sstream>
 	<stdlib.h>
 
-1444521421 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\artist.cpp
+1445131098 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
-	<stdlib.h>
+	<cstdlib>
 
 1444517441 c:\users\theju\documents\github\csc-230-projects\programs\program 2\artist.h
 	<iostream>
 	<fstream>
 
-1444517462 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\binary.cpp
+1445131106 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\binary.cpp
 	"binary.h"
-	<stdlib.h>
+	<cstdlib>
 	<sstream>
 	<string>
 	<fstream>
@@ -166,7 +166,7 @@
 	<cstring>
 	<fstream>
 
-1444517469 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\bulk.cpp
+1444830340 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -176,33 +176,33 @@
 	<fstream>
 	<cstdlib>
 
-1444517390 c:\users\theju\documents\github\csc-230-projects\programs\program 2\year.h
+1445131111 c:\users\theju\documents\github\csc-230-projects\programs\program 2\year.h
 	<iostream>
 	<fstream>
 	<sstream>
-	<stdlib.h>
+	<cstdlib>
 
 1444586211 c:\users\theju\documents\github\csc-230-projects\programs\program 2\title.h
 	<fstream>
 	<string>
 	<iostream>
 
-1444586404 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\title.cpp
+1445131121 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\title.cpp
 	"title.h"
-	<stdlib.h>
+	<cstdlib>
 
-1444521445 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\year.cpp
+1445131128 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\year.cpp
 	"year.h"
 	<iostream>
 	<fstream>
 	<sstream>
-	<stdlib.h>
+	<cstdlib>
 
-1444586632 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\console.cpp
+1445131116 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\console.cpp
 	<string>
 	<iostream>
 	<fstream>
-	<stdlib.h>
+	<cstdlib>
 	"title.h"
 	"artist.h"
 	"year.h"

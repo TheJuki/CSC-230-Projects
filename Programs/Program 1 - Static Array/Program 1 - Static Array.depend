@@ -1,18 +1,18 @@
 # depslib dependency file v1.0
-1444521470 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\artist.cpp
+1445131141 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
-	<stdlib.h>
+	<cstdlib>
 
 1444587161 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\artist.h
 	<iostream>
 	<fstream>
 
-1444521152 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\binary.cpp
+1445131145 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\binary.cpp
 	"binary.h"
-	<stdlib.h>
+	<cstdlib>
 	<sstream>
 	<string>
 	<fstream>
@@ -22,7 +22,7 @@
 	<cstring>
 	<fstream>
 
-1444521901 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\bulk.cpp
+1445131043 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -32,30 +32,30 @@
 	<fstream>
 	<cstdlib>
 
-1444587175 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\year.h
+1445131149 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\year.h
 	<iostream>
 	<fstream>
 	<sstream>
-	<stdlib.h>
+	<cstdlib>
 
 1444586821 c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\title.h
 	<fstream>
 	<string>
 	<iostream>
 
-1444586964 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\console.cpp
+1445131155 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\console.cpp
 	<string>
 	<iostream>
 	<fstream>
-	<stdlib.h>
+	<cstdlib>
 	"title.h"
 	"artist.h"
 	"year.h"
 	"binary.h"
 
-1444586888 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\title.cpp
+1445131161 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\title.cpp
 	"title.h"
-	<stdlib.h>
+	<cstdlib>
 
 1444521795 source:c:\users\theju\documents\github\csc-230-projects\programs\program 1 - static array\year.cpp
 	"year.h"
