@@ -7,7 +7,7 @@ Description: Binary object - A record in the binary file
 */
 
 #include "binary.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include <sstream>
 #include <string>
 #include <fstream>

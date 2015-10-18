@@ -10,7 +10,7 @@ Description: Artist - secondary index
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <stdlib.h>
+#include <cstdlib>
 
 //Return artist for a given position
 std::string ArtistIndex::get_artist(int pos) const

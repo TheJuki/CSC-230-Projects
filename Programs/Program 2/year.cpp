@@ -10,7 +10,7 @@ Description: Code for year data
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <stdlib.h>
+#include <cstdlib>
 
 //Return year for a given position
 int YearIndex::get_year(int pos) const

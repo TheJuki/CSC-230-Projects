@@ -7,7 +7,7 @@ Description: Code for title data
 */
 
 #include "title.h"
-#include <stdlib.h>
+#include <cstdlib>
 
 //Print array to screen
 void TitleIndex::outputKey()

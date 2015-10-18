@@ -11,7 +11,7 @@ Description: Header for year.cpp
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <stdlib.h>
+#include <cstdlib>
 
 class YearIndex
 {

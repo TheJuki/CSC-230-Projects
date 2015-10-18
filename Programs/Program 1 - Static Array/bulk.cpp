@@ -13,7 +13,7 @@ Description: Code for bulk
 #include "title.h"
 #include <iostream>
 #include <string>
-#include<fstream>
+#include <fstream>
 #include <cstdlib>
 
 //Prototypes
