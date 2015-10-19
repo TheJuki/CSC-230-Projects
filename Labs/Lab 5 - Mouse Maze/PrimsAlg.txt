@@ -1,0 +1,13 @@
+Prim's Alg
+(MST)Min_spanning_tree = start_node;
+    while min_spanning_tree != all nodes
+        Add Ni to MST with Edge E;
+        if Ej connects Ni (not in MST)
+            to Nk (in MST) and it is the shortest edge
+
+Kruskal's Alg
+
+start:
+    Every node in its own set
+    PQ has all edges by edge weight
+    Form joined sets by edges

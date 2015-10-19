@@ -32,7 +32,9 @@ int main()
      points.x = 5;
     points.y = 10;
     path.push(points);
-    cout << path.;
+    path.pop();
+    path.pop();
+    cout << path.size();
     //200 rows
     int rows = 200;
     //200 columns
