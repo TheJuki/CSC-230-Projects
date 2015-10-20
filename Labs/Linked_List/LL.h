@@ -30,8 +30,10 @@ public:
     }
 
     void killList();
+    Node* getNote();
     bool Add(string d, int k);
     bool Delete(string d);
+    string outputList();
 
 };
 

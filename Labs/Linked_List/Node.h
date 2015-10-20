@@ -21,6 +21,11 @@ public:
     {
         next = prev = NULL;
     }
+
+    string getData();
+    int getYear();
+    Node* getNext();
+    Node* getPrev();
 };
 
 #endif
