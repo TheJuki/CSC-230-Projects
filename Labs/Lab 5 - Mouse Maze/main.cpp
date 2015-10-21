@@ -7,7 +7,12 @@ Description: Lab 5...
 */
 
 #include <iostream>
+#include <string>
+#include <sstream>
+#include <fstream>
 #include <stack>
+
+void setupMaze(char mazeArray[][200]);
 
 struct MINI
 {
@@ -26,6 +31,7 @@ using namespace std;
 int main()
 {
     stack<MINI> path;
+    /*
     points.x = 1;
     points.y = 2;
     path.push(points);
@@ -35,12 +41,13 @@ int main()
     path.pop();
     path.pop();
     cout << path.size();
+    */
     //200 rows
     int rows = 200;
     //200 columns
     int columns = 200;
     //Initialize array
-    char array[200][200];
+    char mazeArray[200][200];
     //Current line
     string line = "";
 
@@ -53,10 +60,73 @@ int main()
         line = "";
         for (int c = 0; c < columns; ++c)
         {
-            array[r][c]= '|';
+            mazeArray[r][c]= '|';
         } // end for
 
     } // end for
 
     return 0;
 }
+
+void setupMaze(char mazeArray[][200])
+{
+ std::ifstream input("input.txt");
+    int rowCount = 0;
+    int columnCount = 0;
+    input >> rowCount >> columnCount;
+
+    if (input.is_open())
+    {
+        //delimiter is a space
+        std::string delimiter = " ";
+        //size of string
+        size_t pos = 0;
+        //Line in file as a string
+        std::string line;
+        //string of part
+        std::string part;
+
+        while(!input.eof())
+        {
+            //Read in a line from the sequential file
+            getline (input,line);
+
+            //Defaults
+            pos = 0;
+            part = "";
+
+            //Get MAZE
+           for(int i = 0; i < columnCount; ++i)
+            {
+                if((pos = line.find(delimiter)) != std::string::npos)
+                {
+                    part = line.substr(0, pos);
+                    ArtistIndex::my_list[position].pos[i] = atoi(part.c_str());
+                    line.erase(0, pos + delimiter.length());
+                }
+            }
+            //Get artist name
+            if ((pos = line.find(delimiter)) != std::string::npos)
+            {
+                part = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+                ArtistIndex::my_list[position].artist = part;
+            }
+            //Set pos to keys in line
+            for(int i = 1; i < (numOfKeys + 1); ++i)
+            {
+                if((pos = line.find(delimiter)) != std::string::npos)
+                {
+                    part = line.substr(0, pos);
+                    ArtistIndex::my_list[position].pos[i] = atoi(part.c_str());
+                    line.erase(0, pos + delimiter.length());
+                }
+            }
+
+            //position++
+            position++;
+
+        } // End eof while
+        input.close();
+    } // end if
+} // end setupMaze
