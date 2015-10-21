@@ -71,7 +71,7 @@ int main()
     } // end for
 
     setupMaze(mazeArray);
-    cout << mazeArray[1][1] << endl;
+    //cout << mazeArray[1][1] << endl;
 
     return 0;
 }
@@ -101,6 +101,7 @@ void setupMaze(char mazeArray[][200])
             for(int k = 0; k < columnCount; ++k)
             {
                 part = line.substr(0, 1);
+                cout << i << k;
                 mazeArray[i][k] = part.c_str()[0];
                 line.erase(0, 1);
             }
@@ -114,7 +115,20 @@ void setupMaze(char mazeArray[][200])
         input >> cheeseX >> cheeseY;
 
         mazeArray[cheeseX][cheeseY] = '#';
+        cout << cheeseX << " " << cheeseY << endl;
 
         input.close();
+
+        //Draw maze
+        mazeArray[mouse.x][mouse.y] = '@';
+
+        for(int i = 0; i < rowCount+1; ++i)
+        {
+            cout << endl;
+            for(int k = 0; k < columnCount; ++k)
+            {
+                cout << mazeArray[i][k];
+            }
+        }
     } // end if
 } // end setupMaze
