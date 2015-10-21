@@ -20,3 +20,24 @@
 	"Node.h"
 	<string>
 
+1445391565 source:c:\users\theju\documents\github\csc-230-projects\labs\linked_list\ll.cpp
+	<string>
+	"LL.h"
+	<iostream>
+
+1445391565 c:\users\theju\documents\github\csc-230-projects\labs\linked_list\ll.h
+	"Node.h"
+	<string>
+
+1444435984 c:\users\theju\documents\github\csc-230-projects\labs\linked_list\node.h
+	"Node.h"
+	<string>
+
+1445391565 source:c:\users\theju\documents\github\csc-230-projects\labs\linked_list\main.cpp
+	<iostream>
+	<string>
+	"LL.h"
+
+1444435984 source:c:\users\theju\documents\github\csc-230-projects\labs\linked_list\node.cpp
+	"Node.h"
+

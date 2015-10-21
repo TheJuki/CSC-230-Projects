@@ -65,6 +65,11 @@ int main()
 
 
     delete linkedList;
+
+    string s;
+    cout << endl << "Press Enter to Exit";
+    getline(cin, s);
+
     return 0;
 }
 
