@@ -98,7 +98,7 @@ void setupMaze(char mazeArray[][200])
         {
             getline (input,line);
 
-            for(int k = 0; k < columnCount+1; ++k)
+            for(int k = 0; k < columnCount; ++k)
             {
                 part = line.substr(0, 1);
                 mazeArray[i][k] = part.c_str()[0];
