@@ -34,7 +34,6 @@
 		</Compiler>
 		<Unit filename="LL.cpp" />
 		<Unit filename="LL.h" />
-		<Unit filename="Node.cpp" />
 		<Unit filename="Node.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
