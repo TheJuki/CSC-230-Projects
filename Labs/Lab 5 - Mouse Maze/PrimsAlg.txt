@@ -11,3 +11,12 @@ start:
     Every node in its own set
     PQ has all edges by edge weight
     Form joined sets by edges
+
+A tree is a acyclic data structure with a unique Node playing the role of the root.
+Nodes are "connected" via pointers (if not array based)
+
+A threaded binary search tree has cycles (lots of them)!
+
+A binary search tree (bst) is a binary tree that satisfies the ordering property
+that says all nodes in a given tree, left subtree have values less than the root value
+(of that subtree) and those in the right subtree have values >= the root value (of that subtree)

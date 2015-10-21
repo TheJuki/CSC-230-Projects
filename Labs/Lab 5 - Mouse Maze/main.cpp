@@ -20,10 +20,16 @@ struct MINI
     int y;
 } points;
 
+struct Mouse
+{
+    int x;
+    int y;
+} mouse;
+
 std::ostream& operator<< (std::ostream &out, const MINI &p)
 {
-  out << p.x << " " << p.y << std::endl;
-  return out;
+    out << p.x << " " << p.y << std::endl;
+    return out;
 }
 
 using namespace std;
@@ -60,73 +66,55 @@ int main()
         line = "";
         for (int c = 0; c < columns; ++c)
         {
-            mazeArray[r][c]= '|';
+            mazeArray[r][c]= '0';
         } // end for
-
     } // end for
+
+    setupMaze(mazeArray);
+    cout << mazeArray[1][1] << endl;
 
     return 0;
 }
 
 void setupMaze(char mazeArray[][200])
 {
- std::ifstream input("input.txt");
-    int rowCount = 0;
-    int columnCount = 0;
-    input >> rowCount >> columnCount;
+    std::ifstream input("input.txt");
 
     if (input.is_open())
     {
+         int rowCount = 0;
+        int columnCount = 0;
+        input >> rowCount >> columnCount;
         //delimiter is a space
         std::string delimiter = " ";
         //size of string
-        size_t pos = 0;
         //Line in file as a string
         std::string line;
         //string of part
         std::string part;
 
-        while(!input.eof())
+        //Get MAZE
+        for(int i = 0; i < rowCount+1; ++i)
         {
-            //Read in a line from the sequential file
             getline (input,line);
 
-            //Defaults
-            pos = 0;
-            part = "";
-
-            //Get MAZE
-           for(int i = 0; i < columnCount; ++i)
+            for(int k = 0; k < columnCount+1; ++k)
             {
-                if((pos = line.find(delimiter)) != std::string::npos)
-                {
-                    part = line.substr(0, pos);
-                    ArtistIndex::my_list[position].pos[i] = atoi(part.c_str());
-                    line.erase(0, pos + delimiter.length());
-                }
+                part = line.substr(0, 1);
+                mazeArray[i][k] = part.c_str()[0];
+                line.erase(0, 1);
             }
-            //Get artist name
-            if ((pos = line.find(delimiter)) != std::string::npos)
-            {
-                part = line.substr(0, pos);
-                line.erase(0, pos + delimiter.length());
-                ArtistIndex::my_list[position].artist = part;
-            }
-            //Set pos to keys in line
-            for(int i = 1; i < (numOfKeys + 1); ++i)
-            {
-                if((pos = line.find(delimiter)) != std::string::npos)
-                {
-                    part = line.substr(0, pos);
-                    ArtistIndex::my_list[position].pos[i] = atoi(part.c_str());
-                    line.erase(0, pos + delimiter.length());
-                }
-            }
+        }
 
-            //position++
-            position++;
+        //Get Mouse position
+        input >> mouse.x >> mouse.y;
 
-        } // End eof while
+        //Get Cheese position
+        int cheeseX, cheeseY;
+        input >> cheeseX >> cheeseY;
+
+        mazeArray[cheeseX][cheeseY] = '#';
+
         input.close();
     } // end if
 } // end setupMaze
