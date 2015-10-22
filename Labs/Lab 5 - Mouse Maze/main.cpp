@@ -83,7 +83,7 @@ void setupMaze(char mazeArray[][200])
 
     if (input.is_open())
     {
-         int rowCount = 0;
+        int rowCount = 0;
         int columnCount = 0;
         //delimiter is a space
         std::string delimiter = " ";
@@ -93,17 +93,17 @@ void setupMaze(char mazeArray[][200])
         //string of part
         std::string part;
         //size of string
-         size_t pos = 0;
+        size_t pos = 0;
 
         getline (input,line);
-         //Get rows
-            if ((pos = line.find(delimiter)) != std::string::npos)
-            {
-                part = line.substr(0, pos);
-                line.erase(0, pos + delimiter.length());
-                rowCount = atoi(part.c_str());
-                columnCount = atoi(line.c_str());
-            }
+        //Get rows
+        if ((pos = line.find(delimiter)) != std::string::npos)
+        {
+            part = line.substr(0, pos);
+            line.erase(0, pos + delimiter.length());
+            rowCount = atoi(part.c_str());
+            columnCount = atoi(line.c_str());
+        }
 
         //Get MAZE
         for(int i = 0; i < rowCount; ++i)
@@ -120,28 +120,28 @@ void setupMaze(char mazeArray[][200])
 
         //Get Mouse position
         getline (input,line);
-         //Get mouseX and mouseY
-            if ((pos = line.find(delimiter)) != std::string::npos)
-            {
-                part = line.substr(0, pos);
-                line.erase(0, pos + delimiter.length());
-                mouse.x = atoi(part.c_str());
-                mouse.y = atoi(line.c_str());
-            }
+        //Get mouseX and mouseY
+        if ((pos = line.find(delimiter)) != std::string::npos)
+        {
+            part = line.substr(0, pos);
+            line.erase(0, pos + delimiter.length());
+            mouse.x = atoi(part.c_str());
+            mouse.y = atoi(line.c_str());
+        }
 
         //Get Cheese position
         getline (input,line);
         int cheeseX = 0;
         int cheeseY = 0;
 
-         //Get cheeseX
-            if ((pos = line.find(delimiter)) != std::string::npos)
-            {
-                part = line.substr(0, pos);
-                line.erase(0, pos + delimiter.length());
-                cheeseX = atoi(part.c_str());
-                cheeseY = atoi(line.c_str());
-            }
+        //Get cheeseX and cheeseY
+        if ((pos = line.find(delimiter)) != std::string::npos)
+        {
+            part = line.substr(0, pos);
+            line.erase(0, pos + delimiter.length());
+            cheeseX = atoi(part.c_str());
+            cheeseY = atoi(line.c_str());
+        }
         mazeArray[cheeseX][cheeseY] = '#';
 
         input.close();
