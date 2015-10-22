@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1445467534 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 5 - mouse maze\main.cpp
+1445542093 source:c:\users\justin\documents\github\csc-230-projects\labs\lab 5 - mouse maze\main.cpp
 	<iostream>
 	<string>
 	<sstream>
 	<fstream>
 	<stack>
+	<cstdlib>
 
