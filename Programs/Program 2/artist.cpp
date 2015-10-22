@@ -223,7 +223,7 @@ void ArtistIndex::readSecondary()
         int numOfKeys = 0;
 
         //while(not sequential.eof())
-        while(!input.eof() && position != 15)
+        while(!input.eof() && position != capacity)
         {
             //Read in a line from the sequential file
             getline (input,line);

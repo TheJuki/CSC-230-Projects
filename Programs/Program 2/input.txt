@@ -2,7 +2,7 @@ Nighthawks1 Hopper Print 1942 330 22
 Music1 Klimt Print 1895 500 8
 Medusa1 Gericault Print 1918 100 9
 The_Thinker1 Rodin Sculpture 1889 450 12
-Jackie1 Warhol Print 1964 260 14
+Jackie1 Warhol Print 1942 260 14
 David1 Michelangelo Sculpture 1504 340 10
 The_Raft_of_the_Medusa1 Gericault Canvas 1819 180 25
 Boat1 Dali Print 1934 400 6
