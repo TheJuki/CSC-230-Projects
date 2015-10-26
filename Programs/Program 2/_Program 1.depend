@@ -208,7 +208,7 @@
 	"year.h"
 	"binary.h"
 
-1445286417 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\artist.cpp
+1445542177 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
@@ -231,7 +231,7 @@
 	<cstring>
 	<fstream>
 
-1445463412 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\console.cpp
+1445463475 source:c:\users\justin\documents\github\csc-230-projects\programs\program 2\console.cpp
 	<string>
 	<iostream>
 	<fstream>

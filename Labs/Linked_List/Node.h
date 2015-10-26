@@ -1,6 +1,13 @@
+/*
+File       : Node.h
+Program    : Homework 3 Linked List
+Due Date   : October 20, 2015
+Author     : Justin Kirk
+Description: Header Node
+*/
+
 #ifndef Node_H
 #define Node_H
-#include "Node.h"
 #include <string>
 
 using namespace std;

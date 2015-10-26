@@ -43,8 +43,6 @@ bool LL::AddIn(string d, int k)
             return false;
         if(wp->data>d)
         {
-            //Node * p = Node(d,k);
-            //new not added by Whitson - BONUS
             Node * p = new Node(d,k);
             p->prev = wp->prev;
             p->next = wp;
@@ -168,6 +166,7 @@ bool LL::DeleteHead()
     pDelete = h;
     h = pDelete->next;
     delete pDelete;
+    --size;
     return true;
 }
 
@@ -177,6 +176,7 @@ bool LL::DeleteTail()
     pDelete = t;
     t = pDelete->prev;
     delete pDelete;
+    --size;
     return true;
 }
 
@@ -212,10 +212,11 @@ bool LL::Delete(string d)
 
             if (pDelete == t)
             {
-                DeleteTail();
+                return DeleteTail();
             }
             delete pDelete;
             isDeleted = true;
+            --size;
             break;
         }
         pHold = pDelete;
