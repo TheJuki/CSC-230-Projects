@@ -83,8 +83,22 @@ bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
                 {
                     ArtistIndex::my_list[location].artist = "0";
                 }
+                break;
             } //end if
         } // end for
+
+        //Readjust list
+        if(ArtistIndex::my_list[location].pos[0] != 0)
+        {
+             for(int k = 1; k <= ArtistIndex::my_list[location].pos[0]; ++k)
+            {
+                if(ArtistIndex::my_list[location].pos[k] == 0)
+                {
+                    ArtistIndex::my_list[location].pos[k] = ArtistIndex::my_list[location].pos[k+1];
+                }
+            } // end for
+        } // end if
+
     } // end if
     return foundArtist;
 } // end deleteArtist
