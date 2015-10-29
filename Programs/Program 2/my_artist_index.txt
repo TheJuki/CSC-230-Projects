@@ -1,4 +1,4 @@
-9
+10
 1 Hopper 1 
 1 Klimt 2 
 2 Gericault 3 7 
@@ -7,4 +7,5 @@
 1 Michelangelo 6 
 1 Dali 8 
 1 Moore 9 
-1 Duchamp 10 
+2 Duchamp 10 11 
+1 Duchamp2 12 

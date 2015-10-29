@@ -143,7 +143,7 @@
 	<sstream>
 	<stdlib.h>
 
-1445131098 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\artist.cpp
+1446082724 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
@@ -191,14 +191,14 @@
 	"title.h"
 	<cstdlib>
 
-1445131128 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\year.cpp
+1446083177 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\year.cpp
 	"year.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<cstdlib>
 
-1445131116 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\console.cpp
+1446083025 source:c:\users\theju\documents\github\csc-230-projects\programs\program 2\console.cpp
 	<string>
 	<iostream>
 	<fstream>
