@@ -50,7 +50,7 @@ private:
         }
         ~Title() {writeFile(); killList();}
 
-        bool SetTitlePos(std::string T, int P);
+        bool setTitlePos(std::string T, int P);
         bool findTitle(std::string T, int& P);
         void changeTitle(std::string oldTitle, std::string newTitle);
         void deleteTitle(std::string T, int P);
