@@ -1,7 +1,16 @@
-#include "Title.h"
+/*
+File       : title.cpp
+Program    : Program 3 - Sorted Double Linked-List
+Due Date   : November 16, 2015
+Author     : Justin Kirk
+Description: Code for title data
+*/
+
+#include "title.h"
+
 using namespace std;
 
-void Title::killList()
+void TitleIndex::killList()
 {
     Node * wp = head;
     Node * hold;
@@ -16,12 +25,25 @@ void Title::killList()
     size = 0;
 }
 
-void Title::writeFile()
+void TitleIndex::getAllTitles()
+{
+     Node * wp = head->next;
+
+    cout << size << endl;
+    while(wp != NULL)
+    {
+        cout << wp->title << " " << wp->pos << endl;
+        wp = wp->next;
+    } //end while
+}
+
+
+void TitleIndex::writeFile()
 {
     Node * wp = head->next;
     ofstream fout("title_index.txt");
     fout << size << endl;
-    while(wp != tail)
+    while(wp != NULL)
     {
         fout << wp->title << " " << wp->pos << endl;
         wp = wp->next;
@@ -29,7 +51,7 @@ void Title::writeFile()
     fout.close();
 }
 
-void Title::readFile()
+void TitleIndex::readFile()
 {
     Node * wp = head;
     Node * hold;
@@ -39,7 +61,7 @@ void Title::readFile()
     ifstream fin("title_index.txt");
     fin >> size;
     wp = head;
-    for(unsigned int i = 0; i < size; ++i)
+    for(unsigned int i = 0; i < size+1; ++i)
     {
         fin >> newTitle >> newPos;
         hold = new Node(newTitle, newPos);
@@ -52,7 +74,7 @@ void Title::readFile()
     fin.close();
 }
 
-void Title::deleteTitleByTitle(string T)
+void TitleIndex::deleteTitleByTitle(string T)
 {
     Node * wp = head->next;
     while(wp != tail)
@@ -73,7 +95,7 @@ void Title::deleteTitleByTitle(string T)
     return;
 }
 
-void Title::deleteTitleByPosition(int P)
+void TitleIndex::deleteTitleByPosition(int P)
 {
     Node * wp = head->next;
     while(wp != NULL)
@@ -93,7 +115,7 @@ void Title::deleteTitleByPosition(int P)
     } //end while
 }
 
-void Title::deleteTitle(string T, int P)
+void TitleIndex::deleteTitle(string T, int P)
 {
     if(P>0)
         deleteTitleByPosition(P);
@@ -102,7 +124,7 @@ void Title::deleteTitle(string T, int P)
     return;
 }
 
-bool Title::setTitlePos(string T, int P)
+bool TitleIndex::addTitle(string T, int P)
 {
     int hold = 0;
     if(!findTitle(T, hold))
@@ -118,7 +140,7 @@ bool Title::setTitlePos(string T, int P)
     return true;
 }
 
-bool Title::findTitle(string T, int& P)
+bool TitleIndex::findTitle(string T, int& P)
 {
     Node * wp = head->next;
 
@@ -129,12 +151,13 @@ bool Title::findTitle(string T, int& P)
             P = wp->pos;
             return true;
         }
-        P = -1;
-        return false;
+         wp = wp->next;
     } // end while
+      P = 0;
+      return false;
 }
 
-void Title::changeTitle(string oldtitle, string newTitle)
+void TitleIndex::updateTitle(string oldtitle, string newTitle)
 {
     Node * wp = head->next;
 
@@ -148,4 +171,15 @@ void Title::changeTitle(string oldtitle, string newTitle)
     } // end while
 }
 
+int TitleIndex::getSize()
+{
+    return size;
+}
+int TitleIndex::getDeadCount()
+{
+    return 0;
+}
+void TitleIndex::setDeadCount(int count)
+{
 
+}

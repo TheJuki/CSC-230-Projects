@@ -1,3 +1,11 @@
+/*
+File       : title.h
+Program    : Program 3 - Sorted Double Linked-List
+Due Date   : November 16, 2015
+Author     : Justin Kirk
+Description: Header for title.cpp
+*/
+
 #ifndef TITLE_H
 #define TITLE_H
 #include <fstream>
@@ -7,7 +15,7 @@
 #include <cstdlib>
 #include <cctype>
 
-class Title{
+class TitleIndex{
 
 private:
     class Node {
@@ -32,7 +40,7 @@ private:
     void deleteTitleByPosition(int P);
 
     public:
-        Title()
+        TitleIndex()
         {
             head = new Node(" ", -1);
             tail = new Node("~", -1);
@@ -40,7 +48,7 @@ private:
             tail->prev = head;
             size = 0;
         }
-        Title(unsigned int InSize):size(InSize)
+        TitleIndex(unsigned int InSize):size(InSize)
         {
             head = new Node(" ", -1);
             tail = new Node("~", -1);
@@ -48,11 +56,15 @@ private:
             tail->prev = head;
             readFile();
         }
-        ~Title() {writeFile(); killList();}
+        ~TitleIndex() {writeFile(); killList();}
 
-        bool setTitlePos(std::string T, int P);
+        bool addTitle(std::string T, int P);
         bool findTitle(std::string T, int& P);
-        void changeTitle(std::string oldTitle, std::string newTitle);
+        void updateTitle(std::string oldTitle, std::string newTitle);
         void deleteTitle(std::string T, int P);
+        int getDeadCount();
+        void setDeadCount(int count);
+        void getAllTitles();
+        int getSize();
 };
 #endif // TITLE_H
