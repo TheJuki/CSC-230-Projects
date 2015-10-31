@@ -6,7 +6,7 @@ void Title::killList()
     Node * wp = head;
     Node * hold;
 
-    while(wp != NILL)
+    while(wp != NULL)
     {
         hold = wp;
         wp = wp->next;
@@ -26,7 +26,7 @@ void Title::writeFile()
         fout << wp->title << " " << wp->pos << endl;
         wp = wp->next;
     } //end while
-    fout.close;
+    fout.close();
 }
 
 void Title::readFile()
@@ -73,5 +73,79 @@ void Title::deleteTitleByTitle(string T)
     return;
 }
 
+void Title::deleteTitleByPosition(int P)
+{
+    Node * wp = head->next;
+    while(wp != NULL)
+    {
+        if(wp->pos == P)
+        {
+            wp->prev->next = wp->next;
+            wp->next->prev = wp->prev;
+            delete wp;
+            size--;
+            return;
+        }
+        else
+        {
+            wp = wp->next;
+        }
+    } //end while
+}
+
+void Title::deleteTitle(string T, int P)
+{
+    if(P>0)
+        deleteTitleByPosition(P);
+    if(T.length() > 1)
+        deleteTitleByTitle(T);
+    return;
+}
+
+bool Title::setTitlePos(string T, int P)
+{
+    int hold = 0;
+    if(!findTitle(T, hold))
+    {
+        Node * hold = new Node(T, P);
+        hold->next = NULL;
+        hold->prev = tail;
+        tail->next = hold;
+        tail = hold;
+        size += 1;
+        return true;
+    }
+    return true;
+}
+
+bool Title::findTitle(string T, int& P)
+{
+    Node * wp = head->next;
+
+    while(wp != NULL)
+    {
+        if(wp->title == T)
+        {
+            P = wp->pos;
+            return true;
+        }
+        P = -1;
+        return false;
+    } // end while
+}
+
+void Title::changeTitle(string oldtitle, string newTitle)
+{
+    Node * wp = head->next;
+
+    while(wp != NULL)
+    {
+        if(wp->title == oldtitle)
+        {
+            wp->title = newTitle;
+            return;
+        }
+    } // end while
+}
 
 
