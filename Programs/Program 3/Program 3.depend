@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1446331616 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
+1446334813 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
 	"title.h"
 
-1446331414 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
+1446333904 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
 	<fstream>
 	<iostream>
 	<string>
@@ -10,10 +10,10 @@
 	<cstdlib>
 	<cctype>
 
-1446328227 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
+1446332176 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
 
-1446328267 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
+1446332140 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
 	"year.h"
 
 1446325431 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\binary.cpp
@@ -28,7 +28,7 @@
 	<cstring>
 	<fstream>
 
-1446326343 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\bulk.cpp
+1446333791 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -50,7 +50,7 @@
 	<iostream>
 	<fstream>
 
-1446331443 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
+1446331962 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>

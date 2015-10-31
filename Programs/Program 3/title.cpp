@@ -61,7 +61,7 @@ void TitleIndex::readFile()
     ifstream fin("title_index.txt");
     fin >> size;
     wp = head;
-    for(unsigned int i = 0; i < size+1; ++i)
+    for(unsigned int i = 0; i < size+2; ++i)
     {
         fin >> newTitle >> newPos;
         hold = new Node(newTitle, newPos);
@@ -168,6 +168,7 @@ void TitleIndex::updateTitle(string oldtitle, string newTitle)
             wp->title = newTitle;
             return;
         }
+        wp = wp->next;
     } // end while
 }
 

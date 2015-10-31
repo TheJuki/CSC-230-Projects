@@ -46,7 +46,7 @@ private:
             tail = new Node("~", -1);
             head->next = tail;
             tail->prev = head;
-            size = 0;
+            size = -1;
         }
         TitleIndex(unsigned int InSize):size(InSize)
         {
