@@ -117,6 +117,7 @@ int main(void)
     yearInx = new YearIndex(0);
 
     primaryInx->getAllTitles();
+    cout << primaryInx->getDeadCount() << endl;
 
     //Start the Main Menu
     MainMenu();

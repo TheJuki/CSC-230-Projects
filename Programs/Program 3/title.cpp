@@ -53,24 +53,18 @@ void TitleIndex::writeFile()
 
 void TitleIndex::readFile()
 {
-    Node * wp = head;
-    Node * hold;
     string newTitle;
     int newPos;
+    int numOfTitles = 0;
 
     ifstream fin("title_index.txt");
-    fin >> size;
-    wp = head;
-    for(unsigned int i = 0; i < size+2; ++i)
+    fin >> numOfTitles;
+    for(unsigned int i = 0; i < numOfTitles+2; ++i)
     {
         fin >> newTitle >> newPos;
-        hold = new Node(newTitle, newPos);
-        wp->next = hold;
-        hold->prev = wp;
-        tail->prev = hold;
-        hold->next = tail;
-        wp = wp->next;
+        addTitle(newTitle, newPos);
     } // end for
+    --size;
     fin.close();
 }
 
@@ -85,6 +79,7 @@ void TitleIndex::deleteTitleByTitle(string T)
             wp->next->prev = wp->prev;
             delete wp;
             size--;
+            setDeadCount(1);
             return;
         }
         else
@@ -92,13 +87,22 @@ void TitleIndex::deleteTitleByTitle(string T)
             wp = wp->next;
         }
     } //end while
+     if(wp == tail && wp->title == T)
+    {
+        Node *pDelete = NULL;
+        pDelete = tail;
+        tail = pDelete->prev;
+        delete pDelete;
+        --size;
+        setDeadCount(1);
+    }
     return;
 }
 
 void TitleIndex::deleteTitleByPosition(int P)
 {
     Node * wp = head->next;
-    while(wp != NULL)
+    while(wp != tail)
     {
         if(wp->pos == P)
         {
@@ -106,6 +110,7 @@ void TitleIndex::deleteTitleByPosition(int P)
             wp->next->prev = wp->prev;
             delete wp;
             size--;
+            setDeadCount(1);
             return;
         }
         else
@@ -113,6 +118,15 @@ void TitleIndex::deleteTitleByPosition(int P)
             wp = wp->next;
         }
     } //end while
+    if(wp == tail && wp->pos == P)
+    {
+        Node *pDelete = NULL;
+        pDelete = tail;
+        tail = pDelete->prev;
+        delete pDelete;
+        --size;
+        setDeadCount(1);
+    }
 }
 
 void TitleIndex::deleteTitle(string T, int P)
@@ -178,9 +192,9 @@ int TitleIndex::getSize()
 }
 int TitleIndex::getDeadCount()
 {
-    return 0;
+    return head->next->next->pos;
 }
 void TitleIndex::setDeadCount(int count)
 {
-
+    head->next->next->pos += count;
 }
