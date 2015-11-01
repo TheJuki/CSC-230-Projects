@@ -10,6 +10,5 @@ David1 6
 The_Raft_of_the_Medusa1 7
 Boat1 8
 Reclining_Figure1 9
-Goofball 10
-LOL 11
-~ -1
+Fountain1 10
+Fountain2 11

@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1446334813 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
+1446341355 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
 	"title.h"
 
-1446333904 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
+1446341355 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
 	<fstream>
 	<iostream>
 	<string>
@@ -28,7 +28,7 @@
 	<cstring>
 	<fstream>
 
-1446333791 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\bulk.cpp
+1446341354 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -50,7 +50,7 @@
 	<iostream>
 	<fstream>
 
-1446331962 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
+1446336302 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>
@@ -59,4 +59,7 @@
 	"artist.h"
 	"year.h"
 	"binary.h"
+
+1385320478 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\main.cpp
+	<iostream>
 
