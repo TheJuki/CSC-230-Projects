@@ -23,6 +23,7 @@ bool stepLeft(char mazeArray[][200]);
 void displayMaze(char mazeArray[][200]);
 string checkWall(char mazeArray[][200]);
 void traverseMaze(char mazeArray[][200]);
+string checkVisited(char mazeArray[][200]);
 
 struct Mouse
 {
@@ -161,41 +162,77 @@ string checkWall(char mazeArray[][200])
     return walls;
 }
 
+string checkVisited(char mazeArray[][200])
+{
+    string visted = "";
+    mouse = path.top();
+    if(mazeArray[mouse.y + 1][mouse.x] == 'M')
+        visted += "DM";
+    if(mazeArray[mouse.y - 1][mouse.x] == 'M')
+        visted += "UM";
+    if(mazeArray[mouse.y][mouse.x + 1] == 'M')
+        visted += "RM";
+    if(mazeArray[mouse.y][mouse.x - 1] == 'M')
+        visted += "LM";
+    return visted;
+}
+
 void traverseMaze(char mazeArray[][200])
 {
+    int size = 0;
     bool foundCheese = false;
     bool hasStepped = false;
     string walls = "";
+    string visted = "";
     std::size_t foundWall;
+    std::size_t foundVisted;
     do
     {
         hasStepped = false;
         walls = checkWall(mazeArray);
+        visted = checkVisited(mazeArray);
         foundWall = walls.find("U");
         if(foundWall==std::string::npos)
         {
-            foundCheese = stepUp(mazeArray);
-            hasStepped = true;
+            foundVisted = visted.find("UM");
+            if(foundVisted==std::string::npos)
+            {
+                foundCheese = stepUp(mazeArray);
+                hasStepped = true;
+            }
         }
         foundWall = walls.find("D");
         if(!foundCheese && !hasStepped && foundWall==std::string::npos)
         {
-            foundCheese = stepDown(mazeArray);
-            hasStepped = true;
+            foundVisted = visted.find("DM");
+            if(foundVisted==std::string::npos)
+            {
+                foundCheese = stepDown(mazeArray);
+                hasStepped = true;
+            }
         }
         foundWall = walls.find("R");
         if(!foundCheese && !hasStepped && foundWall==std::string::npos)
         {
-            foundCheese = stepRight(mazeArray);
-            hasStepped = true;
+            foundVisted = visted.find("RM");
+            if(foundVisted==std::string::npos)
+            {
+                foundCheese = stepRight(mazeArray);
+                hasStepped = true;
+            }
         }
         foundWall = walls.find("L");
         if(!foundCheese && !hasStepped && foundWall==std::string::npos)
         {
-            foundCheese = stepLeft(mazeArray);
-            hasStepped = true;
+            foundVisted = visted.find("LM");
+            if(foundVisted==std::string::npos)
+            {
+                foundCheese = stepLeft(mazeArray);
+                hasStepped = true;
+            }
         }
         displayMaze(mazeArray);
+        ++size;
     }
     while(!foundCheese);
     if(foundCheese)
