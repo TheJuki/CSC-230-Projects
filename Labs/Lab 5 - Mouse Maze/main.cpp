@@ -13,13 +13,14 @@ Description: Lab 5...
 #include <stack>
 #include <cstdlib>
 
-void setupMaze(char mazeArray[][200]);
+using namespace std;
 
-struct MINI
-{
-    int x;
-    int y;
-} points;
+void setupMaze(char mazeArray[][200]);
+void stepUp(char mazeArray[][200]);
+void stepDown(char mazeArray[][200]);
+void stepRight(char mazeArray[][200]);
+void stepLeft(char mazeArray[][200]);
+void displayMaze(char mazeArray[][200]);
 
 struct Mouse
 {
@@ -27,17 +28,19 @@ struct Mouse
     int y;
 } mouse;
 
-std::ostream& operator<< (std::ostream &out, const MINI &p)
+std::ostream& operator<< (std::ostream &out, const Mouse &p)
 {
     out << p.x << " " << p.y << std::endl;
     return out;
 }
 
-using namespace std;
+stack<Mouse> path;
+int numActualCol;
+int numActualRow;
 
 int main()
 {
-    stack<MINI> path;
+    //stack<MINI> path;
     /*
     points.x = 1;
     points.y = 2;
@@ -73,9 +76,58 @@ int main()
 
     setupMaze(mazeArray);
     //cout << mazeArray[1][1] << endl;
+    stepLeft(mazeArray);
+    displayMaze(mazeArray);
 
     return 0;
+} // end main
+
+void stepUp(char mazeArray[][200])
+{
+    mouse = path.top();
+    mazeArray[mouse.x][mouse.y] = 'M';
+    mouse.x = mouse.x - 1;
+    path.push(mouse);
+    mazeArray[mouse.x][mouse.y] = '@';
 }
+void stepDown(char mazeArray[][200])
+{
+    mouse = path.top();
+    mazeArray[mouse.x][mouse.y] = 'M';
+    mouse.x = mouse.x + 1;
+    path.push(mouse);
+    mazeArray[mouse.x][mouse.y] = '@';
+}
+void stepRight(char mazeArray[][200])
+{
+    mouse = path.top();
+    mazeArray[mouse.x][mouse.y] = 'M';
+    mouse.y = mouse.y + 1;
+    path.push(mouse);
+    mazeArray[mouse.x][mouse.y] = '@';
+}
+void stepLeft(char mazeArray[][200])
+{
+    mouse = path.top();
+    mazeArray[mouse.x][mouse.y] = 'M';
+    mouse.y = mouse.y - 1;
+    path.push(mouse);
+    mazeArray[mouse.x][mouse.y] = '@';
+}
+
+void displayMaze(char mazeArray[][200])
+{
+    cout << endl;
+     //Draw maze
+        for(int i = 0; i < numActualRow; ++i)
+        {
+            cout << endl;
+            for(int k = 0; k < numActualCol; ++k)
+            {
+                cout << mazeArray[i][k];
+            }
+        }
+} // end displayMaze
 
 void setupMaze(char mazeArray[][200])
 {
@@ -83,8 +135,8 @@ void setupMaze(char mazeArray[][200])
 
     if (input.is_open())
     {
-        int rowCount = 0;
-        int columnCount = 0;
+        numActualCol = 0;
+        numActualRow = 0;
         //delimiter is a space
         std::string delimiter = " ";
         //size of string
@@ -101,16 +153,16 @@ void setupMaze(char mazeArray[][200])
         {
             part = line.substr(0, pos);
             line.erase(0, pos + delimiter.length());
-            rowCount = atoi(part.c_str());
-            columnCount = atoi(line.c_str());
+            numActualRow = atoi(part.c_str());
+            numActualCol = atoi(line.c_str());
         }
 
         //Get MAZE
-        for(int i = 0; i < rowCount; ++i)
+        for(int i = 0; i < numActualRow; ++i)
         {
             getline (input,line);
 
-            for(int k = 0; k < columnCount; ++k)
+            for(int k = 0; k < numActualCol; ++k)
             {
                 part = line.substr(0, 1);
                 mazeArray[i][k] = part.c_str()[0];
@@ -127,6 +179,7 @@ void setupMaze(char mazeArray[][200])
             line.erase(0, pos + delimiter.length());
             mouse.x = atoi(part.c_str());
             mouse.y = atoi(line.c_str());
+            path.push(mouse);
         }
 
         //Get Cheese position
@@ -149,10 +202,10 @@ void setupMaze(char mazeArray[][200])
         //Draw maze
         mazeArray[mouse.x][mouse.y] = '@';
 
-        for(int i = 0; i < rowCount; ++i)
+        for(int i = 0; i < numActualRow; ++i)
         {
             cout << endl;
-            for(int k = 0; k < columnCount; ++k)
+            for(int k = 0; k < numActualCol; ++k)
             {
                 cout << mazeArray[i][k];
             }
