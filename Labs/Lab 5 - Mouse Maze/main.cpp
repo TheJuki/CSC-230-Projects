@@ -16,11 +16,13 @@ Description: Lab 5...
 using namespace std;
 
 void setupMaze(char mazeArray[][200]);
-void stepUp(char mazeArray[][200]);
-void stepDown(char mazeArray[][200]);
-void stepRight(char mazeArray[][200]);
-void stepLeft(char mazeArray[][200]);
+bool stepUp(char mazeArray[][200]);
+bool stepDown(char mazeArray[][200]);
+bool stepRight(char mazeArray[][200]);
+bool stepLeft(char mazeArray[][200]);
 void displayMaze(char mazeArray[][200]);
+string checkWall(char mazeArray[][200]);
+void traverseMaze(char mazeArray[][200]);
 
 struct Mouse
 {
@@ -76,58 +78,129 @@ int main()
 
     setupMaze(mazeArray);
     //cout << mazeArray[1][1] << endl;
-    stepLeft(mazeArray);
-    displayMaze(mazeArray);
+    traverseMaze(mazeArray);
 
     return 0;
 } // end main
 
-void stepUp(char mazeArray[][200])
+bool stepUp(char mazeArray[][200])
 {
+    bool foundCheese = false;
     mouse = path.top();
-    mazeArray[mouse.x][mouse.y] = 'M';
-    mouse.x = mouse.x - 1;
-    path.push(mouse);
-    mazeArray[mouse.x][mouse.y] = '@';
-}
-void stepDown(char mazeArray[][200])
-{
-    mouse = path.top();
-    mazeArray[mouse.x][mouse.y] = 'M';
-    mouse.x = mouse.x + 1;
-    path.push(mouse);
-    mazeArray[mouse.x][mouse.y] = '@';
-}
-void stepRight(char mazeArray[][200])
-{
-    mouse = path.top();
-    mazeArray[mouse.x][mouse.y] = 'M';
-    mouse.y = mouse.y + 1;
-    path.push(mouse);
-    mazeArray[mouse.x][mouse.y] = '@';
-}
-void stepLeft(char mazeArray[][200])
-{
-    mouse = path.top();
-    mazeArray[mouse.x][mouse.y] = 'M';
+    mazeArray[mouse.y][mouse.x] = 'M';
     mouse.y = mouse.y - 1;
     path.push(mouse);
-    mazeArray[mouse.x][mouse.y] = '@';
+    if(mazeArray[mouse.y][mouse.x] == '#')
+        foundCheese = true;
+    mazeArray[mouse.y][mouse.x] = '@';
+    return foundCheese;
+}
+bool stepDown(char mazeArray[][200])
+{
+    bool foundCheese = false;
+    mouse = path.top();
+    mazeArray[mouse.y][mouse.x] = 'M';
+    mouse.y = mouse.y + 1;
+    path.push(mouse);
+    if(mazeArray[mouse.y][mouse.x] == '#')
+        foundCheese = true;
+    mazeArray[mouse.y][mouse.x] = '@';
+    return foundCheese;
+}
+bool stepRight(char mazeArray[][200])
+{
+    bool foundCheese = false;
+    mouse = path.top();
+    mazeArray[mouse.y][mouse.x] = 'M';
+    mouse.x = mouse.x + 1;
+    path.push(mouse);
+    if(mazeArray[mouse.y][mouse.x] == '#')
+        foundCheese = true;
+    mazeArray[mouse.y][mouse.x] = '@';
+    return foundCheese;
+}
+bool stepLeft(char mazeArray[][200])
+{
+    bool foundCheese = false;
+    mouse = path.top();
+    mazeArray[mouse.y][mouse.x] = 'M';
+    mouse.x = mouse.x - 1;
+    path.push(mouse);
+    if(mazeArray[mouse.y][mouse.x] == '#')
+        foundCheese = true;
+    mazeArray[mouse.y][mouse.x] = '@';
+    return foundCheese;
 }
 
 void displayMaze(char mazeArray[][200])
 {
     cout << endl;
-     //Draw maze
-        for(int i = 0; i < numActualRow; ++i)
+    //Draw maze
+    for(int i = 0; i < numActualRow; ++i)
+    {
+        cout << endl;
+        for(int k = 0; k < numActualCol; ++k)
         {
-            cout << endl;
-            for(int k = 0; k < numActualCol; ++k)
-            {
-                cout << mazeArray[i][k];
-            }
+            cout << mazeArray[i][k];
         }
+    }
 } // end displayMaze
+
+string checkWall(char mazeArray[][200])
+{
+    string walls = "";
+    mouse = path.top();
+    if(mazeArray[mouse.y + 1][mouse.x] == '+')
+        walls += "D";
+    if(mazeArray[mouse.y - 1][mouse.x] == '+')
+        walls += "U";
+    if(mazeArray[mouse.y][mouse.x + 1] == '+')
+        walls += "R";
+    if(mazeArray[mouse.y][mouse.x - 1] == '+')
+        walls += "L";
+    return walls;
+}
+
+void traverseMaze(char mazeArray[][200])
+{
+    bool foundCheese = false;
+    bool hasStepped = false;
+    string walls = "";
+    std::size_t foundWall;
+    do
+    {
+        hasStepped = false;
+        walls = checkWall(mazeArray);
+        foundWall = walls.find("U");
+        if(foundWall==std::string::npos)
+        {
+            foundCheese = stepUp(mazeArray);
+            hasStepped = true;
+        }
+        foundWall = walls.find("D");
+        if(!foundCheese && !hasStepped && foundWall==std::string::npos)
+        {
+            foundCheese = stepDown(mazeArray);
+            hasStepped = true;
+        }
+        foundWall = walls.find("R");
+        if(!foundCheese && !hasStepped && foundWall==std::string::npos)
+        {
+            foundCheese = stepRight(mazeArray);
+            hasStepped = true;
+        }
+        foundWall = walls.find("L");
+        if(!foundCheese && !hasStepped && foundWall==std::string::npos)
+        {
+            foundCheese = stepLeft(mazeArray);
+            hasStepped = true;
+        }
+        displayMaze(mazeArray);
+    }
+    while(!foundCheese);
+    if(foundCheese)
+        cout << endl << endl << "Found Cheese!" << endl;
+}
 
 void setupMaze(char mazeArray[][200])
 {
@@ -177,8 +250,8 @@ void setupMaze(char mazeArray[][200])
         {
             part = line.substr(0, pos);
             line.erase(0, pos + delimiter.length());
-            mouse.x = atoi(part.c_str());
-            mouse.y = atoi(line.c_str());
+            mouse.y = atoi(part.c_str());
+            mouse.x = atoi(line.c_str());
             path.push(mouse);
         }
 
@@ -192,15 +265,15 @@ void setupMaze(char mazeArray[][200])
         {
             part = line.substr(0, pos);
             line.erase(0, pos + delimiter.length());
-            cheeseX = atoi(part.c_str());
-            cheeseY = atoi(line.c_str());
+            cheeseY = atoi(part.c_str());
+            cheeseX = atoi(line.c_str());
         }
-        mazeArray[cheeseX][cheeseY] = '#';
+        mazeArray[cheeseY][cheeseX] = '#';
 
         input.close();
 
         //Draw maze
-        mazeArray[mouse.x][mouse.y] = '@';
+        mazeArray[mouse.y][mouse.x] = '@';
 
         for(int i = 0; i < numActualRow; ++i)
         {
