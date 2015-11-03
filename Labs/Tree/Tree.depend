@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1446426730 source:c:\users\theju\documents\github\csc-230-projects\labs\tree\main.cpp
+	<stdio.h>
+	<stdlib.h>
+
