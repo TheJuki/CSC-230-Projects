@@ -63,10 +63,10 @@
 1385320478 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\main.cpp
 	<iostream>
 
-1446500761 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\artist.cpp
+1447280769 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
 
-1446500761 c:\users\justin\documents\github\csc-230-projects\programs\program 3\artist.h
+1447280755 c:\users\justin\documents\github\csc-230-projects\programs\program 3\artist.h
 	<string>
 	<cstring>
 	<iostream>
@@ -94,7 +94,7 @@
 	<fstream>
 	<cstdlib>
 
-1446500764 c:\users\justin\documents\github\csc-230-projects\programs\program 3\year.h
+1447281187 c:\users\justin\documents\github\csc-230-projects\programs\program 3\year.h
 	<string>
 	<cstring>
 	<iostream>
@@ -118,7 +118,7 @@
 	"year.h"
 	"binary.h"
 
-1446500764 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\title.cpp
+1447280201 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\title.cpp
 	"title.h"
 
 1446500764 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\year.cpp

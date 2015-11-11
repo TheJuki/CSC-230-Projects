@@ -8,10 +8,7 @@ Description: Artist - secondary index
 
 #include "artist.h"
 
-std::string ArtistIndex::getArtist(int pos) const
-{
-    return "";
-}
+
 void ArtistIndex::addArtist(std::string myArtist, int myKey)
 {
 
@@ -38,11 +35,35 @@ bool ArtistIndex::matchArtist(std::string inArtist, int pos[])
 {
     return false;
 }
-void ArtistIndex::kill_A_List()
-{
 
-}
 bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
 {
     return false;
 }
+
+void ArtistIndex::killList()
+{
+    Node * wp = head;
+    Node * wsp = NULL;
+    Node * hold;
+    while(wp != NULL)
+    {
+        if(wp->down != NULL)
+        {
+            wsp = wp->down;
+            while(wsp->down != NULL)
+                wsp = wsp->down;
+            while(wsp->up != NULL)
+            {
+                hold = wsp;
+                wsp = wsp->up;
+                delete hold;
+            }
+        }
+        hold = wp;
+        wp = wp->next;
+        delete hold;
+    }
+    return;
+}
+

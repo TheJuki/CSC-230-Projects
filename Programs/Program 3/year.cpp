@@ -8,23 +8,13 @@ Description: Code for year data
 
 #include "year.h"
 
-int YearIndex::getYear(int pos) const
-{
-    return 0;
-}
 void YearIndex::addYear(int myYear, int myKey)
 {
 
 }
-void YearIndex::updateYear(int old_year, int new_year)
+void YearIndex::updateYear(int old_Year, int new_Year)
 {
 
-}
-int * YearIndex::findYear(int inYear)
-{
-    static int emptyArray[1];
-    emptyArray[0] = 0;
-    return emptyArray;
 }
 void YearIndex::writeSecondary()
 {
@@ -34,15 +24,45 @@ void YearIndex::readSecondary()
 {
 
 }
+int * YearIndex::findYear(int inYear)
+{
+    static int emptyArray[1];
+    emptyArray[0] = 0;
+    return emptyArray;
+}
 bool YearIndex::matchYear(int inYear, int pos[])
 {
     return false;
 }
+
 bool YearIndex::deleteYear(int inYear, int pos)
 {
     return false;
 }
-void YearIndex::kill_Y_List()
-{
 
+void YearIndex::killList()
+{
+    Node * wp = head;
+    Node * wsp = NULL;
+    Node * hold;
+    while(wp != NULL)
+    {
+        if(wp->down != NULL)
+        {
+            wsp = wp->down;
+            while(wsp->down != NULL)
+                wsp = wsp->down;
+            while(wsp->up != NULL)
+            {
+                hold = wsp;
+                wsp = wsp->up;
+                delete hold;
+            }
+        }
+        hold = wp;
+        wp = wp->next;
+        delete hold;
+    }
+    return;
 }
+

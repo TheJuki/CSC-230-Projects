@@ -13,50 +13,58 @@ Description: Header for artist.cpp
 #include <cstring>
 #include <iostream>
 #include <fstream>
-
 class ArtistIndex
 {
-private:
-     class A_Node {
-
-    public:
-        std::string artist;
-        int pos;
-        A_Node * next;
-        A_Node * prev;
-        A_Node():artist("no"), pos(-1), next(NULL), prev(NULL) {}
-        A_Node(std::string T, int P): artist(T), pos(P), next(NULL), prev(NULL) {}
-    };
-    A_Node * head;
-    A_Node * tail;
-    int size;
-
-public:
-    ArtistIndex(): size(0)
-    {
-        head = new A_Node(" ", -1);
-        tail = new A_Node("~", -1);
-        head->next = tail;
-        tail->prev = head;
-    }
-    ArtistIndex(int InSize):size(InSize)
+    private:
+        class Node
         {
-            head = new A_Node(" ", -1);
-            tail = new A_Node("~", -1);
+            public:
+                std::string artist;
+                int pos;
+                Node * next;
+                Node * prev;
+                Node * up;
+                Node * down;
+                Node():artist("A"), pos(-1), next(NULL), prev(NULL), up(NULL), down(NULL) { }
+                Node(std::string A, int P): artist(A), pos(P)
+                {
+                    next=prev=up=down=NULL;
+                }
+        };
+        Node * head;
+        Node * tail;
+        unsigned int size;
+        void writeSecondary();
+        void readSecondary();
+        void killList();
+        void delete_by_artist(std::string T);
+        void delete_by_pos(int P);
+    public:
+        ArtistIndex(): size(0)
+        {
+            head = new Node(" ", -1);
+            tail = new Node("~", -1);
+            head->next = tail;
+            tail->prev = head;
+        }
+        ArtistIndex(int my_size): size(my_size)
+        {
+            head = new Node(" ", -1);
+            tail = new Node("~", -1);
             head->next = tail;
             tail->prev = head;
             readSecondary();
+        } // readFile will change size
+        ~ArtistIndex()
+        {
+            writeSecondary();
+            killList();
         }
-    ~ArtistIndex() {kill_A_List();}
-
-    std::string getArtist(int pos) const;
-    void addArtist(std::string myArtist, int myKey);
-    void updateArtist(std::string old_artist, std::string new_artist);
-    void writeSecondary();
-    void readSecondary();
-    int * findArtist(std::string inArtist);
-    bool matchArtist(std::string inArtist, int pos[]);
-    void kill_A_List();
-    bool deleteArtist(std::string inArtist, int pos);
+        void addArtist(std::string my_artist, int my_key);
+        void updateArtist(std::string old_artist, std::string new_artist);
+        int matchArtist(std::string inArtist);
+        bool deleteArtist(std::string T, int P);
+        int * findArtist(std::string inArtist);
+        bool matchArtist(std::string inArtist, int pos[]);
 };
 #endif // ARTIST_H
