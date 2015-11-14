@@ -10,7 +10,7 @@
 	<cstdlib>
 	<cctype>
 
-1447471372 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
+1447477013 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
@@ -42,7 +42,7 @@
 	<fstream>
 	<cstdlib>
 
-1447469027 c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.h
+1447477246 c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.h
 	<string>
 	<cstring>
 	<iostream>
@@ -54,7 +54,7 @@
 	<iostream>
 	<fstream>
 
-1447469155 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
+1447476063 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>

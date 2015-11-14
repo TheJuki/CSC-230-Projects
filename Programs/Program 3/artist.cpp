@@ -34,8 +34,6 @@ void ArtistIndex::addArtist(std::string myArtist, int myKey)
             p->up = holdUp;
             holdUp->down->up=p;
             holdUp->down=p;
-
-            std::cout << wp->artist << " " << wp->up->up->pos <<  " " << holdUp->pos << std::endl;
             break;
         }
         wp = wp->next;
@@ -56,12 +54,13 @@ void ArtistIndex::addArtist(std::string myArtist, int myKey)
 
 void ArtistIndex::getAllArtists()
 {
-     Node * wp = head->next;
+    Node * wp = head->next;
 
     std::cout << size << std::endl;
     while(wp != NULL)
     {
-        std::cout << wp->artist << " " << wp->up->up->pos << std::endl;
+        if(wp->up != NULL)
+            std::cout << wp->artist << " " << wp->up->up->pos << std::endl;
         wp = wp->next;
     } //end while
 }
@@ -91,9 +90,11 @@ void ArtistIndex::readSecondary()
         std::string part;
         //Number of keys in line
         int numOfKeys = 0;
+        //Artist Name
+        std::string artist_name = "";
 
-        Node * hold = head;
-        while(!input.eof() && position != size)
+        Node * hold = head->next;
+        while(!input.eof() && position != size+1)
         {
             //Read in a line from the sequential file
             getline (input,line);
@@ -109,31 +110,37 @@ void ArtistIndex::readSecondary()
                 part = line.substr(0, pos);
                 line.erase(0, pos + delimiter.length());
                 numOfKeys = atoi(part.c_str());
-                hold->up = new Node("NumOfKeys", numOfKeys);
             }
+
             //Get artist name
             if ((pos = line.find(delimiter)) != std::string::npos)
             {
                 part = line.substr(0, pos);
+                artist_name = part;
                 line.erase(0, pos + delimiter.length());
-                hold->artist = part;
+                Node * hold = new Node(artist_name, 0);
+                hold->next = NULL;
+                hold->prev = tail;
+                tail->next = hold;
+                tail = hold;
+                hold->up = new Node("numOfKeys", 0);
+                hold->up->up = new Node("~", 0);
+                hold->up->up->down = hold->up;
             }
+
             //Set pos to keys in line
-            Node * holdUp = hold->up->up;
-           while(holdUp != NULL)
+            for(int i = 0; i < numOfKeys; ++i)
             {
                 if((pos = line.find(delimiter)) != std::string::npos)
                 {
                     part = line.substr(0, pos);
-                    holdUp->pos = atoi(part.c_str());
+                    addArtist(artist_name, atoi(part.c_str()));
                     line.erase(0, pos + delimiter.length());
-                    holdUp = holdUp->up;
                 }
-            }
+            } // end for
 
-            //position++
             position++;
-
+            hold = hold->next;
         } // End eof while
         input.close();
     } // end if
@@ -199,8 +206,36 @@ void ArtistIndex::writeSecondary()
 
 int * ArtistIndex::findArtist(std::string inArtist)
 {
-    static int emptyArray[1];
+   int emptyArray[1];
     emptyArray[0] = 0;
+
+    Node * wp = head->next;
+
+    while(wp != NULL)
+    {
+        if(wp->artist == inArtist)
+        {
+            if(wp->up != NULL && wp->up->up != NULL)
+            {
+                int arraySize = wp->up->pos;
+                Node * holdUp = wp->up->up;
+                for(int i = 0; i < 1; ++i)
+                {
+                    if(holdUp != NULL)
+                        emptyArray[0] = holdUp->pos;
+                    else
+                        break;
+                    holdUp = holdUp->up;
+
+                }
+                break;
+            } // end if
+            else
+                break;
+        }
+        wp = wp->next;
+    } // end while
+
     return emptyArray;
 }
 bool ArtistIndex::matchArtist(std::string inArtist, int &pos)

@@ -5,7 +5,7 @@
 1 Rosesellino 4 
 1 Miro 5 
 1 Pollock 6 
-1 Homer 7 
+4 Homer 35 36 37 7 
 1 Renoir 8 
 1 Rodin 9 
 1 Chagall 10 

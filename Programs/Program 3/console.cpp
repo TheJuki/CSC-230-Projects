@@ -116,8 +116,6 @@ int main(void)
     artistInx = new ArtistIndex(0);
     yearInx = new YearIndex(0);
 
-    artistInx->getAllArtists();
-
     //Start the Main Menu
     MainMenu();
     //Exit

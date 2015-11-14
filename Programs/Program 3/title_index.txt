@@ -1,4 +1,4 @@
-34
+37
 ~ -1
 Dead_Count 0
 Monticello 1
@@ -35,3 +35,6 @@ The_Raft_of_the_Medusa 31
 Boat 32
 Reclining_Figure 33
 Fountain 34
+The_Morning_Bell2 35
+The_Morning_Bell3 36
+The_Morning_Bell4 37
