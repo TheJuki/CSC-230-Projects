@@ -13,6 +13,8 @@ Description: Header for artist.cpp
 #include <cstring>
 #include <iostream>
 #include <fstream>
+#include <vector>
+
 class ArtistIndex
 {
     private:
@@ -61,10 +63,10 @@ class ArtistIndex
             killList();
         }
         void addArtist(std::string my_artist, int my_key);
-        void updateArtist(std::string old_artist, std::string new_artist);
+        void updateArtist(std::string old_artist, std::string new_artist, int old_pos);
         int matchArtist(std::string inArtist);
         bool deleteArtist(std::string T, int P);
-        int * findArtist(std::string inArtist);
+        std::vector<int> findArtist(std::string inArtist);
         bool matchArtist(std::string inArtist, int &pos);
         void getAllArtists();
 };

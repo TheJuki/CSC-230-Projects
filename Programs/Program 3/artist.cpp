@@ -60,15 +60,121 @@ void ArtistIndex::getAllArtists()
     while(wp != NULL)
     {
         if(wp->up != NULL)
-            std::cout << wp->artist << " " << wp->up->up->pos << std::endl;
+        {
+            Node * holdUp = wp->up;
+            int i = 0;
+            std::vector<int> myVector;
+            while(holdUp->up != NULL)
+            {
+                myVector.insert(myVector.begin() + i, holdUp->pos);
+                holdUp = holdUp->up;
+                ++i;
+            } // end while
+
+            std::string buildLine = "";
+            for(i = 0; i < myVector.size(); ++i)
+            {
+                std::stringstream strs;
+                strs << myVector.at(i);
+                std::string temp_str = strs.str();
+
+               buildLine += temp_str + " ";
+            }
+             std::cout << wp->artist << " " << buildLine << std::endl;
+        }
+
         wp = wp->next;
     } //end while
 }
 
-void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist)
+void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, int old_pos)
 {
+     int holdLocation = 0;
 
-}
+    //If new artist does not currently exist...
+    if(!matchArtist(new_artist, holdLocation))
+    {
+       Node * wp = head->next;
+
+        while(wp != NULL)
+        {
+            if(wp->artist == old_artist)
+            {
+                wp->artist = new_artist;
+                return;
+            }
+            wp = wp->next;
+        } // end while
+    } // end if
+    else
+    {
+        //Copy positions to new location
+        //Delete old artist
+        Node * oldNode = head->next;
+        Node * newNode = head->next;
+
+        //Find old Node
+        while(oldNode != NULL)
+        {
+            if(oldNode->artist == old_artist)
+            {
+                break;
+            }
+             oldNode = oldNode->next;
+        } // end while
+
+         //Update count
+        oldNode->up->pos = oldNode->up->pos - 1;
+
+        //Find new Node
+        while(newNode != NULL)
+        {
+            if(newNode->artist == new_artist)
+            {
+                break;
+            }
+             newNode = newNode->next;
+        } // end while
+
+        //Update count
+        newNode->up->pos = newNode->up->pos + 1;
+
+        //Find old pos
+         Node * oldUp = oldNode->up;
+          while(oldUp != NULL)
+            {
+                if(oldUp->pos == old_pos)
+                {
+                    break;
+                }
+                 oldUp = oldUp->up;
+            } // end while
+
+             //Find empty up in newNode
+         Node * newUp = newNode->up;
+          while(newUp->up != NULL)
+            {
+                 newUp = newUp->up;
+            } // end while
+
+            //Transfer Ups
+
+            //Add New Up
+            Node * p = new Node("~",old_pos);
+            p->down = newUp->down;
+            p->up = newUp;
+            newUp->down->up=p;
+            newUp->down=p;
+
+            //Delete Old Up
+            Node * deleteNode = oldUp;
+            oldUp->down = deleteNode->up;
+
+            delete deleteNode;
+
+    } // end else
+} // end updateArtist
+
 void ArtistIndex::readSecondary()
 {
     std::ifstream input("artist_index.txt");
@@ -94,7 +200,7 @@ void ArtistIndex::readSecondary()
         std::string artist_name = "";
 
         Node * hold = head->next;
-        while(!input.eof() && position != size+1)
+        while(!input.eof() && position != (int)(size+1))
         {
             //Read in a line from the sequential file
             getline (input,line);
@@ -204,10 +310,9 @@ void ArtistIndex::writeSecondary()
     fout.close();
 } // end writeSecondary
 
-int * ArtistIndex::findArtist(std::string inArtist)
+std::vector<int> ArtistIndex::findArtist(std::string inArtist)
 {
-   int emptyArray[1];
-    emptyArray[0] = 0;
+   std::vector<int> myVector;
 
     Node * wp = head->next;
 
@@ -217,17 +322,15 @@ int * ArtistIndex::findArtist(std::string inArtist)
         {
             if(wp->up != NULL && wp->up->up != NULL)
             {
-                int arraySize = wp->up->pos;
-                Node * holdUp = wp->up->up;
-                for(int i = 0; i < 1; ++i)
-                {
-                    if(holdUp != NULL)
-                        emptyArray[0] = holdUp->pos;
-                    else
-                        break;
-                    holdUp = holdUp->up;
+                Node * holdUp = wp->up;
+                 int i = 0;
 
-                }
+                while(holdUp->up != NULL)
+                {
+                    myVector.insert(myVector.begin() + i, holdUp->pos);
+                    holdUp = holdUp->up;
+                    ++i;
+                } // end while
                 break;
             } // end if
             else
@@ -236,7 +339,7 @@ int * ArtistIndex::findArtist(std::string inArtist)
         wp = wp->next;
     } // end while
 
-    return emptyArray;
+    return myVector;
 }
 bool ArtistIndex::matchArtist(std::string inArtist, int &pos)
 {

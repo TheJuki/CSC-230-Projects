@@ -13,6 +13,8 @@ Description: Header for year.cpp
 #include <cstring>
 #include <iostream>
 #include <fstream>
+#include <vector>
+
 class YearIndex
 {
     private:
@@ -61,10 +63,10 @@ class YearIndex
             killList();
         }
         void addYear(int my_Year, int my_key);
-        void updateYear(int old_Year, int new_Year);
+        void updateYear(int old_year, int new_year, int old_pos);
         int matchYear(int inYear);
         bool deleteYear(int T, int P);
-        int * findYear(int inYear);
+        std::vector<int> findYear(int inYear);
         bool matchYear(int inYear, int &pos);
         void getAllYears();
 };

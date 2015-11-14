@@ -116,6 +116,8 @@ int main(void)
     artistInx = new ArtistIndex(0);
     yearInx = new YearIndex(0);
 
+    yearInx->getAllYears();
+
     //Start the Main Menu
     MainMenu();
     //Exit
@@ -794,10 +796,10 @@ void PrintByArtist()
     cin >> input;
 
     //Find artist
-    int* pos = artistInx->findArtist(input);
+    std::vector<int> posArray = artistInx->findArtist(input);
 
     //If artist found, then display it
-    if(*pos > 0)
+    if(posArray.size() > 0)
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " Here are the records for the artist '"
@@ -808,13 +810,13 @@ void PrintByArtist()
 
         if(file.is_open())
         {
-            for(int i = 1; i < (*pos + 1); i++)
+            for(int i = 1; i < posArray.size(); i++)
             {
-                record.readIt(file, *(pos + i));
+                record.readIt(file, posArray.at(i));
                 if(!record.get_flag())
                 {
                     cout << "-----------" << endl;
-                    cout << " Record " << *(pos + i) <<endl;
+                    cout << " Record " << posArray.at(i) <<endl;
                     cout << "-----------" << endl;
                     cout << record;
                 } // End if
@@ -865,10 +867,10 @@ void PrintByYear()
     cin >> input;
 
     //Find year
-    int* pos = yearInx->findYear(atoi(input.c_str()));
+    std::vector<int> posArray = yearInx->findYear(atoi(input.c_str()));
 
     //If year found, then display it
-    if(*pos > 0)
+    if(posArray.size() > 0)
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
         cout << " Here are the records for the year '"
@@ -879,13 +881,13 @@ void PrintByYear()
 
         if(file.is_open())
         {
-            for(int i = 1; i < (*pos + 1); i++)
+            for(int i = 1; i < posArray.size(); i++)
             {
-                record.readIt(file, *(pos + i));
+                record.readIt(file, posArray.at(i));
                 if(!record.get_flag())
                 {
                     cout << "-----------" << endl;
-                    cout << " Record " << *(pos + i) <<endl;
+                    cout << " Record " << posArray.at(i) <<endl;
                     cout << "-----------" << endl;
                     cout << record;
                 } // End if
@@ -1498,32 +1500,32 @@ void DeleteByArtistYear(recordMember member)
     cin >> input;
 
     //Find title
-    int* pos;
+    std::vector<int> posArray;
     switch (member)
     {
     case(ARTIST) :
-        pos = artistInx->findArtist(input);
+        posArray = artistInx->findArtist(input);
         break;
     case(YEAR) :
-        pos = yearInx->findYear(atoi(input.c_str()));
+        posArray = yearInx->findYear(atoi(input.c_str()));
         break;
     default : //Nothing
         break;
     }
 
     //If artist/year found, ask to delete it
-    if(*pos > 0)
+    if(posArray.size() > 0)
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
-        cout << "'" << *pos << "' record(s) found." << endl << endl << endl << endl;
+        cout << "'" << posArray.size()-1 << "' record(s) found." << endl << endl << endl << endl;
 
 
         fstream file("output.bin", ios::in | ios::out | ios::binary);
         if(file.is_open())
         {
-            for(int i = 1; i < 11; ++i)
+            for(int i = 1; i < posArray.size(); ++i)
             {
-                int position = *(pos + i);
+                int position = posArray.at(i);
 
                 if(position == 0)
                     break;
@@ -1632,24 +1634,24 @@ void ChangeByArtistYear(recordMember member)
     cin >> old_input;
 
     //Find title
-    int* pos;
+    std::vector<int> posArray;
     switch (member)
     {
     case(ARTIST) :
-        pos = artistInx->findArtist(old_input);
+        posArray = artistInx->findArtist(old_input);
         break;
     case(YEAR) :
-        pos = yearInx->findYear(atoi(old_input.c_str()));
+        posArray = yearInx->findYear(atoi(old_input.c_str()));
         break;
     default : //Nothing
         break;
     }
 
     //If artist/year found, ask to change it
-    if(*pos > 0)
+    if(posArray.size() > 0)
     {
         cout << endl << endl << " -INFORMATION-" << endl << endl;
-        cout << "'" << *pos << "' record(s) found." << endl << endl << endl << endl;
+        cout << "'" << posArray.size()-1 << "' record(s) found." << endl << endl << endl << endl;
 
         //Ask user
         string new_input;
@@ -1661,10 +1663,10 @@ void ChangeByArtistYear(recordMember member)
 
         if(outputFile.is_open())
         {
-            for(int i = 1; i < (*pos + 1); ++i)
+            for(int i = 1; i < posArray.size(); ++i)
             {
                 //Set position
-                int position = *(pos + i);
+                int position = posArray.at(i);
 
                 //Read in the record
                 record.readIt(outputFile, position);
@@ -1685,6 +1687,19 @@ void ChangeByArtistYear(recordMember member)
                 //Write out the record
                 record.writeIt(outputFile, position);
 
+                //Update appropriate index
+                switch (member)
+                {
+                case(ARTIST) :
+                    artistInx->updateArtist(old_input, new_input, position);
+                    break;
+                case(YEAR) :
+                    yearInx->updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()), position);
+                    break;
+                default : //Nothing
+                    break;
+                }
+
                 //Success!
                 cout << endl << " -INFORMATION-" << endl << endl;
                 cout <<  " Change operation successful." << endl;
@@ -1696,18 +1711,7 @@ void ChangeByArtistYear(recordMember member)
 
             outputFile.close();
 
-            //Update appropriate index
-            switch (member)
-            {
-            case(ARTIST) :
-                artistInx->updateArtist(old_input, new_input);
-                break;
-            case(YEAR) :
-                yearInx->updateYear(atoi(old_input.c_str()), atoi(new_input.c_str()));
-                break;
-            default : //Nothing
-                break;
-            }
+
 
         } // if file is open
         else
@@ -1848,12 +1852,12 @@ void ChangeByTitle(int selection, MyClass& me, const int position)
             if(flag_artistChanged)
             {
                 //Update artist index
-                artistInx->updateArtist(old_record.get_artist(), me.get_artist());
+                artistInx->updateArtist(old_record.get_artist(), me.get_artist(), position);
             }
             if(flag_yearChanged)
             {
                 //Update year index
-                yearInx->updateYear(old_record.get_year(), me.get_year());
+                yearInx->updateYear(old_record.get_year(), me.get_year(), position);
             }
 
             me.writeIt(file, position);

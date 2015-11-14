@@ -10,21 +10,21 @@
 	<cstdlib>
 	<cctype>
 
-1447477238 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
+1447535570 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<cstdlib>
 
-1447523006 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
+1447536088 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
 	"year.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<cstdlib>
 
-1446321831 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\binary.cpp
+1447532773 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\binary.cpp
 	"binary.h"
 	<cstdlib>
 	<sstream>
@@ -46,19 +46,21 @@
 	<fstream>
 	<cstdlib>
 
-1447477246 c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.h
+1447535100 c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
+	<vector>
 
-1447522932 c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.h
+1447536479 c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
+	<vector>
 
-1447523142 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
+1447536501 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>

@@ -51,20 +51,126 @@ void YearIndex::addYear(int myYear, int myKey)
         hold->up->up->down =  hold->up;
     } // end else
 }
-void YearIndex::updateYear(int old_Year, int new_Year)
+void YearIndex::updateYear(int old_year, int new_year, int old_pos)
 {
+    int holdLocation = 0;
 
+    //If new year does not currently exist...
+    if(!matchYear(new_year, holdLocation))
+    {
+       Node * wp = head->next;
+
+        while(wp != NULL)
+        {
+            if(wp->year == old_year)
+            {
+                wp->year = new_year;
+                return;
+            }
+            wp = wp->next;
+        } // end while
+    } // end if
+    else
+    {
+        //Copy positions to new location
+        //Delete old year
+        Node * oldNode = head->next;
+        Node * newNode = head->next;
+
+        //Find old Node
+        while(oldNode != NULL)
+        {
+            if(oldNode->year == old_year)
+            {
+                break;
+            }
+             oldNode = oldNode->next;
+        } // end while
+
+         //Update count
+        oldNode->up->pos = oldNode->up->pos - 1;
+
+        //Find new Node
+        while(newNode != NULL)
+        {
+            if(newNode->year == new_year)
+            {
+                break;
+            }
+             newNode = newNode->next;
+        } // end while
+
+        //Update count
+        newNode->up->pos = newNode->up->pos + 1;
+
+        //Find old pos
+         Node * oldUp = oldNode->up;
+          while(oldUp != NULL)
+            {
+                if(oldUp->pos == old_pos)
+                {
+                    break;
+                }
+                 oldUp = oldUp->up;
+            } // end while
+
+             //Find empty up in newNode
+         Node * newUp = newNode->up;
+          while(newUp->up != NULL)
+            {
+                 newUp = newUp->up;
+            } // end while
+
+            //Transfer Ups
+
+            //Add New Up
+            Node * p = new Node(-1,old_pos);
+            p->down = newUp->down;
+            p->up = newUp;
+            newUp->down->up=p;
+            newUp->down=p;
+
+            //Delete Old Up
+            Node * deleteNode = oldUp;
+            oldUp->down = deleteNode->up;
+
+            delete deleteNode;
+
+    } // end else
 }
 
 void YearIndex::getAllYears()
 {
+
     Node * wp = head->next;
 
     std::cout << size << std::endl;
     while(wp != NULL)
     {
         if(wp->up != NULL)
-            std::cout << wp->year << " " << wp->up->up->pos << std::endl;
+        {
+            Node * holdUp = wp->up;
+            int i = 0;
+            std::vector<int> myVector;
+            while(holdUp->up != NULL)
+            {
+                myVector.insert(myVector.begin() + i, holdUp->pos);
+                holdUp = holdUp->up;
+                ++i;
+            } // end while
+
+            std::string buildLine = "";
+            for(i = 0; i < myVector.size(); ++i)
+            {
+                std::stringstream strs;
+                strs << myVector.at(i);
+                std::string temp_str = strs.str();
+
+               buildLine += temp_str + " ";
+            }
+             std::cout << wp->year << " " << buildLine << std::endl;
+        }
+
         wp = wp->next;
     } //end while
 }
@@ -201,10 +307,9 @@ void YearIndex::readSecondary()
         input.close();
     } // end if
 }
-int * YearIndex::findYear(int inYear)
+std::vector<int> YearIndex::findYear(int inYear)
 {
-     int emptyArray[1];
-    emptyArray[0] = 0;
+    std::vector<int> myVector;
 
     Node * wp = head->next;
 
@@ -214,17 +319,15 @@ int * YearIndex::findYear(int inYear)
         {
             if(wp->up != NULL && wp->up->up != NULL)
             {
-                int arraySize = wp->up->pos;
-                Node * holdUp = wp->up->up;
-                for(int i = 0; i < 1; ++i)
-                {
-                    if(holdUp != NULL)
-                        emptyArray[0] = holdUp->pos;
-                    else
-                        break;
-                    holdUp = holdUp->up;
+                Node * holdUp = wp->up;
+                 int i = 0;
 
-                }
+                while(holdUp->up != NULL)
+                {
+                    myVector.insert(myVector.begin() + i, holdUp->pos);
+                    holdUp = holdUp->up;
+                    ++i;
+                } // end while
                 break;
             } // end if
             else
@@ -233,7 +336,7 @@ int * YearIndex::findYear(int inYear)
         wp = wp->next;
     } // end while
 
-    return emptyArray;
+    return myVector;
 }
 bool YearIndex::matchYear(int inYear, int &pos)
 {
