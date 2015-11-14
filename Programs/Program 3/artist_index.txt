@@ -1,11 +1,11 @@
-33
+27
 1 Jefferson 1 
 1 DaVinci 2 
 1 Tintoretto 3 
 1 Rosesellino 4 
 1 Miro 5 
 1 Pollock 6 
-4 Homer 35 36 37 7 
+1 Homer 7 
 1 Renoir 8 
 1 Rodin 9 
 1 Chagall 10 
@@ -14,7 +14,7 @@
 1 Bernini 13 
 1 Rubens 14 
 1 Saarinen 15 
-2 Warhol 29 16 
+1 Warhol 16 
 1 Wren 17 
 1 Velazquez 18 
 1 Durer 19 
@@ -26,9 +26,3 @@
 1 Le_Corbusier 25 
 1 Hopper 26 
 1 Klimt 27 
-2 Gericault 31 28 
-1 Michelangelo 30 
-1 Dali 32 
-1 Moore 33 
-1 Duchamp 34 
-1 fc 38 

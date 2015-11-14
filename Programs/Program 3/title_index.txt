@@ -1,25 +1,19 @@
-38
+27
 Apollo_and_Daphne 13
-Boat 32
 Coca-Cola 16
 Composition 5
-David 30
 Demonstration_of_Perspective 19
-Fountain 34
 Giovanni_Chellini 4
 Horse_at_Rest 22
 I_and_the_Village 10
-Jackie 29
 Love 12
 Man_Pointing 20
-Medusa 28
 Mona_Lisa 2
 Monticello 1
 Music 27
 Nighthawks 26
 One 6
 Raising_of_the_Cross 14
-Reclining_Figure 33
 Savoye_House 25
 Sisley_and_His_Wife 8
 St_Paul's_Cathedral 17
@@ -27,14 +21,9 @@ The_Last_Supper 3
 The_Maids_of_Honor 18
 The_Misunderstood 24
 The_Morning_Bell 7
-The_Morning_Bell2 35
-The_Morning_Bell3 36
-The_Morning_Bell4 37
-The_Raft_of_the_Medusa 31
 The_Spirit_of_Detroit 23
 The_Thinker 9
 Tribune_Tower 15
 Waterfall_at_Amida 11
 Whale 21
-Zelena 38
 ~ -1

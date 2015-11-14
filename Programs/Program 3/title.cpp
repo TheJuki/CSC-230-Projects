@@ -96,6 +96,19 @@ void TitleIndex::deleteTitleByTitle(string T)
     return;
 }
 
+std::vector<int> TitleIndex::printAllAlphabetically()
+{
+    Node * wp = head->next;
+
+    std::vector<int> myVector;
+    while(wp != NULL)
+    {
+        myVector.push_back(wp->pos);
+        wp =  wp->next;
+    } // end while
+
+    return myVector;
+}
 void TitleIndex::deleteTitleByPosition(int P)
 {
     Node * wp = head->next;

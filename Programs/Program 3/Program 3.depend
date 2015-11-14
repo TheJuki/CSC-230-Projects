@@ -1,14 +1,15 @@
 # depslib dependency file v1.0
-1447540112 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
+1447542086 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
 	"title.h"
 
-1447539324 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
+1447542099 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
 	<fstream>
 	<iostream>
 	<string>
 	<iomanip>
 	<cstdlib>
 	<cctype>
+	<vector>
 
 1447538314 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
@@ -60,7 +61,7 @@
 	<fstream>
 	<vector>
 
-1447540204 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
+1447542548 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>

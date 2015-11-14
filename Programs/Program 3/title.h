@@ -14,6 +14,7 @@ Description: Header for title.cpp
 #include <iomanip>
 #include <cstdlib>
 #include <cctype>
+#include <vector>
 
 class TitleIndex{
 
@@ -68,5 +69,6 @@ private:
         void setDeadCount(int count);
         void getAllTitles();
         int getSize();
+        std::vector<int> printAllAlphabetically();
 };
 #endif // TITLE_H

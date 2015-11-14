@@ -71,7 +71,8 @@ void PrintTryAgain(addChangeDelete type);
 
 //Print Menu functions
 void printReturn();
-void PrintAll();
+void PrintAllAlphabetically();
+void PrintAll_Rev_Alphabetically();
 void PrintByArtist();
 void PrintByTitle();
 void PrintByYear();
@@ -234,7 +235,8 @@ void PrintMenu()
     ClearScreen();
     Header();
     cout << "  Print Menu" << endl << endl;
-    cout << "  1  Print all" << endl
+    cout << "  1  Print ALL in reverse alphabetic order by title" << endl
+         << "  2  Print ALL in alphabetic order by title" << endl
          << "  2  Print by Title" << endl
          << "  3  Print by Artist" << endl
          << "  4  Print by Year" << endl
@@ -378,18 +380,21 @@ void PrintMenuInput()
             MainMenu();
             break;
         case('1'):
-            PrintAll();
+            PrintAll_Rev_Alphabetically();
             break;
         case('2'):
-            PrintByTitle();
+            PrintAllAlphabetically();
             break;
         case('3'):
-            PrintByArtist();
+            PrintByTitle();
             break;
         case('4'):
-            PrintByYear();
+            PrintByArtist();
             break;
         case('5'):
+            PrintByYear();
+            break;
+        case('6'):
             PrintSummary();
             break;
         default:
@@ -654,9 +659,9 @@ void PrintTryAgain(addChangeDelete type)
 } // end printTryAgain
 
 //--------------------------------------------------//
-//               Display all records
+//    Display all records Alphabetically by Title
 //--------------------------------------------------//
-void PrintAll()
+void PrintAllAlphabetically()
 {
     //Clear screen
     ClearScreen();
@@ -672,23 +677,78 @@ void PrintAll()
     //Read in file
     fstream file("output.bin", ios::in | ios::binary);
 
-    int pos = 1;
     MyClass record;
+    vector<int> posArray = primaryInx->printAllAlphabetically();
     //std::cout << record.get_value(file);
     if(file.is_open())
     {
-        record.readIt(file, pos);
-        while(!file.eof())
+        for(int i = 0; i < (int)posArray.size()-1; ++i)
         {
-            if(!record.get_flag())
+            int pos = (int)posArray.at(i);
+            if(pos > 0)
             {
-                cout << "-----------" << endl;
-                cout << " Record " << pos <<endl;
-                cout << "-----------" << endl;
-                cout << record;
+                 record.readIt(file, pos);
+                if(!record.get_flag())
+                {
+                    cout << "-----------" << endl;
+                    cout << " Record " << i+1 <<endl;
+                    cout << "-----------" << endl;
+                    cout << record;
+                }
             }
-            pos++;
-            record.readIt(file, pos);
+        }
+        //Close file
+        file.close();
+    } // if file is open
+    else
+    {
+        cout << endl << endl << " -NOTICE-" << endl << endl;
+        cout << " The file for reading does not exist" << endl << endl << endl << endl;
+    } // end file not open
+
+    //Ask user to return a menu
+    PrintReturn();
+
+} // End PrintAll
+
+//--------------------------------------------------//
+//    Display all records Alphabetically by Title
+//--------------------------------------------------//
+void PrintAll_Rev_Alphabetically()
+{
+    //Clear screen
+    ClearScreen();
+    Header();
+    cout << " Display all records" << endl
+         << endl  << endl  << endl;
+
+    //Provide general information
+    cout << " -INFORMATION-" << endl << endl;
+    cout <<  " All records are displayed." << endl
+         << endl << endl;
+
+    //Read in file
+    fstream file("output.bin", ios::in | ios::binary);
+
+    MyClass record;
+    vector<int> posArray = primaryInx->printAllAlphabetically();
+    //std::cout << record.get_value(file);
+    if(file.is_open())
+    {
+        for(int i = (int)posArray.size()-1; i >= 0; --i)
+        {
+            int pos = (int)posArray.at(i);
+            if(pos > 0)
+            {
+                 record.readIt(file, pos);
+                if(!record.get_flag())
+                {
+                    cout << "-----------" << endl;
+                    cout << " Record " << i+1 <<endl;
+                    cout << "-----------" << endl;
+                    cout << record;
+                }
+            }
         }
         //Close file
         file.close();
@@ -811,7 +871,7 @@ void PrintByArtist()
 
         if(file.is_open())
         {
-            for(int i = 1; i < posArray.size(); i++)
+            for(int i = 1; i < (int)posArray.size(); i++)
             {
                 record.readIt(file, posArray.at(i));
                 if(!record.get_flag())
@@ -882,7 +942,7 @@ void PrintByYear()
 
         if(file.is_open())
         {
-            for(int i = 1; i < posArray.size(); i++)
+            for(int i = 1; i < (int)posArray.size(); i++)
             {
                 record.readIt(file, posArray.at(i));
                 if(!record.get_flag())
@@ -1527,7 +1587,7 @@ void DeleteByArtistYear(recordMember member)
         fstream file("output.bin", ios::in | ios::out | ios::binary);
         if(file.is_open())
         {
-            for(int i = 1; i < posArray.size(); ++i)
+            for(int i = 1; i < (int)posArray.size(); ++i)
             {
                 int position = posArray.at(i);
 
@@ -1667,7 +1727,7 @@ void ChangeByArtistYear(recordMember member)
 
         if(outputFile.is_open())
         {
-            for(int i = 1; i < posArray.size(); ++i)
+            for(int i = 1; i < (int)posArray.size(); ++i)
             {
                 //Set position
                 int position = posArray.at(i);
@@ -1850,7 +1910,6 @@ void ChangeByTitle(int selection, MyClass& me, const int position)
             if(flag_titleChanged)
             {
                 //Update title index
-                int title_pos = 0;
                 primaryInx->updateTitle(old_record.get_title(), me.get_title());
             }
             if(flag_artistChanged)
