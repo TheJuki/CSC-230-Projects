@@ -65,7 +65,8 @@ class YearIndex
         int matchYear(int inYear);
         bool deleteYear(int T, int P);
         int * findYear(int inYear);
-        bool matchYear(int inYear, int pos[]);
+        bool matchYear(int inYear, int &pos);
+        void getAllYears();
 };
 #endif // YEAR_H
 
