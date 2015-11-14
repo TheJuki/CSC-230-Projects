@@ -127,21 +127,25 @@ void Build()
             }
             while (pos != string::npos);   // end delimiter While
 
-            //Convert line into binary file object named me
-            MyClass me(my_title, my_artist, my_type,
-                       my_year, my_price, my_count);
+            int hold = 0;
+            if(!primaryInx->findTitle(my_title, hold))
+            {
+                //Convert line into binary file object named me
+                MyClass me(my_title, my_artist, my_type,
+                           my_year, my_price, my_count);
 
-            //Seek position and write record in binary file
-            me.writeIt(outputFile, position);
+                //Seek position and write record in binary file
+                me.writeIt(outputFile, position);
 
-            //Pass TitleIndex Key information to TitleIndex Index(title, position)
-            primaryInx->addTitle(my_title, position);
+                //Pass TitleIndex Key information to TitleIndex Index(title, position)
+                primaryInx->addTitle(my_title, position);
 
-            //Pass Secondary Key information to Secondary Index(artist or year, position)
-            artistInx->addArtist(my_artist, position);
-            yearInx->addYear(my_year, position);
+                //Pass Secondary Key information to Secondary Index(artist or year, position)
+                artistInx->addArtist(my_artist, position);
+                yearInx->addYear(my_year, position);
 
-            position++;
+                position++;
+            }
 
         } // End eof while
 

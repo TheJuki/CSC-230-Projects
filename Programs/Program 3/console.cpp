@@ -116,8 +116,7 @@ int main(void)
     artistInx = new ArtistIndex(0);
     yearInx = new YearIndex(0);
 
-    primaryInx->getAllTitles();
-    cout << primaryInx->getDeadCount() << endl;
+    artistInx->getAllArtists();
 
     //Start the Main Menu
     MainMenu();

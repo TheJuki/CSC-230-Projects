@@ -140,8 +140,8 @@ void TitleIndex::deleteTitle(string T, int P)
 
 bool TitleIndex::addTitle(string T, int P)
 {
-    int hold = 0;
-    if(!findTitle(T, hold))
+    int holdPos = 0;
+    if(!findTitle(T, holdPos))
     {
         Node * hold = new Node(T, P);
         hold->next = NULL;

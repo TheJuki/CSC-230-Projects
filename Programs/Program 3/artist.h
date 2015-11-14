@@ -65,6 +65,7 @@ class ArtistIndex
         int matchArtist(std::string inArtist);
         bool deleteArtist(std::string T, int P);
         int * findArtist(std::string inArtist);
-        bool matchArtist(std::string inArtist, int pos[]);
+        bool matchArtist(std::string inArtist, int &pos);
+        void getAllArtists();
 };
 #endif // ARTIST_H

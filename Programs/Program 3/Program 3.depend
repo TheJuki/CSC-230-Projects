@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1446345400 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
+1447466989 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
 	"title.h"
 
-1446341355 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
+1446337755 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
 	<fstream>
 	<iostream>
 	<string>
@@ -10,25 +10,29 @@
 	<cstdlib>
 	<cctype>
 
-1446332176 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
+1447471372 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<cstdlib>
 
-1446332140 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
+1447462022 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
 	"year.h"
 
-1446325431 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\binary.cpp
+1446321831 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\binary.cpp
 	"binary.h"
 	<cstdlib>
 	<sstream>
 	<string>
 	<fstream>
 
-1446325421 c:\users\theju\documents\github\csc-230-projects\programs\program 3\binary.h
+1446321821 c:\users\theju\documents\github\csc-230-projects\programs\program 3\binary.h
 	<string>
 	<cstring>
 	<fstream>
 
-1446342137 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\bulk.cpp
+1447464783 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -38,19 +42,19 @@
 	<fstream>
 	<cstdlib>
 
-1446328079 c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.h
+1447469027 c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 
-1446332066 c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.h
+1447462022 c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 
-1446342991 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
+1447469155 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>
