@@ -116,7 +116,8 @@ int main(void)
     artistInx = new ArtistIndex(0);
     yearInx = new YearIndex(0);
 
-    yearInx->getAllYears();
+
+    primaryInx->getAllTitles();
 
     //Start the Main Menu
     MainMenu();
@@ -990,7 +991,7 @@ void PrintSummary()
         }
         //Dead Count
         cout << "--------------------------" << endl;
-        cout << " Deleted records: " << primaryInx->getDeadCount() << endl;
+        cout << " Deleted records: " << record.get_year() << endl;
         cout << "--------------------------" << endl << endl << endl;
 
     } // if file is open
@@ -1275,9 +1276,11 @@ void AddRecord()
                 //Create a binary object
                 MyClass me(my_title, my_artist, my_type,
                            my_year, my_price, my_count);
+                MyClass zeroRecord;
+                zeroRecord.get_value(outputFile);
 
                 //Check dead count
-                if(primaryInx->getDeadCount() > 0)
+                if(zeroRecord.get_year() > 0)
                 {
                     //Check for any available dead flag spot
                     if(!CheckDeadFlags(outputFile, nextIndex))
@@ -1287,7 +1290,8 @@ void AddRecord()
                     }
                     else
                     {
-                        primaryInx->setDeadCount(-1);
+                        zeroRecord.set_year(zeroRecord.get_year() - 1);
+                        zeroRecord.set_value(outputFile);
                     }
                 }
 
@@ -2011,6 +2015,10 @@ void DeleteRecord(fstream& file, const int& pos)
     record.set_flag();
     //Write out that change (Dead)
     record.writeIt(file, pos);
+    //Increase Dead Count (year)
+    record.get_value(file);
+    record.set_year(record.get_year() + 1);
+    record.set_value(file);
 } // end deleteRecord
 
 //END console.cpp

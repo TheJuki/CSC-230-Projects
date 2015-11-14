@@ -25,8 +25,11 @@ private:
         int pos;
         Node * next;
         Node * prev;
-        Node():title("no"), pos(-1), next(NULL), prev(NULL) {}
-        Node(std::string T, int P): title(T), pos(P), next(NULL), prev(NULL) {}
+        Node():title("N"), pos(-1), next(NULL), prev(NULL) {}
+        Node(std::string T, int P): title(T), pos(P)
+        {
+            next=prev=NULL;
+        }
     };
 
     Node * head;
@@ -40,13 +43,12 @@ private:
     void deleteTitleByPosition(int P);
 
     public:
-        TitleIndex()
+        TitleIndex():size(0)
         {
             head = new Node(" ", -1);
             tail = new Node("~", -1);
             head->next = tail;
             tail->prev = head;
-            size = -1;
         }
         TitleIndex(unsigned int InSize):size(InSize)
         {

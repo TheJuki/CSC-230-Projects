@@ -64,7 +64,6 @@ void TitleIndex::readFile()
         fin >> newTitle >> newPos;
         addTitle(newTitle, newPos);
     } // end for
-    --size;
     fin.close();
 }
 
@@ -79,7 +78,6 @@ void TitleIndex::deleteTitleByTitle(string T)
             wp->next->prev = wp->prev;
             delete wp;
             size--;
-            setDeadCount(1);
             return;
         }
         else
@@ -94,7 +92,6 @@ void TitleIndex::deleteTitleByTitle(string T)
         tail = pDelete->prev;
         delete pDelete;
         --size;
-        setDeadCount(1);
     }
     return;
 }
@@ -110,7 +107,6 @@ void TitleIndex::deleteTitleByPosition(int P)
             wp->next->prev = wp->prev;
             delete wp;
             size--;
-            setDeadCount(1);
             return;
         }
         else
@@ -125,7 +121,6 @@ void TitleIndex::deleteTitleByPosition(int P)
         tail = pDelete->prev;
         delete pDelete;
         --size;
-        setDeadCount(1);
     }
 }
 
@@ -143,15 +138,45 @@ bool TitleIndex::addTitle(string T, int P)
     int holdPos = 0;
     if(!findTitle(T, holdPos))
     {
-        Node * hold = new Node(T, P);
-        hold->next = NULL;
-        hold->prev = tail;
-        tail->next = hold;
-        tail = hold;
-        size += 1;
+        if(head->title>T)
+        {
+            Node * wp = new Node(T, P);
+            wp->prev = NULL;
+            wp->next = head;
+            head->next = wp;
+            head = wp;
+            size += 1;
+        }
+        else if(tail->title<T)
+        {
+            Node * wp = new Node(T, P);
+            wp->next = NULL;
+            wp->prev = tail;
+            tail->prev = wp;
+            tail = wp;
+            size += 1;
+        }
+        else
+        {
+            Node * wp = head->next;
+            while(wp != NULL)
+            {
+                if(wp->title>T)
+                {
+                    Node * wp2 = new Node(T,P);
+                    wp2->prev = wp->prev;
+                    wp2->next = wp;
+                    wp->prev->next=wp2;
+                    wp->prev=wp2;
+                    size += 1;
+                    return true;
+                }
+                wp=wp->next;
+            }
+        }
         return true;
     }
-    return true;
+    return false;
 }
 
 bool TitleIndex::findTitle(string T, int& P)
@@ -190,11 +215,4 @@ int TitleIndex::getSize()
 {
     return size;
 }
-int TitleIndex::getDeadCount()
-{
-    return head->next->next->pos;
-}
-void TitleIndex::setDeadCount(int count)
-{
-    head->next->next->pos += count;
-}
+

@@ -55,7 +55,7 @@ void Build()
         long position = 1;
         //Create TitleIndex Index object
         TitleIndex* primaryInx = new TitleIndex();
-        primaryInx->addTitle("Dead_Count", 0);
+        //primaryInx->addTitle("Dead_Count", 0);
         //Create Secondary Index objects
         ArtistIndex* artistInx = new ArtistIndex();
         YearIndex* yearInx = new YearIndex();
