@@ -44,15 +44,15 @@ class YearIndex
     public:
         YearIndex(): size(0)
         {
-            head = new Node(-1, -1);
-            tail = new Node(-1, -1);
+            head = new Node(0, -1);
+            tail = new Node(9999, -1);
             head->next = tail;
             tail->prev = head;
         }
         YearIndex(int my_size): size(my_size)
         {
-            head = new Node(-1, -1);
-            tail = new Node(-1, -1);
+            head = new Node(0, -1);
+            tail = new Node(9999, -1);
             head->next = tail;
             tail->prev = head;
             readSecondary();

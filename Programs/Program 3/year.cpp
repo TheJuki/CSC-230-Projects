@@ -12,15 +12,15 @@ Description: Code for year data
 #include <sstream>
 #include <cstdlib>
 
-void YearIndex::addYear(int myYear, int myKey)
+void YearIndex::addYear(int Y, int P)
 {
-     bool foundYear = false;
+    bool foundYear = false;
 
     Node * wp = head->next;
 
     while(wp != NULL)
     {
-        if(wp->year == myYear)
+        if(wp->year == Y)
         {
             foundYear = true;
             wp->up->pos = wp->up->pos + 1;
@@ -29,27 +29,66 @@ void YearIndex::addYear(int myYear, int myKey)
             {
                 holdUp = holdUp->up;
             } // end while
-            Node * p = new Node(-1,myKey);
-            p->down = holdUp->down;
-            p->up = holdUp;
-            holdUp->down->up=p;
-            holdUp->down=p;
+            Node * wp2 = new Node(-1,P);
+            wp2->down = holdUp->down;
+            wp2->up = holdUp;
+            holdUp->down->up=wp2;
+            holdUp->down=wp2;
             break;
         }
         wp = wp->next;
     } // end while
     if(!foundYear)
     {
-        Node * hold = new Node(myYear, myKey);
-        hold->next = NULL;
-        hold->prev = tail;
-        tail->next = hold;
-        tail = hold;
-        size += 1;
-        hold->up = new Node(-1, 1);
-        hold->up->up = new Node(-1, myKey);
-        hold->up->up->down =  hold->up;
-    } // end else
+        if(head->year>Y)
+        {
+            Node * wp = new Node(Y, P);
+            wp->prev = NULL;
+            wp->next = head;
+            head->next = wp;
+            head = wp;
+            size += 1;
+
+            head->up = new Node(-1, 1);
+            head->up->up = new Node(-1, P);
+            head->up->up->down =  head->up;
+        }
+        else if(tail->year<Y)
+        {
+            Node * wp = new Node(Y, P);
+            wp->next = NULL;
+            wp->prev = tail;
+            tail->prev = wp;
+            tail = wp;
+            size += 1;
+
+            tail->up = new Node(-1, 1);
+            tail->up->up = new Node(-1, P);
+            tail->up->up->down =  tail->up;
+        }
+        else
+        {
+            Node * wp = head->next;
+            while(wp != NULL)
+            {
+                if(wp->year>Y)
+                {
+                    Node * wp2 = new Node(Y,P);
+                    wp2->prev = wp->prev;
+                    wp2->next = wp;
+                    wp->prev->next=wp2;
+                    wp->prev=wp2;
+                    size += 1;
+
+                    wp->prev->up = new Node(-1, 1);
+                    wp->prev->up->up = new Node(-1, P);
+                    wp->prev->up->up->down =  wp->prev->up;
+                    return;
+                }
+                wp=wp->next;
+            }
+        }
+    } // end if
 }
 void YearIndex::updateYear(int old_year, int new_year, int old_pos)
 {
@@ -58,7 +97,7 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
     //If new year does not currently exist...
     if(!matchYear(new_year, holdLocation))
     {
-       Node * wp = head->next;
+        Node * wp = head->next;
 
         while(wp != NULL)
         {
@@ -84,10 +123,10 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
             {
                 break;
             }
-             oldNode = oldNode->next;
+            oldNode = oldNode->next;
         } // end while
 
-         //Update count
+        //Update count
         oldNode->up->pos = oldNode->up->pos - 1;
 
         //Find new Node
@@ -97,44 +136,44 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
             {
                 break;
             }
-             newNode = newNode->next;
+            newNode = newNode->next;
         } // end while
 
         //Update count
         newNode->up->pos = newNode->up->pos + 1;
 
         //Find old pos
-         Node * oldUp = oldNode->up;
-          while(oldUp != NULL)
+        Node * oldUp = oldNode->up;
+        while(oldUp != NULL)
+        {
+            if(oldUp->pos == old_pos)
             {
-                if(oldUp->pos == old_pos)
-                {
-                    break;
-                }
-                 oldUp = oldUp->up;
-            } // end while
+                break;
+            }
+            oldUp = oldUp->up;
+        } // end while
 
-             //Find empty up in newNode
-         Node * newUp = newNode->up;
-          while(newUp->up != NULL)
-            {
-                 newUp = newUp->up;
-            } // end while
+        //Find empty up in newNode
+        Node * newUp = newNode->up;
+        while(newUp->up != NULL)
+        {
+            newUp = newUp->up;
+        } // end while
 
-            //Transfer Ups
+        //Transfer Ups
 
-            //Add New Up
-            Node * p = new Node(-1,old_pos);
-            p->down = newUp->down;
-            p->up = newUp;
-            newUp->down->up=p;
-            newUp->down=p;
+        //Add New Up
+        Node * p = new Node(-1,old_pos);
+        p->down = newUp->down;
+        p->up = newUp;
+        newUp->down->up=p;
+        newUp->down=p;
 
-            //Delete Old Up
-            Node * deleteNode = oldUp;
-            oldUp->down = deleteNode->up;
+        //Delete Old Up
+        Node * deleteNode = oldUp;
+        oldUp->down = deleteNode->up;
 
-            delete deleteNode;
+        delete deleteNode;
 
     } // end else
 }
@@ -166,9 +205,9 @@ void YearIndex::getAllYears()
                 strs << myVector.at(i);
                 std::string temp_str = strs.str();
 
-               buildLine += temp_str + " ";
+                buildLine += temp_str + " ";
             }
-             std::cout << wp->year << " " << buildLine << std::endl;
+            std::cout << wp->year << " " << buildLine << std::endl;
         }
 
         wp = wp->next;
@@ -194,36 +233,39 @@ void YearIndex::writeSecondary()
         buildLine = " ";
         //Number of Keys
         std::stringstream strs;
-        strs << wp->up->pos;
-        std::string temp_str = strs.str();
-        //Add number of keys to numOfKeys
-        numOfKeys = temp_str + " ";
-
-        Node * holdUp = wp->up->up;
-        //for each item in pos
-        while(holdUp != NULL)
+        if(wp->up != NULL)
         {
-            if(holdUp->pos != 0)
+            strs << wp->up->pos;
+            std::string temp_str = strs.str();
+            //Add number of keys to numOfKeys
+            numOfKeys = temp_str + " ";
+
+            Node * holdUp = wp->up->up;
+            //for each item in pos
+            while(holdUp != NULL)
             {
-                //Convert the key to a string
-                std::stringstream strs;
-                strs << holdUp->pos;
-                std::string temp_str = strs.str();
-                //Add key to buildLine
-                buildLine += temp_str + " ";
-            } //end if
-            holdUp = holdUp->up;
-        } // end while
+                if(holdUp->pos != 0)
+                {
+                    //Convert the key to a string
+                    std::stringstream strs;
+                    strs << holdUp->pos;
+                    std::string temp_str = strs.str();
+                    //Add key to buildLine
+                    buildLine += temp_str + " ";
+                } //end if
+                holdUp = holdUp->up;
+            } // end while
 
-        //If there is at least 1 key then write to file
-        if(wp->up->pos != 0)
-        {
-            //Write to file
-            fout << numOfKeys
-                 << wp->year
-                 << buildLine
-                 << std::endl;
-        } // end if
+            //If there is at least 1 key then write to file
+            if(wp->up->pos != 0)
+            {
+                //Write to file
+                fout << numOfKeys
+                     << wp->year
+                     << buildLine
+                     << std::endl;
+            } // end if
+        }
         wp = wp->next;
     } //end while
 
@@ -233,7 +275,7 @@ void YearIndex::writeSecondary()
 
 void YearIndex::readSecondary()
 {
-     std::ifstream input("year_index.txt");
+    std::ifstream input("year_index.txt");
     std::string line;
     getline (input,line);
     size = atoi(line.c_str());
@@ -254,9 +296,7 @@ void YearIndex::readSecondary()
         int numOfKeys = 0;
         //Year Input
         int year_input = -1;
-
-        Node * hold = head->next;
-        while(!input.eof() && position != size+1)
+        while(!input.eof() && position != (int)(size+1))
         {
             //Read in a line from the sequential file
             getline (input,line);
@@ -280,14 +320,7 @@ void YearIndex::readSecondary()
                 part = line.substr(0, pos);
                 year_input = atoi(part.c_str());
                 line.erase(0, pos + delimiter.length());
-                Node * hold = new Node(year_input, 0);
-                hold->next = NULL;
-                hold->prev = tail;
-                tail->next = hold;
-                tail = hold;
-                hold->up = new Node(-1, 0);
-                hold->up->up = new Node(-1, 0);
-                hold->up->up->down = hold->up;
+                --size;
             }
 
             //Set pos to keys in line
@@ -302,7 +335,6 @@ void YearIndex::readSecondary()
             } // end for
 
             position++;
-            hold = hold->next;
         } // End eof while
         input.close();
     } // end if
@@ -320,7 +352,7 @@ std::vector<int> YearIndex::findYear(int inYear)
             if(wp->up != NULL && wp->up->up != NULL)
             {
                 Node * holdUp = wp->up;
-                 int i = 0;
+                int i = 0;
 
                 while(holdUp->up != NULL)
                 {

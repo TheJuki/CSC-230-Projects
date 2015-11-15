@@ -11,14 +11,14 @@
 	<cctype>
 	<vector>
 
-1447538314 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
+1447545674 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<cstdlib>
 
-1447536513 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
+1447546617 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
 	"year.h"
 	<iostream>
 	<fstream>
@@ -54,14 +54,14 @@
 	<fstream>
 	<vector>
 
-1447536479 c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.h
+1447546781 c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 	<vector>
 
-1447542548 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
+1447546755 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>

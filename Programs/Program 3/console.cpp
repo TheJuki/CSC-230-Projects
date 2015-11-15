@@ -118,7 +118,7 @@ int main(void)
     yearInx = new YearIndex(0);
 
 
-    primaryInx->getAllTitles();
+    yearInx->getAllYears();
 
     //Start the Main Menu
     MainMenu();
