@@ -298,7 +298,7 @@ void ArtistIndex::writeSecondary()
     std::string buildLine;
     std::string numOfKeys;
 
-    Node * wp = head->next->next;
+    Node * wp = head->next;
 
     //For each item in my_list
     while(wp != NULL)
@@ -363,7 +363,7 @@ std::vector<int> ArtistIndex::findArtist(std::string inArtist)
                 Node * holdUp = wp->up;
                 int i = 0;
 
-                while(holdUp->up != NULL)
+                while(holdUp != NULL)
                 {
                     myVector.insert(myVector.begin() + i, holdUp->pos);
                     holdUp = holdUp->up;

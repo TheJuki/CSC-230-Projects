@@ -81,7 +81,7 @@ void PrintSummary();
 //Delete Menu Functions
 void DeleteByArtistYear(recordMember member);
 void DeleteByTitle();
-bool ConfirmDelete();
+bool ConfirmMessage(std::string message);
 void DeleteRecord(std::fstream& file, const int& pos);
 
 //Change Menu Functions
@@ -234,10 +234,10 @@ void PrintMenu()
     cout << "  Print Menu" << endl << endl;
     cout << "  1  Print ALL in reverse alphabetic order by title" << endl
          << "  2  Print ALL in alphabetic order by title" << endl
-         << "  2  Print by Title" << endl
-         << "  3  Print by Artist" << endl
-         << "  4  Print by Year" << endl
-         << "  5  Print Summary" << endl
+         << "  3  Print by Title" << endl
+         << "  4  Print by Artist" << endl
+         << "  5  Print by Year" << endl
+         << "  6  Print Summary" << endl
          << endl //6
          << endl //7
          << "\n\n\n\n";
@@ -679,18 +679,27 @@ void PrintAllAlphabetically()
     //std::cout << record.get_value(file);
     if(file.is_open())
     {
+        int counter = 0;
         for(int i = 0; i < (int)posArray.size()-1; ++i)
         {
             int pos = (int)posArray.at(i);
             if(pos > 0)
             {
+                if(counter == 26)
+                {
+                    if(ConfirmMessage("26 records displayed. Show more (Y/N)?"))
+                        counter = 0;
+                    else
+                        break;
+                }
                 record.readIt(file, pos);
                 if(!record.get_flag())
                 {
                     cout << "-----------" << endl;
-                    cout << " Record " << i+1 <<endl;
+                    cout << " Record " << posArray.at(i) <<endl;
                     cout << "-----------" << endl;
                     cout << record;
+                    ++counter;
                 }
             }
         }
@@ -732,18 +741,27 @@ void PrintAll_Rev_Alphabetically()
     //std::cout << record.get_value(file);
     if(file.is_open())
     {
+        int counter = 0;
         for(int i = (int)posArray.size()-1; i >= 0; --i)
         {
             int pos = (int)posArray.at(i);
             if(pos > 0)
             {
+                if(counter == 26)
+                {
+                    if(ConfirmMessage("26 records displayed. Show more (Y/N)?"))
+                        counter = 0;
+                    else
+                        break;
+                }
                 record.readIt(file, pos);
                 if(!record.get_flag())
                 {
                     cout << "-----------" << endl;
-                    cout << " Record " << i+1 <<endl;
+                    cout << " Record " << posArray.at(i) <<endl;
                     cout << "-----------" << endl;
                     cout << record;
+                    ++counter;
                 }
             }
         }
@@ -868,8 +886,16 @@ void PrintByArtist()
 
         if(file.is_open())
         {
+            int counter = 0;
             for(int i = 1; i < (int)posArray.size(); i++)
             {
+                if(counter == 26)
+                {
+                    if(ConfirmMessage("26 records displayed. Show more (Y/N)?"))
+                        counter = 0;
+                    else
+                        break;
+                }
                 record.readIt(file, posArray.at(i));
                 if(!record.get_flag())
                 {
@@ -877,6 +903,7 @@ void PrintByArtist()
                     cout << " Record " << posArray.at(i) <<endl;
                     cout << "-----------" << endl;
                     cout << record;
+                    ++counter;
                 } // End if
             } // end for
 
@@ -939,8 +966,16 @@ void PrintByYear()
 
         if(file.is_open())
         {
+            int counter = 0;
             for(int i = 1; i < (int)posArray.size(); i++)
             {
+                if(counter == 26)
+                {
+                    if(ConfirmMessage("26 records displayed. Show more (Y/N)?"))
+                        counter = 0;
+                    else
+                        break;
+                }
                 record.readIt(file, posArray.at(i));
                 if(!record.get_flag())
                 {
@@ -948,6 +983,7 @@ void PrintByYear()
                     cout << " Record " << posArray.at(i) <<endl;
                     cout << "-----------" << endl;
                     cout << record;
+                    ++counter;
                 } // End if
             } // end for
 
@@ -1403,16 +1439,16 @@ void AddRecord()
 
 
 //--------------------------------------------------//
-//          Ask user to confirm deletion
+//          Ask user to confirm something
 //--------------------------------------------------//
-bool ConfirmDelete()
+bool ConfirmMessage(string message)
 {
     //confirm boolean
     bool isYes = false;
 
     //Ask user to return -Ignores Invalid Input
     string input;
-    cout << endl << endl << " Delete record (Y/N)? ";
+    cout << endl << endl << " " << message << " ";
     cin >> input;
 
     if (input.size() > 1)
@@ -1438,7 +1474,7 @@ bool ConfirmDelete()
     } // end else
 
     return isYes;
-} // end confirmDelete
+} // end confirmMessage
 
 //--------------------------------------------------//
 //           Delete a record by Title
@@ -1482,7 +1518,7 @@ void DeleteByTitle()
             record.readIt(file, pos);
             cout << record;
 
-            if(ConfirmDelete())
+            if(ConfirmMessage("Delete record (Y/N)?"))
             {
                 DeleteRecord(file, pos);
 
@@ -1599,7 +1635,7 @@ void DeleteByArtistYear(recordMember member)
                 record.readIt(file, position);
                 cout << record;
 
-                if(ConfirmDelete())
+                if(ConfirmMessage("Delete record (Y/N)?"))
                 {
                     DeleteRecord(file, position);
 
