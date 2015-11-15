@@ -93,7 +93,7 @@ void TitleIndex::readFile()
 
     ifstream fin("title_index.txt");
     fin >> numOfTitles;
-    for(unsigned int i = 0; i < numOfTitles+2; ++i)
+    for(int i = 0; i < numOfTitles+2; ++i)
     {
         fin >> newTitle >> newPos;
         addTitle(newTitle, newPos);

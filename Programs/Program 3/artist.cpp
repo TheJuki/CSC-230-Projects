@@ -113,7 +113,7 @@ void ArtistIndex::getAllArtists()
             } // end while
 
             std::string buildLine = "";
-            for(i = 0; i < myVector.size(); ++i)
+            for(i = 0; i < (int)myVector.size(); ++i)
             {
                 std::stringstream strs;
                 strs << myVector.at(i);

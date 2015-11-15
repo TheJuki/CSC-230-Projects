@@ -22,7 +22,7 @@ void CheckBulkFile();
 using namespace std;
 
 //File names
-char inputFileName[80] = "input.txt";
+char inputFileName[80] = "input2.txt";
 char outputFileName[80] = "output.bin";
 
 //Check for preexisting binary file
