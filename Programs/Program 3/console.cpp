@@ -677,40 +677,43 @@ void PrintAllAlphabetically()
     MyClass record;
     vector<int> posArray = primaryInx->printAllAlphabetically();
     //std::cout << record.get_value(file);
-    if(file.is_open())
+    if(posArray.size() > 0)
     {
-        int counter = 0;
-        for(int i = 0; i < (int)posArray.size()-1; ++i)
+        if(file.is_open())
         {
-            int pos = (int)posArray.at(i);
-            if(pos > 0)
+            int counter = 0;
+            for(int i = 0; i < (int)posArray.size()-1; ++i)
             {
-                if(counter == 26)
+                int pos = (int)posArray.at(i);
+                if(pos > 0)
                 {
-                    if(ConfirmMessage("26 records displayed. Show more (Y/N)?"))
-                        counter = 0;
-                    else
-                        break;
-                }
-                record.readIt(file, pos);
-                if(!record.get_flag())
-                {
-                    cout << "-----------" << endl;
-                    cout << " Record " << posArray.at(i) <<endl;
-                    cout << "-----------" << endl;
-                    cout << record;
-                    ++counter;
+                    if(counter == 26)
+                    {
+                        if(ConfirmMessage("26 records displayed. Show more (Y/N)?"))
+                            counter = 0;
+                        else
+                            break;
+                    }
+                    record.readIt(file, pos);
+                    if(!record.get_flag())
+                    {
+                        cout << "-----------" << endl;
+                        cout << " Record " << posArray.at(i) <<endl;
+                        cout << "-----------" << endl;
+                        cout << record;
+                        ++counter;
+                    }
                 }
             }
-        }
-        //Close file
-        file.close();
-    } // if file is open
-    else
-    {
-        cout << endl << endl << " -NOTICE-" << endl << endl;
-        cout << " The file for reading does not exist" << endl << endl << endl << endl;
-    } // end file not open
+            //Close file
+            file.close();
+        } // if file is open
+        else
+        {
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+        } // end file not open
+    } // end if
 
     //Ask user to return a menu
     PrintReturn();
@@ -739,40 +742,43 @@ void PrintAll_Rev_Alphabetically()
     MyClass record;
     vector<int> posArray = primaryInx->printAllAlphabetically();
     //std::cout << record.get_value(file);
-    if(file.is_open())
+    if(posArray.size() > 0)
     {
-        int counter = 0;
-        for(int i = (int)posArray.size()-1; i >= 0; --i)
+        if(file.is_open())
         {
-            int pos = (int)posArray.at(i);
-            if(pos > 0)
+            int counter = 0;
+            for(int i = (int)posArray.size()-1; i >= 0; --i)
             {
-                if(counter == 26)
+                int pos = (int)posArray.at(i);
+                if(pos > 0)
                 {
-                    if(ConfirmMessage("26 records displayed. Show more (Y/N)?"))
-                        counter = 0;
-                    else
-                        break;
-                }
-                record.readIt(file, pos);
-                if(!record.get_flag())
-                {
-                    cout << "-----------" << endl;
-                    cout << " Record " << posArray.at(i) <<endl;
-                    cout << "-----------" << endl;
-                    cout << record;
-                    ++counter;
+                    if(counter == 26)
+                    {
+                        if(ConfirmMessage("26 records displayed. Show more (Y/N)?"))
+                            counter = 0;
+                        else
+                            break;
+                    }
+                    record.readIt(file, pos);
+                    if(!record.get_flag())
+                    {
+                        cout << "-----------" << endl;
+                        cout << " Record " << posArray.at(i) <<endl;
+                        cout << "-----------" << endl;
+                        cout << record;
+                        ++counter;
+                    }
                 }
             }
-        }
-        //Close file
-        file.close();
-    } // if file is open
-    else
-    {
-        cout << endl << endl << " -NOTICE-" << endl << endl;
-        cout << " The file for reading does not exist" << endl << endl << endl << endl;
-    } // end file not open
+            //Close file
+            file.close();
+        } // if file is open
+        else
+        {
+            cout << endl << endl << " -NOTICE-" << endl << endl;
+            cout << " The file for reading does not exist" << endl << endl << endl << endl;
+        } // end file not open
+    } // end if
 
     //Ask user to return a menu
     PrintReturn();

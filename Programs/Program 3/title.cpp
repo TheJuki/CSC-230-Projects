@@ -134,16 +134,27 @@ void TitleIndex::deleteTitleByTitle(string T)
 //Return a array of the positions of all titles (already sorted)
 std::vector<int> TitleIndex::printAllAlphabetically()
 {
-    Node * wp = head->next;
-
-    std::vector<int> myVector;
-    while(wp != NULL)
+    try
     {
-        myVector.push_back(wp->pos);
-        wp =  wp->next;
-    } // end while
+        std::vector<int> myVector;
+        Node * wp = head->next;
 
-    return myVector;
+        while(wp != NULL)
+        {
+            myVector.push_back(wp->pos);
+            wp =  wp->next;
+        } // end while
+
+        return myVector;
+    } // try
+    catch(std::bad_alloc& ba)
+    {
+        cout << " Primary Index file not found" << endl;
+    }
+    std::vector<int> newVector;
+    return newVector;
+
+
 } // end printAllAlphabetically
 
 //Delete a title by position
@@ -212,7 +223,11 @@ void TitleIndex::updateTitle(string oldtitle, string newTitle)
     {
         if(wp->title == oldtitle)
         {
-            wp->title = newTitle;
+            int position = wp->pos;
+            //Delete old title and add new title
+            //This retains sorting
+            deleteTitle(oldtitle, 0);
+            addTitle(newTitle, position);
             return;
         }
         wp = wp->next;

@@ -131,42 +131,18 @@ void ArtistIndex::getAllArtists()
 //Update an artist
 void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, int old_pos)
 {
-    int holdLocation = 0;
+     int holdLocation = 0;
 
     //If new artist does not currently exist...
     if(!matchArtist(new_artist, holdLocation))
     {
-        Node * wp = head->next;
-
-        while(wp != NULL)
-        {
-            if(wp->artist == old_artist)
-            {
-                wp->artist = new_artist;
-                return;
-            } // end if
-            wp = wp->next;
-        } // end while
+        addArtist(new_artist, old_pos);
     } // end if
     else
     {
         //Copy positions to new location
-        //Delete old artist
-        Node * oldNode = head->next;
+
         Node * newNode = head->next;
-
-        //Find old Node
-        while(oldNode != NULL)
-        {
-            if(oldNode->artist == old_artist)
-            {
-                break;
-            } // end if
-            oldNode = oldNode->next;
-        } // end while
-
-        //Update count
-        oldNode->up->pos = oldNode->up->pos - 1;
 
         //Find new Node
         while(newNode != NULL)
@@ -181,25 +157,12 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
         //Update count
         newNode->up->pos = newNode->up->pos + 1;
 
-        //Find old pos
-        Node * oldUp = oldNode->up;
-        while(oldUp != NULL)
-        {
-            if(oldUp->pos == old_pos)
-            {
-                break;
-            } // end if
-            oldUp = oldUp->up;
-        } // end while
-
         //Find empty up in newNode
         Node * newUp = newNode->up;
         while(newUp->up != NULL)
         {
             newUp = newUp->up;
         } // end while
-
-        //Transfer Ups
 
         //Add New Up
         Node * p = new Node("~",old_pos);
@@ -208,13 +171,10 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
         newUp->down->up=p;
         newUp->down=p;
 
-        //Delete Old Up
-        Node * deleteNode = oldUp;
-        oldUp->down = deleteNode->up;
-
-        delete deleteNode;
-
     } // end else
+    //Delete Old Up
+    deleteArtist(old_artist, old_pos);
+
 } // end updateArtist
 
 //Read in artists
@@ -300,7 +260,7 @@ void ArtistIndex::writeSecondary()
 
     Node * wp = head->next;
 
-    //For each item in my_list
+    //For each item in Linked List
     while(wp != NULL)
     {
         //Default
@@ -402,30 +362,39 @@ bool ArtistIndex::matchArtist(std::string inArtist, int &pos)
 bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
 {
     Node * wp = head->next;
-    Node * wsp, * hold;
+    Node * holdUp, * hold;
 
     while(wp != tail)
     {
         if(inArtist == wp->artist)
         {
-            if(wp->down != NULL)
+            if(wp->up != NULL)
             {
-                wsp = wp->down;
-                while(wsp->down != NULL)
-                    wsp = wsp->down;
-                while(wsp->up != NULL)
+                holdUp = wp->up->up;
+                while(holdUp != NULL)
                 {
-                    // call binary file with pos to delete record
-                    hold = wsp;
-                    wsp = wsp->up;
-                    delete hold;
+                    hold = holdUp;
+                    holdUp = holdUp->up;
+                    if(hold->pos == pos)
+                    {
+                        wp->up->pos = wp->up->pos - 1;
+                        if(hold->down != NULL)
+                            hold->down->up = hold->up;
+                        if(hold->up != NULL)
+                            hold->up->down = hold->down;
+                        delete hold;
+                    }
                 } // end while
             } // end if
-            // call binary file with pos to delete record
-            hold = wp;
-            wp->next->prev = wp->prev;
-            wp->prev->next = wp->next;
-            delete hold;
+            if(wp->up->pos == 0)
+            {
+                hold = wp;
+                wp->next->prev = wp->prev;
+                wp->prev->next = wp->next;
+                delete hold;
+                size--;
+            }
+
             return true;
         } // end if
         wp = wp->next;
