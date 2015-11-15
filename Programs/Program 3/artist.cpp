@@ -12,6 +12,7 @@ Description: Artist - secondary index
 #include <sstream>
 #include <cstdlib>
 
+//Add an artist (Sort Alphabetically)
 void ArtistIndex::addArtist(std::string A, int P)
 {
     bool foundArtist = false;
@@ -52,7 +53,7 @@ void ArtistIndex::addArtist(std::string A, int P)
             head->up = new Node("numOfKeys", 1);
             head->up->up = new Node("~", P);
             head->up->up->down =  head->up;
-        }
+        } // end if
         else if(tail->artist<A)
         {
             Node * wp = new Node(A, P);
@@ -65,7 +66,7 @@ void ArtistIndex::addArtist(std::string A, int P)
             tail->up = new Node("numOfKeys", 1);
             tail->up->up = new Node("~", P);
             tail->up->up->down =  tail->up;
-        }
+        } // end else if
         else
         {
             Node * wp = head->next;
@@ -84,13 +85,14 @@ void ArtistIndex::addArtist(std::string A, int P)
                     wp->prev->up->up = new Node("~", P);
                     wp->prev->up->up->down =  wp->prev->up;
                     return;
-                }
+                } // end if
                 wp=wp->next;
-            }
-        }
+            } // end while
+        } // end else
     } // end else
-}
+} // end addArtist
 
+//Display all artists
 void ArtistIndex::getAllArtists()
 {
     Node * wp = head->next;
@@ -118,14 +120,15 @@ void ArtistIndex::getAllArtists()
                 std::string temp_str = strs.str();
 
                 buildLine += temp_str + " ";
-            }
+            } // end for
             std::cout << wp->artist << " " << buildLine << std::endl;
-        }
+        } // end if
 
         wp = wp->next;
     } //end while
-}
+} // end getAllArtists
 
+//Update an artist
 void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, int old_pos)
 {
     int holdLocation = 0;
@@ -141,7 +144,7 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
             {
                 wp->artist = new_artist;
                 return;
-            }
+            } // end if
             wp = wp->next;
         } // end while
     } // end if
@@ -158,7 +161,7 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
             if(oldNode->artist == old_artist)
             {
                 break;
-            }
+            } // end if
             oldNode = oldNode->next;
         } // end while
 
@@ -171,7 +174,7 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
             if(newNode->artist == new_artist)
             {
                 break;
-            }
+            } // end if
             newNode = newNode->next;
         } // end while
 
@@ -185,7 +188,7 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
             if(oldUp->pos == old_pos)
             {
                 break;
-            }
+            } // end if
             oldUp = oldUp->up;
         } // end while
 
@@ -214,6 +217,7 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
     } // end else
 } // end updateArtist
 
+//Read in artists
 void ArtistIndex::readSecondary()
 {
     std::ifstream input("artist_index.txt");
@@ -280,10 +284,10 @@ void ArtistIndex::readSecondary()
         } // End eof while
         input.close();
     } // end if
-}
+} // end readSecondary
 
 
-//Write sequential file from array
+//Write out artists
 void ArtistIndex::writeSecondary()
 {
     std::ofstream fout("artist_index.txt");
@@ -335,7 +339,7 @@ void ArtistIndex::writeSecondary()
                      << buildLine
                      << std::endl;
             } // end if
-        }
+        } // end if
         wp = wp->next;
     } //end while
 
@@ -343,6 +347,7 @@ void ArtistIndex::writeSecondary()
     fout.close();
 } // end writeSecondary
 
+//Find an artist and return an array of positions
 std::vector<int> ArtistIndex::findArtist(std::string inArtist)
 {
     std::vector<int> myVector;
@@ -368,12 +373,14 @@ std::vector<int> ArtistIndex::findArtist(std::string inArtist)
             } // end if
             else
                 break;
-        }
+        } //end if
         wp = wp->next;
     } // end while
 
     return myVector;
-}
+} // end findArtist
+
+//Match an artist
 bool ArtistIndex::matchArtist(std::string inArtist, int &pos)
 {
     Node * wp = head->next;
@@ -384,13 +391,14 @@ bool ArtistIndex::matchArtist(std::string inArtist, int &pos)
         {
             pos = wp->up->pos;
             return true;
-        }
+        } // end if
         wp = wp->next;
     } // end while
     pos = 0;
     return false;
-}
+} // end matchArtist
 
+//Delete an artist
 bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
 {
     Node * wp = head->next;
@@ -411,20 +419,21 @@ bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
                     hold = wsp;
                     wsp = wsp->up;
                     delete hold;
-                }
-            }
+                } // end while
+            } // end if
             // call binary file with pos to delete record
             hold = wp;
             wp->next->prev = wp->prev;
             wp->prev->next = wp->next;
             delete hold;
             return true;
-        }
+        } // end if
         wp = wp->next;
-    }
+    } // end while
     return false;
-}
+} // end deleteArtist
 
+//Kill Linked Lists upon delete
 void ArtistIndex::killList()
 {
     Node * wp = head;
@@ -442,13 +451,13 @@ void ArtistIndex::killList()
                 hold = wsp;
                 wsp = wsp->up;
                 delete hold;
-            }
-        }
+            } // end while
+        } // end if
         hold = wp;
         wp = wp->next;
         delete hold;
-    }
+    } // end while
     return;
-}
+} // end killList
 
 

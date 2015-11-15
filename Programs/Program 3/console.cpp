@@ -117,9 +117,6 @@ int main(void)
     artistInx = new ArtistIndex(0);
     yearInx = new YearIndex(0);
 
-
-    yearInx->getAllYears();
-
     //Start the Main Menu
     MainMenu();
     //Exit
@@ -687,7 +684,7 @@ void PrintAllAlphabetically()
             int pos = (int)posArray.at(i);
             if(pos > 0)
             {
-                 record.readIt(file, pos);
+                record.readIt(file, pos);
                 if(!record.get_flag())
                 {
                     cout << "-----------" << endl;
@@ -740,7 +737,7 @@ void PrintAll_Rev_Alphabetically()
             int pos = (int)posArray.at(i);
             if(pos > 0)
             {
-                 record.readIt(file, pos);
+                record.readIt(file, pos);
                 if(!record.get_flag())
                 {
                     cout << "-----------" << endl;

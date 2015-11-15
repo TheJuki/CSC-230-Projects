@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1447542086 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
+1447547658 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.cpp
 	"title.h"
 
-1447542099 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
+1447547970 c:\users\theju\documents\github\csc-230-projects\programs\program 3\title.h
 	<fstream>
 	<iostream>
 	<string>
@@ -11,14 +11,14 @@
 	<cctype>
 	<vector>
 
-1447545674 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
+1447548208 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<cstdlib>
 
-1447546617 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
+1447547940 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.cpp
 	"year.h"
 	<iostream>
 	<fstream>
@@ -47,21 +47,21 @@
 	<fstream>
 	<cstdlib>
 
-1447535100 c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.h
+1447548006 c:\users\theju\documents\github\csc-230-projects\programs\program 3\artist.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 	<vector>
 
-1447546781 c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.h
+1447547997 c:\users\theju\documents\github\csc-230-projects\programs\program 3\year.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
 	<vector>
 
-1447546755 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
+1447548264 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>
