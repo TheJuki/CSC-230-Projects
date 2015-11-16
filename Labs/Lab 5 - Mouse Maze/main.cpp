@@ -26,6 +26,8 @@ string checkWall(char mazeArray[][200]);
 void traverseMaze(char mazeArray[][200]);
 string checkVisited(char mazeArray[][200]);
 bool isWall(char wallChar);
+string checkEmptySpot(char mazeArray[][200]);
+bool backTrackSteps(char mazeArray[][200]);
 
 struct Mouse
 {
@@ -65,9 +67,6 @@ int main()
     char mazeArray[200][200];
     //Current line
     string line = "";
-
-    //Counter for input row
-    int counter = 0;
 
     //Set all cells to 0
     for (int r = 0; r < rows; ++r)
@@ -135,6 +134,50 @@ bool stepLeft(char mazeArray[][200])
     return foundCheese;
 }
 
+bool backTrackSteps(char mazeArray[][200])
+{
+    bool foundCheese = false;
+    int currentX;
+    int currentY;
+    mouse = path.top();
+    while(mazeArray[mouse.y][mouse.x] != '.')
+    {
+        //Get current X and Y before pop
+        currentX = mouse.x;
+        currentY = mouse.y;
+
+        foundCheese = false;
+
+        //Backtrack one
+        path.pop();
+        //Get new positions
+        mouse = path.top();
+        //Set backtrack char
+        mazeArray[mouse.y][mouse.x] = 'm';
+
+        //Step left
+        if(currentX > mouse.x)
+             mouse.x = mouse.x - 1;
+        //Step right
+        else if(currentX < mouse.x)
+            mouse.x = mouse.x + 1;
+        //Step up
+        if(currentY > mouse.y)
+             mouse.y = mouse.y - 1;
+        //Step down
+        else if(currentY < mouse.y)
+            mouse.y = mouse.y + 1;
+
+        //Push backtrack
+        path.push(mouse);
+        if(mazeArray[mouse.y][mouse.x] == '#')
+            foundCheese = true;
+        mazeArray[mouse.y][mouse.x] = '@';
+        displayMaze(mazeArray);
+    }
+    return foundCheese;
+}
+
 void displayMaze(char mazeArray[][200])
 {
     cout << endl;
@@ -162,6 +205,21 @@ string checkWall(char mazeArray[][200])
     if (isWall(mazeArray[mouse.y][mouse.x - 1]))
         walls += "L";
     return walls;
+}
+
+string checkEmptySpot(char mazeArray[][200])
+{
+    string spots = "";
+    mouse = path.top();
+    if (mazeArray[mouse.y + 1][mouse.x] == '.')
+        spots += "D";
+    if (mazeArray[mouse.y - 1][mouse.x] == '.')
+        spots += "U";
+    if (mazeArray[mouse.y][mouse.x + 1] == '.')
+        spots += "R";
+    if (mazeArray[mouse.y][mouse.x - 1] == '.')
+        spots += "L";
+    return spots;
 }
 
 bool isWall(char wallChar)
@@ -210,6 +268,18 @@ void traverseMaze(char mazeArray[][200])
         hasStepped = false;
         walls = checkWall(mazeArray);
         visted = checkVisited(mazeArray);
+
+        //found intersection
+        if(walls.size() == 0)
+        {
+            foundVisted = visted.find("RM");
+            if(foundVisted==std::string::npos)
+            {
+                foundCheese = stepRight(mazeArray);
+                hasStepped = true;
+            }
+        }
+
         foundWall = walls.find("U");
         if(foundWall==std::string::npos)
         {
@@ -250,6 +320,13 @@ void traverseMaze(char mazeArray[][200])
                 hasStepped = true;
             }
         }
+
+        //Backtrack
+        if(!foundCheese && !hasStepped)
+        {
+            backTrackSteps(mazeArray);
+        }
+
         displayMaze(mazeArray);
         ++size;
     }
