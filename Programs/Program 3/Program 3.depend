@@ -74,14 +74,19 @@
 1385320478 source:c:\users\theju\documents\github\csc-230-projects\programs\program 3\main.cpp
 	<iostream>
 
-1447280769 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\artist.cpp
+1447709014 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\artist.cpp
 	"artist.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<cstdlib>
 
-1447280755 c:\users\justin\documents\github\csc-230-projects\programs\program 3\artist.h
+1447709014 c:\users\justin\documents\github\csc-230-projects\programs\program 3\artist.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
+	<vector>
 
 1446500764 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\binary.cpp
 	"binary.h"
@@ -95,7 +100,7 @@
 	<cstring>
 	<fstream>
 
-1446500764 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\bulk.cpp
+1447709016 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -105,21 +110,23 @@
 	<fstream>
 	<cstdlib>
 
-1447281187 c:\users\justin\documents\github\csc-230-projects\programs\program 3\year.h
+1447709016 c:\users\justin\documents\github\csc-230-projects\programs\program 3\year.h
 	<string>
 	<cstring>
 	<iostream>
 	<fstream>
+	<vector>
 
-1446500764 c:\users\justin\documents\github\csc-230-projects\programs\program 3\title.h
+1447709016 c:\users\justin\documents\github\csc-230-projects\programs\program 3\title.h
 	<fstream>
 	<iostream>
 	<string>
 	<iomanip>
 	<cstdlib>
 	<cctype>
+	<vector>
 
-1446500764 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\console.cpp
+1447709016 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\console.cpp
 	<string>
 	<iostream>
 	<fstream>
@@ -129,9 +136,13 @@
 	"year.h"
 	"binary.h"
 
-1447280201 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\title.cpp
+1447709016 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\title.cpp
 	"title.h"
 
-1446500764 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\year.cpp
+1447709016 source:c:\users\justin\documents\github\csc-230-projects\programs\program 3\year.cpp
 	"year.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<cstdlib>
 

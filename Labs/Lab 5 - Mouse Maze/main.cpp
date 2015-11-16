@@ -291,21 +291,23 @@ void setupMaze(char mazeArray[][200])
             mouse.x = atoi(line.c_str());
             path.push(mouse);
         }
-
-        //Get Cheese position
-        getline (input,line);
-        int cheeseX = 0;
-        int cheeseY = 0;
-
-        //Get cheeseX and cheeseY
-        if ((pos = line.find(delimiter)) != std::string::npos)
+        while(!input.eof())
         {
-            part = line.substr(0, pos);
-            line.erase(0, pos + delimiter.length());
-            cheeseY = atoi(part.c_str());
-            cheeseX = atoi(line.c_str());
-        }
-        mazeArray[cheeseY][cheeseX] = '#';
+            //Get Cheese position
+            getline (input,line);
+            int cheeseX = 0;
+            int cheeseY = 0;
+
+            //Get cheeseX and cheeseY
+            if ((pos = line.find(delimiter)) != std::string::npos)
+            {
+                part = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+                cheeseY = atoi(part.c_str());
+                cheeseX = atoi(line.c_str());
+            }
+            mazeArray[cheeseY][cheeseX] = '#';
+        } // end while
 
         input.close();
 
