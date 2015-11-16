@@ -291,7 +291,12 @@ void setupMaze(char mazeArray[][200])
             mouse.x = atoi(line.c_str());
             path.push(mouse);
         }
-        while(!input.eof())
+        //Get Cheese Count
+        int cheeseCount = 1;
+        getline (input,line);
+        cheeseCount =  atoi(line.c_str());
+        //Get All cheese
+         for(int i = 0; i < cheeseCount; ++i)
         {
             //Get Cheese position
             getline (input,line);
