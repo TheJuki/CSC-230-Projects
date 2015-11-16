@@ -3,7 +3,8 @@ File       : main.cpp
 Program    : Lab 5 - Using Stacks for a mouse maze
 Due Date   : October 30..., 2015
 Author     : Justin Kirk
-Description: Lab 5...
+Description: A mouse in char array mouse maze needs to find at least
+             one piece of cheese.
 */
 
 #include <iostream>
@@ -24,6 +25,7 @@ void displayMaze(char mazeArray[][200]);
 string checkWall(char mazeArray[][200]);
 void traverseMaze(char mazeArray[][200]);
 string checkVisited(char mazeArray[][200]);
+bool isWall(char wallChar);
 
 struct Mouse
 {
@@ -151,15 +153,32 @@ string checkWall(char mazeArray[][200])
 {
     string walls = "";
     mouse = path.top();
-    if(mazeArray[mouse.y + 1][mouse.x] == '+')
+    if (isWall(mazeArray[mouse.y + 1][mouse.x]))
         walls += "D";
-    if(mazeArray[mouse.y - 1][mouse.x] == '+')
+    if (isWall(mazeArray[mouse.y - 1][mouse.x]))
         walls += "U";
-    if(mazeArray[mouse.y][mouse.x + 1] == '+')
+    if (isWall(mazeArray[mouse.y][mouse.x + 1]))
         walls += "R";
-    if(mazeArray[mouse.y][mouse.x - 1] == '+')
+    if (isWall(mazeArray[mouse.y][mouse.x - 1]))
         walls += "L";
     return walls;
+}
+
+bool isWall(char wallChar)
+{
+    switch(wallChar)
+    {
+         case('+') :
+            return true;
+         case('|') :
+            return true;
+         case('_') :
+            return true;
+         default :
+            return false;
+    }
+
+    return false;
 }
 
 string checkVisited(char mazeArray[][200])
@@ -236,7 +255,12 @@ void traverseMaze(char mazeArray[][200])
     }
     while(!foundCheese);
     if(foundCheese)
+    {
         cout << endl << endl << "Found Cheese!" << endl;
+        string s;
+        cout << endl << endl << "Press Enter to Exit ";
+        getline(cin, s);
+    }
 }
 
 void setupMaze(char mazeArray[][200])
