@@ -1,0 +1,73 @@
+# depslib dependency file v1.0
+1447889408 source:c:\users\justin\documents\github\csc-230-projects\programs\program 4\binary.cpp
+	"binary.h"
+	<cstdlib>
+	<sstream>
+	<string>
+	<fstream>
+
+1447889433 source:c:\users\justin\documents\github\csc-230-projects\programs\program 4\bulk.cpp
+	"binary.h"
+	"artist.h"
+	"year.h"
+	"title.h"
+	<iostream>
+	<string>
+	<fstream>
+	<cstdlib>
+
+1447889473 source:c:\users\justin\documents\github\csc-230-projects\programs\program 4\console.cpp
+	<string>
+	<iostream>
+	<fstream>
+	<cstdlib>
+	"title.h"
+	"artist.h"
+	"year.h"
+	"binary.h"
+
+1447889974 source:c:\users\justin\documents\github\csc-230-projects\programs\program 4\artist.cpp
+	"artist.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<cstdlib>
+
+1447888666 c:\users\justin\documents\github\csc-230-projects\programs\program 4\artist.h
+	<string>
+	<cstring>
+	<iostream>
+	<fstream>
+	<vector>
+
+1447889862 source:c:\users\justin\documents\github\csc-230-projects\programs\program 4\title.cpp
+	"title.h"
+
+1447889249 c:\users\justin\documents\github\csc-230-projects\programs\program 4\title.h
+	<fstream>
+	<iostream>
+	<string>
+	<iomanip>
+	<cstdlib>
+	<cctype>
+	<vector>
+
+1447889372 source:c:\users\justin\documents\github\csc-230-projects\programs\program 4\year.cpp
+	"year.h"
+	<iostream>
+	<fstream>
+	<sstream>
+	<cstdlib>
+
+1447889293 c:\users\justin\documents\github\csc-230-projects\programs\program 4\year.h
+	<string>
+	<cstring>
+	<iostream>
+	<fstream>
+	<vector>
+
+1447887055 c:\users\justin\documents\github\csc-230-projects\programs\program 4\binary.h
+	<string>
+	<cstring>
+	<fstream>
+

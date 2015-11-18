@@ -1,9 +1,9 @@
 /*
 File       : year.cpp
-Program    : Program 3 - Sorted Double Linked-List
-Due Date   : November 16, 2015
+Program    : Program 4 - Binary Search Tree Indexes
+Due Date   : December 4, 2015
 Author     : Justin Kirk
-Description: Code for year data
+Description: Year - secondary index
 */
 
 #include "year.h"
@@ -15,9 +15,18 @@ Description: Code for year data
 //Add a year (Sort alphabetically) (1,2,3)
 void YearIndex::addYear(int Y, int P)
 {
+    if(root == NULL)
+    {
+         Node * wp = new Node(Y, P);
+         wp->right = NULL;
+         wp->left = root;
+         root = wp;
+         size += 1;
+         return;
+    }
     bool foundYear = false;
 
-    Node * wp = head->next;
+    Node * wp = root;
 
     while(wp != NULL)
     {
@@ -37,58 +46,46 @@ void YearIndex::addYear(int Y, int P)
             holdUp->down=wp2;
             break;
         } // end if
-        wp = wp->next;
+        wp = wp->left;
     } // end while
 
     //Add a new year
     if(!foundYear)
     {
-        if(head->year>Y)
+        if(root->year>Y)
         {
             Node * wp = new Node(Y, P);
-            wp->prev = NULL;
-            wp->next = head;
-            head->next = wp;
-            head = wp;
+            wp->right = NULL;
+            wp->left = root;
+            root->left = wp;
+            root = wp;
             size += 1;
 
-            head->up = new Node(-1, 1);
-            head->up->up = new Node(-1, P);
-            head->up->up->down =  head->up;
+            root->up = new Node(-1, 1);
+            root->up->up = new Node(-1, P);
+            root->up->up->down =  root->up;
         } // end if
-        else if(tail->year<Y)
-        {
-            Node * wp = new Node(Y, P);
-            wp->next = NULL;
-            wp->prev = tail;
-            tail->prev = wp;
-            tail = wp;
-            size += 1;
 
-            tail->up = new Node(-1, 1);
-            tail->up->up = new Node(-1, P);
-            tail->up->up->down =  tail->up;
-        } // end else if
         else
         {
-            Node * wp = head->next;
+            Node * wp = root->left;
             while(wp != NULL)
             {
                 if(wp->year>Y)
                 {
                     Node * wp2 = new Node(Y,P);
-                    wp2->prev = wp->prev;
-                    wp2->next = wp;
-                    wp->prev->next=wp2;
-                    wp->prev=wp2;
+                    wp2->right = wp->right;
+                    wp2->left = wp;
+                    wp->right->left=wp2;
+                    wp->right=wp2;
                     size += 1;
 
-                    wp->prev->up = new Node(-1, 1);
-                    wp->prev->up->up = new Node(-1, P);
-                    wp->prev->up->up->down =  wp->prev->up;
+                    wp->right->up = new Node(-1, 1);
+                    wp->right->up->up = new Node(-1, P);
+                    wp->right->up->up->down =  wp->right->up;
                     return;
                 } // end if
-                wp=wp->next;
+                wp=wp->left;
             } // end while
         } // end else
     } // end if
@@ -108,7 +105,7 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
     {
         //Copy positions to new location
 
-        Node * newNode = head->next;
+        Node * newNode = root->left;
 
         //Find new Node
         while(newNode != NULL)
@@ -117,7 +114,7 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
             {
                 break;
             } // end if
-            newNode = newNode->next;
+            newNode = newNode->left;
         } // end while
 
         //Update count
@@ -146,7 +143,7 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
 void YearIndex::getAllYears()
 {
 
-    Node * wp = head->next;
+    Node * wp = root->left;
 
     std::cout << size << std::endl;
     while(wp != NULL)
@@ -175,12 +172,12 @@ void YearIndex::getAllYears()
             std::cout << wp->year << " " << buildLine << std::endl;
         } // end if
 
-        wp = wp->next;
+        wp = wp->left;
     } //end while
 } // end getAllYears
 
 //Write out years
-void YearIndex::writeSecondary()
+void YearIndex::writeFile()
 {
     std::ofstream fout("year_index.txt");
 
@@ -190,7 +187,7 @@ void YearIndex::writeSecondary()
     std::string buildLine;
     std::string numOfKeys;
 
-    Node * wp = head->next;
+    Node * wp = root->left;
 
     //For each item in Linked List
     while(wp != NULL)
@@ -232,7 +229,7 @@ void YearIndex::writeSecondary()
                      << std::endl;
             } // end if
         } // end if
-        wp = wp->next;
+        wp = wp->left;
     } //end while
 
     //Close file
@@ -240,7 +237,7 @@ void YearIndex::writeSecondary()
 } // end writeSecondary
 
 //Read in years
-void YearIndex::readSecondary()
+void YearIndex::readFile()
 {
     std::ifstream input("year_index.txt");
     std::string line;
@@ -312,7 +309,7 @@ std::vector<int> YearIndex::findYear(int inYear)
 {
     std::vector<int> myVector;
 
-    Node * wp = head->next;
+    Node * wp = root->left;
 
     while(wp != NULL)
     {
@@ -334,7 +331,7 @@ std::vector<int> YearIndex::findYear(int inYear)
             else
                 break;
         } // end if
-        wp = wp->next;
+        wp = wp->left;
     } // end while
 
     return myVector;
@@ -343,7 +340,7 @@ std::vector<int> YearIndex::findYear(int inYear)
 //Match a year
 bool YearIndex::matchYear(int inYear, int &pos)
 {
-    Node * wp = head->next;
+    Node * wp = root->left;
 
     while(wp != NULL)
     {
@@ -352,7 +349,7 @@ bool YearIndex::matchYear(int inYear, int &pos)
             pos = wp->up->pos;
             return true;
         } // end if
-        wp = wp->next;
+        wp = wp->left;
     } // end while
     pos = 0;
     return false;
@@ -361,10 +358,10 @@ bool YearIndex::matchYear(int inYear, int &pos)
 //Delete a year
 bool YearIndex::deleteYear(int inYear, int pos)
 {
-    Node * wp = head->next;
+    Node * wp = root->left;
     Node * holdUp, * hold;
 
-    while(wp != tail)
+    while(wp != NULL)
     {
         if(inYear == wp->year)
         {
@@ -389,16 +386,39 @@ bool YearIndex::deleteYear(int inYear, int pos)
             if(wp->up->pos == 0)
             {
                 hold = wp;
-                wp->next->prev = wp->prev;
-                wp->prev->next = wp->next;
+                wp->left->right = wp->right;
+                wp->right->left = wp->left;
                 delete hold;
                 size--;
             }
 
             return true;
         } // end if
-        wp = wp->next;
+        wp = wp->left;
     } // end while
     return false;
 } // end deleteYear
+
+void YearIndex::killTree()
+{
+    RealKillTree(root);
+};
+void YearIndex::RealKillTree(Node *&r)
+{
+    if(r == NULL) return;
+    RealKillTree(r->left);
+    RealKillTree(r->right);
+    RealKillTreeMiddle(r->down);
+    delete r;
+    return;
+}
+void YearIndex::RealKillTreeMiddle(Node *&m)
+{
+    if(m == NULL) return;
+    if(m->down != NULL)
+        RealKillTreeMiddle(m->down);
+    delete m;
+    m = NULL;
+    return;
+}
 
