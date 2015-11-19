@@ -13,81 +13,44 @@ Description: Artist - secondary index
 #include <cstdlib>
 
 //Add an artist (Sort Alphabetically)
-void ArtistIndex::addArtist(std::string A, int P)
+void ArtistIndex::addArtist(std::string Y, int P)
 {
-    if(root == NULL)
+    if (root == NULL)
     {
-         Node * wp = new Node(A, P);
-         wp->right = NULL;
-         wp->left = root;
-         root = wp;
-         size += 1;
-         return;
-    }
-
-    bool foundArtist = false;
-
-    Node * wp = root;
-
-    while(wp != NULL)
+        root = new Node(Y, P);
+        return;
+    } // end if
+    else
     {
-        if(wp->artist == A)
-        {
-            foundArtist = true;
-            wp->up->pos = wp->up->pos + 1;
-            Node * holdUp = wp->up;
-            while(holdUp->up != NULL)
-            {
-                holdUp = holdUp->up;
-            } // end while
-            Node * p = new Node("~",P);
-            p->down = holdUp->down;
-            p->up = holdUp;
-            holdUp->down->up=p;
-            holdUp->down=p;
-            break;
-        }
-        wp = wp->left;
-    } // end while
-    if(!foundArtist)
-    {
-        if(root->artist>A)
-        {
-            Node * wp = new Node(A, P);
-            wp->right = NULL;
-            wp->left = root;
-            root->left = wp;
-            root = wp;
-            size += 1;
-
-            root->up = new Node("numOfKeys", 1);
-            root->up->up = new Node("~", P);
-            root->up->up->down =  root->up;
-        } // end if
-        else
-        {
-            Node * wp = root->left;
-            while(wp != NULL)
-            {
-                if(wp->artist>A)
-                {
-                    Node * wp2 = new Node(A,P);
-                    wp2->right = wp->right;
-                    wp2->left = wp;
-                    wp->right->left=wp2;
-                    wp->right=wp2;
-                    size += 1;
-
-                    wp->right->up = new Node("numOfKeys", 1);
-                    wp->right->up->up = new Node("~", P);
-                    wp->right->up->up->down =  wp->right->up;
-                    return;
-                } // end if
-                wp=wp->left;
-            } // end while
-        } // end else
+        addArtist(root, Y, P);
     } // end else
 } // end addArtist
+
+void ArtistIndex::addArtist(Node *& r, std::string my_Artist, int my_key)
+{
+    if (my_Artist == r->artist)
+        return;
+    else if (my_Artist < r->artist)
+    {
+        if (r->left == NULL)
+        {
+            r->left = new Node(my_Artist, my_key);
+            return;
+        }
+        else
+            return addArtist(r->left, my_Artist, my_key);
+    }
+    else if (my_Artist > r->artist)
+    {
+        if (r->right == NULL)
+        {
+            r->right = new Node(my_Artist, my_key);
+            return;
+        }
+        else
+            return addArtist(r->right, my_Artist, my_key);
+    }
+} // end addArtist using Node
 
 //Display all artists
 void ArtistIndex::getAllArtists()
@@ -255,7 +218,7 @@ void ArtistIndex::writeFile()
     std::string buildLine;
     std::string numOfKeys;
 
-    Node * wp = root->left;
+    Node * wp = root;
 
     //For each item in Linked List
     while(wp != NULL)

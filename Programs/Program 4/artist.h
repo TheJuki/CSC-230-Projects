@@ -57,6 +57,7 @@ class ArtistIndex
             killTree();
         }
         void addArtist(std::string my_artist, int my_key);
+        void addArtist(Node *& r, std::string my_Artist, int my_key);
         void updateArtist(std::string old_artist, std::string new_artist, int old_pos);
         int matchArtist(std::string inArtist);
         bool deleteArtist(std::string T, int P);

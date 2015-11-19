@@ -11,65 +11,64 @@ Description: Code for title data
 using namespace std;
 
 //Add a title (Sort alphabetically)
-bool TitleIndex::addTitle(string T, int P)
+bool TitleIndex::addTitle(std::string Y, int P)
 {
-    int holdPos = 0;
-    if(root == NULL)
+    if (root == NULL)
     {
-         Node * wp = new Node(T, P);
-         wp->right = NULL;
-         wp->left = root;
-         root = wp;
-         size += 1;
-         return true;
-    }
-    if(!findTitle(T, holdPos))
-    {
-        if(root->title>T)
-        {
-            Node * wp = new Node(T, P);
-            wp->right = NULL;
-            wp->left = root;
-            root->left = wp;
-            root = wp;
-            size += 1;
-        } // end if
-
-        else
-        {
-            Node * wp = root->left;
-            while(wp != NULL)
-            {
-                if(wp->title>T)
-                {
-                    Node * wp2 = new Node(T,P);
-                    wp2->right = wp->right;
-                    wp2->left = wp;
-                    wp->right->left=wp2;
-                    wp->right=wp2;
-                    size += 1;
-                    return true;
-                }
-                wp=wp->left;
-            } // end while
-        } // end else
+        root = new Node(Y, P);
         return true;
     } // end if
+    else
+    {
+        return addTitle(root, Y, P);
+    } // end else
     return false;
 } // end addTitle
+
+bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key)
+{
+    if (my_Title == r->title)
+        return false;
+    else if (my_Title < r->title)
+    {
+        if (r->left == NULL)
+        {
+            r->left = new Node(my_Title, my_key);
+            return true;
+        }
+        else
+            return addTitle(r->left, my_Title, my_key);
+    }
+    else if (my_Title > r->title)
+    {
+        if (r->right == NULL)
+        {
+            r->right = new Node(my_Title, my_key);
+            return true;
+        }
+        else
+            return addTitle(r->right, my_Title, my_key);
+    }
+    return false;
+} // end addTitle using Node
 
 //Display all titles
 void TitleIndex::getAllTitles()
 {
-     Node * wp = root->left;
-
-    cout << size << endl;
-    while(wp != NULL)
-    {
-        cout << wp->title << " " << wp->pos << endl;
-        wp = wp->left;
-    } //end while
+    postOrder(root, 0);
 } // end getAllTitles
+
+void TitleIndex::postOrder(Node* r, int indent)
+{
+    if(r != NULL) {
+        if(r->left) postOrder(r->left, indent+4);
+        if(r->right) postOrder(r->right, indent+4);
+        if (indent) {
+            std::cout << std::setw(indent) << ' ';
+        }
+        std::cout<< r->title << "\n ";
+    }
+}
 
 //Write out titles
 void TitleIndex::writeFile()

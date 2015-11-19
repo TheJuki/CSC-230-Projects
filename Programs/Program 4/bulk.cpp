@@ -152,6 +152,7 @@ void Build()
         //Write zero record
         MyClass writeZeroRecord;
         writeZeroRecord.set_value(outputFile);
+        primaryInx->getAllTitles();
         //Write TitleIndex Index to a file (open file using ofstream)
         delete primaryInx;
         //Write Secondary Indexes to a file (open file using ofstream)

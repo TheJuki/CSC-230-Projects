@@ -15,81 +15,42 @@ Description: Year - secondary index
 //Add a year (Sort alphabetically) (1,2,3)
 void YearIndex::addYear(int Y, int P)
 {
-    if(root == NULL)
+    if (root == NULL)
     {
-         Node * wp = new Node(Y, P);
-         wp->right = NULL;
-         wp->left = root;
-         root = wp;
-         size += 1;
-         return;
-    }
-    bool foundYear = false;
-
-    Node * wp = root;
-
-    while(wp != NULL)
-    {
-        if(wp->year == Y)
-        {
-            foundYear = true;
-            wp->up->pos = wp->up->pos + 1;
-            Node * holdUp = wp->up;
-            while(holdUp->up != NULL)
-            {
-                holdUp = holdUp->up;
-            } // end while
-            Node * wp2 = new Node(-1,P);
-            wp2->down = holdUp->down;
-            wp2->up = holdUp;
-            holdUp->down->up=wp2;
-            holdUp->down=wp2;
-            break;
-        } // end if
-        wp = wp->left;
-    } // end while
-
-    //Add a new year
-    if(!foundYear)
-    {
-        if(root->year>Y)
-        {
-            Node * wp = new Node(Y, P);
-            wp->right = NULL;
-            wp->left = root;
-            root->left = wp;
-            root = wp;
-            size += 1;
-
-            root->up = new Node(-1, 1);
-            root->up->up = new Node(-1, P);
-            root->up->up->down =  root->up;
-        } // end if
-
-        else
-        {
-            Node * wp = root->left;
-            while(wp != NULL)
-            {
-                if(wp->year>Y)
-                {
-                    Node * wp2 = new Node(Y,P);
-                    wp2->right = wp->right;
-                    wp2->left = wp;
-                    wp->right->left=wp2;
-                    wp->right=wp2;
-                    size += 1;
-
-                    wp->right->up = new Node(-1, 1);
-                    wp->right->up->up = new Node(-1, P);
-                    wp->right->up->up->down =  wp->right->up;
-                    return;
-                } // end if
-                wp=wp->left;
-            } // end while
-        } // end else
+        root = new Node(Y, P);
+        return;
     } // end if
+    else
+    {
+        addYear(root, Y, P);
+    } // end else
 } // end addYear
+
+void YearIndex::addYear(Node *& r, int my_Year, int my_key)
+{
+    if (my_Year == r->year)
+        return;
+    else if (my_Year < r->year)
+    {
+        if (r->left == NULL)
+        {
+            r->left = new Node(my_Year, my_key);
+            return;
+        }
+        else
+            return addYear(r->left, my_Year, my_key);
+    }
+    else if (my_Year > r->year)
+    {
+        if (r->right == NULL)
+        {
+            r->right = new Node(my_Year, my_key);
+            return;
+        }
+        else
+            return addYear(r->right, my_Year, my_key);
+    }
+} // end addYear using Node
 
 //Update a year
 void YearIndex::updateYear(int old_year, int new_year, int old_pos)
@@ -187,7 +148,7 @@ void YearIndex::writeFile()
     std::string buildLine;
     std::string numOfKeys;
 
-    Node * wp = root->left;
+    Node * wp = root;
 
     //For each item in Linked List
     while(wp != NULL)

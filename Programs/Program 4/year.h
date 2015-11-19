@@ -48,6 +48,7 @@ class YearIndex
             writeFile();
             killTree();
         }
+        void addYear(Node *& r, int my_Year, int my_key);
         void addYear(int my_Year, int my_key);
         void updateYear(int old_year, int new_year, int old_pos);
         int matchYear(int inYear);

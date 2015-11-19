@@ -54,6 +54,7 @@ class TitleIndex
             killTree();
         }
         bool addTitle(std::string T, int P);
+        bool addTitle(Node *& r, std::string my_Title, int my_key);
         bool findTitle(std::string T, int& P);
         void updateTitle(std::string oldTitle, std::string newTitle);
         void deleteTitle(std::string T, int P);
@@ -61,6 +62,7 @@ class TitleIndex
         void setDeadCount(int count);
         void getAllTitles();
         int getSize();
+        void postOrder(Node* r, int indent);
         std::vector<int> printAllAlphabetically();
 };
 #endif // TITLE_H
