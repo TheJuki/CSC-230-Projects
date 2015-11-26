@@ -123,17 +123,7 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
     {
         //Copy positions to new location
 
-        Node * newNode = root->left;
-
-        //Find new Node
-        while(newNode != NULL)
-        {
-            if(newNode->artist == new_artist)
-            {
-                break;
-            } // end if
-            newNode = newNode->left;
-        } // end while
+        Node * newNode = findArtistNode(root, new_artist, holdLocation);
 
         //Update count
         newNode->up->pos = newNode->up->pos + 1;
@@ -161,19 +151,70 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
 //Read in artists
 void ArtistIndex::readFile()
 {
-    string newArtist;
-    int newPos = 0;
-    int newPrice = 0;
-    int numOfArtists = 0;
+   std::ifstream input("artist_index.txt");
+    std::string line;
+    getline (input,line);
+    size = atoi(line.c_str());
 
-    ifstream fin("artist_index.txt");
-    fin >> numOfArtists;
-    for(int i = 0; i < numOfArtists; ++i)
+    if (input.is_open())
     {
-        fin >> newArtist >> newPos;
-        addArtist(newArtist, newPos);
-    } // end for
-    fin.close();
+        //Set position to 1
+        long position = 1;
+        //delimiter is a space
+        std::string delimiter = " ";
+        //size of string
+        size_t pos = 0;
+        //Line in file as a string
+        std::string line;
+        //string of part
+        std::string part;
+        //Number of keys in line
+        int numOfKeys = 0;
+        //Artist Name
+        std::string artist_name = "";
+
+        while(!input.eof() && position != (int)(size+1))
+        {
+            //Read in a line from the sequential file
+            getline (input,line);
+
+            //Defaults
+            pos = 0;
+            part = "";
+            numOfKeys = 0;
+
+            //Get Number of keys
+            if ((pos = line.find(delimiter)) != std::string::npos)
+            {
+                part = line.substr(0, pos);
+                line.erase(0, pos + delimiter.length());
+                numOfKeys = atoi(part.c_str());
+            }
+
+            //Get artist name
+            if ((pos = line.find(delimiter)) != std::string::npos)
+            {
+                part = line.substr(0, pos);
+                artist_name = part;
+                line.erase(0, pos + delimiter.length());
+                --size;
+            }
+
+            //Set pos to keys in line
+            for(int i = 0; i < numOfKeys; ++i)
+            {
+                if((pos = line.find(delimiter)) != std::string::npos)
+                {
+                    part = line.substr(0, pos);
+                    addArtist(artist_name, atoi(part.c_str()));
+                    line.erase(0, pos + delimiter.length());
+                }
+            } // end for
+
+            position++;
+        } // End eof while
+        input.close();
+    } // end if
 } // end readSecondary
 
 
