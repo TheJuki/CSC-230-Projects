@@ -120,25 +120,58 @@ void TitleIndex::readFile()
 //Delete a title by title
 void TitleIndex::deleteTitleByTitle(string T)
 {
-    Node * wp = root->left;
-    while(wp != NULL)
-    {
-        if(wp->title == T)
-        {
-            wp->right->left = wp->left;
-            wp->left->right = wp->right;
-            delete wp;
-            size--;
-            return;
-        } // end if
-        else
-        {
-            wp = wp->left;
-        } // end else
-    } //end while
-
-    return;
+    deleteTitleByTitle(root, T);
 } // end deleteTitleByTitle
+
+TitleIndex::Node* TitleIndex::deleteTitleByTitle(Node*& r, string T) {
+    Node* save;
+    if(r == NULL) {
+        return NULL;
+    }
+    if(r->title == T) {
+        if(r->right == NULL && r->left == NULL) {
+            delete r;
+            return NULL;
+        }
+        else if(r->right == NULL || r->left == NULL) {
+            if(r->right == NULL) {
+                save = r->left;
+                 delete r;
+                 return save;
+            }
+            else {
+                save = r->right;
+                 delete r;
+                 return save;
+            }
+        }
+        else {
+            save = findPred(r->left);
+            r->title = save->title;
+            r->pos = save->pos;
+            r->price = save->price;
+            r->left = deleteTitleByTitle(r->left, r->title);
+            return r;
+        }
+    }
+    else if(r->title < T) {
+        r->right = deleteTitleByTitle(r->right, T);
+    }
+    else if(r->title > T) {
+        r->left = deleteTitleByTitle(r->left, T);
+    }
+    return r;
+}
+TitleIndex::Node* TitleIndex::findPred(Node*& r) {
+    static Node* pred;
+    if(r == NULL) {
+        return pred;
+    }
+    else {
+        pred = r;
+        return findPred(r->right);
+    }
+}
 
 //Return a array of the positions of all titles (already sorted)
 std::vector<int> TitleIndex::printAllAlphabetically()
@@ -249,21 +282,15 @@ bool TitleIndex::findTitleNode(Node *& r, string T, int& P)
 //Update a title
 void TitleIndex::updateTitle(string oldtitle, string newTitle, int newPrice)
 {
-    Node * wp = root->left;
-
-    while(wp != NULL)
+    int position = 0;
+    if(findTitle(oldtitle, position))
     {
-        if(wp->title == oldtitle)
-        {
-            int position = wp->pos;
-            //Delete old title and add new title
-            //This retains sorting
-            deleteTitle(oldtitle, 0);
-            addTitle(newTitle, position, newPrice);
-            return;
-        }
-        wp = wp->left;
-    } // end while
+        //Delete old title and add new title
+        //This retains sorting
+        deleteTitle(oldtitle, 0);
+        addTitle(newTitle, position, newPrice);
+
+    }
 } // end updateTitle
 
 int TitleIndex::getSize()

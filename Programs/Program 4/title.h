@@ -39,6 +39,7 @@ class TitleIndex
         void RealKillTree(Node *&r); // the real recursive routine
         void deleteTitleByTitle(std::string T);
         void deleteTitleByPosition(int P);
+        Node* deleteTitleByTitle(Node*& r, std::string T);
         bool delete_node(std::string T); //recursive
         void pushNode (Node* r);
         void pushNodes ();
@@ -62,6 +63,8 @@ class TitleIndex
         bool findTitle(std::string T, int& P);
         void updateTitle(std::string oldTitle, std::string newTitle, int newPrice);
         void deleteTitle(std::string T, int P);
+
+        Node* findPred(Node*& r);
         int getDeadCount();
         void setDeadCount(int count);
         void getAllTitles();
