@@ -40,7 +40,6 @@ class TitleIndex
         void deleteTitleByTitle(std::string T);
         void deleteTitleByPosition(int P);
         Node* deleteTitleByTitle(Node*& r, std::string T);
-        bool delete_node(std::string T); //recursive
         void pushNode (Node* r);
         void pushNodes ();
         Node* findMinNode(Node*& r);

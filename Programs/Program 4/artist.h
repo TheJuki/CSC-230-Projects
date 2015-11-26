@@ -33,14 +33,19 @@ class ArtistIndex
                 }
         };
         Node * root;
+        std::vector<Node*> nodes;
         unsigned int size;
         void writeFile();
         void readFile();
         void killTree();
         void RealKillTree(Node *& r);
         void RealKillTreeMiddle(Node *& m);
-        void delete_by_artist(std::string T);
-        void delete_by_pos(int P);
+        Node* deleteArtistByArtist(Node*& r, std::string A, int pos);
+        void pushNode (Node* r);
+        void pushNodes ();
+        Node* findMinNode(Node*& r);
+        Node * findArtistNode(Node *& r, std::string A, int& P);
+
     public:
         ArtistIndex(): size(0)
         {

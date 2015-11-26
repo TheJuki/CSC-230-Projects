@@ -26,6 +26,7 @@ bool TitleIndex::addTitle(std::string T, int P, int Pr)
     return false;
 } // end addTitle
 
+//Add Title recursively
 bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key, int my_price)
 {
     if (my_Title == r->title)
@@ -123,6 +124,7 @@ void TitleIndex::deleteTitleByTitle(string T)
     deleteTitleByTitle(root, T);
 } // end deleteTitleByTitle
 
+//Delete Title by Title recursively
 TitleIndex::Node* TitleIndex::deleteTitleByTitle(Node*& r, string T)
 {
     if(r == NULL)
@@ -165,16 +167,17 @@ TitleIndex::Node* TitleIndex::deleteTitleByTitle(Node*& r, string T)
             r->price = temp->price;
             r->right = deleteTitleByTitle(r->right, temp->title);
         }
-    }
+    } // end else
     return r;
-}
+} // end deleteTitleByTitle
 
+//Get lowest node
 TitleIndex::Node* TitleIndex::findMinNode(Node*& r)
 {
     while(r->left != NULL)
         r = r->left;
     return r;
-}
+} // end findMinNode
 
 //Return a array of the positions of all titles (already sorted)
 std::vector<int> TitleIndex::printAllAlphabetically()
@@ -221,7 +224,7 @@ std::vector<int> TitleIndex::printAllReverseAlphabetically(int userPrice)
     }
     std::vector<int> newVector;
     return newVector;
-} // end printAllAlphabetically
+} // end printAllReverseAlphabetically
 
 //Delete a title by title or position
 void TitleIndex::deleteTitle(string T, int P)
