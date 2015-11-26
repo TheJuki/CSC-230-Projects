@@ -2056,7 +2056,7 @@ void ChangeByTitle(int selection, MyClass& me, const int position)
         cout << endl << " Enter the new price: ";
         cin >> my_price;
         me.set_price(my_price);
-
+        flag_titleChanged = true;
         //Return to menu
         ChangeByTitleMenu(me, position);
     }
@@ -2109,9 +2109,9 @@ void DeleteRecord(fstream& file, const int& pos)
     //Delete Title Index
     primaryInx->deleteTitle(record.get_title(), 0);
     //Delete Artist Index
-    artistInx->deleteArtist(record.get_artist(), pos);
+    //artistInx->deleteArtist(record.get_artist(), pos);
     //Delete Year Index
-    yearInx->deleteYear(record.get_year(), pos);
+    //yearInx->deleteYear(record.get_year(), pos);
     //Declare dead
     record.set_flag();
     //Write out that change (Dead)
@@ -2120,6 +2120,7 @@ void DeleteRecord(fstream& file, const int& pos)
     record.get_value(file);
     record.set_year(record.get_year() + 1);
     record.set_value(file);
+     primaryInx->getAllTitles();
 } // end deleteRecord
 
 //END console.cpp

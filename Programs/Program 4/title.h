@@ -43,6 +43,7 @@ class TitleIndex
         bool delete_node(std::string T); //recursive
         void pushNode (Node* r);
         void pushNodes ();
+        Node* findMinNode(Node*& r);
     public:
         TitleIndex(): size(0)
         {
@@ -64,7 +65,6 @@ class TitleIndex
         void updateTitle(std::string oldTitle, std::string newTitle, int newPrice);
         void deleteTitle(std::string T, int P);
 
-        Node* findPred(Node*& r);
         int getDeadCount();
         void setDeadCount(int count);
         void getAllTitles();

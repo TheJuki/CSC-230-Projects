@@ -35,7 +35,7 @@ bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key, int my_pr
         if (r->left == NULL)
         {
             r->left = new Node(my_Title, my_key, my_price);
-             ++size;
+            ++size;
             return true;
         }
         else
@@ -46,7 +46,7 @@ bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key, int my_pr
         if (r->right == NULL)
         {
             r->right = new Node(my_Title, my_key, my_price);
-             ++size;
+            ++size;
             return true;
         }
         else
@@ -58,7 +58,7 @@ bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key, int my_pr
 //Display all titles
 void TitleIndex::getAllTitles()
 {
-   pushNodes();
+    pushNodes();
     for (int i = 0; i < (int)nodes.size(); ++i)
     {
         cout << nodes[i]->title << " " << nodes[i]->price << " " << nodes[i]->pos << endl;
@@ -77,10 +77,10 @@ void TitleIndex::pushNode(Node* r)
 {
     if(r != NULL)
     {
-        if(r->left)
+        if(r->left != NULL)
             pushNode(r->left);
         nodes.push_back(r);
-        if(r->right)
+        if(r->right != NULL)
             pushNode(r->right);
     }
 } // end pushNode
@@ -94,7 +94,7 @@ void TitleIndex::writeFile()
     fout << size << endl;
     for (int i = 0; i < (int)nodes.size(); ++i)
     {
-         fout << nodes[i]->title << " " << nodes[i]->price << " " << nodes[i]->pos << endl;
+        fout << nodes[i]->title << " " << nodes[i]->price << " " << nodes[i]->pos << endl;
     }
     fout.close();
 } // end writeFile
@@ -123,54 +123,57 @@ void TitleIndex::deleteTitleByTitle(string T)
     deleteTitleByTitle(root, T);
 } // end deleteTitleByTitle
 
-TitleIndex::Node* TitleIndex::deleteTitleByTitle(Node*& r, string T) {
-    Node* save;
-    if(r == NULL) {
-        return NULL;
-    }
-    if(r->title == T) {
-        if(r->right == NULL && r->left == NULL) {
-            delete r;
-            return NULL;
-        }
-        else if(r->right == NULL || r->left == NULL) {
-            if(r->right == NULL) {
-                save = r->left;
-                 delete r;
-                 return save;
-            }
-            else {
-                save = r->right;
-                 delete r;
-                 return save;
-            }
-        }
-        else {
-            save = findPred(r->left);
-            r->title = save->title;
-            r->pos = save->pos;
-            r->price = save->price;
-            r->left = deleteTitleByTitle(r->left, r->title);
-            return r;
-        }
-    }
-    else if(r->title < T) {
-        r->right = deleteTitleByTitle(r->right, T);
-    }
-    else if(r->title > T) {
+TitleIndex::Node* TitleIndex::deleteTitleByTitle(Node*& r, string T)
+{
+    if(r == NULL)
+        return r;
+    else if(T < r->title)
         r->left = deleteTitleByTitle(r->left, T);
+    else if(T > r->title)
+        r->right = deleteTitleByTitle(r->right, T);
+    else
+    {
+        //if no children
+        if(r->left == NULL && r->right == NULL)
+        {
+            delete r;
+            r = NULL;
+            --size;
+        }
+        //if no left child
+        else if(r->left == NULL)
+        {
+            Node *temp = r;
+            r = r->right;
+            delete temp;
+            --size;
+        }
+        //if no right child
+        else if(r->right == NULL)
+        {
+            Node *temp = r;
+            r = r->left;
+            delete temp;
+            --size;
+        }
+        //if left child and right child
+        else
+        {
+            Node *temp = findMinNode(r->right);
+            r->title = temp->title;
+            r->pos = temp->pos;
+            r->price = temp->price;
+            r->right = deleteTitleByTitle(r->right, temp->title);
+        }
     }
     return r;
 }
-TitleIndex::Node* TitleIndex::findPred(Node*& r) {
-    static Node* pred;
-    if(r == NULL) {
-        return pred;
-    }
-    else {
-        pred = r;
-        return findPred(r->right);
-    }
+
+TitleIndex::Node* TitleIndex::findMinNode(Node*& r)
+{
+    while(r->left != NULL)
+        r = r->left;
+    return r;
 }
 
 //Return a array of the positions of all titles (already sorted)
@@ -220,34 +223,9 @@ std::vector<int> TitleIndex::printAllReverseAlphabetically(int userPrice)
     return newVector;
 } // end printAllAlphabetically
 
-
-//Delete a title by position
-void TitleIndex::deleteTitleByPosition(int P)
-{
-    Node * wp = root->left;
-    while(wp != NULL)
-    {
-        if(wp->pos == P)
-        {
-            wp->right->left = wp->left;
-            wp->left->right = wp->right;
-            delete wp;
-            size--;
-            return;
-        } // end if
-        else
-        {
-            wp = wp->left;
-        } // end else
-    } //end while
-
-} // end deleteTitleByPosition
-
 //Delete a title by title or position
 void TitleIndex::deleteTitle(string T, int P)
 {
-    if(P>0)
-        deleteTitleByPosition(P);
     if(T.length() > 1)
         deleteTitleByTitle(T);
     return;
