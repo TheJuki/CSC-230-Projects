@@ -16,6 +16,7 @@ bool TitleIndex::addTitle(std::string Y, int P)
     if (root == NULL)
     {
         root = new Node(Y, P);
+        ++size;
         return true;
     } // end if
     else
@@ -34,6 +35,7 @@ bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key)
         if (r->left == NULL)
         {
             r->left = new Node(my_Title, my_key);
+             ++size;
             return true;
         }
         else
@@ -44,6 +46,7 @@ bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key)
         if (r->right == NULL)
         {
             r->right = new Node(my_Title, my_key);
+             ++size;
             return true;
         }
         else
@@ -55,32 +58,44 @@ bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key)
 //Display all titles
 void TitleIndex::getAllTitles()
 {
-    postOrder(root, 0);
+   pushNodes();
+    for (int i = 0; i < nodes.size(); ++i)
+    {
+        cout << nodes[i]->title << " " << nodes[i]->pos << endl;
+    }
 } // end getAllTitles
 
-void TitleIndex::postOrder(Node* r, int indent)
+//Push nodes into the vector array
+void TitleIndex::pushNodes()
 {
-    if(r != NULL) {
-        if(r->left) postOrder(r->left, indent+4);
-        if(r->right) postOrder(r->right, indent+4);
-        if (indent) {
-            std::cout << std::setw(indent) << ' ';
-        }
-        std::cout<< r->title << "\n ";
+    nodes.clear();
+    pushNode(root);
+} // end pushNodes
+
+//Push a node into the vector array
+void TitleIndex::pushNode(Node* r)
+{
+    if(r != NULL)
+    {
+        if(r->left)
+            pushNode(r->left);
+        nodes.push_back(r);
+        if(r->right)
+            pushNode(r->right);
     }
-}
+} // end pushNode
 
 //Write out titles
 void TitleIndex::writeFile()
 {
-    Node * wp = root->left;
+    //Push nodes in the vector array
+    pushNodes();
     ofstream fout("title_index.txt");
     fout << size << endl;
-    while(wp != NULL)
+    for (int i = 0; i < nodes.size(); ++i)
     {
-        fout << wp->title << " " << wp->pos << endl;
-        wp = wp->left;
-    } //end while
+        fout << nodes[i]->title << " " << nodes[i]->pos << endl;
+    }
     fout.close();
 } // end writeFile
 
@@ -93,7 +108,7 @@ void TitleIndex::readFile()
 
     ifstream fin("title_index.txt");
     fin >> numOfTitles;
-    for(int i = 0; i < numOfTitles+2; ++i)
+    for(int i = 0; i < numOfTitles; ++i)
     {
         fin >> newTitle >> newPos;
         addTitle(newTitle, newPos);
@@ -185,20 +200,28 @@ void TitleIndex::deleteTitle(string T, int P)
 //Find a title and return its pos
 bool TitleIndex::findTitle(string T, int& P)
 {
-    Node * wp = root;
+    return findTitleNode(root, T, P);
+} //end findTitle
 
-    while(wp != NULL)
+//Find a title and return its pos using Node
+bool TitleIndex::findTitleNode(Node *& r, string T, int& P)
+{
+    if(r!=NULL)
     {
-        if(wp->title == T)
+        if(T == r->title)
         {
-            P = wp->pos;
+            P = r->pos;
             return true;
         }
-         wp = wp->left;
-    } // end while
-      P = 0;
-      return false;
+        if(T < r->title)
+            return findTitleNode(r->left, T, P);
+        else
+            return findTitleNode(r->right, T, P);
+    }
+    else
+        return false;
 } //end findTitle
+
 
 //Update a title
 void TitleIndex::updateTitle(string oldtitle, string newTitle)

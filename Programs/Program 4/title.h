@@ -30,6 +30,7 @@ class TitleIndex
                 Node(std::string T, int P): title(T), pos(P), left(NULL), right(NULL) { }
         };
         Node * root;
+        std::vector<Node*> nodes;
         unsigned int size;
         void writeFile();
         void readFile();
@@ -38,6 +39,8 @@ class TitleIndex
         void deleteTitleByTitle(std::string T);
         void deleteTitleByPosition(int P);
         bool delete_node(std::string T); //recursive
+        void pushNode (Node* r);
+        void pushNodes ();
     public:
         TitleIndex(): size(0)
         {
@@ -62,8 +65,8 @@ class TitleIndex
         void setDeadCount(int count);
         void getAllTitles();
         int getSize();
-        void postOrder(Node* r, int indent);
         std::vector<int> printAllAlphabetically();
+        bool findTitleNode(Node *& r, std::string T, int& P);
 };
 #endif // TITLE_H
 
