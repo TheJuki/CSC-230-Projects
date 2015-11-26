@@ -12,8 +12,6 @@ Description: Artist - secondary index
 #include <sstream>
 #include <cstdlib>
 
-using namespace std;
-
 //Add an artist (Sort Alphabetically)
 void ArtistIndex::addArtist(std::string Y, int P)
 {
@@ -84,7 +82,7 @@ void ArtistIndex::getAllArtists()
     pushNodes();
     for (int i = 0; i < (int)nodes.size(); ++i)
     {
-        cout << nodes[i]->artist << " " << nodes[i]->up->pos << endl;
+        std::cout << nodes[i]->artist << " " << nodes[i]->up->pos << std::endl;
     }
 } // end getAllArtists
 
@@ -317,7 +315,7 @@ bool ArtistIndex::matchArtist(std::string inArtist, int &pos)
 } // end matchArtist
 
 //Find a artist and return its pos using Node
-ArtistIndex::Node * ArtistIndex::findArtistNode(Node *& r, string A, int& P)
+ArtistIndex::Node * ArtistIndex::findArtistNode(Node *& r, std::string A, int& P)
 {
     if(r!=NULL)
     {
@@ -333,7 +331,7 @@ ArtistIndex::Node * ArtistIndex::findArtistNode(Node *& r, string A, int& P)
     }
     else
         return NULL;
-} //end findTitle
+} //end findArtistNode
 
 //Delete a artist by artist
 bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
@@ -342,7 +340,7 @@ bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
 } // end deleteArtist
 
 //Delete artist by artist recursively
-ArtistIndex::Node* ArtistIndex::deleteArtistByArtist(Node*& r, string A, int pos)
+ArtistIndex::Node* ArtistIndex::deleteArtistByArtist(Node*& r, std::string A, int pos)
 {
     if(r == NULL)
         return r;

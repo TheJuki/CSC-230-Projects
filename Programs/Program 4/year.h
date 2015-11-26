@@ -25,14 +25,19 @@ class YearIndex
                 }
         };
         Node * root;
+        std::vector<Node*> nodes;
         unsigned int size;
         void writeFile();
         void readFile();
         void killTree();
         void RealKillTree(Node *& r);
         void RealKillTreeMiddle(Node *& m);
-        void delete_by_artist(std::string T);
-        void delete_by_pos(int P);
+        Node* deleteYearByYear(Node*& r, int A, int pos);
+        void pushNode (Node* r);
+        void pushNodes ();
+        Node* findMinNode(Node*& r);
+        Node * findYearNode(Node *& r, int A, int& P);
+
     public:
         YearIndex(): size(0)
         {

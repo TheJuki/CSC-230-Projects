@@ -18,6 +18,10 @@ void YearIndex::addYear(int Y, int P)
     if (root == NULL)
     {
         root = new Node(Y, P);
+        root->up = new Node(-1, 1);
+        root->up->up = new Node(-1, P);
+        root->up->up->down = root->up;
+        ++size;
         return;
     } // end if
     else
@@ -29,13 +33,28 @@ void YearIndex::addYear(int Y, int P)
 void YearIndex::addYear(Node *& r, int my_Year, int my_key)
 {
     if (my_Year == r->year)
-        return;
+    {
+        r->up->pos = r->up->pos + 1;
+        Node * holdUp = r->up;
+        while(holdUp->up != NULL)
+        {
+            holdUp = holdUp->up;
+        } // end while
+        Node * p = new Node(-1,my_key);
+        p->down = holdUp->down;
+        p->up = holdUp;
+        holdUp->down->up=p;
+        holdUp->down=p;
+    }
     else if (my_Year < r->year)
     {
         if (r->left == NULL)
         {
             r->left = new Node(my_Year, my_key);
-            return;
+            r->left->up = new Node(-1, 1);
+            r->left->up->up = new Node(-1, my_key);
+            r->left->up->up->down = r->left->up;
+            ++size;
         }
         else
             return addYear(r->left, my_Year, my_key);
@@ -45,6 +64,10 @@ void YearIndex::addYear(Node *& r, int my_Year, int my_key)
         if (r->right == NULL)
         {
             r->right = new Node(my_Year, my_key);
+            r->right->up = new Node(-1, 1);
+            r->right->up->up = new Node(-1, my_key);
+            r->right->up->up->down = r->right->up;
+            ++size;
             return;
         }
         else
@@ -66,17 +89,7 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
     {
         //Copy positions to new location
 
-        Node * newNode = root->left;
-
-        //Find new Node
-        while(newNode != NULL)
-        {
-            if(newNode->year == new_year)
-            {
-                break;
-            } // end if
-            newNode = newNode->left;
-        } // end while
+         Node * newNode = findYearNode(root, new_year, holdLocation);
 
         //Update count
         newNode->up->pos = newNode->up->pos + 1;
@@ -103,39 +116,32 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
 //Display all years
 void YearIndex::getAllYears()
 {
-
-    Node * wp = root->left;
-
-    std::cout << size << std::endl;
-    while(wp != NULL)
+    pushNodes();
+    for (int i = 0; i < (int)nodes.size(); ++i)
     {
-        if(wp->up != NULL)
-        {
-            Node * holdUp = wp->up;
-            int i = 0;
-            std::vector<int> myVector;
-            while(holdUp->up != NULL)
-            {
-                myVector.insert(myVector.begin() + i, holdUp->pos);
-                holdUp = holdUp->up;
-                ++i;
-            } // end while
+        std::cout << nodes[i]->year << " " << nodes[i]->up->pos << std::endl;
+    }
+} // end getAllArtists
 
-            std::string buildLine = "";
-            for(i = 0; i < (int)myVector.size(); ++i)
-            {
-                std::stringstream strs;
-                strs << myVector.at(i);
-                std::string temp_str = strs.str();
+//Push nodes into the vector array
+void YearIndex::pushNodes()
+{
+    nodes.clear();
+    pushNode(root);
+} // end pushNodes
 
-                buildLine += temp_str + " ";
-            } // end for
-            std::cout << wp->year << " " << buildLine << std::endl;
-        } // end if
-
-        wp = wp->left;
-    } //end while
-} // end getAllYears
+//Push a node into the vector array
+void YearIndex::pushNode(Node* r)
+{
+    if(r != NULL)
+    {
+        if(r->left != NULL)
+            pushNode(r->left);
+        nodes.push_back(r);
+        if(r->right != NULL)
+            pushNode(r->right);
+    }
+} // end pushNode
 
 //Write out years
 void YearIndex::writeFile()
@@ -148,11 +154,10 @@ void YearIndex::writeFile()
     std::string buildLine;
     std::string numOfKeys;
 
-    Node * wp = root;
-
     //For each item in Linked List
-    while(wp != NULL)
+     for (int i = 0; i < (int)nodes.size(); ++i)
     {
+        Node * wp = nodes[i];
         //Default
         buildLine = " ";
         //Number of Keys
@@ -190,8 +195,7 @@ void YearIndex::writeFile()
                      << std::endl;
             } // end if
         } // end if
-        wp = wp->left;
-    } //end while
+    } //end for
 
     //Close file
     fout.close();
@@ -270,30 +274,31 @@ std::vector<int> YearIndex::findYear(int inYear)
 {
     std::vector<int> myVector;
 
-    Node * wp = root->left;
+    //Push nodes in the vector array
+    pushNodes();
 
-    while(wp != NULL)
+    for (int i = 0; i < (int)nodes.size(); ++i)
     {
+        Node * wp = nodes[i];
         if(wp->year == inYear)
         {
             if(wp->up != NULL && wp->up->up != NULL)
             {
                 Node * holdUp = wp->up;
-                int i = 0;
+                int j = 0;
 
                 while(holdUp != NULL)
                 {
-                    myVector.insert(myVector.begin() + i, holdUp->pos);
+                    myVector.insert(myVector.begin() + j, holdUp->pos);
                     holdUp = holdUp->up;
-                    ++i;
+                    ++j;
                 } // end while
                 break;
             } // end if
             else
                 break;
         } // end if
-        wp = wp->left;
-    } // end while
+    } // end for
 
     return myVector;
 } // end findYear
@@ -316,49 +321,84 @@ bool YearIndex::matchYear(int inYear, int &pos)
     return false;
 } // end matchYear
 
+//Find a year and return its pos using Node
+YearIndex::Node * YearIndex::findYearNode(Node *& r, int Y, int& P)
+{
+    if(r!=NULL)
+    {
+        if(Y == r->year)
+        {
+            P = r->pos;
+            return r;
+        }
+        if(Y < r->year)
+            return findYearNode(r->left, Y, P);
+        else
+            return findYearNode(r->right, Y, P);
+    }
+    else
+        return NULL;
+} //end findYearNode
+
 //Delete a year
 bool YearIndex::deleteYear(int inYear, int pos)
 {
-    Node * wp = root->left;
-    Node * holdUp, * hold;
-
-    while(wp != NULL)
-    {
-        if(inYear == wp->year)
-        {
-            if(wp->up != NULL)
-            {
-                holdUp = wp->up->up;
-                while(holdUp != NULL)
-                {
-                    hold = holdUp;
-                    holdUp = holdUp->up;
-                    if(hold->pos == pos)
-                    {
-                        wp->up->pos = wp->up->pos - 1;
-                        if(hold->down != NULL)
-                            hold->down->up = hold->up;
-                        if(hold->up != NULL)
-                            hold->up->down = hold->down;
-                        delete hold;
-                    }
-                } // end while
-            } // end if
-            if(wp->up->pos == 0)
-            {
-                hold = wp;
-                wp->left->right = wp->right;
-                wp->right->left = wp->left;
-                delete hold;
-                size--;
-            }
-
-            return true;
-        } // end if
-        wp = wp->left;
-    } // end while
-    return false;
+    deleteYearByYear(root, inYear, pos);
 } // end deleteYear
+
+//Delete year by year recursively
+YearIndex::Node* YearIndex::deleteYearByYear(Node*& r, int A, int pos)
+{
+    if(r == NULL)
+        return r;
+    else if(A < r->year)
+        r->left = deleteYearByYear(r->left, A, pos);
+    else if(A > r->year)
+        r->right = deleteYearByYear(r->right, A, pos);
+    else
+    {
+        //if no children
+        if(r->left == NULL && r->right == NULL)
+        {
+            delete r;
+            r = NULL;
+            --size;
+        }
+        //if no left child
+        else if(r->left == NULL)
+        {
+            Node *temp = r;
+            r = r->right;
+            delete temp;
+            --size;
+        }
+        //if no right child
+        else if(r->right == NULL)
+        {
+            Node *temp = r;
+            r = r->left;
+            delete temp;
+            --size;
+        }
+        //if left child and right child
+        else
+        {
+            Node *temp = findMinNode(r->right);
+            r->year = temp->year;
+            r->pos = temp->pos;
+            r->right = deleteYearByYear(r->right, temp->year, temp->pos);
+        }
+    } // end else
+    return r;
+} // end deleteYearByYear
+
+//Get lowest node
+YearIndex::Node* YearIndex::findMinNode(Node*& r)
+{
+    while(r->left != NULL)
+        r = r->left;
+    return r;
+} // end findMinNode
 
 void YearIndex::killTree()
 {
