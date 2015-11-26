@@ -24,10 +24,11 @@ class TitleIndex
             public:
                 std::string title;
                 int pos;
+                int price;
                 Node * left;
                 Node * right;
-                Node():title("no"), pos(-1), left(NULL), right(NULL) { }
-                Node(std::string T, int P): title(T), pos(P), left(NULL), right(NULL) { }
+                Node():title("no"), pos(-1), price(0), left(NULL), right(NULL) { }
+                Node(std::string T, int P, int Pr):title(T), pos(P), price(Pr), left(NULL), right(NULL) { }
         };
         Node * root;
         std::vector<Node*> nodes;
@@ -56,10 +57,10 @@ class TitleIndex
             writeFile();
             killTree();
         }
-        bool addTitle(std::string T, int P);
-        bool addTitle(Node *& r, std::string my_Title, int my_key);
+        bool addTitle(std::string T, int P, int Pr);
+        bool addTitle(Node *& r, std::string my_Title, int my_key, int my_price);
         bool findTitle(std::string T, int& P);
-        void updateTitle(std::string oldTitle, std::string newTitle);
+        void updateTitle(std::string oldTitle, std::string newTitle, int newPrice);
         void deleteTitle(std::string T, int P);
         int getDeadCount();
         void setDeadCount(int count);

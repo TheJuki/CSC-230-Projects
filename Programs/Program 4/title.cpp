@@ -11,22 +11,22 @@ Description: Code for title data
 using namespace std;
 
 //Add a title (Sort alphabetically)
-bool TitleIndex::addTitle(std::string Y, int P)
+bool TitleIndex::addTitle(std::string T, int P, int Pr)
 {
     if (root == NULL)
     {
-        root = new Node(Y, P);
+        root = new Node(T, P, Pr);
         ++size;
         return true;
     } // end if
     else
     {
-        return addTitle(root, Y, P);
+        return addTitle(root, T, P, Pr);
     } // end else
     return false;
 } // end addTitle
 
-bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key)
+bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key, int my_price)
 {
     if (my_Title == r->title)
         return false;
@@ -34,23 +34,23 @@ bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key)
     {
         if (r->left == NULL)
         {
-            r->left = new Node(my_Title, my_key);
+            r->left = new Node(my_Title, my_key, my_price);
              ++size;
             return true;
         }
         else
-            return addTitle(r->left, my_Title, my_key);
+            return addTitle(r->left, my_Title, my_key, my_price);
     }
     else if (my_Title > r->title)
     {
         if (r->right == NULL)
         {
-            r->right = new Node(my_Title, my_key);
+            r->right = new Node(my_Title, my_key, my_price);
              ++size;
             return true;
         }
         else
-            return addTitle(r->right, my_Title, my_key);
+            return addTitle(r->right, my_Title, my_key, my_price);
     }
     return false;
 } // end addTitle using Node
@@ -61,7 +61,7 @@ void TitleIndex::getAllTitles()
    pushNodes();
     for (int i = 0; i < nodes.size(); ++i)
     {
-        cout << nodes[i]->title << " " << nodes[i]->pos << endl;
+        cout << nodes[i]->title << " " << nodes[i]->price << " " << nodes[i]->pos << endl;
     }
 } // end getAllTitles
 
@@ -94,7 +94,7 @@ void TitleIndex::writeFile()
     fout << size << endl;
     for (int i = 0; i < nodes.size(); ++i)
     {
-        fout << nodes[i]->title << " " << nodes[i]->pos << endl;
+         fout << nodes[i]->title << " " << nodes[i]->price << " " << nodes[i]->pos << endl;
     }
     fout.close();
 } // end writeFile
@@ -103,15 +103,16 @@ void TitleIndex::writeFile()
 void TitleIndex::readFile()
 {
     string newTitle;
-    int newPos;
+    int newPos = 0;
+    int newPrice = 0;
     int numOfTitles = 0;
 
     ifstream fin("title_index.txt");
     fin >> numOfTitles;
     for(int i = 0; i < numOfTitles; ++i)
     {
-        fin >> newTitle >> newPos;
-        addTitle(newTitle, newPos);
+        fin >> newTitle >> newPrice >> newPos;
+        addTitle(newTitle, newPos, newPrice);
     } // end for
     fin.close();
 } // end readFile
@@ -145,13 +146,12 @@ std::vector<int> TitleIndex::printAllAlphabetically()
     try
     {
         std::vector<int> myVector;
-        Node * wp = root->left;
+        pushNodes();
 
-        while(wp != NULL)
+        for (int i = 0; i < nodes.size(); ++i)
         {
-            myVector.push_back(wp->pos);
-            wp =  wp->left;
-        } // end while
+            myVector.push_back(nodes[i]->pos);
+        }
 
         return myVector;
     } // try
@@ -224,7 +224,7 @@ bool TitleIndex::findTitleNode(Node *& r, string T, int& P)
 
 
 //Update a title
-void TitleIndex::updateTitle(string oldtitle, string newTitle)
+void TitleIndex::updateTitle(string oldtitle, string newTitle, int newPrice)
 {
     Node * wp = root->left;
 
@@ -236,7 +236,7 @@ void TitleIndex::updateTitle(string oldtitle, string newTitle)
             //Delete old title and add new title
             //This retains sorting
             deleteTitle(oldtitle, 0);
-            addTitle(newTitle, position);
+            addTitle(newTitle, position, newPrice);
             return;
         }
         wp = wp->left;

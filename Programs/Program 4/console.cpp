@@ -115,7 +115,6 @@ int main(void)
     primaryInx = new TitleIndex(0);
     artistInx = new ArtistIndex(0);
     yearInx = new YearIndex(0);
-     primaryInx->getAllTitles();
     //Start the Main Menu
     MainMenu();
     //Exit
@@ -1400,7 +1399,7 @@ void AddRecord()
                 outputFile.close();
 
                 //Add Indexes
-                primaryInx->addTitle(my_title, nextIndex);
+                primaryInx->addTitle(my_title, nextIndex, my_price);
                 artistInx->addArtist(my_artist, nextIndex);
                 yearInx->addYear(my_year, nextIndex);
 
@@ -1948,7 +1947,7 @@ void ChangeByTitle(int selection, MyClass& me, const int position)
             if(flag_titleChanged)
             {
                 //Update title index
-                primaryInx->updateTitle(old_record.get_title(), me.get_title());
+                primaryInx->updateTitle(old_record.get_title(), me.get_title(), me.get_price());
             }
             if(flag_artistChanged)
             {

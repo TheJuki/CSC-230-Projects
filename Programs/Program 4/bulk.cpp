@@ -138,7 +138,7 @@ void Build()
                 me.writeIt(outputFile, position);
 
                 //Pass TitleIndex Key information to TitleIndex Index(title, position)
-                primaryInx->addTitle(my_title, position);
+                primaryInx->addTitle(my_title, position, my_price);
 
                 //Pass Secondary Key information to Secondary Index(artist or year, position)
                 artistInx->addArtist(my_artist, position);
