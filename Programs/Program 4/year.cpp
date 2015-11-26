@@ -55,6 +55,7 @@ void YearIndex::addYear(Node *& r, int my_Year, int my_key)
             r->left->up->up = new Node(-1, my_key);
             r->left->up->up->down = r->left->up;
             ++size;
+            return;
         }
         else
             return addYear(r->left, my_Year, my_key);
@@ -409,15 +410,15 @@ void YearIndex::RealKillTree(Node *&r)
     if(r == NULL) return;
     RealKillTree(r->left);
     RealKillTree(r->right);
-    RealKillTreeMiddle(r->down);
+    RealKillTreeMiddle(r->up);
     delete r;
     return;
 }
 void YearIndex::RealKillTreeMiddle(Node *&m)
 {
     if(m == NULL) return;
-    if(m->down != NULL)
-        RealKillTreeMiddle(m->down);
+    if(m->up != NULL)
+        RealKillTreeMiddle(m->up);
     delete m;
     m = NULL;
     return;

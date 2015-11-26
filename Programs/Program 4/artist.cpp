@@ -402,15 +402,15 @@ void ArtistIndex::RealKillTree(Node*& r)
     if(r == NULL) return;
     RealKillTree(r->left);
     RealKillTree(r->right);
-    RealKillTreeMiddle(r->down);
+    RealKillTreeMiddle(r->up);
     delete r;
     return;
 }
 void ArtistIndex::RealKillTreeMiddle(Node *&m)
 {
     if(m == NULL) return;
-    if(m->down != NULL)
-        RealKillTreeMiddle(m->down);
+    if(m->up != NULL)
+        RealKillTreeMiddle(m->up);
     delete m;
     m = NULL;
     return;
