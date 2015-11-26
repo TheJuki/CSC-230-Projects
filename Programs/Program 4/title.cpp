@@ -59,7 +59,7 @@ bool TitleIndex::addTitle(Node *& r, std::string my_Title, int my_key, int my_pr
 void TitleIndex::getAllTitles()
 {
    pushNodes();
-    for (int i = 0; i < nodes.size(); ++i)
+    for (int i = 0; i < (int)nodes.size(); ++i)
     {
         cout << nodes[i]->title << " " << nodes[i]->price << " " << nodes[i]->pos << endl;
     }
@@ -92,7 +92,7 @@ void TitleIndex::writeFile()
     pushNodes();
     ofstream fout("title_index.txt");
     fout << size << endl;
-    for (int i = 0; i < nodes.size(); ++i)
+    for (int i = 0; i < (int)nodes.size(); ++i)
     {
          fout << nodes[i]->title << " " << nodes[i]->price << " " << nodes[i]->pos << endl;
     }
@@ -148,7 +148,7 @@ std::vector<int> TitleIndex::printAllAlphabetically()
         std::vector<int> myVector;
         pushNodes();
 
-        for (int i = 0; i < nodes.size(); ++i)
+        for (int i = 0; i < (int)nodes.size(); ++i)
         {
             myVector.push_back(nodes[i]->pos);
         }
@@ -161,9 +161,32 @@ std::vector<int> TitleIndex::printAllAlphabetically()
     }
     std::vector<int> newVector;
     return newVector;
-
-
 } // end printAllAlphabetically
+
+//Return a array of the positions of all titles (already sorted)
+std::vector<int> TitleIndex::printAllReverseAlphabetically(int userPrice)
+{
+    try
+    {
+        std::vector<int> myVector;
+        pushNodes();
+
+        for (int i = 0; i < (int)nodes.size(); ++i)
+        {
+            if(nodes[i]->price < userPrice)
+                myVector.push_back(nodes[i]->pos);
+        }
+
+        return myVector;
+    } // try
+    catch(std::bad_alloc& ba)
+    {
+        cout << " Primary Index file not found" << endl;
+    }
+    std::vector<int> newVector;
+    return newVector;
+} // end printAllAlphabetically
+
 
 //Delete a title by position
 void TitleIndex::deleteTitleByPosition(int P)

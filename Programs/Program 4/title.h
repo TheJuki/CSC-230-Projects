@@ -67,6 +67,7 @@ class TitleIndex
         void getAllTitles();
         int getSize();
         std::vector<int> printAllAlphabetically();
+        std::vector<int> printAllReverseAlphabetically(int userPrice);
         bool findTitleNode(Node *& r, std::string T, int& P);
 };
 #endif // TITLE_H

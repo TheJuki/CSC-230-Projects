@@ -661,11 +661,11 @@ void PrintAllAlphabetically()
     //Clear screen
     ClearScreen();
     Header();
-    cout << " Display all records" << endl
+    cout << " Display all records in alphabetic order by Title" << endl
          << endl  << endl  << endl;
 
     //Provide general information
-    cout << " -INFORMATION-" << endl << endl;
+    cout << "\n -INFORMATION-" << endl << endl;
     cout <<  " All records are displayed." << endl
          << endl << endl;
 
@@ -716,29 +716,34 @@ void PrintAllAlphabetically()
     //Ask user to return a menu
     PrintReturn();
 
-} // End PrintAll
+} // End PrintAllAlphabetically
 
 //--------------------------------------------------//
-//    Display all records Alphabetically by Title
+// Display all records in reverse alphabetic order by Title
 //--------------------------------------------------//
 void PrintAll_Rev_Alphabetically()
 {
     //Clear screen
     ClearScreen();
     Header();
-    cout << " Display all records" << endl
+    cout << " Display all records in reverse alphabetic order by Title" << endl
          << endl  << endl  << endl;
+
+    //Ask user
+    string input;
+    cout << endl << endl << " Enter a price to display records: ";
+    cin >> input;
 
     //Provide general information
     cout << " -INFORMATION-" << endl << endl;
-    cout <<  " All records are displayed." << endl
+    cout <<  " All records are displayed with a price less than " << atoi(input.c_str()) << endl
          << endl << endl;
 
     //Read in file
     fstream file("output.bin", ios::in | ios::binary);
 
     MyClass record;
-    vector<int> posArray = primaryInx->printAllAlphabetically();
+    vector<int> posArray = primaryInx->printAllReverseAlphabetically(atoi(input.c_str()));
     //std::cout << record.get_value(file);
     if(posArray.size() > 0)
     {
@@ -781,7 +786,7 @@ void PrintAll_Rev_Alphabetically()
     //Ask user to return a menu
     PrintReturn();
 
-} // End PrintAll
+} // End PrintAll_Rev_Alphabetically
 
 //--------------------------------------------------//
 //       Display all records with given title
