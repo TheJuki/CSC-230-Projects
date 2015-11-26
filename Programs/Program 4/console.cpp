@@ -116,7 +116,7 @@ int main(void)
     artistInx = new ArtistIndex(0);
     yearInx = new YearIndex(0);
 
-    artistInx->getAllArtists();
+    yearInx->getAllYears();
 
     //Start the Main Menu
     MainMenu();
@@ -2112,9 +2112,9 @@ void DeleteRecord(fstream& file, const int& pos)
     //Delete Title Index
     primaryInx->deleteTitle(record.get_title(), 0);
     //Delete Artist Index
-    //artistInx->deleteArtist(record.get_artist(), pos);
+    artistInx->deleteArtist(record.get_artist(), pos);
     //Delete Year Index
-    //yearInx->deleteYear(record.get_year(), pos);
+    yearInx->deleteYear(record.get_year(), pos);
     //Declare dead
     record.set_flag();
     //Write out that change (Dead)
@@ -2123,7 +2123,6 @@ void DeleteRecord(fstream& file, const int& pos)
     record.get_value(file);
     record.set_year(record.get_year() + 1);
     record.set_value(file);
-     primaryInx->getAllTitles();
 } // end deleteRecord
 
 //END console.cpp

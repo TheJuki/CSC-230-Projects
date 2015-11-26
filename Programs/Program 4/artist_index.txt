@@ -1,20 +1,17 @@
-32
+29
 1 Bernini 13 
-1 Calder 21 
 1 Chagall 10 
-1 DaVinci 2 
 1 Dali 32 
 1 Degas 22 
 1 Duchamp 34 
 1 Durer 19 
 1 Fredericks 23 
-2 Gericault 28 31 
 1 Giacometti 20 
 1 Hokusai 11 
-1 Homer 7 
+3 Homer 7 28 31 
 1 Hopper 26 
-1 Indiana 12 
 1 Jefferson 1 
+1 Justin 12 
 1 Klimt 27 
 1 Le_Corbusier 25 
 1 Man_Ray 24 
@@ -29,5 +26,5 @@
 1 Saarinen 15 
 1 Tintoretto 3 
 1 Velazquez 18 
-2 Warhol 16 29 
+1 Warhol 16 
 1 Wren 17 

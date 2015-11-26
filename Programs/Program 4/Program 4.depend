@@ -71,14 +71,14 @@
 	<cstring>
 	<fstream>
 
-1448572446 source:c:\users\theju\documents\github\csc-230-projects\programs\program 4\artist.cpp
+1448574339 source:c:\users\theju\documents\github\csc-230-projects\programs\program 4\artist.cpp
 	"artist.h"
 	<iostream>
 	<fstream>
 	<sstream>
 	<cstdlib>
 
-1448569493 c:\users\theju\documents\github\csc-230-projects\programs\program 4\artist.h
+1448573249 c:\users\theju\documents\github\csc-230-projects\programs\program 4\artist.h
 	<string>
 	<cstring>
 	<iostream>
@@ -97,7 +97,7 @@
 	<cstring>
 	<fstream>
 
-1448551661 source:c:\users\theju\documents\github\csc-230-projects\programs\program 4\bulk.cpp
+1448573096 source:c:\users\theju\documents\github\csc-230-projects\programs\program 4\bulk.cpp
 	"binary.h"
 	"artist.h"
 	"year.h"
@@ -107,7 +107,7 @@
 	<fstream>
 	<cstdlib>
 
-1448572394 c:\users\theju\documents\github\csc-230-projects\programs\program 4\year.h
+1448573261 c:\users\theju\documents\github\csc-230-projects\programs\program 4\year.h
 	<string>
 	<cstring>
 	<iostream>
@@ -123,7 +123,7 @@
 	<cctype>
 	<vector>
 
-1448569901 source:c:\users\theju\documents\github\csc-230-projects\programs\program 4\console.cpp
+1448573438 source:c:\users\theju\documents\github\csc-230-projects\programs\program 4\console.cpp
 	<string>
 	<iostream>
 	<fstream>
@@ -133,7 +133,7 @@
 	"year.h"
 	"binary.h"
 
-1448572461 source:c:\users\theju\documents\github\csc-230-projects\programs\program 4\year.cpp
+1448574183 source:c:\users\theju\documents\github\csc-230-projects\programs\program 4\year.cpp
 	"year.h"
 	<iostream>
 	<fstream>

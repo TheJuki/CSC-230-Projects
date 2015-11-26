@@ -90,7 +90,7 @@ void YearIndex::updateYear(int old_year, int new_year, int old_pos)
     {
         //Copy positions to new location
 
-         Node * newNode = findYearNode(root, new_year, holdLocation);
+        Node * newNode = findYearNode(root, new_year, holdLocation);
 
         //Update count
         newNode->up->pos = newNode->up->pos + 1;
@@ -150,13 +150,13 @@ void YearIndex::writeFile()
     std::ofstream fout("year_index.txt");
 
     fout << size << std::endl;
-
+    pushNodes();
     //A normal string used as a string builder
     std::string buildLine;
     std::string numOfKeys;
 
     //For each item in Linked List
-     for (int i = 0; i < (int)nodes.size(); ++i)
+    for (int i = 0; i < (int)nodes.size(); ++i)
     {
         Node * wp = nodes[i];
         //Default
@@ -344,7 +344,7 @@ YearIndex::Node * YearIndex::findYearNode(Node *& r, int Y, int& P)
 //Delete a year
 bool YearIndex::deleteYear(int inYear, int pos)
 {
-    deleteYearByYear(root, inYear, pos);
+    return (deleteYearByYear(root, inYear, pos) != NULL);
 } // end deleteYear
 
 //Delete year by year recursively
@@ -361,25 +361,94 @@ YearIndex::Node* YearIndex::deleteYearByYear(Node*& r, int A, int pos)
         //if no children
         if(r->left == NULL && r->right == NULL)
         {
-            delete r;
-            r = NULL;
-            --size;
+            if(r->up != NULL)
+            {
+                Node * holdUp, * hold;
+                holdUp = r->up->up;
+                while(holdUp != NULL)
+                {
+                    hold = holdUp;
+                    holdUp = holdUp->up;
+                    if(hold->pos == pos)
+                    {
+                        r->up->pos = r->up->pos - 1;
+                        if(hold->down != NULL)
+                            hold->down->up = hold->up;
+                        if(hold->up != NULL)
+                            hold->up->down = hold->down;
+                        delete hold;
+                    }
+                } // end while
+                if(r->up->pos == 0)
+                {
+                    delete r;
+                    r = NULL;
+                    --size;
+                }
+            } // end if
+
         }
         //if no left child
         else if(r->left == NULL)
         {
-            Node *temp = r;
-            r = r->right;
-            delete temp;
-            --size;
+            if(r->up != NULL)
+            {
+                Node * holdUp, * hold;
+                holdUp = r->up->up;
+                while(holdUp != NULL)
+                {
+                    hold = holdUp;
+                    holdUp = holdUp->up;
+                    if(hold->pos == pos)
+                    {
+                        r->up->pos = r->up->pos - 1;
+                        if(hold->down != NULL)
+                            hold->down->up = hold->up;
+                        if(hold->up != NULL)
+                            hold->up->down = hold->down;
+                        delete hold;
+                    }
+                } // end while
+                if(r->up->pos == 0)
+                {
+                    Node *temp = r;
+                    r = r->right;
+                    delete temp;
+                    --size;
+                }
+            } // end if
+
         }
         //if no right child
         else if(r->right == NULL)
         {
-            Node *temp = r;
-            r = r->left;
-            delete temp;
-            --size;
+            if(r->up != NULL)
+            {
+                Node * holdUp, * hold;
+                holdUp = r->up->up;
+                while(holdUp != NULL)
+                {
+                    hold = holdUp;
+                    holdUp = holdUp->up;
+                    if(hold->pos == pos)
+                    {
+                        r->up->pos = r->up->pos - 1;
+                        if(hold->down != NULL)
+                            hold->down->up = hold->up;
+                        if(hold->up != NULL)
+                            hold->up->down = hold->down;
+                        delete hold;
+                    }
+                } // end while
+                if(r->up->pos == 0)
+                {
+                    Node *temp = r;
+                    r = r->left;
+                    delete temp;
+                    --size;
+                }
+            } // end if
+
         }
         //if left child and right child
         else
@@ -387,6 +456,7 @@ YearIndex::Node* YearIndex::deleteYearByYear(Node*& r, int A, int pos)
             Node *temp = findMinNode(r->right);
             r->year = temp->year;
             r->pos = temp->pos;
+            r->up = temp->up;
             r->right = deleteYearByYear(r->right, temp->year, temp->pos);
         }
     } // end else

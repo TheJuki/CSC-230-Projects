@@ -149,7 +149,7 @@ void ArtistIndex::updateArtist(std::string old_artist, std::string new_artist, i
 //Read in artists
 void ArtistIndex::readFile()
 {
-   std::ifstream input("artist_index.txt");
+    std::ifstream input("artist_index.txt");
     std::string line;
     getline (input,line);
     size = atoi(line.c_str());
@@ -336,7 +336,7 @@ ArtistIndex::Node * ArtistIndex::findArtistNode(Node *& r, std::string A, int& P
 //Delete a artist by artist
 bool ArtistIndex::deleteArtist(std::string inArtist, int pos)
 {
-    deleteArtistByArtist(root, inArtist, pos);
+    return (deleteArtistByArtist(root, inArtist, pos) != NULL);
 } // end deleteArtist
 
 //Delete artist by artist recursively
@@ -353,25 +353,94 @@ ArtistIndex::Node* ArtistIndex::deleteArtistByArtist(Node*& r, std::string A, in
         //if no children
         if(r->left == NULL && r->right == NULL)
         {
-            delete r;
-            r = NULL;
-            --size;
+            if(r->up != NULL)
+            {
+                Node * holdUp, * hold;
+                holdUp = r->up->up;
+                while(holdUp != NULL)
+                {
+                    hold = holdUp;
+                    holdUp = holdUp->up;
+                    if(hold->pos == pos)
+                    {
+                        r->up->pos = r->up->pos - 1;
+                        if(hold->down != NULL)
+                            hold->down->up = hold->up;
+                        if(hold->up != NULL)
+                            hold->up->down = hold->down;
+                        delete hold;
+                    }
+                } // end while
+                if(r->up->pos == 0)
+                {
+                    delete r;
+                    r = NULL;
+                    --size;
+                }
+            } // end if
+
         }
         //if no left child
         else if(r->left == NULL)
         {
-            Node *temp = r;
-            r = r->right;
-            delete temp;
-            --size;
+            if(r->up != NULL)
+            {
+                Node * holdUp, * hold;
+                holdUp = r->up->up;
+                while(holdUp != NULL)
+                {
+                    hold = holdUp;
+                    holdUp = holdUp->up;
+                    if(hold->pos == pos)
+                    {
+                        r->up->pos = r->up->pos - 1;
+                        if(hold->down != NULL)
+                            hold->down->up = hold->up;
+                        if(hold->up != NULL)
+                            hold->up->down = hold->down;
+                        delete hold;
+                    }
+                } // end while
+                if(r->up->pos == 0)
+                {
+                    Node *temp = r;
+                    r = r->right;
+                    delete temp;
+                    --size;
+                }
+            } // end if
+
         }
         //if no right child
         else if(r->right == NULL)
         {
-            Node *temp = r;
-            r = r->left;
-            delete temp;
-            --size;
+            if(r->up != NULL)
+            {
+                Node * holdUp, * hold;
+                holdUp = r->up->up;
+                while(holdUp != NULL)
+                {
+                    hold = holdUp;
+                    holdUp = holdUp->up;
+                    if(hold->pos == pos)
+                    {
+                        r->up->pos = r->up->pos - 1;
+                        if(hold->down != NULL)
+                            hold->down->up = hold->up;
+                        if(hold->up != NULL)
+                            hold->up->down = hold->down;
+                        delete hold;
+                    }
+                } // end while
+                if(r->up->pos == 0)
+                {
+                    Node *temp = r;
+                    r = r->left;
+                    delete temp;
+                    --size;
+                }
+            } // end if
+
         }
         //if left child and right child
         else
@@ -379,6 +448,7 @@ ArtistIndex::Node* ArtistIndex::deleteArtistByArtist(Node*& r, std::string A, in
             Node *temp = findMinNode(r->right);
             r->artist = temp->artist;
             r->pos = temp->pos;
+            r->up = temp->up;
             r->right = deleteArtistByArtist(r->right, temp->artist, temp->pos);
         }
     } // end else
