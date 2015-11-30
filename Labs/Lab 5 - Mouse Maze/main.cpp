@@ -128,7 +128,7 @@ bool backTrackSteps(char mazeArray[][200])
     int currentX;
     int currentY;
     mouse = path.top();
-    while(mazeArray[mouse.y][mouse.x] != '.')
+    while(mazeArray[mouse.y][mouse.x] != '.' && path.size() > 1)
     {
         //Get current X and Y before pop
         currentX = mouse.x;
@@ -140,6 +140,7 @@ bool backTrackSteps(char mazeArray[][200])
         path.pop();
         //Get new positions
         mouse = path.top();
+        /*
         //Set backtrack char
         mazeArray[mouse.y][mouse.x] = 'm';
 
@@ -155,13 +156,16 @@ bool backTrackSteps(char mazeArray[][200])
         //Step down
         else if(currentY < mouse.y)
             mouse.y = mouse.y + 1;
-
+*/
         //Push backtrack
-        path.push(mouse);
+       // path.push(mouse);
         if(mazeArray[mouse.y][mouse.x] == '#')
             foundCheese = true;
         mazeArray[mouse.y][mouse.x] = '@';
         displayMaze(mazeArray);
+        string s;
+         cout << endl << endl << "Press Enter to Continue ";
+        getline(cin, s);
     }
     return foundCheese;
 }
@@ -244,6 +248,7 @@ string checkVisited(char mazeArray[][200])
 
 void traverseMaze(char mazeArray[][200])
 {
+    int steps = 0;
     int size = 0;
     bool foundCheese = false;
     bool hasStepped = false;
@@ -317,6 +322,10 @@ void traverseMaze(char mazeArray[][200])
 
         displayMaze(mazeArray);
         ++size;
+        ++steps;
+        string s;
+        cout << endl << endl << "Press Enter to Continue ";
+        getline(cin, s);
     }
     while(!foundCheese);
     if(foundCheese)
