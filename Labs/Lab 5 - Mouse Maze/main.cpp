@@ -312,7 +312,7 @@ void traverseMaze(char mazeArray[][200])
         //Backtrack
         if(!foundCheese && !hasStepped)
         {
-            backTrackSteps(mazeArray);
+            foundCheese = backTrackSteps(mazeArray);
         }
 
         displayMaze(mazeArray);
@@ -321,7 +321,10 @@ void traverseMaze(char mazeArray[][200])
     while(!foundCheese);
     if(foundCheese)
     {
-        cout << endl << endl << "Found Cheese!" << endl;
+         cout << endl << endl
+         << "*****************************************************************" << endl
+         << "*                          Found Cheese!                        *" << endl
+         << "*****************************************************************" << endl;
         string s;
         cout << endl << endl << "Press Enter to Exit ";
         getline(cin, s);
