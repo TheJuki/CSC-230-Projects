@@ -136,14 +136,13 @@ bool backTrackSteps(char mazeArray[][200])
 
         foundCheese = false;
 
+        //Set backtrack char
+        mazeArray[mouse.y][mouse.x] = 'm';
         //Backtrack one
         path.pop();
         //Get new positions
         mouse = path.top();
-        /*
-        //Set backtrack char
-        mazeArray[mouse.y][mouse.x] = 'm';
-
+/*
         //Step left
         if(currentX > mouse.x)
              mouse.x = mouse.x - 1;
