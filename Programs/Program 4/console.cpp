@@ -116,8 +116,6 @@ int main(void)
     artistInx = new ArtistIndex(0);
     yearInx = new YearIndex(0);
 
-    yearInx->getAllYears();
-
     //Start the Main Menu
     MainMenu();
     //Exit
@@ -683,7 +681,7 @@ void PrintAllAlphabetically()
         if(file.is_open())
         {
             int counter = 0;
-            for(int i = 0; i < (int)posArray.size()-1; ++i)
+            for(int i = 0; i <= (int)posArray.size()-1; ++i)
             {
                 int pos = (int)posArray.at(i);
                 if(pos > 0)

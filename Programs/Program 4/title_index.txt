@@ -1,4 +1,4 @@
-31
+34
 Apollo_and_Daphne 400 13
 Boat 400 32
 Coca-Cola 200 16
@@ -9,11 +9,13 @@ Fountain 170 34
 Giovanni_Chellini 420 4
 Horse_at_Rest 500 22
 I_and_the_Village 210 10
+Jackie 260 29
+Love 360 12
 Man_Pointing 260 20
 Medusa 100 28
+Mona_Lisa 200 2
 Monticello 400 1
 Music 500 27
-NewPos 78 12
 Nighthawks 330 26
 One 100 6
 Raising_of_the_Cross 360 14
@@ -30,3 +32,4 @@ The_Spirit_of_Detroit 300 23
 The_Thinker 360 9
 Tribune_Tower 400 15
 Waterfall_at_Amida 330 11
+Whale 300 21
