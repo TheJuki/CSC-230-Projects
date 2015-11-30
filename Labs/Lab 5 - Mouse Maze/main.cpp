@@ -47,18 +47,6 @@ int numActualRow;
 
 int main()
 {
-    //stack<MINI> path;
-    /*
-    points.x = 1;
-    points.y = 2;
-    path.push(points);
-     points.x = 5;
-    points.y = 10;
-    path.push(points);
-    path.pop();
-    path.pop();
-    cout << path.size();
-    */
     //200 rows
     int rows = 200;
     //200 columns
