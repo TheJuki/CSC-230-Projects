@@ -1,9 +1,10 @@
 /*
 File       : main.cpp
 Program    : Lab 5 - Using Stacks for a mouse maze
-Due Date   : October 30..., 2015
+Due Date   : December 1, 2015
 Author     : Justin Kirk
-Description: A mouse in char array mouse maze needs to find at least
+             Breannah Parten
+Description: A mouse in a char array mouse maze needs to find at least
              one piece of cheese.
 */
 
@@ -16,6 +17,7 @@ Description: A mouse in char array mouse maze needs to find at least
 
 using namespace std;
 
+//Prototypes
 void setupMaze(char mazeArray[][200]);
 bool stepUp(char mazeArray[][200]);
 bool stepDown(char mazeArray[][200]);
@@ -29,18 +31,31 @@ bool isWall(char wallChar);
 string checkEmptySpot(char mazeArray[][200]);
 bool backTrackSteps(char mazeArray[][200]);
 
+//Mouse
 struct Mouse
 {
     int x;
     int y;
 } mouse;
 
+//Output Mouse X and Y
 std::ostream& operator<< (std::ostream &out, const Mouse &p)
 {
     out << p.x << " " << p.y << std::endl;
     return out;
 }
 
+//ASSUMPTIONS:
+/*
+The Stack Class is included. The Stack pushes and pops the
+struct Mouse (mouse) which contains both the X and Y ints.
+This is most likely the best solution since both X and Y
+are pushed or popped at the same time and are easy to obtain
+when needed since the struct Mouse exists and be set to the
+stack's top element.
+
+*/
+//Mouse path stack
 stack<Mouse> path;
 int numActualCol;
 int numActualRow;
@@ -66,13 +81,17 @@ int main()
         } // end for
     } // end for
 
+    cout << endl << endl << " Initial mouse maze: ";
     setupMaze(mazeArray);
-    //cout << mazeArray[1][1] << endl;
+    string s;
+    cout << endl << endl << " Mouse maze initialized. Press Enter to attempt a traversal... ";
+    getline(cin, s);
     traverseMaze(mazeArray);
 
     return 0;
 } // end main
 
+// Move up one step
 bool stepUp(char mazeArray[][200])
 {
     bool foundCheese = false;
@@ -85,6 +104,8 @@ bool stepUp(char mazeArray[][200])
     mazeArray[mouse.y][mouse.x] = '@';
     return foundCheese;
 }
+
+// Move down one step
 bool stepDown(char mazeArray[][200])
 {
     bool foundCheese = false;
@@ -97,6 +118,8 @@ bool stepDown(char mazeArray[][200])
     mazeArray[mouse.y][mouse.x] = '@';
     return foundCheese;
 }
+
+// Move right one step
 bool stepRight(char mazeArray[][200])
 {
     bool foundCheese = false;
@@ -109,6 +132,8 @@ bool stepRight(char mazeArray[][200])
     mazeArray[mouse.y][mouse.x] = '@';
     return foundCheese;
 }
+
+// Move left one step
 bool stepLeft(char mazeArray[][200])
 {
     bool foundCheese = false;
@@ -122,6 +147,7 @@ bool stepLeft(char mazeArray[][200])
     return foundCheese;
 }
 
+// Move pop the stack until a new path is found
 bool backTrackSteps(char mazeArray[][200])
 {
     bool foundCheese = false;
@@ -142,33 +168,69 @@ bool backTrackSteps(char mazeArray[][200])
         path.pop();
         //Get new positions
         mouse = path.top();
-/*
-        //Step left
-        if(currentX > mouse.x)
-             mouse.x = mouse.x - 1;
-        //Step right
-        else if(currentX < mouse.x)
-            mouse.x = mouse.x + 1;
-        //Step up
-        if(currentY > mouse.y)
-             mouse.y = mouse.y - 1;
-        //Step down
-        else if(currentY < mouse.y)
-            mouse.y = mouse.y + 1;
-*/
+        /*
+                //Step left
+                if(currentX > mouse.x)
+                     mouse.x = mouse.x - 1;
+                //Step right
+                else if(currentX < mouse.x)
+                    mouse.x = mouse.x + 1;
+                //Step up
+                if(currentY > mouse.y)
+                     mouse.y = mouse.y - 1;
+                //Step down
+                else if(currentY < mouse.y)
+                    mouse.y = mouse.y + 1;
+        */
+        bool hasStepped = false;
+        std::size_t foundSpot;
+        string spots = checkEmptySpot(mazeArray);
+
+        foundSpot = spots.find("U");
+        if(foundSpot!=std::string::npos)
+        {
+            foundCheese = stepUp(mazeArray);
+            hasStepped = true;
+        }
+        foundSpot = spots.find("D");
+        if(!foundCheese && !hasStepped && foundSpot!=std::string::npos)
+        {
+
+            foundCheese = stepDown(mazeArray);
+            hasStepped = true;
+        }
+        foundSpot = spots.find("R");
+        if(!foundCheese && !hasStepped && foundSpot!=std::string::npos)
+        {
+
+            foundCheese = stepRight(mazeArray);
+            hasStepped = true;
+
+        }
+        foundSpot = spots.find("L");
+        if(!foundCheese && !hasStepped && foundSpot!=std::string::npos)
+        {
+
+            foundCheese = stepLeft(mazeArray);
+            hasStepped = true;
+
+        }
+        if(hasStepped)
+            break;
         //Push backtrack
-       // path.push(mouse);
+        // path.push(mouse);
         if(mazeArray[mouse.y][mouse.x] == '#')
             foundCheese = true;
         mazeArray[mouse.y][mouse.x] = '@';
         displayMaze(mazeArray);
-        string s;
-         cout << endl << endl << "Press Enter to Continue ";
-        getline(cin, s);
+       // string s;
+         //cout << endl << endl << "Press Enter to Continue ";
+         //getline(cin, s);
     }
     return foundCheese;
-}
+} // end backTrackSteps
 
+//Display the current maze
 void displayMaze(char mazeArray[][200])
 {
     cout << endl;
@@ -183,6 +245,7 @@ void displayMaze(char mazeArray[][200])
     }
 } // end displayMaze
 
+//Return the walls surrounding the mouse
 string checkWall(char mazeArray[][200])
 {
     string walls = "";
@@ -196,40 +259,45 @@ string checkWall(char mazeArray[][200])
     if (isWall(mazeArray[mouse.y][mouse.x - 1]))
         walls += "L";
     return walls;
-}
+} // end checkWall
 
+//Check for an empty spot
 string checkEmptySpot(char mazeArray[][200])
 {
     string spots = "";
     mouse = path.top();
-    if (mazeArray[mouse.y + 1][mouse.x] == '.')
+    if (mazeArray[mouse.y + 1][mouse.x] == '.' || mazeArray[mouse.y + 1][mouse.x] == '#')
         spots += "D";
-    if (mazeArray[mouse.y - 1][mouse.x] == '.')
+    if (mazeArray[mouse.y - 1][mouse.x] == '.' || mazeArray[mouse.y - 1][mouse.x] == '#')
         spots += "U";
-    if (mazeArray[mouse.y][mouse.x + 1] == '.')
+    if (mazeArray[mouse.y][mouse.x + 1] == '.' || mazeArray[mouse.y][mouse.x + 1] == '#')
         spots += "R";
-    if (mazeArray[mouse.y][mouse.x - 1] == '.')
+    if (mazeArray[mouse.y][mouse.x - 1] == '.' || mazeArray[mouse.y][mouse.x - 1] == '#')
         spots += "L";
     return spots;
-}
+} // end checkEmptySpot
 
+//Check if a wall is detected
 bool isWall(char wallChar)
 {
     switch(wallChar)
     {
-         case('+') :
-            return true;
-         case('|') :
-            return true;
-         case('_') :
-            return true;
-         default :
-            return false;
+    case('+') :
+        return true;
+    case('|') :
+        return true;
+    case('_') :
+        return true;
+    case(' ') :
+        return true;
+    default :
+        return false;
     }
 
     return false;
-}
+} // end isWall
 
+//Check if mouse has visited a spot
 string checkVisited(char mazeArray[][200])
 {
     string visted = "";
@@ -243,8 +311,9 @@ string checkVisited(char mazeArray[][200])
     if(mazeArray[mouse.y][mouse.x - 1] == 'M')
         visted += "LM";
     return visted;
-}
+} // end checkVisited
 
+//Traverse the mouse maze while leaving "breadcrumbs" behind
 void traverseMaze(char mazeArray[][200])
 {
     int steps = 0;
@@ -318,27 +387,30 @@ void traverseMaze(char mazeArray[][200])
         {
             foundCheese = backTrackSteps(mazeArray);
         }
-
-        displayMaze(mazeArray);
+        cout << endl << "Steps: " << steps << endl;
+        // displayMaze(mazeArray);
         ++size;
         ++steps;
-        string s;
-        cout << endl << endl << "Press Enter to Continue ";
-        getline(cin, s);
-    }
+        // string s;
+        // cout << endl << endl << "Press Enter to Continue ";
+        // getline(cin, s);
+    } // end while
     while(!foundCheese);
     if(foundCheese)
     {
-         cout << endl << endl
-         << "*****************************************************************" << endl
-         << "*                          Found Cheese!                        *" << endl
-         << "*****************************************************************" << endl;
+        cout << endl << "Path: ";
+        displayMaze(mazeArray);
+        cout << endl << endl
+             << "*****************************************************************" << endl
+             << "*                          Found Cheese!                        *" << endl
+             << "*****************************************************************" << endl;
         string s;
         cout << endl << endl << "Press Enter to Exit ";
         getline(cin, s);
-    }
-}
+    } // end if
+} // end traverseMaze
 
+//Get the maze, mouse, and pieces of cheese from input file
 void setupMaze(char mazeArray[][200])
 {
     std::ifstream input("input.txt");
@@ -396,7 +468,7 @@ void setupMaze(char mazeArray[][200])
         getline (input,line);
         cheeseCount =  atoi(line.c_str());
         //Get All cheese
-         for(int i = 0; i < cheeseCount; ++i)
+        for(int i = 0; i < cheeseCount; ++i)
         {
             //Get Cheese position
             getline (input,line);
